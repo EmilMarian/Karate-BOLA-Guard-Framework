@@ -1,16 +1,26 @@
 # Results Directory
 
-Several findings were concluded based on various artifacts (logs, LLM metrics, and other). 
+Several findings were concluded based on various artifacts (logs, LLM metrics, and others).
 
-## Succesfull test runs with associated test files
+## Successful Test Runs with Associated Test Files
 
-Although, the framework produces quality test cases, stil requires manual intervention, as such, we have fixed a few test cases, in order to run them agains the API and produce a report. Full generated content for these such cases can be explored in `framework-output-snapshots` directory.
+Although the framework produces quality test cases, it still requires manual intervention. As such, we have fixed a few test cases in order to run them against the API and produce a report. The full generated content for these test cases can be explored in the `framework-output-snapshots` directory.
 
-If you wish to explore only the Karate Reports, these can be found in the `karate-reports` for easy access.
+If you wish to explore only the Karate Reports, they can be found in the `karate-reports` directory for easy access.
 
-## Langufse snapshots
+## Langfuse Snapshots
 
-We used Langufse for LLM observability, a few snapshots were generated and can be found in `langfuse-dashboard-snaphsots` directory.
+We used Langfuse for LLM observability. A few snapshots were generated and can be found in the `langfuse-dashboard-snapshots` directory.
 
-## Raw Framwork and Test Run logs
-If you wish to inspect the proccess for start to end, we've also included a few raw logs from the framework that were gathered during our experiments (`raw-proccess-logs` dir). And, also the test run logs (`raw-test-run-docker-logs`), in which, you can observe the most common causes of test run failure .
+## Raw Framework and Test Run Logs
+
+If you wish to inspect the process from start to finish, we've also included a few raw logs from the framework that were gathered during our experiments (`raw-process-logs` directory). Additionally, the test run logs (`raw-test-run-docker-logs`) are available, where you can observe the most common causes of test run failures.
+
+---
+
+Key changes:
+
+- Fixed the spelling of "successful" and "Langfuse."
+- Adjusted wording for clarity and consistency.
+- Corrected minor grammatical errors (e.g., "still" instead of "stil," and "process" instead of "proccess").
+- Used parallel structure for lists of directories.
