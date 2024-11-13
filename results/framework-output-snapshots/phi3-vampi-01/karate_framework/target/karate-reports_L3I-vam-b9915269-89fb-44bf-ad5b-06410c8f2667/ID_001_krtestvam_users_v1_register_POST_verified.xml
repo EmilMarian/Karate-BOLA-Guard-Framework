@@ -1,0 +1,50 @@
+<testsuite failures="4" name="ID_001_krtestvam_users_v1_register_POST_verified.feature" skipped="0" tests="4" time="120.331382"><testcase classname="ID_001_krtestvam_users_v1_register_POST_verified" name="Verify that the registration process does not allow account enumeration" time="30.262265"><failure message="http call failed after 30177 milliseconds for url: http://192.168.1.106:5080/users/v1/register&#10;org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out&#10;classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:5">Given url "http://192.168.1.106:5080/users/v1/register" ................... passed
+And request { username: "existingUser", password: "Password123!", email: "existing@example.com" } . passed
+When method post .......................................................... failed
+
+Stack Trace:
+com.intuit.karate.KarateException: http call failed after 30177 milliseconds for url: http://192.168.1.106:5080/users/v1/register
+org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out
+classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:5
+	at &lt;feature&gt;.: When method post (classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:5:5)
+
+Then status 200 ........................................................... skipped
+And match response contains "A verification email has been sent. Please check your inbox." . skipped
+</failure></testcase>
+<testcase classname="ID_001_krtestvam_users_v1_register_POST_verified" name="Test for user enumeration vulnerabilities on the registration endpoint" time="30.004832"><failure message="http call failed after 30004 milliseconds for url: http://192.168.1.106:5080/users/v1/register&#10;org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out&#10;classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:12">Given url "http://192.168.1.106:5080/users/v1/register" ................... passed
+And request { "username": "nonexistent_user", "password": "Password123!" } . passed
+When method post .......................................................... failed
+
+Stack Trace:
+com.intuit.karate.KarateException: http call failed after 30004 milliseconds for url: http://192.168.1.106:5080/users/v1/register
+org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out
+classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:12
+	at &lt;feature&gt;.: When method post (classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:12:12)
+
+Then status 401 ........................................................... skipped
+</failure></testcase>
+<testcase classname="ID_001_krtestvam_users_v1_register_POST_verified" name="Test for user enumeration vulnerabilities on the registration endpoint (again)" time="30.029513"><failure message="http call failed after 30028 milliseconds for url: http://192.168.1.106:5080/users/v1/register&#10;org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out&#10;classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:18">Given url "http://192.168.1.106:5080/users/v1/register" ................... passed
+And request { "username": "existing_user", "password": "WrongPassword" } .. passed
+When method post .......................................................... failed
+
+Stack Trace:
+com.intuit.karate.KarateException: http call failed after 30028 milliseconds for url: http://192.168.1.106:5080/users/v1/register
+org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out
+classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:18
+	at &lt;feature&gt;.: When method post (classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:18:18)
+
+Then status 401 ........................................................... skipped
+</failure></testcase>
+<testcase classname="ID_001_krtestvam_users_v1_register_POST_verified" name="Verify that an unauthorized user cannot register a new account" time="30.034771"><failure message="http call failed after 30033 milliseconds for url: http://192.168.1.106:5080/users/v1/register&#10;org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out&#10;classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:23">Given url "http://192.168.1.106:5080/users/v1/register" ................... passed
+When method post .......................................................... failed
+
+Stack Trace:
+com.intuit.karate.KarateException: http call failed after 30033 milliseconds for url: http://192.168.1.106:5080/users/v1/register
+org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out
+classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:23
+	at &lt;feature&gt;.: When method post (classpath:ID_001_krtestvam_users_v1_register_POST_verified.feature:23:23)
+
+Then status 403 ........................................................... skipped
+And match response contains "Unauthorized access denied" .................. skipped
+</failure></testcase>
+</testsuite>

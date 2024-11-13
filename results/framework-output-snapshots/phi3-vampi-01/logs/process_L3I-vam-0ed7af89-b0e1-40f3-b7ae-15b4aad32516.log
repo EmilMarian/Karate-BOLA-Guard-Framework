@@ -1,0 +1,523 @@
+2024-11-13 10:20:54,194 - __main__ - INFO - Skipping fragment creation: False
+2024-11-13 10:20:54,258 - __main__ - DEBUG - Starting fragment retrieval process.
+2024-11-13 10:20:54,525 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/users/v1/register", "requestBody": {"content": {"application/json": {"schema": {"properties": {"email": {"example": "user@tempmail.com", "type": "string"}, "password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Successfully registered. Login to receive an auth token.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully created user"}}}', 'metadata': {'filename': '0005_users_v1_register_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"auth_token": {"example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw", "type": "string"}, "message": {"example": "Successfully logged in.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully logged in user"}}}', 'metadata': {'filename': '0007_users_v1_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Password is not correct for the given username.", "type": "string"}, "status": {"enum": ["fail"], "example": "fail", "type": "string"}}, "type": "object"}}}, "description": "Invalid request"}}}', 'metadata': {'filename': '0008_users_v1_login_post_400.json'}}]
+2024-11-13 10:20:54,526 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:20:54,526 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:20:54,945 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 10:20:54,945 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 10:21:12,250 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 10:21:12,251 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2024-11-13 10:21:12,251 - __main__ - INFO - Generated Karate test for /users/v1/register POST at output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature
+2024-11-13 10:21:12,252 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 10:21:12,252 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/users/v1/register` endpoint:
+
+```
+Feature: Testing for Broken Authentication/Authorization
+
+Scenario: Verify that the registration process does not allow account enumeration
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+
+Scenario: Test for user enumeration vulnerabilities on the registration endpoint
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'nonexistent_user', password: 'Password123!' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Test for user enumeration vulnerabilities on the registration endpoint (again)
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify that an unauthorized user cannot register a new account
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And header Authorization = 'Bearer <invalid_token>'
+When method post
+Then status 403
+And match response contains 'Unauthorized access denied'
+```
+
+This script tests the following scenarios:
+
+* Verify that the registration process does not allow account enumeration by attempting to register an existing user.
+* Test for user enumeration vulnerabilities on the registration endpoint by trying different usernames and passwords. The expected behavior is a generic error message indicating invalid credentials, which prevents attackers from discerning valid usernames based on the error response.
+* Verify that an unauthorized user cannot register a new account by attempting to register with an invalid token.
+
+Note: You may need to modify the script depending on your specific requirements and the actual implementation of the API endpoint.
+2024-11-13 10:22:01,690 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 10:22:01,690 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+
+````
+Feature: Testing for Broken Authentication/Authorization
+
+Scenario: Verify that the registration process does not allow account enumeration
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+When method post
+Then status 200
+And match response contains "A verification email has been sent. Please check your inbox."
+
+Scenario: Test for user enumeration vulnerabilities on the registration endpoint
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'nonexistent_user', password: 'Password123!' }
+When method post
+Then status 401
+
+Scenario: Test for user enumeration vulnerabilities on the registration endpoint (again)
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+
+Scenario: Verify that an unauthorized user cannot register a new account
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And header Authorization = 'Bearer <invalid_token>'
+When method post
+Then status 403
+And match response contains "Unauthorized access denied"
+```
+2024-11-13 10:22:22,837 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 10:22:22,837 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Testing for Broken Authentication/Authorization
+
+Scenario: Verify that the registration process does not allow account enumeration
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+When method post
+Then status 200
+And match response contains "A verification email has been sent. Please check your inbox."
+
+Scenario: Test for user enumeration vulnerabilities on the registration endpoint
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'nonexistent_user', password: 'Password123!' }
+When method post
+Then status 401
+
+Scenario: Test for user enumeration vulnerabilities on the registration endpoint (again)
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+
+Scenario: Verify that an unauthorized user cannot register a new account
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And header Authorization = 'Bearer <invalid_token>'
+When method post
+Then status 403
+And match response contains "Unauthorized access denied"
+```
+2024-11-13 10:22:22,837 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST_verified.feature
+2024-11-13 10:22:22,837 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: Testing for Broken Authentication/Authorization
+
+Scenario: Verify that the registration process does not allow account enumeration
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+When method post
+Then status 200
+And match response contains "A verification email has been sent. Please check your inbox."
+
+Scenario: Test for user enumeration vulnerabilities on the registration endpoint
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'nonexistent_user', password: 'Password123!' }
+When method post
+Then status 401
+
+Scenario: Test for user enumeration vulnerabilities on the registration endpoint (again)
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+
+Scenario: Verify that an unauthorized user cannot register a new account
+Given url 'http://192.168.1.106:5080/users/v1/register'
+And header Authorization = 'Bearer <invalid_token>'
+When method post
+Then status 403
+And match response contains "Unauthorized access denied"
+```
+2024-11-13 10:22:22,838 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:22:22,838 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:22:22,882 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 10:22:22,883 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 10:22:52,398 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 10:22:52,399 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2024-11-13 10:22:52,400 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature
+2024-11-13 10:22:52,400 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 10:22:52,400 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/users/v1/login` endpoint:
+```
+Feature: Testing User Login Endpoint
+
+Scenario: Verify user login does not allow authentication bypass
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response.contains('Invalid credentials')
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response.contains('Invalid credentials')
+
+Scenario: Verify user login does not allow session reuse after logout
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 200
+And match response.contains('Logged in successfully')
+* def loginResponse = response
+*
+Given url 'http://192.168.1.106:5080/users/v1/logout'
+And header Authorization = 'Bearer ' + loginResponse.token
+When method post
+Then status 200
+And match response.contains('Logged out successfully')
+
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 401
+And match response.contains('Invalid credentials')
+```
+This script tests the following scenarios:
+
+1. **Authentication bypass**: It attempts to login with a nonexistent user and an incorrect password, verifying that the API returns a 401 error.
+2. **Session reuse after logout**: It logs in successfully, then logs out using the `/users/v1/logout` endpoint. Finally, it tries to log back in again, verifying that the API returns a 401 error (indicating session invalidation).
+
+Note: You may need to modify the script depending on your specific use case and requirements.
+2024-11-13 10:23:37,209 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 10:23:37,209 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+
+````
+Feature: Testing User Login Endpoint
+
+Scenario: Verify user login does not allow authentication bypass
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify user login does not allow session reuse after logout
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 200
+And match response contains 'Logged in successfully'
+
+* def loginResponse = response
+
+Given url 'http://192.168.1.106:5080/users/v1/logout'
+And header Authorization = 'Bearer ' + loginResponse.token
+When method post
+Then status 200
+And match response contains 'Logged out successfully'
+
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+```
+
+Note that I removed the unnecessary line breaks and reformatted the script to follow standard Karate DSL syntax.
+2024-11-13 10:23:57,117 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 10:23:57,118 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Testing User Login Endpoint
+
+Scenario: Verify user login does not allow authentication bypass
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify user login does not allow session reuse after logout
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 200
+And match response contains 'Logged in successfully'
+
+* def loginResponse = response
+
+Given url 'http://192.168.1.106:5080/users/v1/logout'
+And header Authorization = 'Bearer ' + loginResponse.token
+When method post
+Then status 200
+And match response contains 'Logged out successfully'
+
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+```
+2024-11-13 10:23:57,118 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST_verified.feature
+2024-11-13 10:23:57,118 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: Testing User Login Endpoint
+
+Scenario: Verify user login does not allow authentication bypass
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify user login does not allow session reuse after logout
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 200
+And match response contains 'Logged in successfully'
+
+* def loginResponse = response
+
+Given url 'http://192.168.1.106:5080/users/v1/logout'
+And header Authorization = 'Bearer ' + loginResponse.token
+When method post
+Then status 200
+And match response contains 'Logged out successfully'
+
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+```
+2024-11-13 10:23:57,119 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:23:57,119 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:23:57,148 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 10:23:57,149 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 10:24:23,867 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 10:24:23,868 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2024-11-13 10:24:23,868 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST.feature
+2024-11-13 10:24:23,869 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 10:24:23,869 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/users/v1/login` endpoint:
+```
+Feature: Testing User Login Endpoint
+
+Scenario: Verify user login does not allow authentication bypass
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response.contains('Invalid credentials')
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response.contains('Invalid credentials')
+
+Scenario: Verify user login does not allow session reuse after logout
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 200
+And match response.contains('Logged in successfully')
+* def loginResponse = response
+*
+Given url 'http://192.168.1.106:5080/users/v1/logout'
+And header Authorization = 'Bearer ' + loginResponse.token
+When method post
+Then status 200
+And match response.contains('Logged out successfully')
+
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 401
+And match response.contains('Invalid credentials')
+```
+This script tests the following scenarios:
+
+1. **Authentication bypass**: It attempts to login with a nonexistent user and an incorrect password, verifying that the API returns a 401 error.
+2. **Session reuse after logout**: It logs in successfully, then logs out using the `/users/v1/logout` endpoint. Finally, it tries to log back in again, verifying that the API returns a 401 error (indicating session invalidation).
+
+Note: You may need to modify the script depending on your specific use case and requirements.
+2024-11-13 10:25:09,358 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 10:25:09,358 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+
+````
+Feature: Testing User Login Endpoint
+
+Scenario: Verify user login does not allow authentication bypass
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify user login does not allow session reuse after logout
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 200
+And match response contains 'Logged in successfully'
+
+* def loginResponse = response
+
+Given url 'http://192.168.1.106:5080/users/v1/logout'
+And header Authorization = 'Bearer ' + loginResponse.token
+When method post
+Then status 200
+And match response contains 'Logged out successfully'
+
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+```
+
+Note that I removed the unnecessary line breaks and reformatted the script to follow standard Karate DSL syntax.
+2024-11-13 10:25:29,293 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 10:25:29,294 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Testing User Login Endpoint
+
+Scenario: Verify user login does not allow authentication bypass
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify user login does not allow session reuse after logout
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 200
+And match response contains 'Logged in successfully'
+
+* def loginResponse = response
+
+Given url 'http://192.168.1.106:5080/users/v1/logout'
+And header Authorization = 'Bearer ' + loginResponse.token
+When method post
+Then status 200
+And match response contains 'Logged out successfully'
+
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+```
+2024-11-13 10:25:29,294 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST_verified.feature
+2024-11-13 10:25:29,294 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: Testing User Login Endpoint
+
+Scenario: Verify user login does not allow authentication bypass
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify user login does not allow session reuse after logout
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 200
+And match response contains 'Logged in successfully'
+
+* def loginResponse = response
+
+Given url 'http://192.168.1.106:5080/users/v1/logout'
+And header Authorization = 'Bearer ' + loginResponse.token
+When method post
+Then status 200
+And match response contains 'Logged out successfully'
+
+Given url 'http://192.168.1.106:5080/users/v1/login'
+And request { username: 'existing_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+```
+2024-11-13 10:25:29,295 - __main__ - INFO - Moving generated Karate feature files...
+2024-11-13 10:25:29,296 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2024-11-13 10:25:31,546 - karate_test_framework - INFO - Starting to move Karate feature files...
+2024-11-13 10:25:31,546 - karate_test_framework - INFO - Removed ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 10:25:31,546 - karate_test_framework - INFO - Removed ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 10:25:31,546 - karate_test_framework - INFO - Removed ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 10:25:31,546 - karate_test_framework - INFO - Moved ID_003_krtestvam_users_v1_login_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 10:25:31,546 - karate_test_framework - INFO - Moved ID_002_krtestvam_users_v1_login_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 10:25:31,547 - karate_test_framework - INFO - Moved ID_001_krtestvam_users_v1_register_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 10:25:31,547 - karate_test_framework - INFO - Finished moving Karate feature files.
+2024-11-13 10:25:31,547 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 10:25:31,547 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 10:26:04,879 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 10:26:13,866 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516/docker_run_logs_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516.txt
+2024-11-13 10:26:13,866 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516
+2024-11-13 10:26:14,114 - karate_test_framework - INFO - Starting iteration 1 of 3
+2024-11-13 10:26:14,114 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 10:26:17,894 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 10:26:27,169 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516/docker_run_logs_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516.txt
+2024-11-13 10:26:27,169 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516
+2024-11-13 10:26:27,749 - karate_test_framework - INFO - Rewriting 1 broken tests in iteration 1
+2024-11-13 10:26:27,801 - karate_test_framework - INFO - errors found: [('verified', "mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>"), ('verified', "mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>"), ('failed', "mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>")]
+2024-11-13 10:27:00,776 - karate_test_framework - INFO - Updated test script: ID_001_krtestvam_users_v1_register_POST_verified.feature
+2024-11-13 10:27:00,776 - karate_test_framework - INFO - Starting iteration 2 of 3
+2024-11-13 10:27:00,776 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 10:27:32,986 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 10:27:41,413 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516/docker_run_logs_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516.txt
+2024-11-13 10:27:41,413 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516
+2024-11-13 10:27:41,981 - karate_test_framework - INFO - Rewriting 1 broken tests in iteration 2
+2024-11-13 10:27:42,031 - karate_test_framework - INFO - errors found: [('verified', "mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>"), ('verified', "mismatched input 'H' expecting <EOF>, mismatched input 'H' expecting <EOF>, mismatched input 'H' expecting <EOF>, mismatched input 'H' expecting <EOF>"), ('failed', '')]
+2024-11-13 10:28:10,262 - karate_test_framework - INFO - Updated test script: ID_002_krtestvam_users_v1_login_POST_verified.feature
+2024-11-13 10:28:10,262 - karate_test_framework - INFO - Starting iteration 3 of 3
+2024-11-13 10:28:10,262 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 10:28:43,640 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 10:28:52,926 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516/docker_run_logs_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516.txt
+2024-11-13 10:28:52,926 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_L3I-vam-0ed7af89-b0e1-40f3-b7ae-15b4aad32516
+2024-11-13 10:28:53,501 - karate_test_framework - INFO - Rewriting 1 broken tests in iteration 3
+2024-11-13 10:28:53,544 - karate_test_framework - INFO - errors found: [('verified', "mismatched input 'H' expecting <EOF>, mismatched input 'H' expecting <EOF>, mismatched input 'H' expecting <EOF>, mismatched input 'H' expecting <EOF>"), ('failed', ''), ('failed', '')]
+2024-11-13 10:29:21,673 - karate_test_framework - INFO - Updated test script: ID_002_krtestvam_users_v1_login_POST_verified.feature
+2024-11-13 10:29:21,673 - karate_test_framework - ERROR - Reached maximum iterations (3). Some tests may still be failing.
+2024-11-13 10:29:21,673 - karate_test_framework - INFO - Opening final test report...
+2024-11-13 10:29:21,673 - karate_test_framework - ERROR - Test report not found. Make sure tests have been run.

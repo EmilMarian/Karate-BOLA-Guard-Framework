@@ -1,0 +1,81 @@
+<testsuite failures="4" name="ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature" skipped="0" tests="4" time="0.042118"><testcase classname="ID_003_krtestcra_identity_api_auth_verify_POST_verified" name="Verify that the /auth/verify endpoint does not allow unauthorized access" time="0.008151"><failure message="status code was: 405, expected: 401, response time in milliseconds: 5, url: http://192.168.1.112:8888, response: &#10;&lt;html&gt;&#13;&#10;&lt;head&gt;&lt;title&gt;405 Not Allowed&lt;/title&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;&lt;center&gt;&lt;h1&gt;405 Not Allowed&lt;/h1&gt;&lt;/center&gt;&#13;&#10;&lt;hr&gt;&lt;center&gt;openresty/1.25.3.1&lt;/center&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&#13;&#10;&#10;classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:7">Given url "http://192.168.1.112:8888" ..................................... passed
+And request { "username" : "", "password": "" } ........................... passed
+When method post .......................................................... passed
+Then status 401 ........................................................... failed
+
+Stack Trace:
+com.intuit.karate.KarateException: status code was: 405, expected: 401, response time in milliseconds: 5, url: http://192.168.1.112:8888, response: 
+&lt;html&gt;&#13;
+&lt;head&gt;&lt;title&gt;405 Not Allowed&lt;/title&gt;&lt;/head&gt;&#13;
+&lt;body&gt;&#13;
+&lt;center&gt;&lt;h1&gt;405 Not Allowed&lt;/h1&gt;&lt;/center&gt;&#13;
+&lt;hr&gt;&lt;center&gt;openresty/1.25.3.1&lt;/center&gt;&#13;
+&lt;/body&gt;&#13;
+&lt;/html&gt;&#13;
+
+classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:7
+	at &lt;feature&gt;.: Then status 401 (classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:7:7)
+
+And match response == {"error": "Invalid credentials"} .................... skipped
+</failure></testcase>
+<testcase classname="ID_003_krtestcra_identity_api_auth_verify_POST_verified" name="Attempt to verify an existing user with incorrect password" time="0.013644"><failure message="status code was: 405, expected: 401, response time in milliseconds: 10, url: http://192.168.1.112:8888, response: &#10;&lt;html&gt;&#13;&#10;&lt;head&gt;&lt;title&gt;405 Not Allowed&lt;/title&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;&lt;center&gt;&lt;h1&gt;405 Not Allowed&lt;/h1&gt;&lt;/center&gt;&#13;&#10;&lt;hr&gt;&lt;center&gt;openresty/1.25.3.1&lt;/center&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&#13;&#10;&#10;classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:14">Given url "http://192.168.1.112:8888" ..................................... passed
+And request { "username": "existingUser", "password": "wrongPassword" } ... passed
+When method post .......................................................... passed
+Then status 401 ........................................................... failed
+
+Stack Trace:
+com.intuit.karate.KarateException: status code was: 405, expected: 401, response time in milliseconds: 10, url: http://192.168.1.112:8888, response: 
+&lt;html&gt;&#13;
+&lt;head&gt;&lt;title&gt;405 Not Allowed&lt;/title&gt;&lt;/head&gt;&#13;
+&lt;body&gt;&#13;
+&lt;center&gt;&lt;h1&gt;405 Not Allowed&lt;/h1&gt;&lt;/center&gt;&#13;
+&lt;hr&gt;&lt;center&gt;openresty/1.25.3.1&lt;/center&gt;&#13;
+&lt;/body&gt;&#13;
+&lt;/html&gt;&#13;
+
+classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:14
+	at &lt;feature&gt;.: Then status 401 (classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:14:14)
+
+And match response == {"error": "Invalid credentials"} .................... skipped
+</failure></testcase>
+<testcase classname="ID_003_krtestcra_identity_api_auth_verify_POST_verified" name="Verify that the /auth/verify endpoint returns a specific error message for incorrect usernames" time="0.013024"><failure message="status code was: 405, expected: 401, response time in milliseconds: 9, url: http://192.168.1.112:8888, response: &#10;&lt;html&gt;&#13;&#10;&lt;head&gt;&lt;title&gt;405 Not Allowed&lt;/title&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;&lt;center&gt;&lt;h1&gt;405 Not Allowed&lt;/h1&gt;&lt;/center&gt;&#13;&#10;&lt;hr&gt;&lt;center&gt;openresty/1.25.3.1&lt;/center&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&#13;&#10;&#10;classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:21">Given url "http://192.168.1.112:8888" ..................................... passed
+And request { "username": "nonExistingUser", "password": "Password123!" } . passed
+When method post .......................................................... passed
+Then status 401 ........................................................... failed
+
+Stack Trace:
+com.intuit.karate.KarateException: status code was: 405, expected: 401, response time in milliseconds: 9, url: http://192.168.1.112:8888, response: 
+&lt;html&gt;&#13;
+&lt;head&gt;&lt;title&gt;405 Not Allowed&lt;/title&gt;&lt;/head&gt;&#13;
+&lt;body&gt;&#13;
+&lt;center&gt;&lt;h1&gt;405 Not Allowed&lt;/h1&gt;&lt;/center&gt;&#13;
+&lt;hr&gt;&lt;center&gt;openresty/1.25.3.1&lt;/center&gt;&#13;
+&lt;/body&gt;&#13;
+&lt;/html&gt;&#13;
+
+classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:21
+	at &lt;feature&gt;.: Then status 401 (classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:21:21)
+
+And match response == {"error": "Invalid credentials"} .................... skipped
+</failure></testcase>
+<testcase classname="ID_003_krtestcra_identity_api_auth_verify_POST_verified" name="Verify that the /auth/verify endpoint returns a specific error message for incorrect passwords" time="0.0073"><failure message="status code was: 405, expected: 401, response time in milliseconds: 3, url: http://192.168.1.112:8888, response: &#10;&lt;html&gt;&#13;&#10;&lt;head&gt;&lt;title&gt;405 Not Allowed&lt;/title&gt;&lt;/head&gt;&#13;&#10;&lt;body&gt;&#13;&#10;&lt;center&gt;&lt;h1&gt;405 Not Allowed&lt;/h1&gt;&lt;/center&gt;&#13;&#10;&lt;hr&gt;&lt;center&gt;openresty/1.25.3.1&lt;/center&gt;&#13;&#10;&lt;/body&gt;&#13;&#10;&lt;/html&gt;&#13;&#10;&#10;classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:28">Given url "http://192.168.1.112:8888" ..................................... passed
+And request { "username": "existingUser", "password": "wrongPassword" } ... passed
+When method post .......................................................... passed
+Then status 401 ........................................................... failed
+
+Stack Trace:
+com.intuit.karate.KarateException: status code was: 405, expected: 401, response time in milliseconds: 3, url: http://192.168.1.112:8888, response: 
+&lt;html&gt;&#13;
+&lt;head&gt;&lt;title&gt;405 Not Allowed&lt;/title&gt;&lt;/head&gt;&#13;
+&lt;body&gt;&#13;
+&lt;center&gt;&lt;h1&gt;405 Not Allowed&lt;/h1&gt;&lt;/center&gt;&#13;
+&lt;hr&gt;&lt;center&gt;openresty/1.25.3.1&lt;/center&gt;&#13;
+&lt;/body&gt;&#13;
+&lt;/html&gt;&#13;
+
+classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:28
+	at &lt;feature&gt;.: Then status 401 (classpath:ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature:28:28)
+
+And match response == {"error": "Invalid credentials"} .................... skipped
+</failure></testcase>
+</testsuite>

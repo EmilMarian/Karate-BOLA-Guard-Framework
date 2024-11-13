@@ -1,0 +1,58 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The user name for login",
+      "in": "query",
+      "name": "username",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The password for login in clear text",
+      "in": "query",
+      "name": "password",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/user/login",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "string"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "successful operation",
+      "headers": {
+        "X-Expires-After": {
+          "description": "date in UTC when token expires",
+          "schema": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "X-Rate-Limit": {
+          "description": "calls per hour allowed by the user",
+          "schema": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,322 @@
+2024-11-13 10:57:48,840 - __main__ - INFO - Skipping fragment creation: False
+2024-11-13 10:57:48,912 - __main__ - DEBUG - Starting fragment retrieval process.
+2024-11-13 10:57:49,148 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/users/v1/register", "requestBody": {"content": {"application/json": {"schema": {"properties": {"email": {"example": "user@tempmail.com", "type": "string"}, "password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Successfully registered. Login to receive an auth token.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully created user"}}}', 'metadata': {'filename': '0005_users_v1_register_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"auth_token": {"example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw", "type": "string"}, "message": {"example": "Successfully logged in.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully logged in user"}}}', 'metadata': {'filename': '0007_users_v1_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Password is not correct for the given username.", "type": "string"}, "status": {"enum": ["fail"], "example": "fail", "type": "string"}}, "type": "object"}}}, "description": "Invalid request"}}}', 'metadata': {'filename': '0008_users_v1_login_post_400.json'}}]
+2024-11-13 10:57:49,149 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:57:49,150 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:57:49,590 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 10:57:49,591 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 10:58:18,322 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 10:58:18,322 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: Broken Authentication/Authorization on User Registration
+scenario: Attempt to regis...
+2024-11-13 10:58:18,323 - __main__ - INFO - Generated Karate test for /users/v1/register POST at output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature
+2024-11-13 10:58:18,324 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 10:58:18,324 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization on User Registration
+scenario: Attempt to register a user without proper authentication or authorization
+given url http://192.168.1.106:5080/users/v1/register
+when request { username: 'unauthorized_user', password: '', email: '' }
+then status 403
+and response message contains "Unauthorized" or "Invalid credentials provided."
+* def unauthenticatedAttempt = function(response) { return (response.status == 401 || response.message).toLowerCase().includes("unauthorized") }
+then unauthenticatedAttempt(response) should be true
+```
+2024-11-13 10:58:26,390 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 10:58:26,390 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization on User Registration
+scenario: Attempt to register a user without proper authentication or authorization
+given url http://192.168.1.106:5080/users/v1/register
+when request { username: 'unauthorized_user', password: '', email: '' }
+then status 403
+and response message contains "Unauthorized" or "Invalid credentials provided."
+* def unauthenticatedAttempt = function(response) { return (response.status == 401 || response.message).toLowerCase().includes("unauthorized") }
+then unauthenticatedAttempt(response) should be true
+```
+2024-11-13 10:58:32,236 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 10:58:32,236 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization on User Registration
+scenario: Attempt to register a user without proper authentication or authorization
+given url http://192.168.1.106:5080/users/v1/register
+when request username='unauthorized_user', password='', email=''
+then status 403
+and response message contains "Unauthorized" or "Invalid credentials provided."
+* def unauthenticatedAttempt(response) { return (response.status == 401 || response.message).toLowerCase().includes("unauthorized") }
+then unauthenticatedAttempt(response) should be true
+```
+2024-11-13 10:58:32,236 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST_verified.feature
+2024-11-13 10:58:32,237 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature: ```yaml
+feature: Broken Authentication/Authorization on User Registration
+scenario: Attempt to register a user without proper authentication or authorization
+given url http://192.168.1.106:5080/users/v1/register
+when request username='unauthorized_user', password='', email=''
+then status 403
+and response message contains "Unauthorized" or "Invalid credentials provided."
+* def unauthenticatedAttempt(response) { return (response.status == 401 || response.message).toLowerCase().includes("unauthorized") }
+then unauthenticatedAttempt(response) should be true
+```
+2024-11-13 10:58:32,237 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:58:32,238 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:58:32,271 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 10:58:32,272 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 10:58:42,936 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 10:58:42,937 - karate_llm_test_gen - INFO - Generated test case: ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify login endpoint i...
+2024-11-13 10:58:42,938 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature
+2024-11-13 10:58:42,938 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 10:58:42,938 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify login endpoint is vulnerable to unauthorized access attempts.",
+    "steps": [
+        {
+            "Given url http://192.168.1.106:5080/users/v1/login",
+            "When method post with body {'username': 'admin', 'password': ''}",
+            "Then status 403"
+        },
+        {
+            "Given url http://192.168.1.106:5080/users/v1/login",
+            "When method post with body {'username': 'admin', 'password': 'wrongPassword'}",
+            "Then status 403"
+        },
+        {
+            "# Explanation": "This scenario checks for broken authentication by attempting to log in as an admin without a password and also using incorrect credentials, expecting the server to respond with unauthorized access error (status code 403).",
+            "And match response.contains('Unauthorized')"
+        }
+    ]
+}
+```
+2024-11-13 10:59:04,045 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 10:59:04,045 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify login endpoint is vulnerable to unauthorized access attempts.",
+    "steps": [
+        {
+            "Given url 'http://192.168.1.106:5080/users/v1/login'",
+            "When method post with body {'username': 'admin', 'password': ''}",
+            "Then status 403"
+        },
+        {
+            "Given url 'http://192.168.1.106:5080/users/v1/login'",
+            "When method post with body {'username': 'admin', 'password': 'wrongPassword'}",
+            "Then status 403"
+        },
+        {
+            "Given url 'http://192.168.1.106:5080/users/v1/login'",
+            "When method post with body {'username': 'admin', 'password': ''}",
+            "Then response status matches 403"
+        },
+        {
+            "Given url 'http://192.168.1.106:5080/users/v1/login'",
+            "When method post with body {'username': 'admin', 'password': 'wrongPassword'}",
+            "Then response status matches 403"
+        },
+        {
+            "# Explanation": "This scenario checks for broken authentication by attempting to log in as an admin without a password and also using incorrect credentials, expecting the server to respond with unauthorized access error (status code 403).",
+            "And response status matches '^40[3-5]$'"
+        }
+    ]
+}
+```
+2024-11-13 10:59:34,116 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 10:59:34,116 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+    "scenario": "Verify login endpoint is vulnerable to unauthorized access attempts.",
+      {
+        "Given url 'http://192.168.1.106:5080/users/v1/login'",
+        "When method post with body {'username': 'admin', 'password': ''}",
+        "Then status 403"
+      },
+      {
+        "Given url 'http://192.168.1.106:5080/users/v1/login'",
+        "When method post with body {'username': 'admin', 'password': 'wrongPassword'}",
+        "Then status 403"
+      },
+    {
+      "# Explanation": "This scenario checks for broken authentication by attempting to log in as an admin without a password and also using incorrect credentials, expecting the server to respond with unauthorized access error (status code 403).",
+      "And response status matches '^4[0-5]$'"
+    }
+}
+```
+2024-11-13 10:59:34,131 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST_verified.feature
+2024-11-13 10:59:34,132 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature: ```json
+{
+  "feature": "Broken Authentication/Authorization",
+    "scenario": "Verify login endpoint is vulnerable to unauthorized access attempts.",
+      {
+        "Given url 'http://192.168.1.106:5080/users/v1/login'",
+        "When method post with body {'username': 'admin', 'password': ''}",
+        "Then status 403"
+      },
+      {
+        "Given url 'http://192.168.1.106:5080/users/v1/login'",
+        "When method post with body {'username': 'admin', 'password': 'wrongPassword'}",
+        "Then status 403"
+      },
+    {
+      "# Explanation": "This scenario checks for broken authentication by attempting to log in as an admin without a password and also using incorrect credentials, expecting the server to respond with unauthorized access error (status code 403).",
+      "And response status matches '^4[0-5]$'"
+    }
+}
+```
+2024-11-13 10:59:34,132 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:59:34,133 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 10:59:34,151 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 10:59:34,152 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 10:59:50,639 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 10:59:50,639 - karate_llm_test_gen - INFO - Generated test case: ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify login endpoint i...
+2024-11-13 10:59:50,640 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST.feature
+2024-11-13 10:59:50,641 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 10:59:50,641 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify login endpoint is vulnerable to unauthorized access attempts.",
+    "steps": [
+        {
+            "Given url http://192.168.1.106:5080/users/v1/login",
+            "When method post with body {'username': 'admin', 'password': ''}",
+            "Then status 403"
+        },
+        {
+            "Given url http://192.168.1.106:5080/users/v1/login",
+            "When method post with body {'username': 'admin', 'password': 'wrongPassword'}",
+            "Then status 403"
+        },
+        {
+            "# Explanation": "This scenario checks for broken authentication by attempting to log in as an admin without a password and also using incorrect credentials, expecting the server to respond with unauthorized access error (status code 403).",
+            "And match response.contains('Unauthorized')"
+        }
+    ]
+}
+```
+2024-11-13 11:00:11,643 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 11:00:11,643 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify login endpoint is vulnerable to unauthorized access attempts.",
+    "steps": [
+        {
+            "Given url 'http://192.168.1.106:5080/users/v1/login'",
+            "When method post with body {'username': 'admin', 'password': ''}",
+            "Then status 403"
+        },
+        {
+            "Given url 'http://192.168.1.106:5080/users/v1/login'",
+            "When method post with body {'username': 'admin', 'password': 'wrongPassword'}",
+            "Then status 403"
+        },
+        {
+            "Given url 'http://192.168.1.106:5080/users/v1/login'",
+            "When method post with body {'username': 'admin', 'password': ''}",
+            "Then response status matches 403"
+        },
+        {
+            "Given url 'http://192.168.1.106:5080/users/v1/login'",
+            "When method post with body {'username': 'admin', 'password': 'wrongPassword'}",
+            "Then response status matches 403"
+        },
+        {
+            "# Explanation": "This scenario checks for broken authentication by attempting to log in as an admin without a password and also using incorrect credentials, expecting the server to respond with unauthorized access error (status code 403).",
+            "And response status matches '^40[3-5]$'"
+        }
+    ]
+}
+```
+2024-11-13 11:00:41,950 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 11:00:41,950 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+    "scenario": "Verify login endpoint is vulnerable to unauthorized access attempts.",
+      {
+        "Given url 'http://192.168.1.106:5080/users/v1/login'",
+        "When method post with body {'username': 'admin', 'password': ''}",
+        "Then status 403"
+      },
+      {
+        "Given url 'http://192.168.1.106:5080/users/v1/login'",
+        "When method post with body {'username': 'admin', 'password': 'wrongPassword'}",
+        "Then status 403"
+      },
+    {
+      "# Explanation": "This scenario checks for broken authentication by attempting to log in as an admin without a password and also using incorrect credentials, expecting the server to respond with unauthorized access error (status code 403).",
+      "And response status matches '^4[0-5]$'"
+    }
+}
+```
+2024-11-13 11:00:41,951 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST_verified.feature
+2024-11-13 11:00:41,951 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST.feature: ```json
+{
+  "feature": "Broken Authentication/Authorization",
+    "scenario": "Verify login endpoint is vulnerable to unauthorized access attempts.",
+      {
+        "Given url 'http://192.168.1.106:5080/users/v1/login'",
+        "When method post with body {'username': 'admin', 'password': ''}",
+        "Then status 403"
+      },
+      {
+        "Given url 'http://192.168.1.106:5080/users/v1/login'",
+        "When method post with body {'username': 'admin', 'password': 'wrongPassword'}",
+        "Then status 403"
+      },
+    {
+      "# Explanation": "This scenario checks for broken authentication by attempting to log in as an admin without a password and also using incorrect credentials, expecting the server to respond with unauthorized access error (status code 403).",
+      "And response status matches '^4[0-5]$'"
+    }
+}
+```
+2024-11-13 11:00:41,951 - __main__ - INFO - Moving generated Karate feature files...
+2024-11-13 11:00:41,953 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2024-11-13 11:00:43,942 - karate_test_framework - INFO - Starting to move Karate feature files...
+2024-11-13 11:00:43,943 - karate_test_framework - INFO - Removed ID_003_krtestvam_users_v1_login_POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:00:43,943 - karate_test_framework - INFO - Removed ID_002_krtestvam_users_v1_login_POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:00:43,943 - karate_test_framework - INFO - Removed ID_001_krtestvam_users_v1_register_POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:00:43,943 - karate_test_framework - INFO - Moved ID_003_krtestvam_users_v1_login_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:00:43,943 - karate_test_framework - INFO - Moved ID_002_krtestvam_users_v1_login_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:00:43,944 - karate_test_framework - INFO - Moved ID_001_krtestvam_users_v1_register_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:00:43,944 - karate_test_framework - INFO - Finished moving Karate feature files.
+2024-11-13 11:00:43,944 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 11:00:43,944 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 11:01:29,325 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 11:01:45,260 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_P3M-vam-a63c782c-e62f-496d-b8f4-0d831d437ea6/docker_run_logs_P3M-vam-a63c782c-e62f-496d-b8f4-0d831d437ea6.txt
+2024-11-13 11:01:45,260 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_P3M-vam-a63c782c-e62f-496d-b8f4-0d831d437ea6
+2024-11-13 11:01:45,673 - karate_test_framework - INFO - Starting iteration 1 of 3
+2024-11-13 11:01:45,673 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 11:01:49,653 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 11:01:59,965 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_P3M-vam-a63c782c-e62f-496d-b8f4-0d831d437ea6/docker_run_logs_P3M-vam-a63c782c-e62f-496d-b8f4-0d831d437ea6.txt
+2024-11-13 11:01:59,965 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_P3M-vam-a63c782c-e62f-496d-b8f4-0d831d437ea6
+2024-11-13 11:02:00,576 - karate_test_framework - INFO - All tests passed in iteration 1. Exiting loop.
+2024-11-13 11:02:00,577 - karate_test_framework - INFO - Opening final test report...
+2024-11-13 11:02:00,577 - karate_test_framework - ERROR - Test report not found. Make sure tests have been run.

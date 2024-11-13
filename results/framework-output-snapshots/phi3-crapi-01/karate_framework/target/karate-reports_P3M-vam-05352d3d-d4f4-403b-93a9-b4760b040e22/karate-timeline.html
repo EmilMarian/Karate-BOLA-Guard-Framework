@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Karate Timeline</title>
+    <style>
+      body, html { font-family: arial, sans-serif; font-size: 11pt; }
+      #visualization { box-sizing: border-box; width: 100%; height: 300px; }
+      .vis-item.failed { background-color: #F2928C; }
+      .page-heading { padding: 0.5em; margin-bottom: 0.5em; background-color: lightcyan; border: 1px solid gray; }
+    </style>
+    <script src="res/vis.min.js"></script>
+    <link href="res/vis.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="page-heading">
+      <a href="karate-summary.html">Summary</a>
+    </div>     
+    <div id="visualization"></div>
+    <script>
+var groups = [{"content":"main","id":1}];
+var items = [{"id":1,"group":1,"content":"ID_001_krtestvam_users_v1_register_POST_verified[1:3]","start":1731489235054,"end":1731489265355,"title":"ID_001_krtestvam_users_v1_register_POST_verified[1:3] 09:13:55.054-09:14:25.355 Attempt to register a user without proper authentication or authorization","className":"failed"},{"id":2,"group":1,"content":"ID_002_krtestvam_users_v1_login_POST_verified[1:3]","start":1731489265885,"end":1731489295918,"title":"ID_002_krtestvam_users_v1_login_POST_verified[1:3] 09:14:25.885-09:14:55.918 Verify login endpoint is vulnerable to unauthorized access attempts - empty password","className":"failed"},{"id":3,"group":1,"content":"ID_002_krtestvam_users_v1_login_POST_verified[2:15]","start":1731489295923,"end":1731489325948,"title":"ID_002_krtestvam_users_v1_login_POST_verified[2:15] 09:14:55.923-09:15:25.948 Verify login endpoint is vulnerable to unauthorized access attempts - wrong password","className":"failed"},{"id":4,"group":1,"content":"ID_003_krtestvam_users_v1_login_POST_verified[1:3]","start":1731489326026,"end":1731489356028,"title":"ID_003_krtestvam_users_v1_login_POST_verified[1:3] 09:15:26.026-09:15:56.028 Verify login endpoint is vulnerable to unauthorized access attempts - empty password","className":"failed"},{"id":5,"group":1,"content":"ID_003_krtestvam_users_v1_login_POST_verified[2:15]","start":1731489356035,"end":1731489386066,"title":"ID_003_krtestvam_users_v1_login_POST_verified[2:15] 09:15:56.035-09:16:26.066 Verify login endpoint is vulnerable to unauthorized access attempts - wrong password","className":"failed"}];
+</script>
+    <script>
+      var container = document.getElementById('visualization');
+      var timeline = new vis.Timeline(container);
+      timeline.setOptions({groupOrder: 'content'});
+      timeline.setGroups(new vis.DataSet(groups));
+      timeline.setItems(new vis.DataSet(items));
+    </script>
+  </body>
+</html>

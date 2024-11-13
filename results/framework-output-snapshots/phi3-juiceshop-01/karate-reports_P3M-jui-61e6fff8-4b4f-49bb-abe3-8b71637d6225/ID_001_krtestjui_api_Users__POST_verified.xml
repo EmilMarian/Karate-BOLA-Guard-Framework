@@ -1,0 +1,20 @@
+<testsuite failures="1" name="ID_001_krtestjui_api_Users__POST_verified.feature" skipped="0" tests="1" time="30.942657"><testcase classname="ID_001_krtestjui_api_Users__POST_verified" name="Verify login endpoint is vulnerable to unauthorized access attempts" time="30.942657"><failure message="http call failed after 30324 milliseconds for url: https://192.168.1.106:5080/rest/user/login/rest/user/login&#10;org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out&#10;classpath:ID_001_krtestjui_api_Users__POST_verified.feature:9">* url 'https://192.168.1.106:5080/rest/user/login' ........................ passed
+Given path '/rest/user/login' ............................................. passed
+And request { username: 'admin', password: '' } ........................... passed
+When method post .......................................................... failed
+
+Stack Trace:
+com.intuit.karate.KarateException: http call failed after 30324 milliseconds for url: https://192.168.1.106:5080/rest/user/login/rest/user/login
+org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out
+classpath:ID_001_krtestjui_api_Users__POST_verified.feature:9
+	at &lt;feature&gt;.: When method post (classpath:ID_001_krtestjui_api_Users__POST_verified.feature:9:9)
+
+Then status 403 ........................................................... skipped
+And match response contains 'Login failed' ................................ skipped
+Given path '/rest/user/login' ............................................. skipped
+And request { username: 'admin', password: 'wrongpassword' } .............. skipped
+When method post .......................................................... skipped
+Then status 403 ........................................................... skipped
+And match response contains 'Login failed' ................................ skipped
+</failure></testcase>
+</testsuite>

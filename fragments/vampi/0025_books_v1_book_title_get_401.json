@@ -1,0 +1,42 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "retrieve book data",
+      "in": "path",
+      "name": "book_title",
+      "required": true,
+      "schema": {
+        "example": "bookTitle77",
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/books/v1/{book_title}",
+  "requestBody": {},
+  "responses": {
+    "401": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "message": {
+                "example": "Invalid Token",
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "fail"
+                ],
+                "example": "fail",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "User not authorized"
+    }
+  }
+}

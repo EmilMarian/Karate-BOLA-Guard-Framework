@@ -1,0 +1,56 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/users/v1/login",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "password": {
+              "example": "password123",
+              "type": "string"
+            },
+            "username": {
+              "example": "John.Doe",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "Username of the user",
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "auth_token": {
+                "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw",
+                "type": "string"
+              },
+              "message": {
+                "example": "Successfully logged in.",
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "success",
+                  "fail"
+                ],
+                "example": "success",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Sucessfully logged in user"
+    }
+  }
+}

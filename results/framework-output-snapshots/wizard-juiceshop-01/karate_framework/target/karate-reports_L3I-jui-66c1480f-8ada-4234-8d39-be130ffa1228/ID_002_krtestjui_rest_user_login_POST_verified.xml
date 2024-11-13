@@ -1,0 +1,17 @@
+<testsuite failures="1" name="ID_002_krtestjui_rest_user_login_POST_verified.feature" skipped="0" tests="1" time="1.223866"><testcase classname="ID_002_krtestjui_rest_user_login_POST_verified" name="Verify user enumeration vulnerability" time="1.223866"><failure message="match failed: CONTAINS&#10;  $ | actual does not contain expected (STRING:STRING)&#10;  'Invalid email or password.'&#10;  'Incorrect username or password.'&#10;&#10;classpath:ID_002_krtestjui_rest_user_login_POST_verified.feature:8">Given url 'http://192.168.1.112:3133/rest/user/login' ..................... passed
+And request { username: 'nonexistent_user', password: 'Password123' } ..... passed
+When method post .......................................................... passed
+Then status 401 ........................................................... passed
+And match response contains 'Incorrect username or password.' ............. failed
+
+Stack Trace:
+com.intuit.karate.KarateException: match failed: CONTAINS
+  $ | actual does not contain expected (STRING:STRING)
+  'Invalid email or password.'
+  'Incorrect username or password.'
+
+classpath:ID_002_krtestjui_rest_user_login_POST_verified.feature:8
+	at &lt;feature&gt;.: And match response contains 'Incorrect username or password.' (classpath:ID_002_krtestjui_rest_user_login_POST_verified.feature:8:8)
+
+</failure></testcase>
+</testsuite>

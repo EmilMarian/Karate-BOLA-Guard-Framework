@@ -1,0 +1,196 @@
+{
+  "method": "PUT",
+  "parameters": [],
+  "path": "/pet",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "category": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "id": {
+              "example": 10,
+              "format": "int64",
+              "type": "integer"
+            },
+            "name": {
+              "example": "doggie",
+              "type": "string"
+            },
+            "photoUrls": {
+              "items": {
+                "type": "string",
+                "xml": {
+                  "name": "photoUrl"
+                }
+              },
+              "type": "array",
+              "xml": {
+                "wrapped": true
+              }
+            },
+            "status": {
+              "description": "pet status in the store",
+              "enum": [
+                "available",
+                "pending",
+                "sold"
+              ],
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "$ref": "#/components/schemas/Tag",
+                "xml": {
+                  "name": "tag"
+                }
+              },
+              "type": "array",
+              "xml": {
+                "wrapped": true
+              }
+            }
+          },
+          "required": [
+            "name",
+            "photoUrls"
+          ],
+          "type": "object",
+          "x-swagger-router-model": "io.swagger.petstore.model.Pet",
+          "xml": {
+            "name": "pet"
+          }
+        }
+      },
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "category": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "id": {
+              "example": 10,
+              "format": "int64",
+              "type": "integer"
+            },
+            "name": {
+              "example": "doggie",
+              "type": "string"
+            },
+            "photoUrls": {
+              "items": {
+                "type": "string",
+                "xml": {
+                  "name": "photoUrl"
+                }
+              },
+              "type": "array",
+              "xml": {
+                "wrapped": true
+              }
+            },
+            "status": {
+              "description": "pet status in the store",
+              "enum": [
+                "available",
+                "pending",
+                "sold"
+              ],
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "$ref": "#/components/schemas/Tag",
+                "xml": {
+                  "name": "tag"
+                }
+              },
+              "type": "array",
+              "xml": {
+                "wrapped": true
+              }
+            }
+          },
+          "required": [
+            "name",
+            "photoUrls"
+          ],
+          "type": "object",
+          "x-swagger-router-model": "io.swagger.petstore.model.Pet",
+          "xml": {
+            "name": "pet"
+          }
+        }
+      },
+      "application/xml": {
+        "schema": {
+          "properties": {
+            "category": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "id": {
+              "example": 10,
+              "format": "int64",
+              "type": "integer"
+            },
+            "name": {
+              "example": "doggie",
+              "type": "string"
+            },
+            "photoUrls": {
+              "items": {
+                "type": "string",
+                "xml": {
+                  "name": "photoUrl"
+                }
+              },
+              "type": "array",
+              "xml": {
+                "wrapped": true
+              }
+            },
+            "status": {
+              "description": "pet status in the store",
+              "enum": [
+                "available",
+                "pending",
+                "sold"
+              ],
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "$ref": "#/components/schemas/Tag",
+                "xml": {
+                  "name": "tag"
+                }
+              },
+              "type": "array",
+              "xml": {
+                "wrapped": true
+              }
+            }
+          },
+          "required": [
+            "name",
+            "photoUrls"
+          ],
+          "type": "object",
+          "x-swagger-router-model": "io.swagger.petstore.model.Pet",
+          "xml": {
+            "name": "pet"
+          }
+        }
+      }
+    },
+    "description": "Update an existent pet in the store",
+    "required": true
+  },
+  "responses": {
+    "400": {
+      "description": "Invalid ID supplied"
+    }
+  }
+}

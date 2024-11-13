@@ -1,0 +1,14 @@
+<testsuite failures="1" name="ID_003_krtestvam_users_v1_login_POST_verified.feature" skipped="0" tests="1" time="30.009523"><testcase classname="ID_003_krtestvam_users_v1_login_POST_verified" name="Verify that authentication and authorization are properly implemented on the /users/v1/login endpoint" time="30.009523"><failure message="http call failed after 30009 milliseconds for url: http://192.168.1.106:5080/users/v1/login&#10;org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out&#10;classpath:ID_003_krtestvam_users_v1_login_POST_verified.feature:5">Given url "http://192.168.1.106:5080/users/v1/login" ...................... passed
+And request { username: 'nonexistent_user', password: 'Password123' } ..... passed
+When method post .......................................................... failed
+
+Stack Trace:
+com.intuit.karate.KarateException: http call failed after 30009 milliseconds for url: http://192.168.1.106:5080/users/v1/login
+org.apache.http.conn.ConnectTimeoutException: Connect to 192.168.1.106:5080 [/192.168.1.106] failed: Connect timed out
+classpath:ID_003_krtestvam_users_v1_login_POST_verified.feature:5
+	at &lt;feature&gt;.: When method post (classpath:ID_003_krtestvam_users_v1_login_POST_verified.feature:5:5)
+
+Then status 401 ........................................................... skipped
+And match response contains "Invalid credentials" ......................... skipped
+</failure></testcase>
+</testsuite>

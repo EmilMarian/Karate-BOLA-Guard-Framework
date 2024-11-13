@@ -1,0 +1,222 @@
+2024-11-13 06:10:22,705 - __main__ - INFO - Skipping fragment creation: False
+2024-11-13 06:10:22,844 - __main__ - DEBUG - Starting fragment retrieval process.
+2024-11-13 06:10:23,079 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/Users/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"passwordRepeat\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"securityQuestion\\\\\\":{\\\\\\"id\\\\\\":7,\\\\\\"question\\\\\\":\\\\\\"Name of your favorite pet?\\\\\\",\\\\\\"createdAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\",\\\\\\"updatedAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\"},\\\\\\"securityAnswer\\\\\\":\\\\\\"MIX MIX\\\\\\"}\\"", "type": "string"}}}}, "responses": {"201": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_api_Users_post_201.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/rest/user/login", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0002_rest_user_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "{{_token}}", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "application/json; charset=utf-8", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/BasketItems/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"ProductId\\\\\\":{{_product_2_id}},\\\\\\"BasketId\\\\\\":\\\\\\"{{_bid}}\\\\\\",\\\\\\"quantity\\\\\\":1}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0004_api_BasketItems_post_200.json'}}]
+2024-11-13 06:10:23,080 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:10:23,081 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:10:23,484 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 06:10:23,485 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 06:10:31,701 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 06:10:31,702 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2024-11-13 06:10:31,703 - __main__ - INFO - Generated Karate test for /api/Users/ POST at output/karate_feature_files/ID_001_krtestjui_api_Users__POST.feature
+2024-11-13 06:10:31,703 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 06:10:31,703 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access protected resource without authentication
+    Given url http://192.168.1.112:3133/api/Users/
+    And request method POST
+    When status code is not 401
+      Then match response contains "Unauthorized"
+```
+This test script checks if the API endpoint returns a `401 Unauthorized` status code when an unauthenticated user attempts to access it. If the status code returned by the server is anything other than `401`, then there may be a Broken Authentication/Authorization vulnerability in the system.
+2024-11-13 06:10:54,815 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 06:10:54,815 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access protected resource without authentication
+    Given url http://192.168.1.112:3133/api/Users/
+    And request method POST
+    When status code is not 401
+      Then match response contains "Unauthorized"
+```
+2024-11-13 06:11:01,783 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 06:11:01,783 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access protected resource without authentication
+    Given url http://192.168.1.112:3133/api/Users/
+    And request method POST
+    When status code is not 401
+      Then match response contains "Unauthorized"
+```
+2024-11-13 06:11:01,783 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestjui_api_Users__POST_verified.feature
+2024-11-13 06:11:01,784 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestjui_api_Users__POST.feature: Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access protected resource without authentication
+    Given url http://192.168.1.112:3133/api/Users/
+    And request method POST
+    When status code is not 401
+      Then match response contains "Unauthorized"
+```
+2024-11-13 06:11:01,784 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:11:01,785 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:11:01,804 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 06:11:01,805 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 06:11:14,645 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 06:11:14,646 - karate_llm_test_gen - INFO - Generated test case: Here is a Karate DSL scenario to test for potential Broken Authentication/Authorization vulnerabilit...
+2024-11-13 06:11:14,647 - __main__ - INFO - Generated Karate test for /rest/user/login POST at output/karate_feature_files/ID_002_krtestjui_rest_user_login_POST.feature
+2024-11-13 06:11:14,647 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 06:11:14,647 - karate_compatibility_verifier - INFO - Here is a Karate DSL scenario to test for potential Broken Authentication/Authorization vulnerabilities on the `/rest/user/login` endpoint:
+```kotlin
+Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the login process requires valid credentials
+    Given url http://192.168.1.112:3133/rest/user/login
+    And request { username: 'valid_username', password: 'valid_password' }
+    When method post
+    Then status 200
+    And match response contains 'Successfully logged in.'
+```
+This scenario checks that the `/rest/user/login` endpoint requires valid credentials to be provided in order to successfully log in. If an attacker is able to bypass this requirement, they may gain unauthorized access to the system.
+2024-11-13 06:11:39,236 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 06:11:39,237 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+```kotlin
+Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the login process requires valid credentials
+    Given url http://192.168.1.112:3133/rest/user/login
+    And request { username: 'valid_username', password: 'valid_password' }
+    When method post
+    Then status 200
+    And match response contains 'Successfully logged in.'
+```
+2024-11-13 06:11:48,833 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 06:11:48,833 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+```kotlin
+Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the login process requires valid credentials
+    Given url http://192.168.1.112:3133/rest/user/login
+    And request { username: 'valid_username', password: 'valid_password' }
+    When method post
+    Then status 200
+    And match response contains 'Successfully logged in.'
+```
+2024-11-13 06:11:48,834 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestjui_rest_user_login_POST_verified.feature
+2024-11-13 06:11:48,834 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestjui_rest_user_login_POST.feature: Here is the corrected Karate DSL script:
+```kotlin
+Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the login process requires valid credentials
+    Given url http://192.168.1.112:3133/rest/user/login
+    And request { username: 'valid_username', password: 'valid_password' }
+    When method post
+    Then status 200
+    And match response contains 'Successfully logged in.'
+```
+2024-11-13 06:11:48,834 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:11:48,835 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:11:48,854 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 06:11:48,855 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 06:12:04,188 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 06:12:04,188 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2024-11-13 06:12:04,189 - __main__ - INFO - Generated Karate test for /api/BasketItems/ POST at output/karate_feature_files/ID_003_krtestjui_api_BasketItems__POST.feature
+2024-11-13 06:12:04,189 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 06:12:04,190 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the /api/BasketItems endpoint:
+```kotlin
+Feature: Basket Items API Testing
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+    Given url http://192.168.1.112:3133/api/BasketItems/
+    And request { "username": "admin", "password": "password" }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+```
+This test script sends a POST request to the /api/BasketItems endpoint with an invalid username and password. If the authentication is broken, the server should return a 401 Unauthorized status code along with an error message indicating that the user is not authorized to access the resource. The test script checks for this response by matching the contents of the response against the string "Unauthorized".
+2024-11-13 06:12:35,108 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 06:12:35,108 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Basket Items API Testing
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+    Given url http://192.168.1.112:3133/api/BasketItems/
+    And request { "username": "admin", "password": "password" }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+```
+2024-11-13 06:12:43,301 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 06:12:43,301 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Basket Items API Testing
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+    Given url http://192.168.1.112:3133/api/BasketItems/
+    And request { "username": "admin", "password": "password" }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+```
+2024-11-13 06:12:43,301 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestjui_api_BasketItems__POST_verified.feature
+2024-11-13 06:12:43,301 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestjui_api_BasketItems__POST.feature: Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Basket Items API Testing
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+    Given url http://192.168.1.112:3133/api/BasketItems/
+    And request { "username": "admin", "password": "password" }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+```
+2024-11-13 06:12:43,302 - __main__ - INFO - Moving generated Karate feature files...
+2024-11-13 06:12:43,317 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2024-11-13 06:12:45,102 - karate_test_framework - INFO - Starting to move Karate feature files...
+2024-11-13 06:12:45,103 - karate_test_framework - INFO - Removed ID_001_krtestjui_api_Users__POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 06:12:45,103 - karate_test_framework - INFO - Moved ID_002_krtestjui_rest_user_login_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 06:12:45,103 - karate_test_framework - INFO - Moved ID_001_krtestjui_api_Users__POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 06:12:45,103 - karate_test_framework - INFO - Moved ID_003_krtestjui_api_BasketItems__POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 06:12:45,103 - karate_test_framework - INFO - Finished moving Karate feature files.
+2024-11-13 06:12:45,103 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 06:12:45,103 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 06:12:49,826 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 06:12:58,200 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556/docker_run_logs_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556.txt
+2024-11-13 06:12:58,200 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556
+2024-11-13 06:12:58,474 - karate_test_framework - INFO - Starting iteration 1 of 3
+2024-11-13 06:12:58,474 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 06:13:02,699 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 06:13:11,586 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556/docker_run_logs_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556.txt
+2024-11-13 06:13:11,586 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556
+2024-11-13 06:13:12,232 - karate_test_framework - INFO - Rewriting 1 broken tests in iteration 1
+2024-11-13 06:13:12,281 - karate_test_framework - INFO - errors found: [('verified', "mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>"), ('verified', "mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>"), ('failed', '')]
+2024-11-13 06:13:22,527 - karate_test_framework - INFO - Updated test script: ID_001_krtestjui_api_Users__POST_verified.feature
+2024-11-13 06:13:22,527 - karate_test_framework - INFO - Starting iteration 2 of 3
+2024-11-13 06:13:22,527 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 06:13:26,642 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 06:13:35,170 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556/docker_run_logs_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556.txt
+2024-11-13 06:13:35,170 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556
+2024-11-13 06:13:35,736 - karate_test_framework - INFO - Rewriting 1 broken tests in iteration 2
+2024-11-13 06:13:35,758 - karate_test_framework - INFO - errors found: [('failed', ''), ('failed', ''), ('failed', '')]
+2024-11-13 06:13:45,294 - karate_test_framework - INFO - Updated test script: ID_001_krtestjui_api_Users__POST_verified.feature
+2024-11-13 06:13:45,294 - karate_test_framework - INFO - Starting iteration 3 of 3
+2024-11-13 06:13:45,295 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 06:13:49,221 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 06:13:57,935 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556/docker_run_logs_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556.txt
+2024-11-13 06:13:57,935 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-jui-245fccb2-2814-43f6-be2b-28112d66a556
+2024-11-13 06:13:58,888 - karate_test_framework - INFO - Rewriting 1 broken tests in iteration 3
+2024-11-13 06:13:58,934 - karate_test_framework - INFO - errors found: [('failed', ''), ('failed', ''), ('failed', '')]
+2024-11-13 06:14:08,763 - karate_test_framework - INFO - Updated test script: ID_001_krtestjui_api_Users__POST_verified.feature
+2024-11-13 06:14:08,763 - karate_test_framework - ERROR - Reached maximum iterations (3). Some tests may still be failing.
+2024-11-13 06:14:08,763 - karate_test_framework - INFO - Opening final test report...
+2024-11-13 06:14:08,763 - karate_test_framework - ERROR - Test report not found. Make sure tests have been run.

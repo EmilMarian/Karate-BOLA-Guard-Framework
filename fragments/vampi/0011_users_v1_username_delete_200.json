@@ -1,0 +1,43 @@
+{
+  "method": "DELETE",
+  "parameters": [
+    {
+      "description": "Delete username",
+      "in": "path",
+      "name": "username",
+      "required": true,
+      "schema": {
+        "example": "name1",
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users/v1/{username}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "message": {
+                "example": "User deleted.",
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "success",
+                  "fail"
+                ],
+                "example": "success",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Sucessfully deleted user"
+    }
+  }
+}

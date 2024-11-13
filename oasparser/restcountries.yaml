@@ -1,0 +1,156 @@
+openapi: 3.0.1
+info:
+  title: RestCountries
+  description: Web API version 3.1 for managing country items, based on previous implementations from restcountries.eu and restcountries.com.
+  contact:
+    name: Contact
+    url: https://github.com/marinovdh/RestCountries.NET
+  version: v3.1
+paths:
+  /v3.1/all:
+    get:
+      tags:
+        - Countries
+      summary: "Gets all countries with an extended list of properties per country. By default this list\r\nis ordered by the country's 3-letter code (CCA3)."
+      responses:
+        '200':
+          description: Success
+  /v3.1/name/{countryName}:
+    get:
+      tags:
+        - Countries
+      summary: Searches countries by their common or official name, or their native name. All matches will be returned.
+      description: "When requesting a country with blank spaces you should either use %20 or a hyphen. Example: \r\n{/name/united%20states} or {/name/united-states}."
+      parameters:
+        - name: countryName
+          in: path
+          description: The full name of the country to request.
+          required: true
+          schema:
+            type: string
+        - name: fullname
+          in: query
+          description: "Defines whether the search is on the fullname or a part of the name, either {true} or {false}. \r\nIf not defined it will be considered {false}."
+          schema:
+            type: string
+            default: 'false'
+      responses:
+        '200':
+          description: Success
+  /v3.1/fullname/{countryName}:
+    get:
+      tags:
+        - Countries
+      summary: Gets a single country bij its common or official name, or its native name. The first match will be returned.
+      description: "When requesting a country with blank spaces you should either use %20 or a hyphen. Example: \r\n{/name/united%20states} or {/name/united-states}."
+      parameters:
+        - name: countryName
+          in: path
+          description: The full name of the country to request.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /v3.1/alpha/{code}:
+    get:
+      tags:
+        - Countries
+      summary: Gets a single country by searching for ISO 3166-1 2-letter or 3-letter country code.
+      parameters:
+        - name: code
+          in: path
+          description: The ISO 3166-1 2-letter or 3-letter country code.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /v3.1/alpha:
+    get:
+      tags:
+        - Countries
+      summary: Search by list of ISO 3166-1 2-letter (CCA2), 3-letter (CCA3), 3-digit CCN3 or Olympic Comitee (CIOC) country code.
+      parameters:
+        - name: codes
+          in: query
+          description: The ISO 3166-1 2-letter or 3-letter country codes, separated by semi-colon or comma.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /v3.1/capital:
+    get:
+      tags:
+        - Countries
+      summary: Search by capital city.
+      parameters:
+        - name: capital
+          in: query
+          description: The (part of the) capital name to search for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /v3.1/currency:
+    get:
+      tags:
+        - Countries
+      summary: Search by currency.
+      parameters:
+        - name: currency
+          in: query
+          description: The currency to search for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /v3.1/independent:
+    get:
+      tags:
+        - Countries
+      summary: Search by capital city.
+      parameters:
+        - name: status
+          in: query
+          description: The status of inpendence, either {true} or {false}. If not defined it will be considered {true}.
+          schema:
+            type: string
+            default: 'true'
+      responses:
+        '200':
+          description: Success
+  /v3.1/region:
+    get:
+      tags:
+        - Countries
+      summary: Search by region.
+      parameters:
+        - name: region
+          in: query
+          description: The region name to search for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /v3.1/subregion:
+    get:
+      tags:
+        - Countries
+      summary: Search by subregion.
+      parameters:
+        - name: subregion
+          in: query
+          description: The subregion name to search for.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+components: {}

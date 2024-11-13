@@ -1,0 +1,185 @@
+openapi: 3.0.0
+info:
+  title: juice-shop
+  description: >-
+    URL: awesome OWASP Juice shop  
+
+    [https://juice-shop.herokuapp.com/](https://juice-shop.herokuapp.com/)  
+
+    Find the APIs endpoints and test the following scenarios:
+
+
+    Q1: Sign in the user, add 1 item to the basket, and verify that 1 item is in
+    the basket  
+
+    Q2: Same as the previous scenario but add 2 items instead of 1 to the
+    basket  
+
+    Q3: Same as the previous scenario but delete 1 item and validate that only 1
+    item remains in the basket
+
+
+    Author: Tony Nguyen  
+
+    Issue date: Sat 21 May 2022  
+
+    Complete date: Sun 22 May 2022
+
+
+    HOW TO RUN COLLECTION:
+
+
+    *   Run all collections:
+        *   1\. From the juice-shop collection > Click on the "View More Action" icon (...)
+        *   2\. Select "Run collection"
+        *   3\. At the Runner window, click on the "Run juice-shop" blue button
+    *   Run each small collection:
+        *   1\. Click on the small collection folder such as "Add 1 item to the basket and verify it in the basket"
+        *   2\. Click on the "Run" button
+        *   3\. At the Runner window, click on the "Run juice-shop" blue button
+  version: 1.0.0
+servers:
+  - url: https://juice-shop.herokuapp.com
+tags:
+  - name: Add 1 item to the basket and verify it in the basket
+  - name: Add 2 items to the basket and verify it in the basket
+  - name: Add 2 items then delete 1 item from the basket
+paths:
+  /api/Users/:
+    post:
+      tags:
+        - Add 2 items then delete 1 item from the basket
+      summary: createNewUser
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\"email\":\"{{_email}}\",\"password\":\"{{_password}}\",\"passwordRepeat\":\"{{_password}}\",\"securityQuestion\":{\"id\":7,\"question\":\"Name
+                of your favorite
+                pet?\",\"createdAt\":\"2022-05-20T17:09:53.991Z\",\"updatedAt\":\"2022-05-20T17:09:53.991Z\"},\"securityAnswer\":\"MIX
+                MIX\"}"
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json: {}
+  /rest/user/login:
+    post:
+      tags:
+        - Add 2 items then delete 1 item from the basket
+      summary: login
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: '"{\"email\":\"{{_email}}\",\"password\":\"{{_password}}\"}"'
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /rest/products/search:
+    get:
+      tags:
+        - Add 2 items then delete 1 item from the basket
+      summary: getAllProduct
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{_token}}'
+        - name: q
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/BasketItems/:
+    post:
+      tags:
+        - Add 2 items then delete 1 item from the basket
+      summary: AddSecondItemToBasket
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              example: >-
+                "{\"ProductId\":{{_product_2_id}},\"BasketId\":\"{{_bid}}\",\"quantity\":1}"
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{_token}}'
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json; charset=utf-8
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /rest/basket/{_bid}:
+    get:
+      tags:
+        - Add 2 items then delete 1 item from the basket
+      summary: Verify1ItemInBasket
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{_token}}'
+        - name: _bid
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/BasketItems/{_product_1_basket_id}:
+    delete:
+      tags:
+        - Add 2 items then delete 1 item from the basket
+      summary: deleteItemFromBasket
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: '{{_token}}'
+        - name: _product_1_basket_id
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

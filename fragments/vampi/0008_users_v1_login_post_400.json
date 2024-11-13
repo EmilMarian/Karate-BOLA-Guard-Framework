@@ -1,0 +1,51 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/users/v1/login",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "password": {
+              "example": "password123",
+              "type": "string"
+            },
+            "username": {
+              "example": "John.Doe",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "Username of the user",
+    "required": true
+  },
+  "responses": {
+    "400": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "message": {
+                "example": "Password is not correct for the given username.",
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "fail"
+                ],
+                "example": "fail",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Invalid request"
+    }
+  }
+}

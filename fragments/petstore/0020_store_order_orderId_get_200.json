@@ -1,0 +1,110 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "ID of order that needs to be fetched",
+      "in": "path",
+      "name": "orderId",
+      "required": true,
+      "schema": {
+        "format": "int64",
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/store/order/{orderId}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "complete": {
+                "type": "boolean"
+              },
+              "id": {
+                "example": 10,
+                "format": "int64",
+                "type": "integer"
+              },
+              "petId": {
+                "example": 198772,
+                "format": "int64",
+                "type": "integer"
+              },
+              "quantity": {
+                "example": 7,
+                "format": "int32",
+                "type": "integer"
+              },
+              "shipDate": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "status": {
+                "description": "Order Status",
+                "enum": [
+                  "placed",
+                  "approved",
+                  "delivered"
+                ],
+                "example": "approved",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "x-swagger-router-model": "io.swagger.petstore.model.Order",
+            "xml": {
+              "name": "order"
+            }
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "properties": {
+              "complete": {
+                "type": "boolean"
+              },
+              "id": {
+                "example": 10,
+                "format": "int64",
+                "type": "integer"
+              },
+              "petId": {
+                "example": 198772,
+                "format": "int64",
+                "type": "integer"
+              },
+              "quantity": {
+                "example": 7,
+                "format": "int32",
+                "type": "integer"
+              },
+              "shipDate": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "status": {
+                "description": "Order Status",
+                "enum": [
+                  "placed",
+                  "approved",
+                  "delivered"
+                ],
+                "example": "approved",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "x-swagger-router-model": "io.swagger.petstore.model.Order",
+            "xml": {
+              "name": "order"
+            }
+          }
+        }
+      },
+      "description": "successful operation"
+    }
+  }
+}

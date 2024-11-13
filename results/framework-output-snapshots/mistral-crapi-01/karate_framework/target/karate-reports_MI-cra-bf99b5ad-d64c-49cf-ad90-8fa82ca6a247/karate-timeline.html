@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Karate Timeline</title>
+    <style>
+      body, html { font-family: arial, sans-serif; font-size: 11pt; }
+      #visualization { box-sizing: border-box; width: 100%; height: 300px; }
+      .vis-item.failed { background-color: #F2928C; }
+      .page-heading { padding: 0.5em; margin-bottom: 0.5em; background-color: lightcyan; border: 1px solid gray; }
+    </style>
+    <script src="res/vis.min.js"></script>
+    <link href="res/vis.min.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div class="page-heading">
+      <a href="karate-summary.html">Summary</a>
+    </div>     
+    <div id="visualization"></div>
+    <script>
+var groups = [{"content":"main","id":1}];
+var items = [{"id":1,"group":1,"content":"ID_001_krtestcra_identity_api_auth_signup_POST_verified[1:2]","start":1731477368151,"end":1731477368215,"title":"ID_001_krtestcra_identity_api_auth_signup_POST_verified[1:2] 05:56:08.151-05:56:08.215 Verify that the signup process does not allow account enumeration","className":"failed"},{"id":2,"group":1,"content":"ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified[1:2]","start":1731477368801,"end":1731477369016,"title":"ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified[1:2] 05:56:08.801-05:56:09.016 Attempt to contact a mechanic without proper authentication","className":"failed"},{"id":3,"group":1,"content":"ID_003_krtestcra_identity_api_auth_verify_POST_verified[1:2]","start":1731477369113,"end":1731477369145,"title":"ID_003_krtestcra_identity_api_auth_verify_POST_verified[1:2] 05:56:09.113-05:56:09.145 Verify that the \/identity\/api\/auth\/verify endpoint requires a valid token","className":"failed"}];
+</script>
+    <script>
+      var container = document.getElementById('visualization');
+      var timeline = new vis.Timeline(container);
+      timeline.setOptions({groupOrder: 'content'});
+      timeline.setGroups(new vis.DataSet(groups));
+      timeline.setItems(new vis.DataSet(items));
+    </script>
+  </body>
+</html>

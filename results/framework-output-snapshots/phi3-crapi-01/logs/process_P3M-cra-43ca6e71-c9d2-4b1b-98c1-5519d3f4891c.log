@@ -1,0 +1,243 @@
+2024-11-13 11:18:30,214 - __main__ - INFO - Skipping fragment creation: False
+2024-11-13 11:18:30,283 - __main__ - DEBUG - Starting fragment retrieval process.
+2024-11-13 11:18:30,520 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/identity/api/auth/signup", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"name\\\\\\":\\\\\\"{{name}}\\\\\\",\\\\\\"email\\\\\\":\\\\\\"{{email}}\\\\\\",\\\\\\"number\\\\\\":\\\\\\"{{phone}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_identity_api_auth_signup_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtb25zdGVyQGRhcmt3ZWIuY29tIiwiaWF0IjoxNjA4NTQzODI0LCJleHAiOjE2MDg2MzAyMjR9.AAIvhrtstlloPf7-NNCcmhEZm-XkO1aO3x3CLns1em7ft9U77B88LpK9jIrF8C-IH32JPWVazRFo0gBIBZ9FpA", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/workshop/api/merchant/contact_mechanic", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\r\\\\n    \\\\\\"mechanic_code\\\\\\": \\\\\\"TRAC_JHN\\\\\\",\\\\r\\\\n    \\\\\\"problem_details\\\\\\": \\\\\\"Hi Jhon\\\\\\",\\\\r\\\\n    \\\\\\"vin\\\\\\": \\\\\\"{{VIN}}\\\\\\",\\\\r\\\\n    \\\\\\"mechanic_api\\\\\\": \\\\\\"{{url}}/workshop/api/mechanic/receive_report\\\\\\",\\\\r\\\\n    \\\\\\"repeat_request_if_failed\\\\\\": false,\\\\r\\\\n    \\\\\\"number_of_repeats\\\\\\": 1\\\\r\\\\n}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0019_workshop_api_merchant_contact_mechanic_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/identity/api/auth/verify", "requestBody": {"content": {"application/json": {"schema": {"example": {"token": "{{token}}"}, "type": "object"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0003_identity_api_auth_verify_post_200.json'}}]
+2024-11-13 11:18:30,521 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 11:18:30,522 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 11:18:30,963 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 11:18:30,964 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 11:18:38,996 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 11:18:38,997 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+Feature: Broken Authentication/Authorization Testing for /identity/api/auth/signup Endpoint
+...
+2024-11-13 11:18:38,998 - __main__ - INFO - Generated Karate test for /identity/api/auth/signup POST at output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature
+2024-11-13 11:18:38,998 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 11:18:38,999 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization Testing for /identity/api/auth/signup Endpoint
+  Background:
+    Given url = 'http://192.168.1.112:8888/identity/api/auth/signup'
+    
+  Scenario Outline: Verify that the endpoint does not reveal sensitive information in error messages or responses, indicating potential Broken Authentication/Authorization vulnerabilities
+    Examples to test: |
+      { "username": "<valid_user>", "password": "<correct_password>", "email": "<test@example.com>" } # Valid credentials for testing purposes only (do not use real user data)
+      
+  Scenario Steps Outline: Attempt signup with valid and invalid credentials to check error messages/responses
+    * Given url = 'http://1jsfjksdfknsd.test' // Placeholder URL, replace it in actual test executions
+      And request { username: '<username>', password: '<password>', email: '<email>' }
+      
+      When method post
+      
+      Then status should be 200 or error message does not contain sensitive information like 'user found' and/or 'authentication failed due to invalid credentials' // Expect a successful response for valid input, but no specific user-related details in the case of failure.
+```
+2024-11-13 11:19:04,523 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 11:19:04,523 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization Testing for /identity/api/auth/signup Endpoint
+  Background:
+    Given url = 'http://192.168.1.112:8888/identity/api/auth/signup'
+    
+Scenario Outline: Verify that the endpoint does not reveal sensitive information in error messages or responses, indicating potential Broken Authentication/Authorization vulnerabilities
+  Examples to test: |
+    { "username": "<valid_user>", "password": "<correct_password>", "email": "<test@example.com>" } // Valid credentials for testing purposes only (do not use real user data)
+    
+Scenario Steps Outline: Attempt signup with valid and invalid credentials to check error messages/responses
+  * Given url = 'http://192[![Broken Auth](/images/broken_auth.png)](https://www.owasp.org/images/5x/5fb0a637-d48b-4fbc-bae4-cddacdfefebab_broken_auth.jpg)'
+    And request { username: '<username>', password: '<password>', email: '<email>' }
+    
+    * When method post
+      
+      Then status should be 200 or error message does not contain sensitive information like 'user found' and/invoke[s] 'authentication failed due to invalid credentials' // Expect a successful response for valid input, but no specific user-related details in the case of failure.
+```
+2024-11-13 11:19:29,732 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 11:19:29,732 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization Testing for /identity/api/auth/signup Endpoint
+  Background:
+    Given url = 'http://192.168.1.112:8888/identity/api/auth/signup'
+    
+Scenario Outline: Verify that the endpoint does not reveal sensitive information in error messages or responses, indicating potential Broken Authentication/Authorization vulnerabilities
+  Examples to test: |
+    { "username": "<valid_user>", "password": "<correct_password>", "email": "<test@example.com>" } // Valid credentials for testing purposes only (do not use real user data)
+    
+Scenario Steps Outline: Attempt signup with valid and invalid credentials to check error messages/responses
+  * Given url = 'http://192.168.1.112:8888/identity/api/auth/signup'
+    And request { username: '<username>', password: '<password>', email: '<email>' }
+    
+    * When method post
+      
+      Then status should be 403 or error message does not contain sensitive information like 'user found'. Expect a generic response such as "Authentication failed due to invalid credentials" for both valid and invalid inputs.
+```
+2024-11-13 11:19:29,732 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature
+2024-11-13 11:19:29,733 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature: ```yaml
+Feature: Broken Authentication/Authorization Testing for /identity/api/auth/signup Endpoint
+  Background:
+    Given url = 'http://192.168.1.112:8888/identity/api/auth/signup'
+    
+Scenario Outline: Verify that the endpoint does not reveal sensitive information in error messages or responses, indicating potential Broken Authentication/Authorization vulnerabilities
+  Examples to test: |
+    { "username": "<valid_user>", "password": "<correct_password>", "email": "<test@example.com>" } // Valid credentials for testing purposes only (do not use real user data)
+    
+Scenario Steps Outline: Attempt signup with valid and invalid credentials to check error messages/responses
+  * Given url = 'http://192.168.1.112:8888/identity/api/auth/signup'
+    And request { username: '<username>', password: '<password>', email: '<email>' }
+    
+    * When method post
+      
+      Then status should be 403 or error message does not contain sensitive information like 'user found'. Expect a generic response such as "Authentication failed due to invalid credentials" for both valid and invalid inputs.
+```
+2024-11-13 11:19:29,733 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 11:19:29,734 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 11:19:29,757 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 11:19:29,758 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 11:19:52,943 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 11:19:52,944 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Test API for Broken Authentication/Authorization on Contacting a Mechanic",
+  "scena...
+2024-11-13 11:19:52,945 - __main__ - INFO - Generated Karate test for /workshop/api/merchant/contact_mechanic POST at output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature
+2024-11-13 11:19:52,946 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 11:19:52,946 - karate_compatibility_verifier - INFO - {
+  "feature": "Test API for Broken Authentication/Authorization on Contacting a Mechanic",
+  "scenario": "Attempt to contact mechanic without proper authentication or authorization",
+  "steps": [
+    "Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'",
+    "And header Authorization = ''" , // Assuming no authentication is required, but this step checks for missing auth headers as a potential vulnerability
+    "When method post with body { 'requestedMechanicId': 12345 }",
+    "Then status should be between 400 and 600 (HTTP error codes indicating bad request or unauthorized access)",
+    "* def authStatus = callonce read('classpath:helpers/authCheck.feature')," +
+    "* switch authStatus.statusCode", // Assuming a helper function that checks for authentication status code errors in the response
+    "  case 401:\\",
+    "    * fail 'Unauthorized access detected, but no specific error message provided.'\\",
+    "  case 403:\\",
+    "    * assert authStatus.response contains 'Access Denied' or similar unauthorization message\\"
+  ]
+}
+2024-11-13 11:20:10,668 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 11:20:10,669 - karate_compatibility_verifier - INFO - Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And header Authorization = ''
+When method post with body { 'requestedMechanicId': 12345 }
+Then status is between 400 and 600
+2024-11-13 11:20:12,366 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 11:20:12,366 - karate_compatibility_verifier - INFO - Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And header Authorization = ''
+When method post with body { "requestedMechanicId": 12345 }
+Then status is between 400 and 600
+2024-11-13 11:20:12,366 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified.feature
+2024-11-13 11:20:12,367 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature: Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And header Authorization = ''
+When method post with body { "requestedMechanicId": 12345 }
+Then status is between 400 and 600
+2024-11-13 11:20:12,367 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 11:20:12,368 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 11:20:12,386 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 11:20:12,387 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 11:20:23,851 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 11:20:23,852 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: Security Test for Broken Authentication/Authorization on /identity/api/auth/verify ...
+2024-11-13 11:20:23,852 - __main__ - INFO - Generated Karate test for /identity/api/auth/verify POST at output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST.feature
+2024-11-13 11:20:23,853 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 11:20:23,853 - karate_compatibility_verifier - INFO - ```yaml
+feature: Security Test for Broken Authentication/Authorization on /identity/api/auth/verify Endpoint
+  scenario: Verify that the authentication endpoint does not allow unauthorized access or enumeration of valid credentials
+    given url 'http://192.168.1.112:8888/identity/api/auth/verify'
+    
+    # Attempt to authenticate with a non-existent user and invalid password, expecting an unauthorized response or error message that does not reveal sensitive information
+    when request { username: 'non_user', password: 'wrongpassword123!' }
+    then status 401 # Assuming the API returns HTTP 401 Unauthorized for failed authentication attempts, but this should be verified with actual response data from your application. Adjust based on real behavior and expected error messages to ensure sensitive information is not disclosed in responses.
+    
+    // Attempting a valid user-credential pair that does not exist (to test if the API responds differently for known vs unknown users)
+    when request { username: 'existing_user', password: 'wrongpassword123!' } # Replace with an actual existing but non-authenticated user to avoid security risks. This step should be handled carefully in a real environment, ensuring no sensitive data is exposed or used maliciously.
+    then status 401 // Expecting the same unauthorized response as above; however, ensure that this does not disclose any information about valid credentials through error messages. Adjust based on actual API behavior and compliance with security best practices.
+    
+    # Additional steps can be added to further test for vulnerabilities such as:
+    // Checking if the endpoint responds differently when using a known but non-authenticated user's details, which could indicate potential information leakage or enumeration issues. This step should also adhere strictly to security best practices and ethical guidelines in testing environments.
+```
+2024-11-13 11:21:19,653 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 11:21:19,653 - karate_compatibility_verifier - INFO - ```yaml
+feature: Security Test for Broken Authentication/Authorization on /identity/api/auth/verify Endpoint
+  scenario: Verify that the authentication endpoint does not allow unautzrized access or enumeration of valid credentials
+    given url 'http://192.168.1.112:8888/identity/api/auth/verify'
+    
+    # Attempt to authenticate with a non-existent user and invalid password, expecting an unauthorized response or error message that does not reveal sensitive information
+    when request { username: 'non_user', password: 'wrongpassword123!' }
+    then status 401 // Assuming the API returns HTTP 401 Unauthorized for failed authentication attempts, but this should be verified with actual response data from your application. Adjust based on real behavior and expected error messages to ensure sensitive information is not disclosed in responses.
+    
+    when request { username: 'existing_user', password: 'wrongpassword123!' } // Replace with an existing but non-authenticated user's details for testing purposes, ensuring no actual credentials are used or exposed during the test execution to maintain security compliance and ethical standards.
+    then status 401 // Expecting a similar unauthorized response as above; however, ensure that this does not disclose any information about valid credentials through error messages by adjusting based on your API's actual behavior while adhering strictly to best practices for security and compliance testing.
+    
+    // Additional steps can be added here following the same guidelines: verifying no sensitive data is disclosed, ensuring ethical standards are maintained in a controlled test environment. For example, checking if there's any difference in response when using known but non-authenticated user details to identify potential information leakage or enumeration vulnerabilities while strictly adhering to security best practices and compliance requirements.
+```
+2024-11-13 11:22:05,411 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 11:22:05,411 - karate_compatibility_verifier - INFO - ```yaml
+feature: Security Test for Broken Authentication/Authorization on /identity/api/auth/verify Endpoint
+  scenario: Verify that the authentication endpoint does not allow unauthorized access or enumeration of valid credentials
+    given url 'http://192.168.1.112:8888/identity/api/auth/verify'
+    
+    # Attempt to authenticate with a non-existent user and invalid password, expecting an unauthorized response without revealing sensitive information
+    when request { username: 'non_user', password: 'wrongpassword123!' }
+    then status 401 // Assuming the API returns HTTP 401 Unauthorized for failed authentication attempts. Adjust based on actual behavior to ensure no disclosure of valid credentials in error messages, maintaining security compliance and ethical standards.
+    
+    when request { username: 'existing_user', password: 'wrongpassword123!' } // Replace with a non-authenticated user's details for testing purposes without exposing actual credentials to uphold best practices in security and compliance testing. Expect an unauthorized response, ensuring no sensitive information is disclosed through error messages by adjusting based on your API's behavior while adhering strictly to ethical standards.
+    
+    # Additional steps can be added here following the same guidelines: verifying that there's no potential for information leakage or enumeration vulnerabilities, ensuring all actions are performed within a controlled test environment and in line with security best practices and compliance requirements. For instance, testing different invalid credentials to check if any patterns emerge without using real user data can help identify weaknesses while maintaining ethical standards.
+```
+2024-11-13 11:22:05,412 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature
+2024-11-13 11:22:05,412 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST.feature: ```yaml
+feature: Security Test for Broken Authentication/Authorization on /identity/api/auth/verify Endpoint
+  scenario: Verify that the authentication endpoint does not allow unauthorized access or enumeration of valid credentials
+    given url 'http://192.168.1.112:8888/identity/api/auth/verify'
+    
+    # Attempt to authenticate with a non-existent user and invalid password, expecting an unauthorized response without revealing sensitive information
+    when request { username: 'non_user', password: 'wrongpassword123!' }
+    then status 401 // Assuming the API returns HTTP 401 Unauthorized for failed authentication attempts. Adjust based on actual behavior to ensure no disclosure of valid credentials in error messages, maintaining security compliance and ethical standards.
+    
+    when request { username: 'existing_user', password: 'wrongpassword123!' } // Replace with a non-authenticated user's details for testing purposes without exposing actual credentials to uphold best practices in security and compliance testing. Expect an unauthorized response, ensuring no sensitive information is disclosed through error messages by adjusting based on your API's behavior while adhering strictly to ethical standards.
+    
+    # Additional steps can be added here following the same guidelines: verifying that there's no potential for information leakage or enumeration vulnerabilities, ensuring all actions are performed within a controlled test environment and in line with security best practices and compliance requirements. For instance, testing different invalid credentials to check if any patterns emerge without using real user data can help identify weaknesses while maintaining ethical standards.
+```
+2024-11-13 11:22:05,412 - __main__ - INFO - Moving generated Karate feature files...
+2024-11-13 11:22:05,413 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2024-11-13 11:22:07,620 - karate_test_framework - INFO - Starting to move Karate feature files...
+2024-11-13 11:22:07,620 - karate_test_framework - INFO - Removed ID_003_krtestvam_users_v1_login_POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:22:07,620 - karate_test_framework - INFO - Removed ID_002_krtestvam_users_v1_login_POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:22:07,621 - karate_test_framework - INFO - Removed ID_001_krtestvam_users_v1_register_POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:22:07,621 - karate_test_framework - INFO - Moved ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:22:07,621 - karate_test_framework - INFO - Moved ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:22:07,621 - karate_test_framework - INFO - Moved ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 11:22:07,621 - karate_test_framework - INFO - Finished moving Karate feature files.
+2024-11-13 11:22:07,621 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 11:22:07,621 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 11:22:40,509 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 11:22:50,322 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_P3M-cra-43ca6e71-c9d2-4b1b-98c1-5519d3f4891c/docker_run_logs_P3M-cra-43ca6e71-c9d2-4b1b-98c1-5519d3f4891c.txt
+2024-11-13 11:22:50,322 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_P3M-cra-43ca6e71-c9d2-4b1b-98c1-5519d3f4891c
+2024-11-13 11:22:50,599 - karate_test_framework - INFO - Starting iteration 1 of 3
+2024-11-13 11:22:50,599 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 11:22:54,641 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 11:23:03,403 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_P3M-cra-43ca6e71-c9d2-4b1b-98c1-5519d3f4891c/docker_run_logs_P3M-cra-43ca6e71-c9d2-4b1b-98c1-5519d3f4891c.txt
+2024-11-13 11:23:03,403 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_P3M-cra-43ca6e71-c9d2-4b1b-98c1-5519d3f4891c
+2024-11-13 11:23:04,205 - karate_test_framework - INFO - All tests passed in iteration 1. Exiting loop.
+2024-11-13 11:23:04,206 - karate_test_framework - INFO - Opening final test report...
+2024-11-13 11:23:04,206 - karate_test_framework - ERROR - Test report not found. Make sure tests have been run.

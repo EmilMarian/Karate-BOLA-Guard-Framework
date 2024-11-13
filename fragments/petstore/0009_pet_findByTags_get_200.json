@@ -1,0 +1,153 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Tags to filter by",
+      "explode": true,
+      "in": "query",
+      "name": "tags",
+      "required": false,
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      }
+    }
+  ],
+  "path": "/pet/findByTags",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "category": {
+                  "$ref": "#/components/schemas/Category"
+                },
+                "id": {
+                  "example": 10,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "name": {
+                  "example": "doggie",
+                  "type": "string"
+                },
+                "photoUrls": {
+                  "items": {
+                    "type": "string",
+                    "xml": {
+                      "name": "photoUrl"
+                    }
+                  },
+                  "type": "array",
+                  "xml": {
+                    "wrapped": true
+                  }
+                },
+                "status": {
+                  "description": "pet status in the store",
+                  "enum": [
+                    "available",
+                    "pending",
+                    "sold"
+                  ],
+                  "type": "string"
+                },
+                "tags": {
+                  "items": {
+                    "$ref": "#/components/schemas/Tag",
+                    "xml": {
+                      "name": "tag"
+                    }
+                  },
+                  "type": "array",
+                  "xml": {
+                    "wrapped": true
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "photoUrls"
+              ],
+              "type": "object",
+              "x-swagger-router-model": "io.swagger.petstore.model.Pet",
+              "xml": {
+                "name": "pet"
+              }
+            },
+            "type": "array"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "items": {
+              "properties": {
+                "category": {
+                  "$ref": "#/components/schemas/Category"
+                },
+                "id": {
+                  "example": 10,
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "name": {
+                  "example": "doggie",
+                  "type": "string"
+                },
+                "photoUrls": {
+                  "items": {
+                    "type": "string",
+                    "xml": {
+                      "name": "photoUrl"
+                    }
+                  },
+                  "type": "array",
+                  "xml": {
+                    "wrapped": true
+                  }
+                },
+                "status": {
+                  "description": "pet status in the store",
+                  "enum": [
+                    "available",
+                    "pending",
+                    "sold"
+                  ],
+                  "type": "string"
+                },
+                "tags": {
+                  "items": {
+                    "$ref": "#/components/schemas/Tag",
+                    "xml": {
+                      "name": "tag"
+                    }
+                  },
+                  "type": "array",
+                  "xml": {
+                    "wrapped": true
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "photoUrls"
+              ],
+              "type": "object",
+              "x-swagger-router-model": "io.swagger.petstore.model.Pet",
+              "xml": {
+                "name": "pet"
+              }
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "successful operation"
+    }
+  }
+}

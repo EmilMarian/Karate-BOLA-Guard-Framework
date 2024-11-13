@@ -1,0 +1,404 @@
+2024-11-13 06:24:26,119 - __main__ - INFO - Skipping fragment creation: False
+2024-11-13 06:24:26,185 - __main__ - DEBUG - Starting fragment retrieval process.
+2024-11-13 06:24:26,450 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/identity/api/auth/signup", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"name\\\\\\":\\\\\\"{{name}}\\\\\\",\\\\\\"email\\\\\\":\\\\\\"{{email}}\\\\\\",\\\\\\"number\\\\\\":\\\\\\"{{phone}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_identity_api_auth_signup_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtb25zdGVyQGRhcmt3ZWIuY29tIiwiaWF0IjoxNjA4NTQzODI0LCJleHAiOjE2MDg2MzAyMjR9.AAIvhrtstlloPf7-NNCcmhEZm-XkO1aO3x3CLns1em7ft9U77B88LpK9jIrF8C-IH32JPWVazRFo0gBIBZ9FpA", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/workshop/api/merchant/contact_mechanic", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\r\\\\n    \\\\\\"mechanic_code\\\\\\": \\\\\\"TRAC_JHN\\\\\\",\\\\r\\\\n    \\\\\\"problem_details\\\\\\": \\\\\\"Hi Jhon\\\\\\",\\\\r\\\\n    \\\\\\"vin\\\\\\": \\\\\\"{{VIN}}\\\\\\",\\\\r\\\\n    \\\\\\"mechanic_api\\\\\\": \\\\\\"{{url}}/workshop/api/mechanic/receive_report\\\\\\",\\\\r\\\\n    \\\\\\"repeat_request_if_failed\\\\\\": false,\\\\r\\\\n    \\\\\\"number_of_repeats\\\\\\": 1\\\\r\\\\n}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0019_workshop_api_merchant_contact_mechanic_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/identity/api/auth/verify", "requestBody": {"content": {"application/json": {"schema": {"example": {"token": "{{token}}"}, "type": "object"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0003_identity_api_auth_verify_post_200.json'}}]
+2024-11-13 06:24:26,451 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:24:26,451 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:24:26,866 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 06:24:26,867 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 06:24:37,103 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 06:24:37,104 - karate_llm_test_gen - INFO - Generated test case: Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerab...
+2024-11-13 06:24:37,105 - __main__ - INFO - Generated Karate test for /identity/api/auth/signup POST at output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature
+2024-11-13 06:24:37,105 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 06:24:37,105 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/identity/api/auth/signup` endpoint:
+```kotlin
+Feature: Test API for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the signup process does not allow account enumeration
+    Given url http://192.168.1.112:3133/identity/api/auth/signup
+    And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+    When method post
+    Then status 400
+    And match response contains 'Invalid grant: username already exists.'
+```
+This scenario checks for Broken Authentication/Authorization vulnerabilities by attempting to sign up with an existing user's credentials and verifying that the application responds with a `400 Bad Request` error message indicating that the username is invalid. This indicates that the application does not allow account enumeration, which can help prevent attackers from discovering valid usernames through brute-force attacks or other means.
+2024-11-13 06:25:20,817 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 06:25:20,817 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test API for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the signup process does not allow account enumeration
+    Given url http://192.168.1.112:3133/identity/api/auth/signup
+    And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+    When method post
+    Then status 400
+    And match response contains 'Invalid grant: username already exists.'
+```
+2024-11-13 06:25:33,665 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 06:25:33,665 - karate_compatibility_verifier - INFO - This is the corrected Karate DSL script:
+```kotlin
+Feature: Test API for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the signup process does not allow account enumeration
+    Given url http://192.168.1.112:3133/identity/api/auth/signup
+    And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+    When method post
+    Then status 400
+    And match response contains 'Invalid grant: username already exists.'
+```
+2024-11-13 06:25:33,666 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature
+2024-11-13 06:25:33,666 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature: This is the corrected Karate DSL script:
+```kotlin
+Feature: Test API for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the signup process does not allow account enumeration
+    Given url http://192.168.1.112:3133/identity/api/auth/signup
+    And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+    When method post
+    Then status 400
+    And match response contains 'Invalid grant: username already exists.'
+```
+2024-11-13 06:25:33,666 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:25:33,667 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:25:33,688 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 06:25:33,689 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 06:26:07,740 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 06:26:07,740 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2024-11-13 06:26:07,741 - __main__ - INFO - Generated Karate test for /workshop/api/merchant/contact_mechanic POST at output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature
+2024-11-13 06:26:07,741 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 06:26:07,741 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic` using POST method:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Contact Mechanic API Endpoint
+  Scenario: Attempt to contact a mechanic without proper authentication
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 401
+  And match response contains "Unauthorized"
+  
+  Scenario: Attempt to contact a mechanic with invalid authentication credentials
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 401
+  And match response contains "Invalid token"
+  
+  Scenario: Attempt to contact a mechanic with valid authentication credentials but without proper authorization
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 403
+  And match response contains "Forbidden"
+  
+  Scenario: Attempt to contact a mechanic with valid authentication credentials and proper authorization
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 200
+  And match response contains "Message sent successfully"
+```
+Note: The above test script assumes that the API endpoint requires authentication using a token, and that there are different levels of authorization required to perform certain actions. You may need to modify the script based on your specific requirements and implementation details.
+2024-11-13 06:30:22,873 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 06:30:22,874 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Contact Mechanic API Endpoint
+  Scenario: Attempt to contact a mechanic without proper authentication
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 401
+  And match response contains "Unauthorized"
+  
+  Scenario: Attempt to contact a mechanic with invalid authentication credentials
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 401
+  And match response contains "Invalid token"
+  
+  Scenario: Attempt to contact a mechanic with valid authentication credentials but without proper authorization
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 403
+  And match response contains "Forbidden"
+  
+  Scenario: Attempt to contact a mechanic with valid authentication credentials and proper authorization
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 200
+  And match response contains "Message sent successfully"
+```
+2024-11-13 06:33:26,131 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 06:33:26,131 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Contact Mechanic API Endpoint
+  Scenario: Attempt to contact a mechanic without proper authentication
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 401
+  And match response contains "Unauthorized"
+  
+  Scenario: Attempt to contact a mechanic with invalid authentication credentials
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 401
+  And match response contains "Invalid token"
+  
+  Scenario: Attempt to contact a mechanic with valid authentication credentials but without proper authorization
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 403
+  And match response contains "Forbidden"
+  
+  Scenario: Attempt to contact a mechanic with valid authentication credentials and proper authorization
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 200
+  And match response contains "Message sent successfully"
+```
+2024-11-13 06:33:26,132 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified.feature
+2024-11-13 06:33:26,132 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature: The corrected Karate DSL script is:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Contact Mechanic API Endpoint
+  Scenario: Attempt to contact a mechanic without proper authentication
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 401
+  And match response contains "Unauthorized"
+  
+  Scenario: Attempt to contact a mechanic with invalid authentication credentials
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 401
+  And match response contains "Invalid token"
+  
+  Scenario: Attempt to contact a mechanic with valid authentication credentials but without proper authorization
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 403
+  And match response contains "Forbidden"
+  
+  Scenario: Attempt to contact a mechanic with valid authentication credentials and proper authorization
+    Given url http://192.168.1.112:3133/workshop/api/merchant/contact_mechanic
+    And request {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-555-5555"
+    }
+  When method post
+  Then status code is 200
+  And match response contains "Message sent successfully"
+```
+2024-11-13 06:33:26,132 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:33:26,133 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2024-11-13 06:33:26,153 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2024-11-13 06:33:26,154 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.106:4893/v1/chat/completions
+2024-11-13 06:36:22,064 - karate_llm_test_gen - INFO - Response status code: 200
+2024-11-13 06:36:22,064 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2024-11-13 06:36:22,065 - __main__ - INFO - Generated Karate test for /identity/api/auth/verify POST at output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST.feature
+2024-11-13 06:36:22,066 - karate_compatibility_verifier - INFO - Original content:
+2024-11-13 06:36:22,066 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/identity/api/auth/verify` endpoint:
+```kotlin
+Feature: Verify authentication and authorization
+  Scenario: Verify that the /identity/api/auth/verify endpoint requires a valid token
+    Given url http://192.168.1.112:3133/identity/api/auth/verify
+    And request { "token": "invalid_token" }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+    
+  Scenario: Verify that the /identity/api/auth/verify endpoint returns an error message when token is invalid
+    Given url http://192.168.1.112:3133/identity/api/auth/verify
+    And request { "token": "invalid_token" }
+    When method post
+    Then status 401
+    And match response contains "Invalid token"
+```
+This script checks for two scenarios, the first one verifies that the `/identity/api/auth/verify` endpoint requires a valid token by sending an invalid token and checking if the response is a 401 Unauthorized status. The second scenario verifies that the endpoint returns an error message when the token is invalid by sending an invalid token and checking if the response contains the "Invalid token" message.
+2024-11-13 06:37:32,259 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2024-11-13 06:37:32,259 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Verify authentication and authorization
+  Scenario: Verify that the /identity/api/auth/verify endpoint requires a valid token
+    Given url http://192.168.1.112:3133/identity/api/auth/verify
+    And request { "token": "invalid_token" }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+    
+  Scenario: Verify that the /identity/api/auth/verify endpoint returns an error message when token is invalid
+    Given url http://192.168.1.112:3133/identity/api/auth/verify
+    And request { "token": "invalid_token" }
+    When method post
+    Then status 401
+    And match response contains "Invalid token"
+```
+2024-11-13 06:38:01,354 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2024-11-13 06:38:01,354 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is:
+```kotlin
+Feature: Verify authentication and authorization
+  Scenario: Verify that the /identity/api/auth/verify endpoint requires a valid token
+    Given url http://192.168.1.112:3133/identity/api/auth/verify
+    And request { "token": "invalid_token" }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+    
+  Scenario: Verify that the /identity/api/auth/verify endpoint returns an error message when token is invalid
+    Given url http://192.168.1.112:3133/identity/api/auth/verify
+    And request { "token": "invalid_token" }
+    When method post
+    Then status 401
+    And match response contains "Invalid token"
+```
+2024-11-13 06:38:01,354 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature
+2024-11-13 06:38:01,354 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST.feature: The corrected Karate DSL script is:
+```kotlin
+Feature: Verify authentication and authorization
+  Scenario: Verify that the /identity/api/auth/verify endpoint requires a valid token
+    Given url http://192.168.1.112:3133/identity/api/auth/verify
+    And request { "token": "invalid_token" }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+    
+  Scenario: Verify that the /identity/api/auth/verify endpoint returns an error message when token is invalid
+    Given url http://192.168.1.112:3133/identity/api/auth/verify
+    And request { "token": "invalid_token" }
+    When method post
+    Then status 401
+    And match response contains "Invalid token"
+```
+2024-11-13 06:38:01,355 - __main__ - INFO - Moving generated Karate feature files...
+2024-11-13 06:38:01,357 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2024-11-13 06:38:04,145 - karate_test_framework - INFO - Starting to move Karate feature files...
+2024-11-13 06:38:04,145 - karate_test_framework - INFO - Removed ID_002_krtestjui_rest_user_login_POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 06:38:04,145 - karate_test_framework - INFO - Removed ID_001_krtestjui_api_Users__POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 06:38:04,145 - karate_test_framework - INFO - Removed ID_003_krtestjui_api_BasketItems__POST_verified.feature from ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 06:38:04,145 - karate_test_framework - INFO - Moved ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 06:38:04,145 - karate_test_framework - INFO - Moved ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 06:38:04,145 - karate_test_framework - INFO - Moved ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature to ./output/karate_framework/bolatestingframework/src/test/resources
+2024-11-13 06:38:04,145 - karate_test_framework - INFO - Finished moving Karate feature files.
+2024-11-13 06:38:04,145 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 06:38:04,146 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 06:38:43,568 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 06:39:00,333 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b/docker_run_logs_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b.txt
+2024-11-13 06:39:00,333 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b
+2024-11-13 06:39:00,617 - karate_test_framework - INFO - Starting iteration 1 of 3
+2024-11-13 06:39:00,618 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 06:39:04,728 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 06:39:13,041 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b/docker_run_logs_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b.txt
+2024-11-13 06:39:13,041 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b
+2024-11-13 06:39:13,713 - karate_test_framework - INFO - Rewriting 1 broken tests in iteration 1
+2024-11-13 06:39:13,765 - karate_test_framework - INFO - errors found: [('verified', "mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>"), ('verified', "mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>, mismatched input 'd' expecting <EOF>"), ('verified', "mismatched input '}' expecting <EOF>, mismatched input '}' expecting <EOF>, mismatched input '}' expecting <EOF>, mismatched input '}' expecting <EOF>")]
+2024-11-13 06:39:30,813 - karate_test_framework - INFO - Updated test script: ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature
+2024-11-13 06:39:30,813 - karate_test_framework - INFO - Starting iteration 2 of 3
+2024-11-13 06:39:30,813 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 06:40:07,621 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 06:40:16,649 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b/docker_run_logs_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b.txt
+2024-11-13 06:40:16,649 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b
+2024-11-13 06:40:17,316 - karate_test_framework - INFO - Rewriting 1 broken tests in iteration 2
+2024-11-13 06:40:17,363 - karate_test_framework - INFO - errors found: [('verified', "mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>"), ('verified', "mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>"), ('failed', "mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>")]
+2024-11-13 06:40:34,342 - karate_test_framework - INFO - Updated test script: ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature
+2024-11-13 06:40:34,343 - karate_test_framework - INFO - Starting iteration 3 of 3
+2024-11-13 06:40:34,343 - karate_test_framework - INFO - Building Docker image...
+2024-11-13 06:40:38,796 - karate_test_framework - INFO - Running Karate tests in Docker...
+2024-11-13 06:40:48,126 - karate_test_framework - INFO - Docker run logs saved to: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b/docker_run_logs_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b.txt
+2024-11-13 06:40:48,126 - karate_test_framework - INFO - Test reports are available in: /home/mango/Desktop/2024/1104/karate-bola-guard/output/karate_framework/target/karate-reports_MI-cra-1a05132d-b9ec-45f3-8e43-085fe0c9cf8b
+2024-11-13 06:40:48,743 - karate_test_framework - INFO - Rewriting 1 broken tests in iteration 3
+2024-11-13 06:40:48,796 - karate_test_framework - INFO - errors found: [('verified', "mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>, mismatched input 'u' expecting <EOF>"), ('verified', "mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>"), ('failed', "mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>, mismatched input '`' expecting <EOF>")]
+2024-11-13 06:41:06,194 - karate_test_framework - INFO - Updated test script: ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature
+2024-11-13 06:41:06,194 - karate_test_framework - ERROR - Reached maximum iterations (3). Some tests may still be failing.
+2024-11-13 06:41:06,194 - karate_test_framework - INFO - Opening final test report...
+2024-11-13 06:41:06,194 - karate_test_framework - ERROR - Test report not found. Make sure tests have been run.

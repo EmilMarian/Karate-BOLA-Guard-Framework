@@ -1,0 +1,62 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "ID of pet to update",
+      "in": "path",
+      "name": "petId",
+      "required": true,
+      "schema": {
+        "format": "int64",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Additional Metadata",
+      "in": "query",
+      "name": "additionalMetadata",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/pet/{petId}/uploadImage",
+  "requestBody": {
+    "content": {
+      "application/octet-stream": {
+        "schema": {
+          "format": "binary",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "code": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "message": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "xml": {
+              "name": "##default"
+            }
+          }
+        }
+      },
+      "description": "successful operation"
+    }
+  }
+}
