@@ -15,12 +15,3 @@ We used Langfuse for LLM observability. A few snapshots were generated and can b
 ## Raw Framework and Test Run Logs
 
 If you wish to inspect the process from start to finish, we've also included a few raw logs from the framework that were gathered during our experiments (`raw-process-logs` directory). Additionally, the test run logs (`raw-test-run-docker-logs`) are available, where you can observe the most common causes of test run failures.
-
----
-
-Key changes:
-
-- Fixed the spelling of "successful" and "Langfuse."
-- Adjusted wording for clarity and consistency.
-- Corrected minor grammatical errors (e.g., "still" instead of "stil," and "process" instead of "proccess").
-- Used parallel structure for lists of directories.
