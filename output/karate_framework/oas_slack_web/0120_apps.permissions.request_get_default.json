@@ -1,0 +1,102 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `none`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A comma separated list of scopes to request for",
+      "in": "query",
+      "name": "scopes",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Token used to trigger the permissions API",
+      "in": "query",
+      "name": "trigger_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/apps.permissions.request",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_trigger_id",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from apps.permissions.request method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "invalid_trigger",
+                  "trigger_exchanged",
+                  "invalid_scope",
+                  "invalid_user",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "token_revoked",
+                  "no_permission",
+                  "org_login_required",
+                  "user_is_bot",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required",
+                  "fatal_error"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "apps.permissions.request error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Standard failure response when trigger_id is invalid"
+    }
+  }
+}

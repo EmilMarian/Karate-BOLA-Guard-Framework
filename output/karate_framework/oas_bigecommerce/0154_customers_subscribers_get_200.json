@@ -1,0 +1,105 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Filter items by email.\n",
+      "in": "query",
+      "name": "email",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by first_name.\n",
+      "in": "query",
+      "name": "first_name",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by last_name.\n",
+      "in": "query",
+      "name": "last_name",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by source.\n",
+      "in": "query",
+      "name": "source",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by order_id.\n",
+      "in": "query",
+      "name": "order_id",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by date_created.\n",
+      "in": "query",
+      "name": "date_created",
+      "schema": {
+        "format": "data-time",
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by date_modified.\n",
+      "in": "query",
+      "name": "date_modified",
+      "schema": {
+        "format": "data-time",
+        "type": "string"
+      }
+    },
+    {
+      "description": "Control the page in a limited list of products.\n",
+      "in": "query",
+      "name": "page",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Control the items per page.\n",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/customers/subscribers",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "items": {
+                  "$ref": "#/components/schemas/Subscriber"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/CollectionMeta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "An array of `Subscriber` objects and metadata.\n"
+    }
+  }
+}

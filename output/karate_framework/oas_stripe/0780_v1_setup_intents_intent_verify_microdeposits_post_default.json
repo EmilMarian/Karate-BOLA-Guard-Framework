@@ -1,0 +1,85 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "intent",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/setup_intents/{intent}/verify_microdeposits",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "amounts": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "amounts": {
+              "description": "Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.",
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "client_secret": {
+              "description": "The client secret of the SetupIntent.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "descriptor_code": {
+              "description": "A six-character code starting with SM present in the microdeposit sent to the bank account.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

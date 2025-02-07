@@ -1,0 +1,268 @@
+2025-01-25 19:50:29,626 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 19:50:29,688 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 19:50:29,943 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `calls:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/calls.participants.add", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"id": {"description": "`id` returned by the [`calls.add`](/methods/calls.add) method.", "type": "string"}, "users": {"description": "The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).", "type": "string"}}, "required": ["id", "users"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0143_calls.participants.add_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `users:read`", "in": "query", "name": "token", "required": true, "schema": {"type": "string"}}, {"description": "User to get presence info on. Defaults to the authed user.", "in": "query", "name": "user", "schema": {"type": "string"}}], "path": "/users.getPresence", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": {"type": "object"}, "description": "Schema for error response users.getPresence method", "properties": {"error": {"type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.counts error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0316_users.getPresence_get_default.json'}}], form collection oas_slack_web_fragments
+2025-01-25 19:50:29,943 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:50:29,944 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:50:30,370 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 19:50:30,371 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 19:50:35,033 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 19:50:35,034 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: Broken Authentication/Authorization on Admin User Invite Endpoint
+scenario: Test fo...
+2025-01-25 19:50:35,035 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature
+2025-01-25 19:50:35,036 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 19:50:35,036 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization on Admin User Invite Endpoint
+scenario: Test for potential vulnerabilities in the /admin.users.invite endpoint due to broken authentication or authorization checks
+given url: http://oas_asana.api/admin.users.invite
+when method: post
+and header Authorization = 'Bearer <invalid_token>' # Assuming invalid token is used for testing unauthorized access
+then status should be 401 or 403
+and response body must contain error messages indicating lack of permissions, such as "Unauthorized" or similar.
+```
+2025-01-25 19:50:42,075 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 19:50:42,075 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization on Admin User Invite Endpoint
+    Very important: IF The Karate DSL script provided is already correct and does not require any corrections, just output the same test as it is, without any modifications.
+    
+Scenario: Test for potential vulnerabilities in /admin.users.invite endpoint due to broken authentication or authorization checks
+  * given url 'http://oas_asana.api/admin.users.invite'
+  * and header Authorization = '#(invalid token)' // Assuming invalid token is used for testing unauthorized access
+  * when method post
+  * then status should be equalTo('401') or 'equalTo('403')'
+  * and response body must contain error messages indicating lack of permissions, such as "Unauthorized" or similar.
+```
+2025-01-25 19:50:44,777 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 19:50:44,777 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization on Admin User Invite Endpoint
+  * given url 'http://oas_asana.api/admin.users.invite'
+  * and header Authorization = '#(invalid token)' // Assuming invalid token is used for testing unauthorized access
+  * when method post
+    * then status should be equalTo('401') or 'equalTo("403")'
+    * and response body must contain error messages indicating lack of permissions, such as "Unauthorized" or similar.
+```
+2025-01-25 19:50:44,777 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST_verified.feature
+2025-01-25 19:50:44,778 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature: ```yaml
+Feature: Broken Authentication/Authorization on Admin User Invite Endpoint
+  * given url 'http://oas_asana.api/admin.users.invite'
+  * and header Authorization = '#(invalid token)' // Assuming invalid token is used for testing unauthorized access
+  * when method post
+    * then status should be equalTo('401') or 'equalTo("403")'
+    * and response body must contain error messages indicating lack of permissions, such as "Unauthorized" or similar.
+```
+2025-01-25 19:50:44,778 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:50:44,779 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:50:44,799 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 19:50:44,801 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 19:50:51,505 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 19:50:51,506 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Test for Broken Authentication/Authorization on Calls.Participants.Add",
+  "scenario...
+2025-01-25 19:50:51,507 - __main__ - INFO - Generated Karate test for /calls.participants.add POST at output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature
+2025-01-25 19:50:51,507 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 19:50:51,507 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on Calls.Participants.Add",
+  "scenario": "User attempts to add a participant without proper authentication or authorization.",
+  "given": [
+    "url http://oas_asana.api/calls"
+  ],
+  "when": {
+    "request body": {
+      "path": "/participants",
+      "method": "POST",
+                    
+                    "* def participantData = {\n            \"name\": \'John Doe\',\n            \"email\": \'john.doe@example.com\'\n          }*",
+                    
+                    "headers {Authorization: 'Bearer <invalid_token>'}"
+                },
+  "then": [
+    "status 401 or 403",
+    "response message contains \'Unauthorized\' or \'Forbidden\'"
+  ]
+}
+2025-01-25 19:50:58,584 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 19:50:58,585 - karate_compatibility_verifier - INFO - @ignore
+Feature: Test for Broken Authentication/Authorization on Calls.Participants.Add
+    http://oas_asana.api/calls
+
+Background:
+* url 'http://oas_asana.api/calls'
+
+Scenario: User attempts to add a participant without proper authentication or authorization.
+  * path '/participants'
+  * def invalidToken = '<invalid_token>'
+  
+  Given user is not authenticated and authorized
+    * print 'User has no valid credentials.'
+    
+  When attempting to POST with incorrect data and headers
+    * def participantData = { "name": 'John Doe', "email": 'john.doe@example.com' }*
+    * header Authorization = invalidToken
+  
+  Then status is unauthorized or forbidden
+    * Either (status, message) should contain ('401', 'Unauthorized') OR (*status*, message) contains ('403', 'Forbidden')
+2025-01-25 19:51:03,306 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 19:51:03,306 - karate_compatibility_verifier - INFO - @ignore
+Feature: Test for Broken Authentication/Authorization on Calls.Participants.Add
+    http://oas_asana.api/calls
+
+Background:
+* url 'http://oas_asana.api/calls'
+
+Scenario: User attempts to add a participant without proper authentication or authorization.
+  * path '/participants'
+  
+  Given user is not authenticated and authorized
+    * print('User has no valid credentials.')
+    
+  When attempting to POST with incorrect data, headers, and invalid token
+    * def participantData = { "name": 'John Doe', "email": 'john.doe@example.com' }*
+    * header Authorization = '<invalid_token>'
+  
+  Then status is unauthorized or forbidden
+    * (status, message) should contain ('401', 'Unauthorized') OR (*status*, message) contains ('403', 'Forbidden')
+2025-01-25 19:51:03,306 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST_verified.feature
+2025-01-25 19:51:03,307 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature: @ignore
+Feature: Test for Broken Authentication/Authorization on Calls.Participants.Add
+    http://oas_asana.api/calls
+
+Background:
+* url 'http://oas_asana.api/calls'
+
+Scenario: User attempts to add a participant without proper authentication or authorization.
+  * path '/participants'
+  
+  Given user is not authenticated and authorized
+    * print('User has no valid credentials.')
+    
+  When attempting to POST with incorrect data, headers, and invalid token
+    * def participantData = { "name": 'John Doe', "email": 'john.doe@example.com' }*
+    * header Authorization = '<invalid_token>'
+  
+  Then status is unauthorized or forbidden
+    * (status, message) should contain ('401', 'Unauthorized') OR (*status*, message) contains ('403', 'Forbidden')
+2025-01-25 19:51:03,307 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:51:03,308 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:51:03,328 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 19:51:03,329 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 19:51:14,581 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 19:51:14,582 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on /users.getPresence",
+  "scen...
+2025-01-25 19:51:14,583 - __main__ - INFO - Generated Karate test for /users.getPresence GET at output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature
+2025-01-25 19:51:14,583 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 19:51:14,583 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on /users.getPresence",
+  "scenario": "User attempts to access presence without proper authentication or authorization.",
+  "given url": "/oas_asana.api/users.getPresence",
+  "steps": [
+    "* def unautmittedAccess = callonce read('classpath:helpers/unauthorizedAccessTest')," ,
+    "* switch unautmittedAccess.status, {401:" + ", statusCode: 401", "200:" + ", responseBody contains 'Unauthorized'" },"+ ","* def adminCredentials = {'username': 'admin', 'password': 'securepass'}," ,
+    "* Given unauthenticated user with credentials { username: \'\', password: \'\' },",
+    "When method get,",
+    "Then statusCode 401 or responseBody contains 'Unauthorized'",
+    "* def adminCredentials = {'username': 'admin', 'password': 'correct_pass'}," ,
+    "And header Authorization = \'Basic dXNlcjpwYXJk\','+ ",
+    "When method get,",
+    "Then statusCode 200 and responseBody contains presence details for the admin user.",
+    "* def anonymousUserAccess = callonce read('classpath:helpers/anonymousPresenceTest')," ,
+    "And switch anonymousUserAccess.status,"+ ", statusCode: 401 or responseBody contains 'Unauthorized'",
+    "When method get,",
+    "Then statusCode 4 fears of the unknown and unseen."}
+2025-01-25 19:51:28,085 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 19:51:28,086 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test for Broken Authentication/Authorization on /users.getPresence
+  Background:
+    * url 'https://jsonplaceholder.typicode.com'
+  
+  Scenario: User attempts to access presence without proper authentication or authorization.
+    Given url '/oas_asana.api/users.getPresence'
+    
+    # Testing unauthorized user with empty credentials
+    * def adminCredentials = {'username': '', 'password': ''}
+    When method get,
+    Then statusCode 401 or responseBody contains 'Unauthorized'
+    
+    # Attempt to access as an authenticated admin user (with correct credentials)
+    And header Authorization = 'Basic dXNlcjpwYXJk=' // Base64 encoded for the example, replace with actual base64 encoding of "admin:correct_pass"
+    When method get,
+    Then statusCode 200 and responseBody contains presence details for the admin user.
+    
+    # Testing anonymous access attempt (no credentials provided)
+    * def unauthorizedUserAccess = callonce read('classpath:helpers/anonymousPresenceTest') // Assuming this helper script exists to simulate an anonymous request
+    And switch unauthorizedUserAccess.status, {401:"Status code 401", "200":"Response body contains 'Unauthorized'"}
+    When method get,
+    Then statusCode 401 or responseBody contains 'Unauthorized'
+```
+2025-01-25 19:51:38,768 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 19:51:38,768 - karate_compatibility_verifier - INFO - Feature: Test for Broken Authentication/Authorization on /users.getPresence
+  Background:
+    * url 'https://jsonplaceholder.typicode.com'
+  
+  Scenario: User attempts to access presence without proper authentication or authorization, and unauthorized user tries accessing as an admin with incorrect credentials.
+    Given url '/oas_asana.api/users.getPresence', username='admin', password='correct_pass' // Replace 'correct_pass' with actual secure value in production tests
+    
+    # Testing unauthenticated access attempt by anonymous user
+    When method get,
+      Then statusCode 401 and responseBody contains 'Unauthorized'
+  
+    * def adminCredentials = {'username': '', 'password': ''} // Corrected to use actual credentials for testing purposes only in a secure environment. In real tests, ensure proper handling of sensitive data like passwords.
+    When method get with headers {Authorization: "Basic dXNlcjpwYXJk="}, adminCredentials
+      Then statusCode 401 and responseBody contains 'Unauthorized' // Ensure the base64 string is correctly encoded for actual tests, not hardcoded.
+  
+    # Testing unauthenticated access attempt by anonymous user with correct credentials (should fail)
+    * def invalidAdminCredentials = {'username': '', 'password': ''}
+    When method get with headers {Authorization: "Basic dXNlcjpwYXJk="}, invalidAdminCredentials // Corrected to use actual base62 encoded string for the example. In real tests, ensure proper handling of credentials and sensitive data like passwords are not hardcoded or exposed in scripts/tests.
+      Then statusCode 401 and responseBody contains 'Unauthorized'
+2025-01-25 19:51:38,769 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET_verified.feature
+2025-01-25 19:51:38,769 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature: Feature: Test for Broken Authentication/Authorization on /users.getPresence
+  Background:
+    * url 'https://jsonplaceholder.typicode.com'
+  
+  Scenario: User attempts to access presence without proper authentication or authorization, and unauthorized user tries accessing as an admin with incorrect credentials.
+    Given url '/oas_asana.api/users.getPresence', username='admin', password='correct_pass' // Replace 'correct_pass' with actual secure value in production tests
+    
+    # Testing unauthenticated access attempt by anonymous user
+    When method get,
+      Then statusCode 401 and responseBody contains 'Unauthorized'
+  
+    * def adminCredentials = {'username': '', 'password': ''} // Corrected to use actual credentials for testing purposes only in a secure environment. In real tests, ensure proper handling of sensitive data like passwords.
+    When method get with headers {Authorization: "Basic dXNlcjpwYXJk="}, adminCredentials
+      Then statusCode 401 and responseBody contains 'Unauthorized' // Ensure the base64 string is correctly encoded for actual tests, not hardcoded.
+  
+    # Testing unauthenticated access attempt by anonymous user with correct credentials (should fail)
+    * def invalidAdminCredentials = {'username': '', 'password': ''}
+    When method get with headers {Authorization: "Basic dXNlcjpwYXJk="}, invalidAdminCredentials // Corrected to use actual base62 encoded string for the example. In real tests, ensure proper handling of credentials and sensitive data like passwords are not hardcoded or exposed in scripts/tests.
+      Then statusCode 401 and responseBody contains 'Unauthorized'
+2025-01-25 19:51:38,769 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 19:51:38,771 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 19:51:41,043 - __main__ - INFO - Skipping karate test run.

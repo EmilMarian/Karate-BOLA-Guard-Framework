@@ -1,0 +1,64 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Latitude component of location.",
+      "in": "query",
+      "name": "latitude",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "Longitude component of location.",
+      "in": "query",
+      "name": "longitude",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    }
+  ],
+  "path": "/products",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "capacity": {
+                  "description": "Capacity of product. For example, 4 people.",
+                  "type": "string"
+                },
+                "description": {
+                  "description": "Description of product.",
+                  "type": "string"
+                },
+                "display_name": {
+                  "description": "Display name of product.",
+                  "type": "string"
+                },
+                "image": {
+                  "description": "Image URL representing the product.",
+                  "type": "string"
+                },
+                "product_id": {
+                  "description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "An array of products"
+    }
+  }
+}

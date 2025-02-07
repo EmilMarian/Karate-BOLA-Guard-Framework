@@ -1,0 +1,412 @@
+2025-01-27 18:46:21,191 - __main__ - INFO - Skipping fragment creation: False
+2025-01-27 18:46:21,260 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-27 18:46:21,521 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/users/v1/register", "requestBody": {"content": {"application/json": {"schema": {"properties": {"email": {"example": "user@tempmail.com", "type": "string"}, "password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Successfully registered. Login to receive an auth token.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully created user"}}}', 'metadata': {'filename': '0005_users_v1_register_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"auth_token": {"example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw", "type": "string"}, "message": {"example": "Successfully logged in.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully logged in user"}}}', 'metadata': {'filename': '0007_users_v1_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Password is not correct for the given username.", "type": "string"}, "status": {"enum": ["fail"], "example": "fail", "type": "string"}}, "type": "object"}}}, "description": "Invalid request"}}}', 'metadata': {'filename': '0008_users_v1_login_post_400.json'}}], form collection vampi_fragments
+2025-01-27 18:46:21,522 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 18:46:21,522 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 18:46:21,956 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 18:46:21,956 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 18:53:22,552 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 18:53:22,553 - karate_llm_test_gen - INFO - Generated test case: Here are the Karate DSL test scripts for each API endpoint:
+
+**Scenario 1: OAuth Token Generation Fl...
+2025-01-27 18:53:22,555 - __main__ - INFO - Generated Karate test for /users/v1/register POST at output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature
+2025-01-27 18:53:22,556 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 18:53:22,557 - karate_compatibility_verifier - INFO - Here are the Karate DSL test scripts for each API endpoint:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_ salesforce_partner_API. api/users/v1/register'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: Account Enumeration during Signup**
+```karate
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_ salesforce_partner_API. api/users/v1/register'
+And request {
+    username: 'existingUser',
+    password: 'Password123!',
+    email: 'existing@example.com'
+}
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+* def signUpNewUser = function(response){ return response.contains('A verification email has been sent. Please check your inbox.') }
+* assert signUpNewUser(response) == true
+```
+
+**Scenario 3: Improper Authorization on User Documents Access**
+```karate
+Feature: Test for Improper Authorization on User Documents Access
+
+Scenario: Attempt to access a document without being an 'admin' or 'editor'
+Given url 'http://oas_ salesforce_partner_API. api/users/v1/register'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Document details'
+case 403:
+    * fail 'Admin should have access'
+```
+
+Please note that these test scripts are just examples and may need to be modified based on the actual implementation of each API endpoint.
+2025-01-27 19:00:14,627 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 19:00:14,627 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature:
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_partner_API.api/users/v1/register'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: Account Enumeration during Signup**
+```karate
+Feature:
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_salesforce_partner_API.api/users/v1/register'
+And request {
+    username: 'existingUser',
+    password: 'Password123!',
+    email: 'existing@example.com'
+}
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+```
+
+**Scenario 3: Improper Authorization on User Documents Access**
+```karate
+Feature:
+Scenario: Attempt to access a document without being an 'admin' or 'editor'
+Given url 'http://oas_salesforce_partner_API.api/users/v1/register'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+```
+
+Note that I removed the unnecessary `*` lines and corrected any syntax errors.
+2025-01-27 19:04:14,953 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 19:04:14,954 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature:
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_partner_API.api/users/v1/register'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: Account Enumeration during Signup**
+```karate
+Feature:
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_salesforce_partner_API.api/users/v1/register'
+And request {
+    username: 'existingUser',
+    password: 'Password123!',
+    email: 'existing@example.com'
+}
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+```
+
+**Scenario 3: Improper Authorization on User Documents Access**
+```karate
+Feature:
+Scenario: Attempt to access a document without being an 'admin' or 'editor'
+Given url 'http://oas_salesforce_partner_API.api/users/v1/register'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+```
+2025-01-27 19:04:14,954 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST_verified.feature
+2025-01-27 19:04:14,954 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature: Here are the corrected Karate DSL test scripts:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature:
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_partner_API.api/users/v1/register'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: Account Enumeration during Signup**
+```karate
+Feature:
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_salesforce_partner_API.api/users/v1/register'
+And request {
+    username: 'existingUser',
+    password: 'Password123!',
+    email: 'existing@example.com'
+}
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+```
+
+**Scenario 3: Improper Authorization on User Documents Access**
+```karate
+Feature:
+Scenario: Attempt to access a document without being an 'admin' or 'editor'
+Given url 'http://oas_salesforce_partner_API.api/users/v1/register'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+```
+2025-01-27 19:04:14,955 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 19:04:14,955 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 19:04:14,999 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 19:04:14,999 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 19:10:28,734 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 19:10:28,736 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-01-27 19:10:28,738 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature
+2025-01-27 19:10:28,738 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 19:10:28,738 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```
+Feature: Testing OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'stolen_username', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Feature: Testing for User Enumeration
+
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration (continued)
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Feature: Testing OAuth Authorization Code Grant Fuzzing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+
+```
+
+This script checks for potential Broken Authentication/Authorization vulnerabilities by attempting to exploit OAuth token generation with a stolen authorization code and fuzzing the OAuth authorization process. It also verifies that the `/user/login` endpoint does not allow user enumeration by responding with generic error messages.
+2025-01-27 19:17:21,525 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 19:17:21,525 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+````
+Feature: Testing OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'stolen_username', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Feature: Testing for User Enumeration
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration (continued)
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Feature: Testing OAuth Authorization Code Grant Fuzzing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach $clientId in clientIds {
+    foreach $redirectUri in redirectUris {
+        Given url 'http://oas_salesforce_partner_API.api/authorize'
+        And request { response_type: 'code', client_id: $clientId, redirect_uri: $redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+2025-01-27 19:22:06,608 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 19:22:06,609 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Testing OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'stolen_username', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Feature: Testing for User Enumeration
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration (continued)
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Feature: Testing OAuth Authorization Code Grant Fuzzing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach $clientId in clientIds {
+    foreach $redirectUri in redirectUris {
+        Given url 'http://oas_salesforce_partner_API.api/authorize'
+        And request { response_type: 'code', client_id: $clientId, redirect_uri: $redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+2025-01-27 19:22:06,610 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST_verified.feature
+2025-01-27 19:22:06,610 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: Testing OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'stolen_username', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Feature: Testing for User Enumeration
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration (continued)
+Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response contains 'Invalid credentials'
+
+Feature: Testing OAuth Authorization Code Grant Fuzzing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach $clientId in clientIds {
+    foreach $redirectUri in redirectUris {
+        Given url 'http://oas_salesforce_partner_API.api/authorize'
+        And request { response_type: 'code', client_id: $clientId, redirect_uri: $redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+2025-01-27 19:22:06,611 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 19:22:06,612 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 19:22:06,649 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 19:22:06,650 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions

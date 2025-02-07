@@ -1,0 +1,64 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "The ID of the `Brand` to which the image is being attached.\n",
+      "in": "path",
+      "name": "brand_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/brands/{brand_id}/image",
+  "requestBody": {
+    "content": {
+      "multipart/form-data": {
+        "schema": {
+          "properties": {
+            "image_file": {
+              "description": "An image file. Supported MIME types include GIF, JPEG, and PNG.\n",
+              "format": "binary",
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_file"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "404": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error payload for the BigCommerce API.\n",
+            "properties": {
+              "instance": {
+                "type": "string"
+              },
+              "status": {
+                "description": "404 HTTP status code.\n",
+                "type": "integer"
+              },
+              "title": {
+                "description": "The error title describing the particular error.",
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "The resource was not found.\n"
+    }
+  }
+}

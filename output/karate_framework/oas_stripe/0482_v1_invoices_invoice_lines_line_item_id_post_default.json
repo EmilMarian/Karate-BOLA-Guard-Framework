@@ -1,0 +1,362 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Invoice ID of line item",
+      "in": "path",
+      "name": "invoice",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Invoice line item ID",
+      "in": "path",
+      "name": "line_item_id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/invoices/{invoice}/lines/{line_item_id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "discounts": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "period": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "price_data": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "tax_amounts": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "tax_rates": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "description": "The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.",
+              "type": "integer"
+            },
+            "description": {
+              "description": "An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "discountable": {
+              "description": "Controls whether discounts apply to this line item. Defaults to false for prorations or negative line items, and true for all other line items. Cannot be set to true for prorations.",
+              "type": "boolean"
+            },
+            "discounts": {
+              "anyOf": [
+                {
+                  "items": {
+                    "properties": {
+                      "coupon": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "discount": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "promotion_code": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      }
+                    },
+                    "title": "discounts_data_param",
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The coupons, promotion codes & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts."
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data."
+            },
+            "period": {
+              "description": "The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.",
+              "properties": {
+                "end": {
+                  "format": "unix-time",
+                  "type": "integer"
+                },
+                "start": {
+                  "format": "unix-time",
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "end",
+                "start"
+              ],
+              "title": "period",
+              "type": "object"
+            },
+            "price": {
+              "description": "The ID of the price object. One of `price` or `price_data` is required.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "price_data": {
+              "description": "Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.",
+              "properties": {
+                "currency": {
+                  "format": "currency",
+                  "type": "string"
+                },
+                "product": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "product_data": {
+                  "properties": {
+                    "description": {
+                      "maxLength": 40000,
+                      "type": "string"
+                    },
+                    "images": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "metadata": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    },
+                    "name": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "tax_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "title": "product_data",
+                  "type": "object"
+                },
+                "tax_behavior": {
+                  "enum": [
+                    "exclusive",
+                    "inclusive",
+                    "unspecified"
+                  ],
+                  "type": "string"
+                },
+                "unit_amount": {
+                  "type": "integer"
+                },
+                "unit_amount_decimal": {
+                  "format": "decimal",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "currency"
+              ],
+              "title": "one_time_price_data_with_product_data",
+              "type": "object"
+            },
+            "quantity": {
+              "description": "Non-negative integer. The quantity of units for the line item.",
+              "type": "integer"
+            },
+            "tax_amounts": {
+              "anyOf": [
+                {
+                  "items": {
+                    "properties": {
+                      "amount": {
+                        "type": "integer"
+                      },
+                      "tax_rate_data": {
+                        "properties": {
+                          "country": {
+                            "maxLength": 5000,
+                            "type": "string"
+                          },
+                          "description": {
+                            "maxLength": 5000,
+                            "type": "string"
+                          },
+                          "display_name": {
+                            "maxLength": 100,
+                            "type": "string"
+                          },
+                          "inclusive": {
+                            "type": "boolean"
+                          },
+                          "jurisdiction": {
+                            "maxLength": 200,
+                            "type": "string"
+                          },
+                          "percentage": {
+                            "type": "number"
+                          },
+                          "state": {
+                            "maxLength": 2,
+                            "type": "string"
+                          },
+                          "tax_type": {
+                            "enum": [
+                              "amusement_tax",
+                              "communications_tax",
+                              "gst",
+                              "hst",
+                              "igst",
+                              "jct",
+                              "lease_tax",
+                              "pst",
+                              "qst",
+                              "retail_delivery_fee",
+                              "rst",
+                              "sales_tax",
+                              "service_tax",
+                              "vat"
+                            ],
+                            "type": "string",
+                            "x-stripeBypassValidation": true
+                          }
+                        },
+                        "required": [
+                          "display_name",
+                          "inclusive",
+                          "percentage"
+                        ],
+                        "title": "tax_rate_data_param",
+                        "type": "object"
+                      },
+                      "taxable_amount": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "amount",
+                      "tax_rate_data",
+                      "taxable_amount"
+                    ],
+                    "title": "tax_amount_param",
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://stripe.com/docs/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://stripe.com/docs/tax/invoicing). Pass an empty string to remove previously defined tax amounts."
+            },
+            "tax_rates": {
+              "anyOf": [
+                {
+                  "items": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates."
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

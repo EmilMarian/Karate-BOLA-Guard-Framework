@@ -1,0 +1,285 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "invoiceitem",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/invoiceitems/{invoiceitem}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Invoice Items represent the component lines of an [invoice](https://stripe.com/docs/api/invoices). An invoice item is added to an\ninvoice by creating or updating it with an `invoice` field, at which point it will be included as\n[an invoice line item](https://stripe.com/docs/api/invoices/line_item) within\n[invoice.lines](https://stripe.com/docs/api/invoices/object#invoice_object-lines).\n\nInvoice Items can be created before you are ready to actually send the invoice. This can be particularly useful when combined\nwith a [subscription](https://stripe.com/docs/api/subscriptions). Sometimes you want to add a charge or credit to a customer, but actually charge\nor credit the customer\u2019s card only at the end of a regular billing cycle. This is useful for combining several charges\n(to minimize per-transaction fees), or for having Stripe tabulate your usage-based billing totals.\n\nRelated guides: [Integrate with the Invoicing API](https://stripe.com/docs/invoicing/integration), [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).",
+            "properties": {
+              "amount": {
+                "description": "Amount (in the `currency` specified) of the invoice item. This should always be equal to `unit_amount * quantity`.",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "format": "currency",
+                "type": "string"
+              },
+              "customer": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/customer"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_customer"
+                  }
+                ],
+                "description": "The ID of the customer who will be billed when this invoice item is billed.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/customer"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_customer"
+                    }
+                  ]
+                }
+              },
+              "date": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "description": {
+                "description": "An arbitrary string attached to the object. Often useful for displaying to users.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "discountable": {
+                "description": "If true, discounts will apply to this invoice item. Always false for prorations.",
+                "type": "boolean"
+              },
+              "discounts": {
+                "description": "The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.",
+                "items": {
+                  "anyOf": [
+                    {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "#/components/schemas/discount"
+                    }
+                  ],
+                  "x-expansionResources": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/discount"
+                      }
+                    ]
+                  }
+                },
+                "nullable": true,
+                "type": "array"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "invoice": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/invoice"
+                  }
+                ],
+                "description": "The ID of the invoice this invoice item belongs to.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/invoice"
+                    }
+                  ]
+                }
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "nullable": true,
+                "type": "object"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "invoiceitem"
+                ],
+                "type": "string"
+              },
+              "period": {
+                "$ref": "#/components/schemas/invoice_line_item_period"
+              },
+              "price": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/price"
+                  }
+                ],
+                "description": "The price of the invoice item.",
+                "nullable": true
+              },
+              "proration": {
+                "description": "Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.",
+                "type": "boolean"
+              },
+              "quantity": {
+                "description": "Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.",
+                "type": "integer"
+              },
+              "subscription": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/subscription"
+                  }
+                ],
+                "description": "The subscription that this invoice item has been created for, if any.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/subscription"
+                    }
+                  ]
+                }
+              },
+              "subscription_item": {
+                "description": "The subscription item that this invoice item has been created for, if any.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "tax_rates": {
+                "description": "The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.",
+                "items": {
+                  "$ref": "#/components/schemas/tax_rate"
+                },
+                "nullable": true,
+                "type": "array"
+              },
+              "test_clock": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/test_helpers.test_clock"
+                  }
+                ],
+                "description": "ID of the test clock this invoice item belongs to.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/test_helpers.test_clock"
+                    }
+                  ]
+                }
+              },
+              "unit_amount": {
+                "description": "Unit amount (in the `currency` specified) of the invoice item.",
+                "nullable": true,
+                "type": "integer"
+              },
+              "unit_amount_decimal": {
+                "description": "Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.",
+                "format": "decimal",
+                "nullable": true,
+                "type": "string"
+              }
+            },
+            "required": [
+              "amount",
+              "currency",
+              "customer",
+              "date",
+              "discountable",
+              "id",
+              "livemode",
+              "object",
+              "period",
+              "proration",
+              "quantity"
+            ],
+            "title": "InvoiceItem",
+            "type": "object",
+            "x-expandableFields": [
+              "customer",
+              "discounts",
+              "invoice",
+              "period",
+              "price",
+              "subscription",
+              "tax_rates",
+              "test_clock"
+            ],
+            "x-resourceId": "invoiceitem"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

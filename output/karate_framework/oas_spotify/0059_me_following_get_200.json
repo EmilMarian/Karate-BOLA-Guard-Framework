@@ -1,0 +1,96 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid user access token or your client credentials. Requires the `user-follow-modify` scope.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The ID type: currently only `artist` is supported.",
+      "in": "query",
+      "name": "type",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The last artist ID retrieved from the previous request.",
+      "in": "query",
+      "name": "after",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/me/following",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "artists": {
+                "description": "",
+                "externalDocs": {
+                  "description": "Find more info on the official Spotify Web API Reference",
+                  "url": "https://developer.spotify.com/documentation/web-api/reference/#object-cursorpagingobject"
+                },
+                "properties": {
+                  "cursors": {
+                    "$ref": "#/components/schemas/CursorObject"
+                  },
+                  "href": {
+                    "description": "A link to the Web API endpoint returning the full result of the request.",
+                    "type": "string"
+                  },
+                  "items": {
+                    "description": "The requested data.",
+                    "items": {
+                      "$ref": "#/components/schemas/ArtistObject"
+                    },
+                    "type": "array"
+                  },
+                  "limit": {
+                    "description": "The maximum number of items in the response (as set in the query or by default).",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "next": {
+                    "description": "URL to the next page of items. ( `null` if none)",
+                    "type": "string"
+                  },
+                  "total": {
+                    "description": "The total number of items available to return.",
+                    "format": "int32",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the HTTP status code in the response header is `200` OK and the response body contains an `artists` object.\nThe `artists` object in turn contains a [cursor-based paging object](https://developer.spotify.com/documentation/web-api/reference/#object-cursorpagingobject) of [Artists](https://developer.spotify.com/documentation/web-api/reference/#object-artistobject).\nOn error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema)."
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/tax_codes/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "[Tax codes](https://stripe.com/docs/tax/tax-categories) classify goods and services for tax purposes.",
+            "properties": {
+              "description": {
+                "description": "A detailed description of which types of products the tax code represents.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "name": {
+                "description": "A short name for the tax code.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "tax_code"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "description",
+              "id",
+              "name",
+              "object"
+            ],
+            "title": "TaxProductResourceTaxCode",
+            "type": "object",
+            "x-expandableFields": [],
+            "x-resourceId": "tax_code"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

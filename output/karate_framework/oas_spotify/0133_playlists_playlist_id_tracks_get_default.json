@@ -1,0 +1,84 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. Both Public and Private playlists belonging to any user are retrievable on provision of a valid access token.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist.",
+      "in": "path",
+      "name": "playlist_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "An [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or the string `from_token`. Provide this parameter if you want to apply [Track\nRelinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/). For episodes, if a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.  \n*Note: If neither market or user country are provided, the episode is considered unavailable for the client.*",
+      "in": "query",
+      "name": "market",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filters for the query: a comma-separated list of the fields to return. If omitted, all fields are returned. For example, to get just the total number of items and the request limit:  \n`fields=total,limit`  \nA dot separator can be used to specify non-reoccurring fields, while parentheses can be used to specify reoccurring fields within objects. For example, to get just the added date and user ID of the adder:  \n`fields=items(added_at,added_by.id)`  \nUse multiple parentheses to drill down into nested objects, for example:  \n`fields=items(track(name,href,album(name,href)))`  \nFields can be excluded by prefixing them with an exclamation mark, for example:  \n`fields=items.track.album(!external_urls,images)`",
+      "in": "query",
+      "name": "fields",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Default: 100. Minimum: 1. Maximum: 100.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The index of the first item to return. Default: 0 (the first object).",
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "A comma-separated list of item types that your client supports besides the default `track` type. Valid types are: `track` and `episode`. **Note** : This parameter was introduced to allow existing clients to maintain their current behaviour and might be deprecated in the future. In addition to providing this parameter, make sure that your client properly handles cases of new types in the future by checking against the `type` field of each object.",
+      "in": "query",
+      "name": "additional_types",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/playlists/{playlist_id}/tracks",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponseObject"
+          }
+        }
+      },
+      "description": "Unexpected error"
+    }
+  }
+}

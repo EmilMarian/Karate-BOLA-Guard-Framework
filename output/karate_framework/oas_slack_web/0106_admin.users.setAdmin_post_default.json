@@ -1,0 +1,74 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.users:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.users.setAdmin",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "team_id": {
+              "description": "The ID (`T1234`) of the workspace.",
+              "type": "string"
+            },
+            "user_id": {
+              "description": "The ID of the user to designate as an admin.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "team_id",
+            "user_id"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.",
+            "properties": {
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "Default error template",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

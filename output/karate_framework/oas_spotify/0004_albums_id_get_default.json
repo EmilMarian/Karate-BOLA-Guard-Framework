@@ -1,0 +1,46 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid user access token or your client credentials.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The Spotify ID of the album.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The market you'd like to request. Synonym for `country`.",
+      "in": "query",
+      "name": "market",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/albums/{id}",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponseObject"
+          }
+        }
+      },
+      "description": "Unexpected error"
+    }
+  }
+}

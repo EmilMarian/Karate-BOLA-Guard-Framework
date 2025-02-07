@@ -1,0 +1,213 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "authorization",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/test_helpers/issuing/authorizations/{authorization}/finalize_amount",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "fleet": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "fuel": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "final_amount": {
+              "description": "The final authorization amount that will be captured by the merchant. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).",
+              "type": "integer"
+            },
+            "fleet": {
+              "description": "Fleet-specific information for authorizations using Fleet cards.",
+              "properties": {
+                "cardholder_prompt_data": {
+                  "properties": {
+                    "driver_id": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "odometer": {
+                      "type": "integer"
+                    },
+                    "unspecified_id": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "vehicle_number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "fleet_cardholder_prompt_data_specs",
+                  "type": "object"
+                },
+                "purchase_type": {
+                  "enum": [
+                    "fuel_and_non_fuel_purchase",
+                    "fuel_purchase",
+                    "non_fuel_purchase"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "reported_breakdown": {
+                  "properties": {
+                    "fuel": {
+                      "properties": {
+                        "gross_amount_decimal": {
+                          "format": "decimal",
+                          "type": "string"
+                        }
+                      },
+                      "title": "fleet_reported_breakdown_fuel_specs",
+                      "type": "object"
+                    },
+                    "non_fuel": {
+                      "properties": {
+                        "gross_amount_decimal": {
+                          "format": "decimal",
+                          "type": "string"
+                        }
+                      },
+                      "title": "fleet_reported_breakdown_non_fuel_specs",
+                      "type": "object"
+                    },
+                    "tax": {
+                      "properties": {
+                        "local_amount_decimal": {
+                          "format": "decimal",
+                          "type": "string"
+                        },
+                        "national_amount_decimal": {
+                          "format": "decimal",
+                          "type": "string"
+                        }
+                      },
+                      "title": "fleet_reported_breakdown_tax_specs",
+                      "type": "object"
+                    }
+                  },
+                  "title": "fleet_reported_breakdown_specs",
+                  "type": "object"
+                },
+                "service_type": {
+                  "enum": [
+                    "full_service",
+                    "non_fuel_transaction",
+                    "self_service"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              },
+              "title": "fleet_specs",
+              "type": "object"
+            },
+            "fuel": {
+              "description": "Information about fuel that was purchased with this transaction.",
+              "properties": {
+                "industry_product_code": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "quantity_decimal": {
+                  "format": "decimal",
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "diesel",
+                    "other",
+                    "unleaded_plus",
+                    "unleaded_regular",
+                    "unleaded_super"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "unit": {
+                  "enum": [
+                    "charging_minute",
+                    "imperial_gallon",
+                    "kilogram",
+                    "kilowatt_hour",
+                    "liter",
+                    "other",
+                    "pound",
+                    "us_gallon"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "unit_cost_decimal": {
+                  "format": "decimal",
+                  "type": "string"
+                }
+              },
+              "title": "fuel_specs",
+              "type": "object"
+            }
+          },
+          "required": [
+            "final_amount"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

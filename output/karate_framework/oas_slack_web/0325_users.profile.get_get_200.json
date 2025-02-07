@@ -1,0 +1,278 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `users.profile:read`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Include labels for each ID in custom profile fields",
+      "in": "query",
+      "name": "include_labels",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "User to retrieve profile info for",
+      "in": "query",
+      "name": "user",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users.profile.get",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true,
+                "profile": {
+                  "avatar_hash": "ge3b51ca72de",
+                  "display_name": "spengler",
+                  "display_name_normalized": "spengler",
+                  "email": "spengler@ghostbusters.example.com",
+                  "image_192": "https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg",
+                  "image_24": "https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg",
+                  "image_32": "https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg",
+                  "image_48": "https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg",
+                  "image_512": "https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg",
+                  "image_72": "https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg",
+                  "image_original": "https://.../avatar/e3b51ca72dee4ef87916ae2b9240df50.jpg",
+                  "real_name": "Egon Spengler",
+                  "real_name_normalized": "Egon Spengler",
+                  "status_emoji": ":books:",
+                  "status_expiration": 0,
+                  "status_text": "Print is dead",
+                  "team": "T012AB3C4"
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from users.profile.get method",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "profile": {
+                "additionalProperties": false,
+                "properties": {
+                  "always_active": {
+                    "type": "boolean"
+                  },
+                  "api_app_id": {
+                    "$ref": "#/components/schemas/defs_optional_app_id"
+                  },
+                  "avatar_hash": {
+                    "type": "string"
+                  },
+                  "bot_id": {
+                    "$ref": "#/components/schemas/defs_bot_id"
+                  },
+                  "display_name": {
+                    "type": "string"
+                  },
+                  "display_name_normalized": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "format": "email",
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "fields": {
+                    "items": {
+                      "type": "object"
+                    },
+                    "nullable": true,
+                    "oneOf": [
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "items": {},
+                        "type": "array"
+                      }
+                    ]
+                  },
+                  "first_name": {
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "guest_expiration_ts": {
+                    "nullable": true,
+                    "type": "integer"
+                  },
+                  "guest_invited_by": {
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "image_1024": {
+                    "format": "uri",
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "image_192": {
+                    "format": "uri",
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "image_24": {
+                    "format": "uri",
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "image_32": {
+                    "format": "uri",
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "image_48": {
+                    "format": "uri",
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "image_512": {
+                    "format": "uri",
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "image_72": {
+                    "format": "uri",
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "image_original": {
+                    "format": "uri",
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "is_app_user": {
+                    "type": "boolean"
+                  },
+                  "is_custom_image": {
+                    "type": "boolean"
+                  },
+                  "is_restricted": {
+                    "nullable": true,
+                    "type": "boolean"
+                  },
+                  "is_ultra_restricted": {
+                    "nullable": true,
+                    "type": "boolean"
+                  },
+                  "last_avatar_image_hash": {
+                    "type": "string"
+                  },
+                  "last_name": {
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "memberships_count": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "pronouns": {
+                    "type": "string"
+                  },
+                  "real_name": {
+                    "type": "string"
+                  },
+                  "real_name_normalized": {
+                    "type": "string"
+                  },
+                  "skype": {
+                    "type": "string"
+                  },
+                  "status_default_emoji": {
+                    "type": "string"
+                  },
+                  "status_default_text": {
+                    "type": "string"
+                  },
+                  "status_default_text_canonical": {
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "status_emoji": {
+                    "type": "string"
+                  },
+                  "status_expiration": {
+                    "type": "integer"
+                  },
+                  "status_text": {
+                    "type": "string"
+                  },
+                  "status_text_canonical": {
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "team": {
+                    "$ref": "#/components/schemas/defs_workspace_id"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "updated": {
+                    "type": "integer"
+                  },
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "nullable": true,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "real_name",
+                  "display_name",
+                  "avatar_hash",
+                  "real_name_normalized",
+                  "display_name_normalized",
+                  "title",
+                  "phone",
+                  "skype",
+                  "status_text",
+                  "status_emoji",
+                  "fields"
+                ],
+                "title": "User profile object",
+                "type": "object"
+              }
+            },
+            "required": [
+              "ok",
+              "profile"
+            ],
+            "title": "users.profile.get schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/account_links",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "collection_options": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "account": {
+              "description": "The identifier of the account to create an account link for.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "collect": {
+              "description": "The collect parameter is deprecated. Use `collection_options` instead.",
+              "enum": [
+                "currently_due",
+                "eventually_due"
+              ],
+              "type": "string"
+            },
+            "collection_options": {
+              "description": "Specifies the requirements that Stripe collects from connected accounts in the Connect Onboarding flow.",
+              "properties": {
+                "fields": {
+                  "enum": [
+                    "currently_due",
+                    "eventually_due"
+                  ],
+                  "type": "string"
+                },
+                "future_requirements": {
+                  "enum": [
+                    "include",
+                    "omit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "title": "collection_options_params",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "refresh_url": {
+              "description": "The URL the user will be redirected to if the account link is expired, has been previously-visited, or is otherwise invalid. The URL you specify should attempt to generate a new account link with the same parameters used to create the original account link, then redirect the user to the new account link's URL so they can continue with Connect Onboarding. If a new account link cannot be generated or the redirect fails you should display a useful error to the user.",
+              "type": "string"
+            },
+            "return_url": {
+              "description": "The URL that the user will be redirected to upon leaving or completing the linked flow.",
+              "type": "string"
+            },
+            "type": {
+              "description": "The type of account link the user is requesting. Possible values are `account_onboarding` or `account_update`.",
+              "enum": [
+                "account_onboarding",
+                "account_update"
+              ],
+              "type": "string",
+              "x-stripeBypassValidation": true
+            }
+          },
+          "required": [
+            "account",
+            "type"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Account Links are the means by which a Connect platform grants a connected account permission to access\nStripe-hosted applications, such as Connect Onboarding.\n\nRelated guide: [Connect Onboarding](https://stripe.com/docs/connect/custom/hosted-onboarding)",
+            "properties": {
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "expires_at": {
+                "description": "The timestamp at which this account link will expire.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "account_link"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "The URL for the account link.",
+                "maxLength": 5000,
+                "type": "string"
+              }
+            },
+            "required": [
+              "created",
+              "expires_at",
+              "object",
+              "url"
+            ],
+            "title": "AccountLink",
+            "type": "object",
+            "x-expandableFields": [],
+            "x-resourceId": "account_link"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

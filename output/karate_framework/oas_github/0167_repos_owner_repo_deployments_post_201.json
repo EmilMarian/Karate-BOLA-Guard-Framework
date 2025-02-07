@@ -1,0 +1,194 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Name of repository owner.",
+      "in": "path",
+      "name": "owner",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Name of repository.",
+      "in": "path",
+      "name": "repo",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/repos/{owner}/{repo}/deployments",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "payload": {
+              "properties": {
+                "deploy_user": {
+                  "type": "string"
+                },
+                "environment": {
+                  "type": "string"
+                },
+                "room_id": {
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "ref": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "201": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "created_at": {
+                "type": "string"
+              },
+              "creator": {
+                "properties": {
+                  "avatar_url": {
+                    "type": "string"
+                  },
+                  "events_url": {
+                    "type": "string"
+                  },
+                  "followers_url": {
+                    "type": "string"
+                  },
+                  "following_url": {
+                    "type": "string"
+                  },
+                  "gists_url": {
+                    "type": "string"
+                  },
+                  "gravatar_id": {
+                    "type": "string"
+                  },
+                  "html_url": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "login": {
+                    "type": "string"
+                  },
+                  "organizations_url": {
+                    "type": "string"
+                  },
+                  "received_events_url": {
+                    "type": "string"
+                  },
+                  "repos_url": {
+                    "type": "string"
+                  },
+                  "site_admin": {
+                    "type": "boolean"
+                  },
+                  "starred_url": {
+                    "type": "string"
+                  },
+                  "subscriptions_url": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "description": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "payload": {
+                "type": "string"
+              },
+              "sha": {
+                "type": "string"
+              },
+              "statuses_url": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Created"
+    }
+  }
+}

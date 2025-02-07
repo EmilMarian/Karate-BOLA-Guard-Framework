@@ -1,0 +1,111 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `reactions:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/reactions.add",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel": {
+              "description": "Channel where the message to add reaction to was posted.",
+              "type": "string"
+            },
+            "name": {
+              "description": "Reaction (emoji) name.",
+              "type": "string"
+            },
+            "timestamp": {
+              "description": "Timestamp of the message to add reaction to.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel",
+            "name",
+            "timestamp"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "already_reacted",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from reactions.add method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "bad_timestamp",
+                  "message_not_found",
+                  "no_item_specified",
+                  "invalid_name",
+                  "already_reacted",
+                  "too_many_emoji",
+                  "too_many_reactions",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "no_permission",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "reactions.add error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

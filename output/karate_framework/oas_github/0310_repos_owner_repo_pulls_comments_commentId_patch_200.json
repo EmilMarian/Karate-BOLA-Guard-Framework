@@ -1,0 +1,184 @@
+{
+  "method": "PATCH",
+  "parameters": [
+    {
+      "description": "Name of repository owner.",
+      "in": "path",
+      "name": "owner",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Name of repository.",
+      "in": "path",
+      "name": "repo",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Id of comment.",
+      "in": "path",
+      "name": "commentId",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/repos/{owner}/{repo}/pulls/comments/{commentId}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "body": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "body"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "_links": {
+                "properties": {
+                  "html": {
+                    "properties": {
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "pull_request": {
+                    "properties": {
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "self": {
+                    "properties": {
+                      "href": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "body": {
+                "type": "string"
+              },
+              "commit_id": {
+                "type": "string"
+              },
+              "created_at": {
+                "description": "ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ",
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "path": {
+                "type": "string"
+              },
+              "position": {
+                "type": "integer"
+              },
+              "updated_at": {
+                "description": "ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ",
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "user": {
+                "properties": {
+                  "avatar_url": {
+                    "type": "string"
+                  },
+                  "gravatar_id": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "login": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

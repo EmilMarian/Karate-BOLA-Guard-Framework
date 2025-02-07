@@ -1,0 +1,146 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Unique identifier for the object.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/billing/meters/{id}/reactivate",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Meters specify how to aggregate meter events over a billing period. Meter events represent the actions that customers take in your system. Meters attach to prices and form the basis of the bill.\n\nRelated guide: [Usage based billing](https://docs.stripe.com/billing/subscriptions/usage-based)",
+            "properties": {
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "customer_mapping": {
+                "$ref": "#/components/schemas/billing_meter_resource_customer_mapping_settings"
+              },
+              "default_aggregation": {
+                "$ref": "#/components/schemas/billing_meter_resource_aggregation_settings"
+              },
+              "display_name": {
+                "description": "The meter's name.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "event_name": {
+                "description": "The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "event_time_window": {
+                "description": "The time window to pre-aggregate meter events for, if any.",
+                "enum": [
+                  "day",
+                  "hour"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "billing.meter"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "The meter's status.",
+                "enum": [
+                  "active",
+                  "inactive"
+                ],
+                "type": "string"
+              },
+              "status_transitions": {
+                "$ref": "#/components/schemas/billing_meter_resource_billing_meter_status_transitions"
+              },
+              "updated": {
+                "description": "Time at which the object was last updated. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "value_settings": {
+                "$ref": "#/components/schemas/billing_meter_resource_billing_meter_value"
+              }
+            },
+            "required": [
+              "created",
+              "customer_mapping",
+              "default_aggregation",
+              "display_name",
+              "event_name",
+              "id",
+              "livemode",
+              "object",
+              "status",
+              "status_transitions",
+              "updated",
+              "value_settings"
+            ],
+            "title": "BillingMeter",
+            "type": "object",
+            "x-expandableFields": [
+              "customer_mapping",
+              "default_aggregation",
+              "status_transitions",
+              "value_settings"
+            ],
+            "x-resourceId": "billing.meter"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

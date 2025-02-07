@@ -1,0 +1,82 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The access token must have been issued on behalf of the current user.  \nReading the user's email address requires the `user-read-email` scope; reading country, product subscription level and explicit content settings requires the `user-read-private` scope. See [Using Scopes](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes).",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/me",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "externalDocs": {
+              "description": "Find more info on the official Spotify Web API Reference",
+              "url": "https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject"
+            },
+            "properties": {
+              "country": {
+                "description": "The country of the user, as set in the user's account profile. An [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). *This field is only available when the current user has granted access to the [user-read-private](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) scope.*",
+                "type": "string"
+              },
+              "display_name": {
+                "description": "The name displayed on the user's profile. `null` if not available.",
+                "type": "string"
+              },
+              "email": {
+                "description": "The user's email address, as entered by the user when creating their account. ***Important!** This email address is unverified; there is no proof that it actually belongs to the user.* *This field is only available when the current user has granted access to the [user-read-email](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) scope.*",
+                "type": "string"
+              },
+              "explicit_content": {
+                "$ref": "#/components/schemas/ExplicitContentSettingsObject"
+              },
+              "external_urls": {
+                "$ref": "#/components/schemas/ExternalUrlObject"
+              },
+              "followers": {
+                "$ref": "#/components/schemas/FollowersObject"
+              },
+              "href": {
+                "description": "A link to the Web API endpoint for this user.",
+                "type": "string"
+              },
+              "id": {
+                "description": "The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the user.",
+                "type": "string"
+              },
+              "images": {
+                "description": "The user's profile image.",
+                "items": {
+                  "$ref": "#/components/schemas/ImageObject"
+                },
+                "type": "array"
+              },
+              "product": {
+                "description": "The user's Spotify subscription level: \"premium\", \"free\", etc. (The subscription level \"open\" can be considered the same as \"free\".) *This field is only available when the current user has granted access to the [user-read-private](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) scope.*",
+                "type": "string"
+              },
+              "type": {
+                "description": "The object type: \"user\"",
+                "type": "string"
+              },
+              "uri": {
+                "description": "The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the user.",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the HTTP status code in the response header is `200` OK and the response body contains a [user object](https://developer.spotify.com/documentation/web-api/reference/#object-privateuserobject) in JSON format. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema). When requesting fields that you don't have the user's authorization to access, it will return error `403` Forbidden.\n\n**Important!** If the `user-read-email` scope is authorized, the returned JSON will include the email address that was entered when the user created their Spotify account. **This email address is unverified**; do not assume that the email address belongs to the user."
+    }
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.",
+      "in": "query",
+      "name": "page",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for products](https://stripe.com/docs/search#query-fields-for-products).",
+      "in": "query",
+      "name": "query",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/products/search",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "",
+            "properties": {
+              "data": {
+                "items": {
+                  "description": "Products describe the specific goods or services you offer to your customers.\nFor example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.\nThey can be used in conjunction with [Prices](https://stripe.com/docs/api#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.\n\nRelated guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription),\n[share a Payment Link](https://stripe.com/docs/payment-links),\n[accept payments with Checkout](https://stripe.com/docs/payments/accept-a-payment#create-product-prices-upfront),\nand more about [Products and Prices](https://stripe.com/docs/products-prices/overview)",
+                  "properties": {
+                    "active": {
+                      "description": "Whether the product is currently available for purchase.",
+                      "type": "boolean"
+                    },
+                    "created": {
+                      "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "default_price": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/price"
+                        }
+                      ],
+                      "description": "The ID of the [Price](https://stripe.com/docs/api/prices) object that is the default price for this product.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/price"
+                          }
+                        ]
+                      }
+                    },
+                    "description": {
+                      "description": "The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the object.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "images": {
+                      "description": "A list of up to 8 URLs of images for this product, meant to be displayable to the customer.",
+                      "items": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "livemode": {
+                      "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                      "type": "boolean"
+                    },
+                    "marketing_features": {
+                      "description": "A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).",
+                      "items": {
+                        "$ref": "#/components/schemas/product_marketing_feature"
+                      },
+                      "type": "array"
+                    },
+                    "metadata": {
+                      "additionalProperties": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                      "type": "object"
+                    },
+                    "name": {
+                      "description": "The product's name, meant to be displayable to the customer.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "object": {
+                      "description": "String representing the object's type. Objects of the same type share the same value.",
+                      "enum": [
+                        "product"
+                      ],
+                      "type": "string"
+                    },
+                    "package_dimensions": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/package_dimensions"
+                        }
+                      ],
+                      "description": "The dimensions of this product for shipping purposes.",
+                      "nullable": true
+                    },
+                    "shippable": {
+                      "description": "Whether this product is shipped (i.e., physical goods).",
+                      "nullable": true,
+                      "type": "boolean"
+                    },
+                    "statement_descriptor": {
+                      "description": "Extra information about a product which will appear on your customer's credit card statement. In the case that multiple products are billed at once, the first statement descriptor will be used. Only used for subscription payments.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "tax_code": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/tax_code"
+                        }
+                      ],
+                      "description": "A [tax code](https://stripe.com/docs/tax/tax-categories) ID.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/tax_code"
+                          }
+                        ]
+                      }
+                    },
+                    "unit_label": {
+                      "description": "A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "updated": {
+                      "description": "Time at which the object was last updated. Measured in seconds since the Unix epoch.",
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "url": {
+                      "description": "A URL of a publicly-accessible webpage for this product.",
+                      "maxLength": 2048,
+                      "nullable": true,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "active",
+                    "created",
+                    "id",
+                    "images",
+                    "livemode",
+                    "marketing_features",
+                    "metadata",
+                    "name",
+                    "object",
+                    "updated"
+                  ],
+                  "title": "Product",
+                  "type": "object",
+                  "x-expandableFields": [
+                    "default_price",
+                    "marketing_features",
+                    "package_dimensions",
+                    "tax_code"
+                  ],
+                  "x-resourceId": "product"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "type": "boolean"
+              },
+              "next_page": {
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "search_result"
+                ],
+                "type": "string"
+              },
+              "total_count": {
+                "description": "The total number of objects that match the query, only accurate up to 10,000.",
+                "type": "integer"
+              },
+              "url": {
+                "maxLength": 5000,
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "SearchResult",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

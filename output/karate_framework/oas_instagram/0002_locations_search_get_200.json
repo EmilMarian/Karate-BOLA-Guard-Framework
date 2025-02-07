@@ -1,0 +1,82 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Default is 1000m (distance=1000), max distance is 5000.",
+      "in": "query",
+      "name": "distance",
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Returns a location mapped off of a Facebook places id. If used, a Foursquare id and `lat`, `lng` are not required.",
+      "in": "query",
+      "name": "facebook_places_id",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Returns a location mapped off of a foursquare v1 api location id. If used, you are not required to use\n`lat` and `lng`. Note that this method is deprecated; you should use the new foursquare IDs with V2 of their API.\n",
+      "in": "query",
+      "name": "foursquare_id",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Latitude of the center search coordinate. If used, `lng` is required.",
+      "in": "query",
+      "name": "lat",
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "Longitude of the center search coordinate. If used, `lat` is required.",
+      "in": "query",
+      "name": "lng",
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "Returns a location mapped off of a foursquare v2 api location id. If used, you are not required to use\n`lat` and `lng`.\n",
+      "in": "query",
+      "name": "foursquare_v2_id",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/locations/search",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "List of found locations",
+                "items": {
+                  "$ref": "#/components/schemas/LocationInfo"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "List of found locations."
+    }
+  }
+}

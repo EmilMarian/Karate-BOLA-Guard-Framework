@@ -1,0 +1,32 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "The ID of a project",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "pattern": "^(\\d+|[^/]+(%2[fF])[^/]+)$",
+        "type": "string"
+      }
+    },
+    {
+      "description": "ID of MR",
+      "in": "path",
+      "name": "merge_request_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/projects/{id}/merge_requests/{merge_request_id}/merge",
+  "requestBody": {},
+  "responses": {
+    "406": {
+      "content": {},
+      "description": "Merge request is already merged or closed"
+    }
+  }
+}

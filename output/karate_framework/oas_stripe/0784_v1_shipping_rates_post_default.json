@@ -1,0 +1,194 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/shipping_rates",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "delivery_estimate": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "fixed_amount": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "delivery_estimate": {
+              "description": "The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.",
+              "properties": {
+                "maximum": {
+                  "properties": {
+                    "unit": {
+                      "enum": [
+                        "business_day",
+                        "day",
+                        "hour",
+                        "month",
+                        "week"
+                      ],
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "unit",
+                    "value"
+                  ],
+                  "title": "delivery_estimate_bound",
+                  "type": "object"
+                },
+                "minimum": {
+                  "properties": {
+                    "unit": {
+                      "enum": [
+                        "business_day",
+                        "day",
+                        "hour",
+                        "month",
+                        "week"
+                      ],
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "unit",
+                    "value"
+                  ],
+                  "title": "delivery_estimate_bound",
+                  "type": "object"
+                }
+              },
+              "title": "delivery_estimate",
+              "type": "object"
+            },
+            "display_name": {
+              "description": "The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.",
+              "maxLength": 100,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "fixed_amount": {
+              "description": "Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "currency": {
+                  "format": "currency",
+                  "type": "string"
+                },
+                "currency_options": {
+                  "additionalProperties": {
+                    "properties": {
+                      "amount": {
+                        "type": "integer"
+                      },
+                      "tax_behavior": {
+                        "enum": [
+                          "exclusive",
+                          "inclusive",
+                          "unspecified"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "amount"
+                    ],
+                    "title": "currency_option",
+                    "type": "object"
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "amount",
+                "currency"
+              ],
+              "title": "fixed_amount",
+              "type": "object"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "tax_behavior": {
+              "description": "Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.",
+              "enum": [
+                "exclusive",
+                "inclusive",
+                "unspecified"
+              ],
+              "type": "string"
+            },
+            "tax_code": {
+              "description": "A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.",
+              "type": "string"
+            },
+            "type": {
+              "description": "The type of calculation to use on the shipping rate.",
+              "enum": [
+                "fixed_amount"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "display_name"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

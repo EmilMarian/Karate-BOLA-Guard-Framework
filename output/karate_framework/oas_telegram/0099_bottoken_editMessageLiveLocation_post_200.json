@@ -1,0 +1,69 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "chat_id": {
+            "type": "object"
+          },
+          "inline_message_id": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "message_id": {
+            "type": "integer"
+          },
+          "reply_markup": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "latitude",
+          "longitude"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/editMessageLiveLocation",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "description": "",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/definitions/Message"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

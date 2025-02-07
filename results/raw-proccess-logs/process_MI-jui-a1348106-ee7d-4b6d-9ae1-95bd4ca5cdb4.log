@@ -1,0 +1,208 @@
+2025-01-27 21:05:15,946 - __main__ - INFO - Skipping fragment creation: False
+2025-01-27 21:05:16,008 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-27 21:05:17,764 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/Users/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"passwordRepeat\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"securityQuestion\\\\\\":{\\\\\\"id\\\\\\":7,\\\\\\"question\\\\\\":\\\\\\"Name of your favorite pet?\\\\\\",\\\\\\"createdAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\",\\\\\\"updatedAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\"},\\\\\\"securityAnswer\\\\\\":\\\\\\"MIX MIX\\\\\\"}\\"", "type": "string"}}}}, "responses": {"201": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_api_Users_post_201.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/rest/user/login", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0002_rest_user_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "{{_token}}", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "application/json; charset=utf-8", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/BasketItems/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"ProductId\\\\\\":{{_product_2_id}},\\\\\\"BasketId\\\\\\":\\\\\\"{{_bid}}\\\\\\",\\\\\\"quantity\\\\\\":1}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0004_api_BasketItems_post_200.json'}}], form collection juiceshop_fragments
+2025-01-27 21:05:17,765 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 21:05:17,766 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 21:05:18,203 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 21:05:18,203 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 21:08:30,357 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 21:08:30,358 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-01-27 21:08:30,359 - __main__ - INFO - Generated Karate test for /api/Users/ POST at output/karate_feature_files/ID_001_krtestjui_api_Users__POST.feature
+2025-01-27 21:08:30,360 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 21:08:30,360 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access protected resources without proper authentication or authorization
+    Given url http://192.168.1.112:3133/api/Users/
+      And method POST
+      And header Authorization = 'Bearer <invalid_token>'
+      When status 401
+        Then match response contains 'Unauthorized'
+```
+2025-01-27 21:10:56,438 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 21:10:56,438 - karate_compatibility_verifier - INFO -  ```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access protected resources without proper authentication or authorization
+    Given url http://192.168.1.112:3133/api/Users/
+      And method POST
+      And header Authorization = 'Bearer <invalid_token>'
+      When status 401
+        Then match response contains 'Unauthorized'
+```
+2025-01-27 21:11:57,812 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 21:11:57,812 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to access protected resources without proper authentication or authorization
+Given url http://192.168.1.112:3133/api/Users/
+And method POST
+And header Authorization = 'Bearer <invalid_token>'
+When status 401
+Then match response contains 'Unauthorized'
+2025-01-27 21:11:57,812 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestjui_api_Users__POST_verified.feature
+2025-01-27 21:11:57,812 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestjui_api_Users__POST.feature:  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to access protected resources without proper authentication or authorization
+Given url http://192.168.1.112:3133/api/Users/
+And method POST
+And header Authorization = 'Bearer <invalid_token>'
+When status 401
+Then match response contains 'Unauthorized'
+2025-01-27 21:11:57,813 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 21:11:57,813 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 21:11:57,851 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 21:11:57,852 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 21:16:03,685 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 21:16:03,685 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-01-27 21:16:03,686 - __main__ - INFO - Generated Karate test for /rest/user/login POST at output/karate_feature_files/ID_002_krtestjui_rest_user_login_POST.feature
+2025-01-27 21:16:03,686 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 21:16:03,686 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/rest/user/login` endpoint:
+```kotlin
+Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the login process requires valid credentials
+    Given url http://192.168.1.112:3133/rest/user/login
+    And request { username: 'nonexistent_user', password: 'Password123' }
+    When method post
+    Then status 401
+    And match response.contains('Invalid credentials')
+    
+  Scenario: Verify that the login process does not allow brute force attacks
+    Given url http://192.168.1.112:3133/rest/user/login
+    And request { username: 'existing_user', password: 'Password123' }
+    When method post
+    Then status 401
+    And match response.contains('Too many failed login attempts')
+    
+  Scenario: Verify that the login process does not allow account enumeration
+    Given url http://192.168.1.112:3133/rest/user/login
+    And request { username: 'existing_user', password: 'WrongPassword' }
+    When method post
+    Then status 401
+    And match response.contains('Incorrect username or password')
+```
+2025-01-27 21:20:54,294 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 21:20:54,294 - karate_compatibility_verifier - INFO -  Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the login process requires valid credentials
+    Given url 'http://192.168.1.112:3133/rest/user/login'
+    And request { username: '"nonexistent_user"', password: '"Password123"' }
+    When method post
+    Then status 401
+    And match response == { message: 'Invalid credentials' }
+    
+  Scenario: Verify that the login process does not allow brute force attacks
+    Given url 'http://192.168.1.112:3133/rest/user/login'
+    And request { username: '"existing_user"', password: '"Password123"' }
+    When method post
+    Then status 401
+    And match response == { message: 'Too many failed login attempts' }
+    
+  Scenario: Verify that the login process does not allow account enumeration
+    Given url 'http://192.168.1.112:3133/rest/user/login'
+    And request { username: '"existing_user"', password: '"WrongPassword"' }
+    When method post
+    Then status 401
+    And match response == { message: 'Incorrect username or password' }
+2025-01-27 21:23:18,902 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 21:23:18,902 - karate_compatibility_verifier - INFO -  Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+Scenario: Verify that the login process requires valid credentials
+Given url 'http://192.168.1.112:3133/rest/user/login'
+And request { username: '"nonexistent_user"', password: '"Password123"' }
+When method post
+Then status 401
+And match response == { message: 'Invalid credentials' }
+Scenario: Verify that the login process does not allow brute force attacks
+Given url 'http://192.168.1.112:3133/rest/user/login'
+And request { username: '"existing_user"', password: '"Password123"' }
+When method post
+Then status 401
+And match response == { message: 'Too many failed login attempts' }
+Scenario: Verify that the login process does not allow account enumeration
+Given url 'http://192.168.1.112:3133/rest/user/login'
+And request { username: '"existing_user"', password: '"WrongPassword"' }
+When method post
+Then status 401
+And match response == { message: 'Incorrect username or password' }
+2025-01-27 21:23:18,903 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestjui_rest_user_login_POST_verified.feature
+2025-01-27 21:23:18,903 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestjui_rest_user_login_POST.feature:  Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+Scenario: Verify that the login process requires valid credentials
+Given url 'http://192.168.1.112:3133/rest/user/login'
+And request { username: '"nonexistent_user"', password: '"Password123"' }
+When method post
+Then status 401
+And match response == { message: 'Invalid credentials' }
+Scenario: Verify that the login process does not allow brute force attacks
+Given url 'http://192.168.1.112:3133/rest/user/login'
+And request { username: '"existing_user"', password: '"Password123"' }
+When method post
+Then status 401
+And match response == { message: 'Too many failed login attempts' }
+Scenario: Verify that the login process does not allow account enumeration
+Given url 'http://192.168.1.112:3133/rest/user/login'
+And request { username: '"existing_user"', password: '"WrongPassword"' }
+When method post
+Then status 401
+And match response == { message: 'Incorrect username or password' }
+2025-01-27 21:23:18,904 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 21:23:18,905 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 21:23:18,935 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 21:23:18,936 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 21:26:47,351 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 21:26:47,352 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script that checks for potential Broken Authentication/Authorization vuln...
+2025-01-27 21:26:47,353 - __main__ - INFO - Generated Karate test for /api/BasketItems/ POST at output/karate_feature_files/ID_003_krtestjui_api_BasketItems__POST.feature
+2025-01-27 21:26:47,353 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 21:26:47,353 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script that checks for potential Broken Authentication/Authorization vulnerabilities on the /api/BasketItems endpoint:
+```kotlin
+Feature: BasketItems API Endpoint Security Testing
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+    Given url http://192.168.1.112:3133/api/BasketItems/
+    When method POST
+    Then status code is 401 or 403
+```
+This test script checks that the /api/BasketItems endpoint requires authentication and authorization before allowing access to it. If an unauthorized user attempts to make a request to this endpoint, they should receive a 401 Unauthorized response. Similarly, if an authenticated user does not have sufficient permissions to perform the requested action, they should also receive a 403 Forbidden response.
+
+Note that this test script only checks for basic authentication and authorization requirements on the /api/BasketItems endpoint. Additional security measures such as rate limiting or input validation may be necessary depending on the specific use case of the API.
+2025-01-27 21:30:18,472 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 21:30:18,473 - karate_compatibility_verifier - INFO -  Feature: BasketItems API Endpoint Security Testing
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+    Given url http://192.168.1.112:3133/api/BasketItems/
+    When method POST
+    Then status code is 401 or 403
+2025-01-27 21:31:10,820 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 21:31:10,820 - karate_compatibility_verifier - INFO -  Feature: BasketItems API Endpoint Security Testing
+Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+Given url http://192.168.1.112:3133/api/BasketItems/
+When method POST
+Then status code is 401 or 403
+2025-01-27 21:31:10,821 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestjui_api_BasketItems__POST_verified.feature
+2025-01-27 21:31:10,821 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestjui_api_BasketItems__POST.feature:  Feature: BasketItems API Endpoint Security Testing
+Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+Given url http://192.168.1.112:3133/api/BasketItems/
+When method POST
+Then status code is 401 or 403
+2025-01-27 21:31:10,821 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-27 21:31:10,824 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-27 21:31:13,160 - __main__ - INFO - Skipping karate test run.

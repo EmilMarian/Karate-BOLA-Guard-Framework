@@ -1,0 +1,158 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/financial_connections/sessions",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "account_holder": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "filters": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "permissions": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "prefetch": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "account_holder": {
+              "description": "The account holder to link accounts for.",
+              "properties": {
+                "account": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "customer": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "account",
+                    "customer"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "accountholder_params",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "filters": {
+              "description": "Filters to restrict the kinds of accounts to collect.",
+              "properties": {
+                "account_subcategories": {
+                  "items": {
+                    "enum": [
+                      "checking",
+                      "credit_card",
+                      "line_of_credit",
+                      "mortgage",
+                      "savings"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "countries": {
+                  "items": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "title": "filters_params",
+              "type": "object"
+            },
+            "permissions": {
+              "description": "List of data features that you would like to request access to.\n\nPossible values are `balances`, `transactions`, `ownership`, and `payment_method`.",
+              "items": {
+                "enum": [
+                  "balances",
+                  "ownership",
+                  "payment_method",
+                  "transactions"
+                ],
+                "maxLength": 5000,
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "type": "array"
+            },
+            "prefetch": {
+              "description": "List of data features that you would like to retrieve upon account creation.",
+              "items": {
+                "enum": [
+                  "balances",
+                  "ownership",
+                  "transactions"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "type": "array"
+            },
+            "return_url": {
+              "description": "For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.",
+              "maxLength": 5000,
+              "type": "string"
+            }
+          },
+          "required": [
+            "account_holder",
+            "permissions"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

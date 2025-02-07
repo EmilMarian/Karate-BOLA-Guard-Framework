@@ -1,0 +1,112 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "The ID of the entitlement.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/entitlements/active_entitlements/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An active entitlement describes access to a feature for a customer.",
+            "properties": {
+              "feature": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/entitlements.feature"
+                  }
+                ],
+                "description": "The [Feature](https://stripe.com/docs/api/entitlements/feature) that the customer is entitled to.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/entitlements.feature"
+                    }
+                  ]
+                }
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "lookup_key": {
+                "description": "A unique key you provide as your own system identifier. This may be up to 80 characters.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "entitlements.active_entitlement"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "feature",
+              "id",
+              "livemode",
+              "lookup_key",
+              "object"
+            ],
+            "title": "ActiveEntitlement",
+            "type": "object",
+            "x-expandableFields": [
+              "feature"
+            ],
+            "x-resourceId": "entitlements.active_entitlement"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

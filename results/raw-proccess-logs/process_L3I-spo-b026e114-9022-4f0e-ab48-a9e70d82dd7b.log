@@ -1,0 +1,450 @@
+2025-01-31 18:13:26,407 - __main__ - INFO - Skipping fragment creation: False
+2025-01-31 18:13:26,466 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-31 18:13:27,052 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The `user-library-read` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) must have been authorized by the user.", "in": "header", "name": "Authorization", "required": true, "schema": {"type": "string"}}, {"description": "An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). If a country code is specified, only episodes that are available in that market will be returned.  \\nIf a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.  \\n*Note: If neither market or user country are provided, the content is considered unavailable for the client.*   \\nUsers can view the country that is associated with their account in the [account settings](https://www.spotify.com/se/account/overview/).", "in": "query", "name": "market", "required": false, "schema": {"type": "string"}}, {"description": "The maximum number of objects to return. Default: 20. Minimum: 1. Maximum: 50.", "in": "query", "name": "limit", "required": false, "schema": {"format": "int32", "type": "integer"}}, {"description": "The index of the first object to return. Default: 0 (i.e., the first object). Use with `limit` to get the next set of objects.", "in": "query", "name": "offset", "required": false, "schema": {"format": "int32", "type": "integer"}}], "path": "/me/episodes", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponseObject"}}}, "description": "Unexpected error"}}}', 'metadata': {'filename': '0052_me_episodes_get_default.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The `user-library-read` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) must have been authorized by the user.", "in": "header", "name": "Authorization", "required": true, "schema": {"type": "string"}}, {"description": "An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). If a country code is specified, only episodes that are available in that market will be returned.  \\nIf a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.  \\n*Note: If neither market or user country are provided, the content is considered unavailable for the client.*   \\nUsers can view the country that is associated with their account in the [account settings](https://www.spotify.com/se/account/overview/).", "in": "query", "name": "market", "required": false, "schema": {"type": "string"}}, {"description": "The maximum number of objects to return. Default: 20. Minimum: 1. Maximum: 50.", "in": "query", "name": "limit", "required": false, "schema": {"format": "int32", "type": "integer"}}, {"description": "The index of the first object to return. Default: 0 (i.e., the first object). Use with `limit` to get the next set of objects.", "in": "query", "name": "offset", "required": false, "schema": {"format": "int32", "type": "integer"}}], "path": "/me/episodes", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"externalDocs": {"description": "Find more info on the official Spotify Web API Reference", "url": "https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject"}, "properties": {"href": {"description": "A link to the Web API endpoint returning the full result of the request", "type": "string"}, "items": {"description": "The requested data.", "items": {"externalDocs": {"description": "Find more info on the official Spotify Web API Reference", "url": "https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject"}, "properties": {"added_at": {"description": "The date and time the episode was saved. Timestamps are returned in ISO 8601 format as Coordinated Universal Time (UTC) with a zero offset: YYYY-MM-DDTHH:MM:SSZ.", "format": "date-time", "type": "string"}, "episode": {"$ref": "#/components/schemas/EpisodeObject"}}, "type": "object"}, "type": "array"}, "limit": {"description": "The maximum number of items in the response (as set in the query or by default).", "format": "int32", "type": "integer"}, "next": {"description": "URL to the next page of items. ( `null` if none)", "type": "string"}, "offset": {"description": "The offset of the items returned (as set in the query or by default)", "format": "int32", "type": "integer"}, "previous": {"description": "URL to the previous page of items. ( `null` if none)", "type": "string"}, "total": {"description": "The total number of items available to return.", "format": "int32", "type": "integer"}}, "type": "object"}}}, "description": "- On success, the HTTP status code in the response header is `200` OK and the response body contains an array of [saved episode objects](https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject) (wrapped in a [paging object](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)) in JSON format. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema)."}}}', 'metadata': {'filename': '0051_me_episodes_get_200.json'}}, {'content': '{"method": "PUT", "parameters": [{"description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.  \\nModification of the current user\'s \\"Your Music\\" collection requires authorization of the `user-library-modify` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes).", "in": "header", "name": "Authorization", "required": true, "schema": {"type": "string"}}, {"description": "*Required if the IDs are passed in the request body, otherwise ignored.* The content type of the request body: `application/json`", "in": "header", "name": "Content-Type", "required": false, "schema": {"type": "string"}}, {"description": "A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids). For example: `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 50 IDs.", "in": "query", "name": "ids", "required": true, "schema": {"type": "string"}}], "path": "/me/albums", "requestBody": {"content": {"application/json": {"schema": {"properties": {"ids": {"description": "A JSON array of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids). For example: `[\\"4iV5W9uYEdYUVa79Axb7Rh\\", \\"1301WleyT98MSxVHPZCA6M\\"]`  \\nA maximum of 50 items can be specified in one request. *Note: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored.*", "items": {"type": "string"}, "type": "array"}}, "type": "object"}}}, "required": false}, "responses": {"201": {"description": "On success, the HTTP status code in the response header is `201` Created. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema). Trying to add an album when you do not have the user\'s authorization returns error `403` Forbidden."}}}', 'metadata': {'filename': '0045_me_albums_put_201.json'}}], form collection oas_spotify_fragments
+2025-01-31 18:13:27,053 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 18:13:27,054 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 18:13:27,495 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 18:13:27,495 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 18:18:46,772 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 18:18:46,773 - karate_llm_test_gen - INFO - Generated test case: Here are three security test cases using Karate DSL scenarios:
+
+**Scenario 1: OAuth Token Generation...
+2025-01-31 18:18:46,774 - __main__ - INFO - Generated Karate test for /me/episodes GET at output/karate_feature_files/ID_001_krtestoas_me_episodes_GET.feature
+2025-01-31 18:18:46,775 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 18:18:46,775 - karate_compatibility_verifier - INFO - Here are three security test cases using Karate DSL scenarios:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_spotify.api/me/episodes'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil. example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method get
+Then status 401
+And match response contains 'Invalid authorization code'
+```
+
+**Scenario 2: OAuth Token Refresh Abuse**
+```karate
+Feature: Test API for OAuth Token Refresh Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_spotify.api/me/episodes'
+And request {
+    refresh_token: 'leaked_refresh_token',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method get
+Then status 401
+And match response contains 'Invalid refresh token'
+```
+
+**Scenario 3: OAuth Token Refresh Handling**
+```karate
+Feature: OAuth2 Refresh Token Handling
+Scenario: Validate OAuth2 token refresh mechanism and its error handling
+Given url 'http://oas_spotify.api/me/episodes'
+And request {
+    refresh_token: 'valid_refresh_token',
+    client_id: 'valid_client_id'
+}
+When method get
+Then status 200
+And match response contains 'Access token refreshed successfully.'
+
+Given request {
+    refresh_token: 'expired_refresh_token',
+    client_id: 'valid_client_id'
+}
+When method get
+Then status 401
+And match response contains 'Refresh token is expired or invalid.'
+```
+
+These test scenarios aim to identify potential Broken Authentication/Authorization vulnerabilities in the `/me/episodes` endpoint by attempting to exploit OAuth token generation and refresh mechanisms with stolen authorization codes, leaked refresh tokens, and other malicious inputs.
+2025-01-31 18:24:09,596 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 18:24:09,596 - karate_compatibility_verifier - INFO - ```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_spotify.api/me/episodes'
+And request { 
+    grant_type: 'authorization_code', 
+    code: '#stolen_code', 
+    redirect_uri: 'http://evil.example.com', 
+    client_id: 'client_id', 
+    client_secret: 'client_secret' 
+}
+When method POST
+Then status 401
+And match response contains 'Invalid authorization code'
+
+Feature: Test API for OAuth Token Refresh Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_spotify.api/me/episodes'
+And request { 
+    refresh_token: '#leaked_refresh_token', 
+    client_id: 'client_id', 
+    client_secret: 'client_secret' 
+}
+When method POST
+Then status 401
+And match response contains 'Invalid refresh token'
+
+Feature: OAuth2 Refresh Token Handling
+Scenario: Validate OAuth2 token refresh mechanism and its error handling
+Given url 'http://oas_spotify.api/me/episodes'
+And request { 
+    refresh_token: '#valid_refresh_token', 
+    client_id: 'valid_client_id' 
+}
+When method POST
+Then status 200
+And match response contains 'Access token refreshed successfully.'
+
+Given request { 
+    refresh_token: '#expired_refresh_token', 
+    client_id: 'valid_client_id' 
+}
+When method POST
+Then status 401
+And match response contains 'Refresh token is expired or invalid.'
+```
+2025-01-31 18:27:51,826 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 18:27:51,826 - karate_compatibility_verifier - INFO - The provided Karate DSL code snippets are already correct and do not require any corrections. Here they are, without any modifications:
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_spotify.api/me/episodes'
+And request { 
+    grant_type: 'authorization_code', 
+    code: '#stolen_code', 
+    redirect_uri: 'http://evil.example.com', 
+    client_id: 'client_id', 
+    client_secret: 'client_secret' 
+}
+When method POST
+Then status 401
+And match response contains 'Invalid authorization code'
+
+Feature: Test API for OAuth Token Refresh Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_spotify.api/me/episodes'
+And request { 
+    refresh_token: '#leaked_refresh_token', 
+    client_id: 'client_id', 
+    client_secret: 'client_secret' 
+}
+When method POST
+Then status 401
+And match response contains 'Invalid refresh token'
+
+Feature: OAuth2 Refresh Token Handling
+Scenario: Validate OAuth2 token refresh mechanism and its error handling
+Given url 'http://oas_spotify.api/me/episodes'
+And request { 
+    refresh_token: '#valid_refresh_token', 
+    client_id: 'valid_client_id' 
+}
+When method POST
+Then status 200
+And match response contains 'Access token refreshed successfully.'
+
+Given request { 
+    refresh_token: '#expired_refresh_token', 
+    client_id: 'valid_client_id' 
+}
+When method POST
+Then status 401
+And match response contains 'Refresh token is expired or invalid.'
+```
+2025-01-31 18:27:51,827 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_me_episodes_GET_verified.feature
+2025-01-31 18:27:51,828 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_me_episodes_GET.feature: The provided Karate DSL code snippets are already correct and do not require any corrections. Here they are, without any modifications:
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_spotify.api/me/episodes'
+And request { 
+    grant_type: 'authorization_code', 
+    code: '#stolen_code', 
+    redirect_uri: 'http://evil.example.com', 
+    client_id: 'client_id', 
+    client_secret: 'client_secret' 
+}
+When method POST
+Then status 401
+And match response contains 'Invalid authorization code'
+
+Feature: Test API for OAuth Token Refresh Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_spotify.api/me/episodes'
+And request { 
+    refresh_token: '#leaked_refresh_token', 
+    client_id: 'client_id', 
+    client_secret: 'client_secret' 
+}
+When method POST
+Then status 401
+And match response contains 'Invalid refresh token'
+
+Feature: OAuth2 Refresh Token Handling
+Scenario: Validate OAuth2 token refresh mechanism and its error handling
+Given url 'http://oas_spotify.api/me/episodes'
+And request { 
+    refresh_token: '#valid_refresh_token', 
+    client_id: 'valid_client_id' 
+}
+When method POST
+Then status 200
+And match response contains 'Access token refreshed successfully.'
+
+Given request { 
+    refresh_token: '#expired_refresh_token', 
+    client_id: 'valid_client_id' 
+}
+When method POST
+Then status 401
+And match response contains 'Refresh token is expired or invalid.'
+```
+2025-01-31 18:27:51,828 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 18:27:51,830 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 18:27:51,866 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 18:27:51,867 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 18:32:39,009 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 18:32:39,010 - karate_llm_test_gen - INFO - Generated test case: Here are three different scenarios in Karate DSL format:
+
+Scenario 1: Attempting to exploit OAuth to...
+2025-01-31 18:32:39,011 - __main__ - INFO - Generated Karate test for /me/episodes GET at output/karate_feature_files/ID_002_krtestoas_me_episodes_GET.feature
+2025-01-31 18:32:39,011 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 18:32:39,011 - karate_compatibility_verifier - INFO - Here are three different scenarios in Karate DSL format:
+
+Scenario 1: Attempting to exploit OAuth token generation with a stolen authorization code:
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_spotify.api/me/episodes'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil. example.com' }
+When method get
+Then status 401
+And match response contains 'Invalid token'
+```
+
+Scenario 2: Attempting to use a leaked refresh token to obtain a new access token:
+```
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_spotify.api/me/episodes'
+And request { refresh_token: 'leaked_refresh_token' }
+When method get
+Then status 401
+And match response contains 'Invalid token'
+```
+
+Scenario 3: Validating OAuth2 token refresh mechanism and its error handling:
+```
+Feature: OAuth2 Refresh Token Handling
+Scenario: Validate OAuth2 token refresh mechanism and its error handling
+Given url 'http://oas_spotify.api/me/episodes'
+And request { access_token: 'valid_access_token' }
+When method get
+Then status 200
+And match response contains 'Access token refreshed successfully.'
+
+Given request { access_token: 'expired_access_token' }
+When method get
+Then status 401
+And match response contains 'Refresh token is expired or invalid.'
+```
+
+Note that these scenarios are designed to test potential Broken Authentication/Authorization vulnerabilities in the API.
+2025-01-31 18:32:39,086 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 18:32:39,086 - karate_compatibility_verifier - INFO - ERROR: The prompt size exceeds the context window size and cannot be processed.
+2025-01-31 18:33:39,043 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 18:33:39,043 - karate_compatibility_verifier - INFO - I'm ready to help! Please provide the Karate DSL code snippets that need modification, and I'll apply the rules strictly:
+
+1. If the provided code is already correct and doesn't require any corrections, I'll output it as-is.
+2. If there are errors or issues with the syntax, I'll modify the code to ensure it's syntactically correct.
+
+Please go ahead and provide the Karate DSL code snippets that need my attention!
+2025-01-31 18:33:39,044 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_me_episodes_GET_verified.feature
+2025-01-31 18:33:39,044 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_me_episodes_GET.feature: I'm ready to help! Please provide the Karate DSL code snippets that need modification, and I'll apply the rules strictly:
+
+1. If the provided code is already correct and doesn't require any corrections, I'll output it as-is.
+2. If there are errors or issues with the syntax, I'll modify the code to ensure it's syntactically correct.
+
+Please go ahead and provide the Karate DSL code snippets that need my attention!
+2025-01-31 18:33:39,045 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 18:33:39,045 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 18:33:39,078 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 18:33:39,081 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 18:38:47,294 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 18:38:47,295 - karate_llm_test_gen - INFO - Generated test case: Here are three security test cases using Karate DSL scenarios for the given API endpoints:
+
+**Scenar...
+2025-01-31 18:38:47,296 - __main__ - INFO - Generated Karate test for /me/albums PUT at output/karate_feature_files/ID_003_krtestoas_me_albums_PUT.feature
+2025-01-31 18:38:47,296 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 18:38:47,296 - karate_compatibility_verifier - INFO - Here are three security test cases using Karate DSL scenarios for the given API endpoints:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_spotify.api/me/albums'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil. example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method put
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: Improper Authorization on User Documents Access**
+```karate
+Feature: Test for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_spotify.api/me/albums'
+And header Authorization = 'Bearer <regular_user_token>'
+When method put
+Then status 403
+And match response contains 'You do not have permission to access this album.'
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature'),
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Album details'
+case 403:
+    * fail 'Admin should have access'
+```
+
+**Scenario 3: Refresh Token Abuse**
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_spotify.api/oauth/refresh'
+And request { refresh_token: 'leaked_refresh_token', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+
+Note that these test cases are designed to check for potential Broken Authentication/Authorization vulnerabilities in the given API endpoints.
+2025-01-31 18:43:24,977 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 18:43:24,978 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature:
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_spotify.api/me/albums'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method POST
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature:
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_spotify.api/me/albums'
+And header Authorization = 'Bearer <regular_user_token>'
+When method PUT
+Then status 403
+And match response contains 'You do not have permission to access this album.'
+
+Feature:
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_spotify.api/oauth/refresh'
+And request { refresh_token: 'leaked_refresh_token', client_id: 'client_id', client_secret: 'client_secret' }
+When method POST
+Then status 400
+And match response contains 'Invalid refresh token'
+
+```
+2025-01-31 18:46:09,702 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 18:46:09,702 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature:
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_spotify.api/me/albums'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method POST
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature:
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_spotify.api/me/albums'
+And header Authorization = 'Bearer <regular_user_token>'
+When method PUT
+Then status 403
+And match response contains 'You do not have permission to access this album.'
+
+Feature:
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_spotify.api/oauth/refresh'
+And request { refresh_token: 'leaked_refresh_token', client_id: 'client_id', client_secret: 'client_secret' }
+When method POST
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-31 18:46:09,702 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_me_albums_PUT_verified.feature
+2025-01-31 18:46:09,703 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_me_albums_PUT.feature: Here is the corrected Karate DSL script:
+
+```
+Feature:
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_spotify.api/me/albums'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method POST
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature:
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_spotify.api/me/albums'
+And header Authorization = 'Bearer <regular_user_token>'
+When method PUT
+Then status 403
+And match response contains 'You do not have permission to access this album.'
+
+Feature:
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_spotify.api/oauth/refresh'
+And request { refresh_token: 'leaked_refresh_token', client_id: 'client_id', client_secret: 'client_secret' }
+When method POST
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-31 18:46:09,703 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-31 18:46:09,704 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-31 18:46:12,031 - __main__ - INFO - Skipping karate test run.

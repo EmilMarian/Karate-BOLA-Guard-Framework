@@ -1,0 +1,40 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the image is being attached.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/images",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "items": {
+                  "$ref": "#/components/schemas/ProductImage"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/CollectionMeta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "List of product images and metadata.\n"
+    }
+  }
+}

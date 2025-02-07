@@ -1,0 +1,73 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.conversations.setConversationPrefs",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel_id": {
+              "description": "The channel to set the prefs for",
+              "type": "string"
+            },
+            "prefs": {
+              "description": "The prefs for this channel in a stringified JSON format.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel_id",
+            "prefs"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response of admin.conversations.setConversationPrefs",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "admin.conversations.setConversationPrefs schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

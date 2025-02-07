@@ -1,0 +1,132 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "customer",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/customers/{customer}/funding_instructions",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "bank_transfer": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "bank_transfer": {
+              "description": "Additional parameters for `bank_transfer` funding types",
+              "properties": {
+                "eu_bank_transfer": {
+                  "properties": {
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "country"
+                  ],
+                  "title": "eu_bank_account_params",
+                  "type": "object"
+                },
+                "requested_address_types": {
+                  "items": {
+                    "enum": [
+                      "iban",
+                      "sort_code",
+                      "spei",
+                      "zengin"
+                    ],
+                    "type": "string",
+                    "x-stripeBypassValidation": true
+                  },
+                  "type": "array"
+                },
+                "type": {
+                  "enum": [
+                    "eu_bank_transfer",
+                    "gb_bank_transfer",
+                    "jp_bank_transfer",
+                    "mx_bank_transfer",
+                    "us_bank_transfer"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "bank_transfer_params",
+              "type": "object"
+            },
+            "currency": {
+              "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+              "format": "currency",
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "funding_type": {
+              "description": "The `funding_type` to get the instructions for.",
+              "enum": [
+                "bank_transfer"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "bank_transfer",
+            "currency",
+            "funding_type"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

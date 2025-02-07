@@ -1,0 +1,438 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A comma-separated list of line ids e.g. victoria,circle,N133. Max. approx. 20 ids.",
+      "explode": false,
+      "in": "path",
+      "name": "ids",
+      "required": true,
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Optional. Id of stop to get arrival predictions for (station naptan code e.g. 940GZZLUASL, you can use /StopPoint/Search/{query} endpoint to find a stop point id from a station name)",
+      "in": "path",
+      "name": "stopPointId",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Optional. The direction of travel. Can be inbound or outbound or all. If left blank, and destinationStopId is set, will default to all",
+      "in": "query",
+      "name": "direction",
+      "schema": {
+        "enum": [
+          "inbound",
+          "outbound",
+          "all"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "Optional. Id of destination stop",
+      "in": "query",
+      "name": "destinationStationId",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/Line/{ids}/Arrivals/{stopPointId}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "description": "DTO to capture the prediction details",
+              "properties": {
+                "bearing": {
+                  "description": "Bearing (between 0 to 359)",
+                  "type": "string"
+                },
+                "currentLocation": {
+                  "description": "The current location of the vehicle.",
+                  "type": "string"
+                },
+                "destinationName": {
+                  "description": "Name of the destination",
+                  "type": "string"
+                },
+                "destinationNaptanId": {
+                  "description": "Naptan Identifier for the prediction's destination",
+                  "type": "string"
+                },
+                "direction": {
+                  "description": "Direction (unified to inbound/outbound)",
+                  "type": "string"
+                },
+                "expectedArrival": {
+                  "description": "The expected arrival time of the vehicle at the stop/station",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "The identitier for the prediction",
+                  "type": "string"
+                },
+                "lineId": {
+                  "description": "Unique identifier for the Line",
+                  "type": "string"
+                },
+                "lineName": {
+                  "description": "Line Name",
+                  "type": "string"
+                },
+                "modeName": {
+                  "description": "The mode name of the station/line the prediction relates to",
+                  "type": "string"
+                },
+                "naptanId": {
+                  "description": "Identifier for the prediction",
+                  "type": "string"
+                },
+                "operationType": {
+                  "description": "The type of the operation (1: is new or has been updated, 2: should be deleted from any client cache)",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "platformName": {
+                  "description": "Platform name (for bus, this is the stop letter)",
+                  "type": "string"
+                },
+                "stationName": {
+                  "description": "Station name",
+                  "type": "string"
+                },
+                "timeToLive": {
+                  "description": "The expiry time for the prediction",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "timeToStation": {
+                  "description": "Prediction of the Time to station in seconds",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "timestamp": {
+                  "description": "Timestamp for when the prediction was inserted/modified (source column drives what objects are broadcast on each iteration)",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "timing": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.PredictionTiming"
+                },
+                "towards": {
+                  "description": "Routing information or other descriptive text about the path of the vehicle towards the destination",
+                  "type": "string"
+                },
+                "vehicleId": {
+                  "description": "The actual vehicle in transit (for train modes, the leading car of the rolling set)",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "items": {
+              "description": "DTO to capture the prediction details",
+              "properties": {
+                "bearing": {
+                  "description": "Bearing (between 0 to 359)",
+                  "type": "string"
+                },
+                "currentLocation": {
+                  "description": "The current location of the vehicle.",
+                  "type": "string"
+                },
+                "destinationName": {
+                  "description": "Name of the destination",
+                  "type": "string"
+                },
+                "destinationNaptanId": {
+                  "description": "Naptan Identifier for the prediction's destination",
+                  "type": "string"
+                },
+                "direction": {
+                  "description": "Direction (unified to inbound/outbound)",
+                  "type": "string"
+                },
+                "expectedArrival": {
+                  "description": "The expected arrival time of the vehicle at the stop/station",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "The identitier for the prediction",
+                  "type": "string"
+                },
+                "lineId": {
+                  "description": "Unique identifier for the Line",
+                  "type": "string"
+                },
+                "lineName": {
+                  "description": "Line Name",
+                  "type": "string"
+                },
+                "modeName": {
+                  "description": "The mode name of the station/line the prediction relates to",
+                  "type": "string"
+                },
+                "naptanId": {
+                  "description": "Identifier for the prediction",
+                  "type": "string"
+                },
+                "operationType": {
+                  "description": "The type of the operation (1: is new or has been updated, 2: should be deleted from any client cache)",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "platformName": {
+                  "description": "Platform name (for bus, this is the stop letter)",
+                  "type": "string"
+                },
+                "stationName": {
+                  "description": "Station name",
+                  "type": "string"
+                },
+                "timeToLive": {
+                  "description": "The expiry time for the prediction",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "timeToStation": {
+                  "description": "Prediction of the Time to station in seconds",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "timestamp": {
+                  "description": "Timestamp for when the prediction was inserted/modified (source column drives what objects are broadcast on each iteration)",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "timing": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.PredictionTiming"
+                },
+                "towards": {
+                  "description": "Routing information or other descriptive text about the path of the vehicle towards the destination",
+                  "type": "string"
+                },
+                "vehicleId": {
+                  "description": "The actual vehicle in transit (for train modes, the leading car of the rolling set)",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "items": {
+              "description": "DTO to capture the prediction details",
+              "properties": {
+                "bearing": {
+                  "description": "Bearing (between 0 to 359)",
+                  "type": "string"
+                },
+                "currentLocation": {
+                  "description": "The current location of the vehicle.",
+                  "type": "string"
+                },
+                "destinationName": {
+                  "description": "Name of the destination",
+                  "type": "string"
+                },
+                "destinationNaptanId": {
+                  "description": "Naptan Identifier for the prediction's destination",
+                  "type": "string"
+                },
+                "direction": {
+                  "description": "Direction (unified to inbound/outbound)",
+                  "type": "string"
+                },
+                "expectedArrival": {
+                  "description": "The expected arrival time of the vehicle at the stop/station",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "The identitier for the prediction",
+                  "type": "string"
+                },
+                "lineId": {
+                  "description": "Unique identifier for the Line",
+                  "type": "string"
+                },
+                "lineName": {
+                  "description": "Line Name",
+                  "type": "string"
+                },
+                "modeName": {
+                  "description": "The mode name of the station/line the prediction relates to",
+                  "type": "string"
+                },
+                "naptanId": {
+                  "description": "Identifier for the prediction",
+                  "type": "string"
+                },
+                "operationType": {
+                  "description": "The type of the operation (1: is new or has been updated, 2: should be deleted from any client cache)",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "platformName": {
+                  "description": "Platform name (for bus, this is the stop letter)",
+                  "type": "string"
+                },
+                "stationName": {
+                  "description": "Station name",
+                  "type": "string"
+                },
+                "timeToLive": {
+                  "description": "The expiry time for the prediction",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "timeToStation": {
+                  "description": "Prediction of the Time to station in seconds",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "timestamp": {
+                  "description": "Timestamp for when the prediction was inserted/modified (source column drives what objects are broadcast on each iteration)",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "timing": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.PredictionTiming"
+                },
+                "towards": {
+                  "description": "Routing information or other descriptive text about the path of the vehicle towards the destination",
+                  "type": "string"
+                },
+                "vehicleId": {
+                  "description": "The actual vehicle in transit (for train modes, the leading car of the rolling set)",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "items": {
+              "description": "DTO to capture the prediction details",
+              "properties": {
+                "bearing": {
+                  "description": "Bearing (between 0 to 359)",
+                  "type": "string"
+                },
+                "currentLocation": {
+                  "description": "The current location of the vehicle.",
+                  "type": "string"
+                },
+                "destinationName": {
+                  "description": "Name of the destination",
+                  "type": "string"
+                },
+                "destinationNaptanId": {
+                  "description": "Naptan Identifier for the prediction's destination",
+                  "type": "string"
+                },
+                "direction": {
+                  "description": "Direction (unified to inbound/outbound)",
+                  "type": "string"
+                },
+                "expectedArrival": {
+                  "description": "The expected arrival time of the vehicle at the stop/station",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "The identitier for the prediction",
+                  "type": "string"
+                },
+                "lineId": {
+                  "description": "Unique identifier for the Line",
+                  "type": "string"
+                },
+                "lineName": {
+                  "description": "Line Name",
+                  "type": "string"
+                },
+                "modeName": {
+                  "description": "The mode name of the station/line the prediction relates to",
+                  "type": "string"
+                },
+                "naptanId": {
+                  "description": "Identifier for the prediction",
+                  "type": "string"
+                },
+                "operationType": {
+                  "description": "The type of the operation (1: is new or has been updated, 2: should be deleted from any client cache)",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "platformName": {
+                  "description": "Platform name (for bus, this is the stop letter)",
+                  "type": "string"
+                },
+                "stationName": {
+                  "description": "Station name",
+                  "type": "string"
+                },
+                "timeToLive": {
+                  "description": "The expiry time for the prediction",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "timeToStation": {
+                  "description": "Prediction of the Time to station in seconds",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "timestamp": {
+                  "description": "Timestamp for when the prediction was inserted/modified (source column drives what objects are broadcast on each iteration)",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "timing": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.PredictionTiming"
+                },
+                "towards": {
+                  "description": "Routing information or other descriptive text about the path of the vehicle towards the destination",
+                  "type": "string"
+                },
+                "vehicleId": {
+                  "description": "The actual vehicle in transit (for train modes, the leading car of the rolling set)",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

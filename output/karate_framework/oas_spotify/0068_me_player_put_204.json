@@ -1,0 +1,46 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.  \nThe access token must have been issued on behalf of a user.  \nThe access token must have the `user-modify-playback-state` scope authorized in order to control playback.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/me/player",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "device_ids": {
+              "description": "A JSON array containing the ID of the device on which playback should be started/transferred.  \nFor example:`{device_ids:[\"74ASZWbe4lXaubB36ztrGX\"]}`  \nNote: Although an array is accepted, only a single device_id is currently supported. Supplying more than one will return `400 Bad Request`",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "play": {
+              "description": "**true** : ensure playback happens on new device.  \n**false** or not provided: keep the current playback state.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "device_ids"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "204": {
+      "description": "A completed request will return a `204 NO CONTENT` response code, and then issue the command to the player. Due to the asynchronous nature of the issuance of the command, you should use the [Get Information About The User's Current Playback](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-information-about-the-users-current-playback) endpoint to check that your issued command was handled correctly by the player.\n\nIf the device is not found, the request will return `404 NOT FOUND` response code.\n\nIf the user making the request is non-premium, a `403 FORBIDDEN` response code will be returned."
+    }
+  }
+}

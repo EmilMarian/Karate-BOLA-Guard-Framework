@@ -1,0 +1,80 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `usergroups:read`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Allow results that involve disabled User Groups.",
+      "in": "query",
+      "name": "include_disabled",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "The encoded ID of the User Group to update.",
+      "in": "query",
+      "name": "usergroup",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/usergroups.users.list",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true,
+                "users": [
+                  "U060R4BJ4",
+                  "W123A4BC5"
+                ]
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from usergroups.users.list method",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "users": {
+                "items": {
+                  "pattern": "^[UW][A-Z0-9]{2,}$",
+                  "title": "User ID",
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "ok",
+              "users"
+            ],
+            "title": "usergroups.users.list schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Standard success response when used with a user token"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.teams:read`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/admin.emoji.list",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "cache_ts": "1575283387.000000",
+                "categories": [
+                  {
+                    "emoji_names": [
+                      "grinning",
+                      "grin",
+                      "joy",
+                      "etc etc ..."
+                    ],
+                    "name": "Smileys & People"
+                  }
+                ],
+                "categories_version": "5",
+                "emoji": {
+                  "black_square": "alias:black_large_square",
+                  "bowtie": "https://emoji.slack-edge.com/T9TK3CUKW/bowtie/f3ec6f2bb0.png",
+                  "cubimal_chick": "https://emoji.slack-edge.com/T9TK3CUKW/cubimal_chick/85961c43d7.png",
+                  "dusty_stick": "https://emoji.slack-edge.com/T9TK3CUKW/dusty_stick/6177a62312.png",
+                  "glitch_crab": "https://emoji.slack-edge.com/T9TK3CUKW/glitch_crab/db049f1f9c.png",
+                  "piggy": "https://emoji.slack-edge.com/T9TK3CUKW/piggy/b7762ee8cd.png",
+                  "pride": "https://emoji.slack-edge.com/T9TK3CUKW/pride/56b1bd3388.png",
+                  "shipit": "alias:squirrel",
+                  "simple_smile": {
+                    "apple": "https://a.slack-edge.com/80588/img/emoji_2017_12_06/apple/simple_smile.png",
+                    "google": "https://a.slack-edge.com/80588/img/emoji_2017_12_06/google/simple_smile.png"
+                  },
+                  "slack": "https://emoji.slack-edge.com/T9TK3CUKW/slack/7d462d2443.png",
+                  "slack_call": "https://emoji.slack-edge.com/T9TK3CUKW/slack_call/b81fffd6dd.png",
+                  "squirrel": "https://emoji.slack-edge.com/T9TK3CUKW/squirrel/465f40c0e0.png",
+                  "thumbsup_all": "https://emoji.slack-edge.com/T9TK3CUKW/thumbsup_all/50096a1020.gif",
+                  "white_square": "alias:white_large_square"
+                },
+                "ok": true
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "Default success template",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the resource belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The ID of the `Variant` to which the resource belongs.\n",
+      "in": "path",
+      "name": "variant_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/variants/{variant_id}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "bin_picking_number": {
+              "description": "Identifies where in a warehouse the variant is located.",
+              "type": "string"
+            },
+            "cost_price": {
+              "description": "The cost price of the variant.",
+              "format": "double",
+              "type": "number"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "image_url": {
+              "description": "The image that will be displayed when this variant is selected on the storefront. When updating a SKU image, send the publicly accessible URL. Supported image formats are JPEG, PNG, and GIF. Generic product images (not specific to the variant) should be stored on the product.",
+              "type": "string"
+            },
+            "inventory_level": {
+              "description": "Inventory level for the variant, which is used when the product's `inventory_tracking` is set to `variant`.",
+              "type": "integer"
+            },
+            "inventory_warning_level": {
+              "description": "When the variant hits this inventory level, it is considered low stock.",
+              "type": "integer"
+            },
+            "option_values": {
+              "description": "Array of option and option values IDs that make up this variant. Will be empty if the variant is the product's base variant.",
+              "items": {
+                "$ref": "#/components/schemas/OptionValueShort"
+              },
+              "type": "array"
+            },
+            "price": {
+              "description": "This variant's base price on the storefront. If this value is null, the product's default price (set in the Product resource's `price` field) will be used as the base price.",
+              "format": "double",
+              "nullable": true,
+              "type": "number"
+            },
+            "product_id": {
+              "type": "integer"
+            },
+            "purchasing_disabled": {
+              "description": "If `true`, this variant will not be purchasable on the storefront.",
+              "type": "boolean"
+            },
+            "purchasing_disabled_message": {
+              "description": "If `purchasing_disabled` is `true`, this message should show on the storefront when the variant is selected.",
+              "type": "string"
+            },
+            "sku": {
+              "type": "string"
+            },
+            "sku_id": {
+              "description": "Read-only reference to v2 API's SKU ID. Null if it is a base variant.",
+              "nullable": true,
+              "type": "integer"
+            },
+            "upc": {
+              "description": "The UPC code used in feeds for shopping comparison sites and external channel integrations.",
+              "type": "string"
+            },
+            "weight": {
+              "description": "This variant's base weight on the storefront. If this value is null, the product's default weight (set in the Product resource's `weight` field) will be used as the base weight.",
+              "format": "double",
+              "nullable": true,
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "`Variant` object\n",
+    "required": true
+  },
+  "responses": {
+    "404": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error payload for the BigCommerce API.\n",
+            "properties": {
+              "instance": {
+                "type": "string"
+              },
+              "status": {
+                "description": "404 HTTP status code.\n",
+                "type": "integer"
+              },
+              "title": {
+                "description": "The error title describing the particular error.",
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "The resource was not found.\n"
+    }
+  }
+}

@@ -1,0 +1,321 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:read`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Comma separated string of team IDs, signifying the workspaces to search through.",
+      "in": "query",
+      "name": "team_ids",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Name of the the channel to query by.",
+      "in": "query",
+      "name": "query",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Maximum number of items to be returned. Must be between 1 - 20 both inclusive. Default is 10.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page.",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The type of channel to include or exclude in the search. For example `private` will search private channels, while `private_exclude` will exclude them. For a full list of types, check the [Types section](#types).",
+      "in": "query",
+      "name": "search_channel_types",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Possible values are `relevant` (search ranking based on what we think is closest), `name` (alphabetical), `member_count` (number of users in the channel), and `created` (date channel was created). You can optionally pair this with the `sort_dir` arg to change how it is sorted ",
+      "in": "query",
+      "name": "sort",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Sort direction. Possible values are `asc` for ascending order like (1, 2, 3) or (a, b, c), and `desc` for descending order like (3, 2, 1) or (c, b, a)",
+      "in": "query",
+      "name": "sort_dir",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.conversations.search",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "channels": [
+                  {
+                    "created": 1449252889,
+                    "creator": "U012A3CDE",
+                    "id": "C012AB3CD",
+                    "is_archived": false,
+                    "is_channel": true,
+                    "is_ext_shared": false,
+                    "is_general": true,
+                    "is_group": false,
+                    "is_im": false,
+                    "is_member": true,
+                    "is_mpim": false,
+                    "is_org_shared": false,
+                    "is_pending_ext_shared": false,
+                    "is_private": false,
+                    "is_shared": false,
+                    "name": "general",
+                    "name_normalized": "general",
+                    "num_members": 4,
+                    "pending_shared": [],
+                    "previous_names": [],
+                    "purpose": {
+                      "creator": "",
+                      "last_set": 0,
+                      "value": "This channel is for team-wide communication and announcements. All team members are in this channel."
+                    },
+                    "topic": {
+                      "creator": "",
+                      "last_set": 0,
+                      "value": "Company-wide announcements and work-based matters"
+                    },
+                    "unlinked": 0
+                  }
+                ],
+                "ok": true,
+                "response_metadata": {
+                  "next_cursor": "dGVhbTpDMDYxRkE1UEI="
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response of admin.conversations.search",
+            "properties": {
+              "channels": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "accepted_user": {
+                      "$ref": "#/components/schemas/defs_user_id"
+                    },
+                    "created": {
+                      "type": "integer"
+                    },
+                    "creator": {
+                      "$ref": "#/components/schemas/defs_user_id"
+                    },
+                    "id": {
+                      "$ref": "#/components/schemas/defs_channel_id"
+                    },
+                    "is_archived": {
+                      "type": "boolean"
+                    },
+                    "is_channel": {
+                      "type": "boolean"
+                    },
+                    "is_frozen": {
+                      "type": "boolean"
+                    },
+                    "is_general": {
+                      "type": "boolean"
+                    },
+                    "is_member": {
+                      "type": "boolean"
+                    },
+                    "is_moved": {
+                      "type": "integer"
+                    },
+                    "is_mpim": {
+                      "type": "boolean"
+                    },
+                    "is_non_threadable": {
+                      "type": "boolean"
+                    },
+                    "is_org_shared": {
+                      "type": "boolean"
+                    },
+                    "is_pending_ext_shared": {
+                      "type": "boolean"
+                    },
+                    "is_private": {
+                      "type": "boolean"
+                    },
+                    "is_read_only": {
+                      "type": "boolean"
+                    },
+                    "is_shared": {
+                      "type": "boolean"
+                    },
+                    "is_thread_only": {
+                      "type": "boolean"
+                    },
+                    "last_read": {
+                      "$ref": "#/components/schemas/defs_ts"
+                    },
+                    "latest": {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "$ref": "#/components/schemas/objs_message"
+                          },
+                          {
+                            "nullable": true
+                          }
+                        ]
+                      }
+                    },
+                    "members": {
+                      "items": {
+                        "$ref": "#/components/schemas/defs_user_id"
+                      },
+                      "minItems": 0,
+                      "type": "array",
+                      "uniqueItems": true
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "name_normalized": {
+                      "type": "string"
+                    },
+                    "num_members": {
+                      "type": "integer"
+                    },
+                    "pending_shared": {
+                      "items": {
+                        "$ref": "#/components/schemas/defs_team"
+                      },
+                      "minItems": 0,
+                      "type": "array",
+                      "uniqueItems": true
+                    },
+                    "previous_names": {
+                      "items": {
+                        "$ref": "#/components/schemas/defs_channel_name"
+                      },
+                      "minItems": 0,
+                      "type": "array",
+                      "uniqueItems": true
+                    },
+                    "priority": {
+                      "type": "number"
+                    },
+                    "purpose": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "creator": {
+                          "$ref": "#/components/schemas/defs_topic_purpose_creator"
+                        },
+                        "last_set": {
+                          "type": "integer"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "creator",
+                        "last_set"
+                      ],
+                      "type": "object"
+                    },
+                    "topic": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "creator": {
+                          "$ref": "#/components/schemas/defs_topic_purpose_creator"
+                        },
+                        "last_set": {
+                          "type": "integer"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "creator",
+                        "last_set"
+                      ],
+                      "type": "object"
+                    },
+                    "unlinked": {
+                      "title": "Field to determine whether a channel has ever been shared/disconnected in the past",
+                      "type": "integer"
+                    },
+                    "unread_count": {
+                      "type": "integer"
+                    },
+                    "unread_count_display": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "created",
+                    "creator",
+                    "is_channel",
+                    "is_org_shared",
+                    "is_private",
+                    "is_mpim",
+                    "is_shared",
+                    "name_normalized",
+                    "members",
+                    "topic",
+                    "purpose"
+                  ],
+                  "title": "Channel Object",
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "next_cursor": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "channels",
+              "next_cursor"
+            ],
+            "title": "admin.conversations.search schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

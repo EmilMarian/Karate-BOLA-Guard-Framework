@@ -1,0 +1,66 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "caption": {
+            "type": "string"
+          },
+          "chat_id": {
+            "type": "object"
+          },
+          "disable_notification": {
+            "type": "boolean"
+          },
+          "document": {
+            "type": "string"
+          },
+          "reply_markup": {
+            "type": "object"
+          },
+          "reply_to_message_id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "chat_id",
+          "document"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/sendDocument#link",
+  "requestBody": {},
+  "responses": {
+    "500": {
+      "description": "Internal",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

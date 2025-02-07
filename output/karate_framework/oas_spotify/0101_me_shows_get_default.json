@@ -1,0 +1,48 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The access token must have been isued on behalf of the user. The `user-library-read` scope must have been authorised by the user.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of shows to return. Default: 20. Minimum: 1. Maximum: 50",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The index of the first show to return. Default: 0 (the first object). Use with limit to get the next set of shows.",
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/me/shows",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponseObject"
+          }
+        }
+      },
+      "description": "Unexpected error"
+    }
+  }
+}

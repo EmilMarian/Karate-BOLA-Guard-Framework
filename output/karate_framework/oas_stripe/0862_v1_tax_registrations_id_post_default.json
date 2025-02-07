@@ -1,0 +1,110 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/tax/registrations/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "active_from": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expires_at": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "active_from": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "now"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                {
+                  "format": "unix-time",
+                  "type": "integer"
+                }
+              ],
+              "description": "Time at which the registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch."
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "expires_at": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "now"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                {
+                  "format": "unix-time",
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch."
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/catalog/products",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Product"
+            },
+            {
+              "properties": {
+                "variants": {
+                  "items": {
+                    "$ref": "#/components/schemas/VariantPost"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    "description": "A BigCommerce `Product` object.\n",
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Product"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/Meta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "A product\n"
+    }
+  }
+}

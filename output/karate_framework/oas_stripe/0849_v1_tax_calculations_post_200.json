@@ -1,0 +1,606 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/tax/calculations",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "customer_details": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "line_items": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "ship_from_details": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "shipping_cost": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "currency": {
+              "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+              "format": "currency",
+              "type": "string"
+            },
+            "customer": {
+              "description": "The ID of an existing customer to use for this calculation. If provided, the customer's address and tax IDs are copied to `customer_details`.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "customer_details": {
+              "description": "Details about the customer, including address and tax IDs.",
+              "properties": {
+                "address": {
+                  "properties": {
+                    "city": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "line2": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "postal_code": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "state": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "country"
+                  ],
+                  "title": "postal_address",
+                  "type": "object"
+                },
+                "address_source": {
+                  "enum": [
+                    "billing",
+                    "shipping"
+                  ],
+                  "type": "string"
+                },
+                "ip_address": {
+                  "type": "string"
+                },
+                "tax_ids": {
+                  "items": {
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "ad_nrt",
+                          "ae_trn",
+                          "al_tin",
+                          "am_tin",
+                          "ao_tin",
+                          "ar_cuit",
+                          "au_abn",
+                          "au_arn",
+                          "ba_tin",
+                          "bb_tin",
+                          "bg_uic",
+                          "bh_vat",
+                          "bo_tin",
+                          "br_cnpj",
+                          "br_cpf",
+                          "bs_tin",
+                          "by_tin",
+                          "ca_bn",
+                          "ca_gst_hst",
+                          "ca_pst_bc",
+                          "ca_pst_mb",
+                          "ca_pst_sk",
+                          "ca_qst",
+                          "cd_nif",
+                          "ch_uid",
+                          "ch_vat",
+                          "cl_tin",
+                          "cn_tin",
+                          "co_nit",
+                          "cr_tin",
+                          "de_stn",
+                          "do_rcn",
+                          "ec_ruc",
+                          "eg_tin",
+                          "es_cif",
+                          "eu_oss_vat",
+                          "eu_vat",
+                          "gb_vat",
+                          "ge_vat",
+                          "gn_nif",
+                          "hk_br",
+                          "hr_oib",
+                          "hu_tin",
+                          "id_npwp",
+                          "il_vat",
+                          "in_gst",
+                          "is_vat",
+                          "jp_cn",
+                          "jp_rn",
+                          "jp_trn",
+                          "ke_pin",
+                          "kh_tin",
+                          "kr_brn",
+                          "kz_bin",
+                          "li_uid",
+                          "li_vat",
+                          "ma_vat",
+                          "md_vat",
+                          "me_pib",
+                          "mk_vat",
+                          "mr_nif",
+                          "mx_rfc",
+                          "my_frp",
+                          "my_itn",
+                          "my_sst",
+                          "ng_tin",
+                          "no_vat",
+                          "no_voec",
+                          "np_pan",
+                          "nz_gst",
+                          "om_vat",
+                          "pe_ruc",
+                          "ph_tin",
+                          "ro_tin",
+                          "rs_pib",
+                          "ru_inn",
+                          "ru_kpp",
+                          "sa_vat",
+                          "sg_gst",
+                          "sg_uen",
+                          "si_tin",
+                          "sn_ninea",
+                          "sr_fin",
+                          "sv_nit",
+                          "th_vat",
+                          "tj_tin",
+                          "tr_tin",
+                          "tw_vat",
+                          "tz_vat",
+                          "ua_vat",
+                          "ug_tin",
+                          "us_ein",
+                          "uy_ruc",
+                          "uz_tin",
+                          "uz_vat",
+                          "ve_rif",
+                          "vn_tin",
+                          "za_vat",
+                          "zm_tin",
+                          "zw_tin"
+                        ],
+                        "maxLength": 5000,
+                        "type": "string",
+                        "x-stripeBypassValidation": true
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "value"
+                    ],
+                    "title": "data_params",
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "taxability_override": {
+                  "enum": [
+                    "customer_exempt",
+                    "none",
+                    "reverse_charge"
+                  ],
+                  "type": "string"
+                }
+              },
+              "title": "customer_details",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "line_items": {
+              "description": "A list of items the customer is purchasing.",
+              "items": {
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "product": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "reference": {
+                    "maxLength": 500,
+                    "type": "string"
+                  },
+                  "tax_behavior": {
+                    "enum": [
+                      "exclusive",
+                      "inclusive"
+                    ],
+                    "type": "string"
+                  },
+                  "tax_code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "amount"
+                ],
+                "title": "calculation_line_item",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "ship_from_details": {
+              "description": "Details about the address from which the goods are being shipped.",
+              "properties": {
+                "address": {
+                  "properties": {
+                    "city": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "line2": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "postal_code": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "state": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "country"
+                  ],
+                  "title": "merchant_postal_address",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "address"
+              ],
+              "title": "ship_from_details",
+              "type": "object"
+            },
+            "shipping_cost": {
+              "description": "Shipping cost details to be used for the calculation.",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "shipping_rate": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "tax_behavior": {
+                  "enum": [
+                    "exclusive",
+                    "inclusive"
+                  ],
+                  "type": "string"
+                },
+                "tax_code": {
+                  "type": "string"
+                }
+              },
+              "title": "shipping_cost",
+              "type": "object"
+            },
+            "tax_date": {
+              "description": "Timestamp of date at which the tax rules and rates in effect applies for the calculation. Measured in seconds since the Unix epoch. Can be up to 48 hours in the past, and up to 48 hours in the future.",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "currency",
+            "line_items"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Tax Calculation allows you to calculate the tax to collect from your customer.\n\nRelated guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom)",
+            "properties": {
+              "amount_total": {
+                "description": "Total amount after taxes in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "customer": {
+                "description": "The ID of an existing [Customer](https://stripe.com/docs/api/customers/object) used for the resource.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "customer_details": {
+                "$ref": "#/components/schemas/tax_product_resource_customer_details"
+              },
+              "expires_at": {
+                "description": "Timestamp of date at which the tax calculation will expire.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the calculation.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "line_items": {
+                "description": "The list of items the customer is purchasing.",
+                "nullable": true,
+                "properties": {
+                  "data": {
+                    "description": "Details about each object.",
+                    "items": {
+                      "$ref": "#/components/schemas/tax.calculation_line_item"
+                    },
+                    "type": "array"
+                  },
+                  "has_more": {
+                    "description": "True if this list has another page of items after this one that can be fetched.",
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                    "enum": [
+                      "list"
+                    ],
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "The URL where this list can be accessed.",
+                    "maxLength": 5000,
+                    "pattern": "^/v1/tax/calculations/[^/]+/line_items",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "has_more",
+                  "object",
+                  "url"
+                ],
+                "title": "TaxProductResourceTaxCalculationLineItemList",
+                "type": "object",
+                "x-expandableFields": [
+                  "data"
+                ]
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "tax.calculation"
+                ],
+                "type": "string"
+              },
+              "ship_from_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/tax_product_resource_ship_from_details"
+                  }
+                ],
+                "description": "The details of the ship from location, such as the address.",
+                "nullable": true
+              },
+              "shipping_cost": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/tax_product_resource_tax_calculation_shipping_cost"
+                  }
+                ],
+                "description": "The shipping cost details for the calculation.",
+                "nullable": true
+              },
+              "tax_amount_exclusive": {
+                "description": "The amount of tax to be collected on top of the line item prices.",
+                "type": "integer"
+              },
+              "tax_amount_inclusive": {
+                "description": "The amount of tax already included in the line item prices.",
+                "type": "integer"
+              },
+              "tax_breakdown": {
+                "description": "Breakdown of individual tax amounts that add up to the total.",
+                "items": {
+                  "$ref": "#/components/schemas/tax_product_resource_tax_breakdown"
+                },
+                "type": "array"
+              },
+              "tax_date": {
+                "description": "Timestamp of date at which the tax rules and rates in effect applies for the calculation.",
+                "format": "unix-time",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "amount_total",
+              "currency",
+              "customer_details",
+              "livemode",
+              "object",
+              "tax_amount_exclusive",
+              "tax_amount_inclusive",
+              "tax_breakdown",
+              "tax_date"
+            ],
+            "title": "TaxProductResourceTaxCalculation",
+            "type": "object",
+            "x-expandableFields": [
+              "customer_details",
+              "line_items",
+              "ship_from_details",
+              "shipping_cost",
+              "tax_breakdown"
+            ],
+            "x-resourceId": "tax.calculation"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

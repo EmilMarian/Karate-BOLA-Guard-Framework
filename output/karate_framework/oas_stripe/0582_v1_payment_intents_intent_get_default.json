@@ -1,0 +1,76 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The client secret of the PaymentIntent. We require it if you use a publishable key to retrieve the source.",
+      "in": "query",
+      "name": "client_secret",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "intent",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/payment_intents/{intent}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

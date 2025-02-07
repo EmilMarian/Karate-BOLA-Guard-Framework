@@ -1,0 +1,487 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid user access token or your client credentials.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The target size of the list of recommended tracks. For seeds with unusually small pools or when highly restrictive filtering is applied, it may be impossible to generate the requested number of recommended tracks. Debugging information for such cases is available in the response. Default: 20. Minimum: 1. Maximum: 100.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "An [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or the string `from_token`. Provide this parameter if you want to apply [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide). Because `min_*`, `max_*` and `target_*` are applied to pools before relinking, the generated results may not precisely match the filters applied. Original, non-relinked tracks are available via the `linked_from` attribute of the [relinked track response](https://developer.spotify.com/documentation/general/guides/track-relinking-guide).",
+      "in": "query",
+      "name": "market",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A comma separated list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for seed artists. Up to 5 seed values may be provided in any combination of `seed_artists`, `seed_tracks` and `seed_genres`.",
+      "in": "query",
+      "name": "seed_artists",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A comma separated list of any genres in the set of [available genre seeds](#available-genre-seeds). Up to 5 seed values may be provided in any combination of `seed_artists`, `seed_tracks` and `seed_genres`.",
+      "in": "query",
+      "name": "seed_genres",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A comma separated list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for a seed track. Up to 5 seed values may be provided in any combination of `seed_artists`, `seed_tracks` and `seed_genres`.",
+      "in": "query",
+      "name": "seed_tracks",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_acousticness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_acousticness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_acousticness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_danceability",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_danceability",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_danceability",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_duration_ms",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_duration_ms",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Target duration of the track (ms)",
+      "in": "query",
+      "name": "target_duration_ms",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_energy",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_energy",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_energy",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_instrumentalness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_instrumentalness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_instrumentalness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_key",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_key",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_key",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_liveness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_liveness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_liveness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_loudness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_loudness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_loudness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_mode",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_mode",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_mode",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_popularity",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_popularity",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_popularity",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_speechiness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_speechiness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_speechiness",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_tempo",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_tempo",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "Target tempo (BPM)",
+      "in": "query",
+      "name": "target_tempo",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_time_signature",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_time_signature",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_time_signature",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard floor on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `min_tempo=140` would restrict results to only those tracks with a tempo of greater than 140 beats per minute.",
+      "in": "query",
+      "name": "min_valence",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each tunable track attribute, a hard ceiling on the selected track attribute's value can be provided. See tunable track attributes below for the list of available options. For example, `max_instrumentalness=0.35` would filter out most tracks that are likely to be instrumental.",
+      "in": "query",
+      "name": "max_valence",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "For each of the tunable track attributes (below) a target value may be provided. Tracks with the attribute values nearest to the target values will be preferred. For example, you might request `target_energy=0.6` and `target_danceability=0.8`. All target values will be weighed equally in ranking results.",
+      "in": "query",
+      "name": "target_valence",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    }
+  ],
+  "path": "/recommendations",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "externalDocs": {
+              "description": "Find more info on the official Spotify Web API Reference",
+              "url": "https://developer.spotify.com/documentation/web-api/reference/#object-recommendationsobject"
+            },
+            "properties": {
+              "seeds": {
+                "description": "An array of [recommendation seed objects](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject).",
+                "items": {
+                  "$ref": "#/components/schemas/RecommendationSeedObject"
+                },
+                "type": "array"
+              },
+              "tracks": {
+                "description": "An array of [track object](https://developer.spotify.com/documentation/web-api/reference/#object-trackobject) ordered according to the parameters supplied.",
+                "items": {
+                  "$ref": "#/components/schemas/TrackObject"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the HTTP status code in the response header is `200 OK` and the response body contains a recommendations response object in JSON format."
+    }
+  }
+}

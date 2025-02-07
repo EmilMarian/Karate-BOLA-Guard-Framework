@@ -1,0 +1,452 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/account_sessions",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "components": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "account": {
+              "description": "The identifier of the account to create an Account Session for.",
+              "type": "string"
+            },
+            "components": {
+              "description": "Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).",
+              "properties": {
+                "account_management": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "disable_stripe_user_authentication": {
+                          "type": "boolean"
+                        },
+                        "external_account_collection": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "account_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "account_config_param",
+                  "type": "object"
+                },
+                "account_onboarding": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "disable_stripe_user_authentication": {
+                          "type": "boolean"
+                        },
+                        "external_account_collection": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "account_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "account_config_param",
+                  "type": "object"
+                },
+                "balances": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "disable_stripe_user_authentication": {
+                          "type": "boolean"
+                        },
+                        "edit_payout_schedule": {
+                          "type": "boolean"
+                        },
+                        "external_account_collection": {
+                          "type": "boolean"
+                        },
+                        "instant_payouts": {
+                          "type": "boolean"
+                        },
+                        "standard_payouts": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "payouts_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "payouts_config_param",
+                  "type": "object"
+                },
+                "documents": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {},
+                      "title": "base_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "base_config_param",
+                  "type": "object"
+                },
+                "financial_account": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "disable_stripe_user_authentication": {
+                          "type": "boolean"
+                        },
+                        "external_account_collection": {
+                          "type": "boolean"
+                        },
+                        "send_money": {
+                          "type": "boolean"
+                        },
+                        "transfer_balance": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "financial_account_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "financial_account_config_param",
+                  "type": "object"
+                },
+                "financial_account_transactions": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "card_spend_dispute_management": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "financial_account_transactions_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "financial_account_transactions_config_param",
+                  "type": "object"
+                },
+                "issuing_card": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "card_management": {
+                          "type": "boolean"
+                        },
+                        "card_spend_dispute_management": {
+                          "type": "boolean"
+                        },
+                        "cardholder_management": {
+                          "type": "boolean"
+                        },
+                        "spend_control_management": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "issuing_card_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "issuing_card_config_param",
+                  "type": "object"
+                },
+                "issuing_cards_list": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "card_management": {
+                          "type": "boolean"
+                        },
+                        "card_spend_dispute_management": {
+                          "type": "boolean"
+                        },
+                        "cardholder_management": {
+                          "type": "boolean"
+                        },
+                        "disable_stripe_user_authentication": {
+                          "type": "boolean"
+                        },
+                        "spend_control_management": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "issuing_cards_list_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "issuing_cards_list_config_param",
+                  "type": "object"
+                },
+                "notification_banner": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "disable_stripe_user_authentication": {
+                          "type": "boolean"
+                        },
+                        "external_account_collection": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "account_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "account_config_param",
+                  "type": "object"
+                },
+                "payment_details": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "capture_payments": {
+                          "type": "boolean"
+                        },
+                        "destination_on_behalf_of_charge_management": {
+                          "type": "boolean"
+                        },
+                        "dispute_management": {
+                          "type": "boolean"
+                        },
+                        "refund_management": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "payments_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "payments_config_param",
+                  "type": "object"
+                },
+                "payments": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "capture_payments": {
+                          "type": "boolean"
+                        },
+                        "destination_on_behalf_of_charge_management": {
+                          "type": "boolean"
+                        },
+                        "dispute_management": {
+                          "type": "boolean"
+                        },
+                        "refund_management": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "payments_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "payments_config_param",
+                  "type": "object"
+                },
+                "payouts": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "disable_stripe_user_authentication": {
+                          "type": "boolean"
+                        },
+                        "edit_payout_schedule": {
+                          "type": "boolean"
+                        },
+                        "external_account_collection": {
+                          "type": "boolean"
+                        },
+                        "instant_payouts": {
+                          "type": "boolean"
+                        },
+                        "standard_payouts": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "payouts_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "payouts_config_param",
+                  "type": "object"
+                },
+                "payouts_list": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {},
+                      "title": "base_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "base_config_param",
+                  "type": "object"
+                },
+                "tax_registrations": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {},
+                      "title": "base_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "base_config_param",
+                  "type": "object"
+                },
+                "tax_settings": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {},
+                      "title": "base_features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "base_config_param",
+                  "type": "object"
+                }
+              },
+              "title": "account_session_create_components_param",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "account",
+            "components"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

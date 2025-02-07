@@ -1,0 +1,1767 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "subscription_exposed_id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/subscriptions/{subscription_exposed_id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "add_invoice_items": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "application_fee_percent": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "automatic_tax": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "billing_thresholds": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "cancel_at": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "cancellation_details": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "default_source": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "default_tax_rates": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "description": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "discounts": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "invoice_settings": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "items": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "on_behalf_of": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "pause_collection": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "payment_settings": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "pending_invoice_item_interval": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "transfer_data": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "trial_end": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "trial_settings": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "add_invoice_items": {
+              "description": "A list of prices and quantities that will generate invoice items appended to the next invoice for this subscription. You may pass up to 20 items.",
+              "items": {
+                "properties": {
+                  "discounts": {
+                    "items": {
+                      "properties": {
+                        "coupon": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "discount": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "promotion_code": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        }
+                      },
+                      "title": "discounts_data_param",
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "price": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "price_data": {
+                    "properties": {
+                      "currency": {
+                        "format": "currency",
+                        "type": "string"
+                      },
+                      "product": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "tax_behavior": {
+                        "enum": [
+                          "exclusive",
+                          "inclusive",
+                          "unspecified"
+                        ],
+                        "type": "string"
+                      },
+                      "unit_amount": {
+                        "type": "integer"
+                      },
+                      "unit_amount_decimal": {
+                        "format": "decimal",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "currency",
+                      "product"
+                    ],
+                    "title": "one_time_price_data_with_negative_amounts",
+                    "type": "object"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "tax_rates": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "title": "add_invoice_item_entry",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "application_fee_percent": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions)."
+            },
+            "automatic_tax": {
+              "description": "Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.",
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "liability": {
+                  "properties": {
+                    "account": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "account",
+                        "self"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "title": "param",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "enabled"
+              ],
+              "title": "automatic_tax_config",
+              "type": "object"
+            },
+            "billing_cycle_anchor": {
+              "description": "Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).",
+              "enum": [
+                "now",
+                "unchanged"
+              ],
+              "maxLength": 5000,
+              "type": "string",
+              "x-stripeBypassValidation": true
+            },
+            "billing_thresholds": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "amount_gte": {
+                      "type": "integer"
+                    },
+                    "reset_billing_cycle_anchor": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "billing_thresholds_param",
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds."
+            },
+            "cancel_at": {
+              "anyOf": [
+                {
+                  "format": "unix-time",
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period."
+            },
+            "cancel_at_period_end": {
+              "description": "Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.",
+              "type": "boolean"
+            },
+            "cancellation_details": {
+              "description": "Details about why this subscription was cancelled",
+              "properties": {
+                "comment": {
+                  "anyOf": [
+                    {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "feedback": {
+                  "enum": [
+                    "",
+                    "customer_service",
+                    "low_quality",
+                    "missing_features",
+                    "other",
+                    "switched_service",
+                    "too_complex",
+                    "too_expensive",
+                    "unused"
+                  ],
+                  "type": "string"
+                }
+              },
+              "title": "cancellation_details_param",
+              "type": "object"
+            },
+            "collection_method": {
+              "description": "Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.",
+              "enum": [
+                "charge_automatically",
+                "send_invoice"
+              ],
+              "type": "string"
+            },
+            "coupon": {
+              "description": "The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "days_until_due": {
+              "description": "Number of days a customer has to pay invoices generated by this subscription. Valid only for subscriptions where `collection_method` is set to `send_invoice`.",
+              "type": "integer"
+            },
+            "default_payment_method": {
+              "description": "ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source).",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "default_source": {
+              "anyOf": [
+                {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source)."
+            },
+            "default_tax_rates": {
+              "anyOf": [
+                {
+                  "items": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription. Pass an empty string to remove previously-defined tax rates."
+            },
+            "description": {
+              "anyOf": [
+                {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs."
+            },
+            "discounts": {
+              "anyOf": [
+                {
+                  "items": {
+                    "properties": {
+                      "coupon": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "discount": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "promotion_code": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      }
+                    },
+                    "title": "discounts_data_param",
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The coupons to redeem into discounts for the subscription. If not specified or empty, inherits the discount from the subscription's customer."
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "invoice_settings": {
+              "description": "All invoices will be billed using the specified settings.",
+              "properties": {
+                "account_tax_ids": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "issuer": {
+                  "properties": {
+                    "account": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "account",
+                        "self"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "title": "param",
+                  "type": "object"
+                }
+              },
+              "title": "invoice_settings_param",
+              "type": "object"
+            },
+            "items": {
+              "description": "A list of up to 20 subscription items, each with an attached price.",
+              "items": {
+                "properties": {
+                  "billing_thresholds": {
+                    "anyOf": [
+                      {
+                        "properties": {
+                          "usage_gte": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "usage_gte"
+                        ],
+                        "title": "item_billing_thresholds_param",
+                        "type": "object"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "clear_usage": {
+                    "type": "boolean"
+                  },
+                  "deleted": {
+                    "type": "boolean"
+                  },
+                  "discounts": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "properties": {
+                            "coupon": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "discount": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "promotion_code": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            }
+                          },
+                          "title": "discounts_data_param",
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "id": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "price": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "price_data": {
+                    "properties": {
+                      "currency": {
+                        "format": "currency",
+                        "type": "string"
+                      },
+                      "product": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "recurring": {
+                        "properties": {
+                          "interval": {
+                            "enum": [
+                              "day",
+                              "month",
+                              "week",
+                              "year"
+                            ],
+                            "type": "string"
+                          },
+                          "interval_count": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "interval"
+                        ],
+                        "title": "recurring_adhoc",
+                        "type": "object"
+                      },
+                      "tax_behavior": {
+                        "enum": [
+                          "exclusive",
+                          "inclusive",
+                          "unspecified"
+                        ],
+                        "type": "string"
+                      },
+                      "unit_amount": {
+                        "type": "integer"
+                      },
+                      "unit_amount_decimal": {
+                        "format": "decimal",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "currency",
+                      "product",
+                      "recurring"
+                    ],
+                    "title": "recurring_price_data",
+                    "type": "object"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "tax_rates": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "title": "subscription_item_update_params",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`."
+            },
+            "off_session": {
+              "description": "Indicates if a customer is on or off-session while an invoice payment is attempted. Defaults to `false` (on-session).",
+              "type": "boolean"
+            },
+            "on_behalf_of": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The account on behalf of which to charge, for each of the subscription's invoices."
+            },
+            "pause_collection": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "behavior": {
+                      "enum": [
+                        "keep_as_draft",
+                        "mark_uncollectible",
+                        "void"
+                      ],
+                      "type": "string"
+                    },
+                    "resumes_at": {
+                      "format": "unix-time",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "behavior"
+                  ],
+                  "title": "pause_collection_param",
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment)."
+            },
+            "payment_behavior": {
+              "description": "Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.\n\nUse `default_incomplete` to transition the subscription to `status=past_due` when payment is required and await explicit confirmation of the invoice's payment intent. This allows simpler management of scenarios where additional user actions are needed to pay a subscription\u2019s invoice. Such as failed payments, [SCA regulation](https://stripe.com/docs/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method.\n\nUse `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).\n\nUse `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.",
+              "enum": [
+                "allow_incomplete",
+                "default_incomplete",
+                "error_if_incomplete",
+                "pending_if_incomplete"
+              ],
+              "type": "string"
+            },
+            "payment_settings": {
+              "description": "Payment settings to pass to invoices created by the subscription.",
+              "properties": {
+                "payment_method_options": {
+                  "properties": {
+                    "acss_debit": {
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "mandate_options": {
+                              "properties": {
+                                "transaction_type": {
+                                  "enum": [
+                                    "business",
+                                    "personal"
+                                  ],
+                                  "type": "string"
+                                }
+                              },
+                              "title": "mandate_options_param",
+                              "type": "object"
+                            },
+                            "verification_method": {
+                              "enum": [
+                                "automatic",
+                                "instant",
+                                "microdeposits"
+                              ],
+                              "type": "string",
+                              "x-stripeBypassValidation": true
+                            }
+                          },
+                          "title": "invoice_payment_method_options_param",
+                          "type": "object"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "bancontact": {
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "preferred_language": {
+                              "enum": [
+                                "de",
+                                "en",
+                                "fr",
+                                "nl"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "title": "invoice_payment_method_options_param",
+                          "type": "object"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "card": {
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "mandate_options": {
+                              "properties": {
+                                "amount": {
+                                  "type": "integer"
+                                },
+                                "amount_type": {
+                                  "enum": [
+                                    "fixed",
+                                    "maximum"
+                                  ],
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "maxLength": 200,
+                                  "type": "string"
+                                }
+                              },
+                              "title": "mandate_options_param",
+                              "type": "object"
+                            },
+                            "network": {
+                              "enum": [
+                                "amex",
+                                "cartes_bancaires",
+                                "diners",
+                                "discover",
+                                "eftpos_au",
+                                "girocard",
+                                "interac",
+                                "jcb",
+                                "link",
+                                "mastercard",
+                                "unionpay",
+                                "unknown",
+                                "visa"
+                              ],
+                              "maxLength": 5000,
+                              "type": "string",
+                              "x-stripeBypassValidation": true
+                            },
+                            "request_three_d_secure": {
+                              "enum": [
+                                "any",
+                                "automatic",
+                                "challenge"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "title": "subscription_payment_method_options_param",
+                          "type": "object"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "customer_balance": {
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "bank_transfer": {
+                              "properties": {
+                                "eu_bank_transfer": {
+                                  "properties": {
+                                    "country": {
+                                      "maxLength": 5000,
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "country"
+                                  ],
+                                  "title": "eu_bank_transfer_param",
+                                  "type": "object"
+                                },
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "title": "bank_transfer_param",
+                              "type": "object"
+                            },
+                            "funding_type": {
+                              "type": "string"
+                            }
+                          },
+                          "title": "invoice_payment_method_options_param",
+                          "type": "object"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "konbini": {
+                      "anyOf": [
+                        {
+                          "properties": {},
+                          "title": "invoice_payment_method_options_param",
+                          "type": "object"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "sepa_debit": {
+                      "anyOf": [
+                        {
+                          "properties": {},
+                          "title": "invoice_payment_method_options_param",
+                          "type": "object"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "us_bank_account": {
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "financial_connections": {
+                              "properties": {
+                                "filters": {
+                                  "properties": {
+                                    "account_subcategories": {
+                                      "items": {
+                                        "enum": [
+                                          "checking",
+                                          "savings"
+                                        ],
+                                        "type": "string"
+                                      },
+                                      "type": "array"
+                                    }
+                                  },
+                                  "title": "invoice_linked_account_options_filters_param",
+                                  "type": "object"
+                                },
+                                "permissions": {
+                                  "items": {
+                                    "enum": [
+                                      "balances",
+                                      "ownership",
+                                      "payment_method",
+                                      "transactions"
+                                    ],
+                                    "maxLength": 5000,
+                                    "type": "string",
+                                    "x-stripeBypassValidation": true
+                                  },
+                                  "type": "array"
+                                },
+                                "prefetch": {
+                                  "items": {
+                                    "enum": [
+                                      "balances",
+                                      "ownership",
+                                      "transactions"
+                                    ],
+                                    "type": "string",
+                                    "x-stripeBypassValidation": true
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "title": "invoice_linked_account_options_param",
+                              "type": "object"
+                            },
+                            "verification_method": {
+                              "enum": [
+                                "automatic",
+                                "instant",
+                                "microdeposits"
+                              ],
+                              "type": "string",
+                              "x-stripeBypassValidation": true
+                            }
+                          },
+                          "title": "invoice_payment_method_options_param",
+                          "type": "object"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "title": "payment_method_options",
+                  "type": "object"
+                },
+                "payment_method_types": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "enum": [
+                          "ach_credit_transfer",
+                          "ach_debit",
+                          "acss_debit",
+                          "amazon_pay",
+                          "au_becs_debit",
+                          "bacs_debit",
+                          "bancontact",
+                          "boleto",
+                          "card",
+                          "cashapp",
+                          "customer_balance",
+                          "eps",
+                          "fpx",
+                          "giropay",
+                          "grabpay",
+                          "ideal",
+                          "jp_credit_transfer",
+                          "kakao_pay",
+                          "konbini",
+                          "kr_card",
+                          "link",
+                          "multibanco",
+                          "naver_pay",
+                          "p24",
+                          "payco",
+                          "paynow",
+                          "paypal",
+                          "promptpay",
+                          "revolut_pay",
+                          "sepa_credit_transfer",
+                          "sepa_debit",
+                          "sofort",
+                          "swish",
+                          "us_bank_account",
+                          "wechat_pay"
+                        ],
+                        "type": "string",
+                        "x-stripeBypassValidation": true
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "save_default_payment_method": {
+                  "enum": [
+                    "off",
+                    "on_subscription"
+                  ],
+                  "type": "string"
+                }
+              },
+              "title": "payment_settings",
+              "type": "object"
+            },
+            "pending_invoice_item_interval": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "interval": {
+                      "enum": [
+                        "day",
+                        "month",
+                        "week",
+                        "year"
+                      ],
+                      "type": "string"
+                    },
+                    "interval_count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "interval"
+                  ],
+                  "title": "pending_invoice_item_interval_params",
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval."
+            },
+            "promotion_code": {
+              "description": "The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "proration_behavior": {
+              "description": "Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.",
+              "enum": [
+                "always_invoice",
+                "create_prorations",
+                "none"
+              ],
+              "type": "string"
+            },
+            "proration_date": {
+              "description": "If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#upcoming_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.",
+              "format": "unix-time",
+              "type": "integer"
+            },
+            "transfer_data": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "amount_percent": {
+                      "type": "number"
+                    },
+                    "destination": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "destination"
+                  ],
+                  "title": "transfer_data_specs",
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges. This will be unset if you POST an empty value."
+            },
+            "trial_end": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "now"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                {
+                  "format": "unix-time",
+                  "type": "integer"
+                }
+              ],
+              "description": "Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`."
+            },
+            "trial_from_plan": {
+              "description": "Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.",
+              "type": "boolean"
+            },
+            "trial_settings": {
+              "description": "Settings related to subscription trials.",
+              "properties": {
+                "end_behavior": {
+                  "properties": {
+                    "missing_payment_method": {
+                      "enum": [
+                        "cancel",
+                        "create_invoice",
+                        "pause"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "missing_payment_method"
+                  ],
+                  "title": "end_behavior",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "end_behavior"
+              ],
+              "title": "trial_settings_config",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Subscriptions allow you to charge a customer on a recurring basis.\n\nRelated guide: [Creating subscriptions](https://stripe.com/docs/billing/subscriptions/creating)",
+            "properties": {
+              "application": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/application"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_application"
+                  }
+                ],
+                "description": "ID of the Connect Application that created the subscription.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/application"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_application"
+                    }
+                  ]
+                }
+              },
+              "application_fee_percent": {
+                "description": "A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.",
+                "nullable": true,
+                "type": "number"
+              },
+              "automatic_tax": {
+                "$ref": "#/components/schemas/subscription_automatic_tax"
+              },
+              "billing_cycle_anchor": {
+                "description": "The reference point that aligns future [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "billing_cycle_anchor_config": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/subscriptions_resource_billing_cycle_anchor_config"
+                  }
+                ],
+                "description": "The fixed values used to calculate the `billing_cycle_anchor`.",
+                "nullable": true
+              },
+              "billing_thresholds": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/subscription_billing_thresholds"
+                  }
+                ],
+                "description": "Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period",
+                "nullable": true
+              },
+              "cancel_at": {
+                "description": "A date in the future at which the subscription will automatically get canceled",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "cancel_at_period_end": {
+                "description": "Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.",
+                "type": "boolean"
+              },
+              "canceled_at": {
+                "description": "If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will reflect the time of the most recent update request, not the end of the subscription period when the subscription is automatically moved to a canceled state.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "cancellation_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/cancellation_details"
+                  }
+                ],
+                "description": "Details about why this subscription was cancelled",
+                "nullable": true
+              },
+              "collection_method": {
+                "description": "Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.",
+                "enum": [
+                  "charge_automatically",
+                  "send_invoice"
+                ],
+                "type": "string"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "format": "currency",
+                "type": "string"
+              },
+              "current_period_end": {
+                "description": "End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "current_period_start": {
+                "description": "Start of the current period that the subscription has been invoiced for.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "customer": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/customer"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_customer"
+                  }
+                ],
+                "description": "ID of the customer who owns the subscription.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/customer"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_customer"
+                    }
+                  ]
+                }
+              },
+              "days_until_due": {
+                "description": "Number of days a customer has to pay invoices generated by this subscription. This value will be `null` for subscriptions where `collection_method=charge_automatically`.",
+                "nullable": true,
+                "type": "integer"
+              },
+              "default_payment_method": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/payment_method"
+                  }
+                ],
+                "description": "ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source).",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/payment_method"
+                    }
+                  ]
+                }
+              },
+              "default_source": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/bank_account"
+                  },
+                  {
+                    "$ref": "#/components/schemas/card"
+                  },
+                  {
+                    "$ref": "#/components/schemas/source"
+                  }
+                ],
+                "description": "ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source).",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/bank_account"
+                    },
+                    {
+                      "$ref": "#/components/schemas/card"
+                    },
+                    {
+                      "$ref": "#/components/schemas/source"
+                    }
+                  ]
+                },
+                "x-stripeBypassValidation": true
+              },
+              "default_tax_rates": {
+                "description": "The tax rates that will apply to any subscription item that does not have `tax_rates` set. Invoices created will have their `default_tax_rates` populated from the subscription.",
+                "items": {
+                  "$ref": "#/components/schemas/tax_rate"
+                },
+                "nullable": true,
+                "type": "array"
+              },
+              "description": {
+                "description": "The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.",
+                "maxLength": 500,
+                "nullable": true,
+                "type": "string"
+              },
+              "discount": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/discount"
+                  }
+                ],
+                "description": "Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a subscription overrides a discount applied on a customer-wide basis. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.",
+                "nullable": true
+              },
+              "discounts": {
+                "description": "The discounts applied to the subscription. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.",
+                "items": {
+                  "anyOf": [
+                    {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "#/components/schemas/discount"
+                    }
+                  ],
+                  "x-expansionResources": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/discount"
+                      }
+                    ]
+                  }
+                },
+                "type": "array"
+              },
+              "ended_at": {
+                "description": "If the subscription has ended, the date the subscription ended.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "invoice_settings": {
+                "$ref": "#/components/schemas/subscriptions_resource_subscription_invoice_settings"
+              },
+              "items": {
+                "description": "List of subscription items, each with an attached price.",
+                "properties": {
+                  "data": {
+                    "description": "Details about each object.",
+                    "items": {
+                      "$ref": "#/components/schemas/subscription_item"
+                    },
+                    "type": "array"
+                  },
+                  "has_more": {
+                    "description": "True if this list has another page of items after this one that can be fetched.",
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                    "enum": [
+                      "list"
+                    ],
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "The URL where this list can be accessed.",
+                    "maxLength": 5000,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "has_more",
+                  "object",
+                  "url"
+                ],
+                "title": "SubscriptionItemList",
+                "type": "object",
+                "x-expandableFields": [
+                  "data"
+                ]
+              },
+              "latest_invoice": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/invoice"
+                  }
+                ],
+                "description": "The most recent invoice this subscription has generated.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/invoice"
+                    }
+                  ]
+                }
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "next_pending_invoice_item_invoice": {
+                "description": "Specifies the approximate timestamp on which any pending invoice items will be billed according to the schedule provided at `pending_invoice_item_interval`.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "subscription"
+                ],
+                "type": "string"
+              },
+              "on_behalf_of": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/account"
+                  }
+                ],
+                "description": "The account (if any) the charge was made on behalf of for charges associated with this subscription. See the Connect documentation for details.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/account"
+                    }
+                  ]
+                }
+              },
+              "pause_collection": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/subscriptions_resource_pause_collection"
+                  }
+                ],
+                "description": "If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).",
+                "nullable": true
+              },
+              "payment_settings": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/subscriptions_resource_payment_settings"
+                  }
+                ],
+                "description": "Payment settings passed on to invoices created by the subscription.",
+                "nullable": true
+              },
+              "pending_invoice_item_interval": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/subscription_pending_invoice_item_interval"
+                  }
+                ],
+                "description": "Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.",
+                "nullable": true
+              },
+              "pending_setup_intent": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/setup_intent"
+                  }
+                ],
+                "description": "You can use this [SetupIntent](https://stripe.com/docs/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication#scenario-2).",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/setup_intent"
+                    }
+                  ]
+                }
+              },
+              "pending_update": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/subscriptions_resource_pending_update"
+                  }
+                ],
+                "description": "If specified, [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.",
+                "nullable": true
+              },
+              "schedule": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/subscription_schedule"
+                  }
+                ],
+                "description": "The schedule attached to the subscription",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/subscription_schedule"
+                    }
+                  ]
+                }
+              },
+              "start_date": {
+                "description": "Date when the subscription was first created. The date might differ from the `created` date due to backdating.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "status": {
+                "description": "Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, `unpaid`, or `paused`. \n\nFor `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this status can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` status. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal status, the open invoice will be voided and no further invoices will be generated. \n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over. \n\nA subscription can only enter a `paused` status [when a trial ends without a payment method](https://stripe.com/docs/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged. \n\nIf subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings). \n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
+                "enum": [
+                  "active",
+                  "canceled",
+                  "incomplete",
+                  "incomplete_expired",
+                  "past_due",
+                  "paused",
+                  "trialing",
+                  "unpaid"
+                ],
+                "type": "string"
+              },
+              "test_clock": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/test_helpers.test_clock"
+                  }
+                ],
+                "description": "ID of the test clock this subscription belongs to.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/test_helpers.test_clock"
+                    }
+                  ]
+                }
+              },
+              "transfer_data": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/subscription_transfer_data"
+                  }
+                ],
+                "description": "The account (if any) the subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.",
+                "nullable": true
+              },
+              "trial_end": {
+                "description": "If the subscription has a trial, the end of that trial.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "trial_settings": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/subscriptions_trials_resource_trial_settings"
+                  }
+                ],
+                "description": "Settings related to subscription trials.",
+                "nullable": true
+              },
+              "trial_start": {
+                "description": "If the subscription has a trial, the beginning of that trial.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "automatic_tax",
+              "billing_cycle_anchor",
+              "cancel_at_period_end",
+              "collection_method",
+              "created",
+              "currency",
+              "current_period_end",
+              "current_period_start",
+              "customer",
+              "discounts",
+              "id",
+              "invoice_settings",
+              "items",
+              "livemode",
+              "metadata",
+              "object",
+              "start_date",
+              "status"
+            ],
+            "title": "Subscription",
+            "type": "object",
+            "x-expandableFields": [
+              "application",
+              "automatic_tax",
+              "billing_cycle_anchor_config",
+              "billing_thresholds",
+              "cancellation_details",
+              "customer",
+              "default_payment_method",
+              "default_source",
+              "default_tax_rates",
+              "discount",
+              "discounts",
+              "invoice_settings",
+              "items",
+              "latest_invoice",
+              "on_behalf_of",
+              "pause_collection",
+              "payment_settings",
+              "pending_invoice_item_interval",
+              "pending_setup_intent",
+              "pending_update",
+              "schedule",
+              "test_clock",
+              "transfer_data",
+              "trial_settings"
+            ],
+            "x-resourceId": "subscription"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

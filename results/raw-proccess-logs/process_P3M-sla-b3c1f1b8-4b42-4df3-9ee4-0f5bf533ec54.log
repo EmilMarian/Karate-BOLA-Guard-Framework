@@ -1,0 +1,270 @@
+2025-02-02 13:55:05,640 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 13:55:05,721 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 13:55:05,952 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/users.setActive", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": false, "description": "Schema for error response from users.setActive method", "properties": {"callstack": {"description": "Note: PHP callstack is only visible in dev/qa", "type": "string"}, "error": {"enum": ["not_authed", "invalid_auth", "account_inactive", "token_revoked", "no_permission", "org_login_required", "ekm_access_denied", "missing_scope", "invalid_arguments", "invalid_arg_name", "invalid_charset", "invalid_form_data", "invalid_post_type", "missing_post_type", "team_added_to_org", "request_timeout", "fatal_error", "internal_error"], "type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.setActive error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0330_users.setActive_post_default.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `identity.basic`", "in": "query", "name": "token", "schema": {"type": "string"}}], "path": "/users.identity", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "account_inactive", "ok": false}}}, "schema": {"additionalProperties": false, "description": "Schema for error response from users.identity method", "properties": {"callstack": {"description": "Note: PHP callstack is only visible in dev/qa", "type": "string"}, "error": {"enum": ["not_authed", "invalid_auth", "account_inactive", "token_revoked", "no_permission", "org_login_required", "user_is_bot", "invalid_arg_name", "invalid_array_arg", "invalid_charset", "invalid_form_data", "invalid_post_type", "missing_post_type", "team_added_to_org", "invalid_json", "json_not_object", "request_timeout", "upgrade_required", "fatal_error"], "type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.identity error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0318_users.identity_get_default.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}], form collection oas_slack_web_fragments
+2025-02-02 13:55:05,953 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:55:05,953 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:55:06,364 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:55:06,365 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:55:18,082 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:55:18,083 - karate_llm_test_gen - INFO - Generated test case:  Given the API endpoint information provided, here is a Karate DSL test script to check for potentia...
+2025-02-02 13:55:18,084 - __main__ - INFO - Generated Karate test for /users.setActive POST at output/karate_feature_files/ID_001_krtestoas_userssetActive_POST.feature
+2025-02-02 13:55:18,084 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:55:18,084 - karate_compatibility_verifier - INFO - Given the API endpoint information provided, here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```java
+Feature: Checking broken authentication and authorization on /users.setActive endpoint
+  When using incorrect credentials or missing required headers
+  
+    * url = 'http://oas_slack_web.api/users.setActive'
+    
+    Given unauty user details with invalid username, password combination:
+      * def invalidCredentials = {username:'wrongUser',password:'12345'}
+      
+    And missing required headers for authentication (assuming basic auth is needed):
+      * def requestHeaders = [{key:"Authorization",value:{type:"basic",user:"invalid_credentials"}}]
+    
+  Then status should be 401 or 403, indicating unauthorized access:
+    Scenario: Attempt to set active user with incorrect credentials and missing headers.
+      * Given url = 'http://oas_slack_web.api/users.setActive'
+      
+      * And requestHeaders = {Authorization: "Basic dXNlcjpwcmVhZDpjb250YWxl"} // Using invalid base64 encoded credentials as an example of missing or incorrect headers
+      
+      When method post with the user details and headers.
+        * def response = karate.post(url, {active: true}, requestHeaders)
+        
+      Then status should be equalTo 401 OR equalTo 403 // Expecting an unauthorized access error due to invalid credentials or missing authentication header
+```
+
+This script checks for broken authentication and authorization vulnerabilities by attempting to set a user as active with incorrect username/password combination, along with the absence of required headers. The expected outcome is that we should receive HTTP status codes 401 (Unauthorized) or 403 (Forbidden).
+2025-02-02 13:55:29,765 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:55:29,765 - karate_compatibility_verifier - INFO -  Given the API endpoint information provided, here is a corrected Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```java
+Feature: Checking broken authentication and authorization on /users.setActive endpoint
+  When using incorrect credentials or missing required headers
+  
+    * url = 'http://oas_slack_web.api/users.setActive'
+    
+    Given invalid user details with wrong username, password combination:
+      * def invalidCredentials = {username:'wrongUser',password:'12345'}
+      
+    And missing required headers for authentication (assuming basic auth is needed):
+      * configHeaders = [{key:"Authorization",value:{type:"basic",user:invalidCredentials.toString()}}] // Converting invalid credentials to string format as Karate DSL does not support direct object usage in header values
+    
+  Then status should be equalTo (401 OR 403) indicating unauthorized access:
+    Scenario: Attempting set active user with incorrect credentials and missing headers.
+      * Given url = 'http://oas_slack_web.api/users.setActive'
+      
+      * And configHeaders = {Authorization: "Basic ${invalidCredentials}"} // Using the string representation of invalid credentials for basic auth header value in Karate DSL syntax
+      
+      When method post with user details and headers using 'karate.headers()':
+        * def response = karate.post(url, {}, configHeaders)
+        
+      Then status should be equalTo (401 OR 403) // Expecting an unauthorized access error due to invalid credentials or missing authentication header
+```
+2025-02-02 13:55:37,788 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:55:37,788 - karate_compatibility_verifier - INFO -  Given the API endpoint information provided, here is a corrected Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```java
+Feature: Checking broken authentication and authorization on /users.setActive endpoint
+  When using incorrect credentials or missing required headers
+  
+    * url = 'http://oas_slack_web.api/users.setActive'
+    
+    Given invalid user details with wrong username, password combination:
+      * def invalidCredentials = {username:'wrongUser',password:'12345'}
+      
+    And missing required headers for authentication (assuming basic auth is needed):
+      * configHeaders = [{key:"Authorization",value:{type:"basic",credentials:invalidCredentials.toString()}}] // Converting invalid credentials to string format as Karate DSL does not support direct object usage in header values
+    
+  Then status should be equalTo (401 OR 403) indicating unauthorized access:
+    Scenario: Attempting set active user with incorrect credentials and missing headers.
+      * Given url = 'http://oas_slack_web.api/users.setActive'
+      
+      * And configHeaders = {Authorization: "Basic ${invalidCredentials}"} // Using the string representation of invalid credentials for basic auth header value in Karate DSL syntax
+      
+      When method post with user details and headers using 'karate.headers()':
+        * def response = karate.post(url, {}, configHeaders)
+        
+      Then status should be equalTo (401 OR 403) // Expecting an unauthorized access error due to invalid credentials or missing authentication header
+```
+2025-02-02 13:55:37,789 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_userssetActive_POST_verified.feature
+2025-02-02 13:55:37,789 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_userssetActive_POST.feature:  Given the API endpoint information provided, here is a corrected Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```java
+Feature: Checking broken authentication and authorization on /users.setActive endpoint
+  When using incorrect credentials or missing required headers
+  
+    * url = 'http://oas_slack_web.api/users.setActive'
+    
+    Given invalid user details with wrong username, password combination:
+      * def invalidCredentials = {username:'wrongUser',password:'12345'}
+      
+    And missing required headers for authentication (assuming basic auth is needed):
+      * configHeaders = [{key:"Authorization",value:{type:"basic",credentials:invalidCredentials.toString()}}] // Converting invalid credentials to string format as Karate DSL does not support direct object usage in header values
+    
+  Then status should be equalTo (401 OR 403) indicating unauthorized access:
+    Scenario: Attempting set active user with incorrect credentials and missing headers.
+      * Given url = 'http://oas_slack_web.api/users.setActive'
+      
+      * And configHeaders = {Authorization: "Basic ${invalidCredentials}"} // Using the string representation of invalid credentials for basic auth header value in Karate DSL syntax
+      
+      When method post with user details and headers using 'karate.headers()':
+        * def response = karate.post(url, {}, configHeaders)
+        
+      Then status should be equalTo (401 OR 403) // Expecting an unauthorized access error due to invalid credentials or missing authentication header
+```
+2025-02-02 13:55:37,790 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:55:37,790 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:55:37,815 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:55:37,817 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:55:43,255 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:55:43,256 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test for Broken Authentication/Authorization on User Identity",
+  "scenario": "User...
+2025-02-02 13:55:43,257 - __main__ - INFO - Generated Karate test for /users.identity GET at output/karate_feature_files/ID_002_krtestoas_usersidentity_GET.feature
+2025-02-02 13:55:43,258 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:55:43,258 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on User Identity",
+  "scenario": "User attempts to access user identity without proper authentication or authorization.",
+  "steps": [
+    "Given url 'http://oas_slack_web.api/users.identity'",
+    "And request { path: '/', method: 'GET', queryParams: {} }", // Assuming no specific parameters are required for this endpoint, but include a check to confirm if they should be enforced as well
+    "When method get",
+    "Then status 401 or 403",
+    "And match response contains 'Unauthenticated' or 'Access Denied'"
+  ]
+}
+2025-02-02 13:55:47,860 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:55:47,860 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on User Identity
+    http://oas-slack.com/users.identity
+
+Background:
+* url 'http://oas-slack.com/users.identity'
+    
+Scenario: User attempts to access user identity without proper authentication or authorization.
+    * path '/'
+    And request { queryParams: {} } // Assuming no specific parameters are required for this endpoint, but include a check if they should be enforced as well
+    When method get
+    Then status 401 or 4x3
+    And match response contains 'Unauthenticated' or 'Access Denied'
+2025-02-02 13:55:50,932 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:55:50,932 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on User Identity
+    Given url 'http://oas-slack.com/users.identity'
+    
+Background:
+* url 'http://oas-slack.com/users.identity'
+    
+Scenario: User attempts to access user identity without proper authentication or authorization.
+  * path '/'
+    And request { queryParams: {} } // Assuming no specific parameters are required for this endpoint, but include a check if they should be enforced as well
+    When method get
+    Then status is one of (401) or contains ('Unauthenticated', 'Access Denied')
+2025-02-02 13:55:50,932 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_usersidentity_GET_verified.feature
+2025-02-02 13:55:50,932 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_usersidentity_GET.feature:  Feature: Test for Broken Authentication/Authorization on User Identity
+    Given url 'http://oas-slack.com/users.identity'
+    
+Background:
+* url 'http://oas-slack.com/users.identity'
+    
+Scenario: User attempts to access user identity without proper authentication or authorization.
+  * path '/'
+    And request { queryParams: {} } // Assuming no specific parameters are required for this endpoint, but include a check if they should be enforced as well
+    When method get
+    Then status is one of (401) or contains ('Unauthenticated', 'Access Denied')
+2025-02-02 13:55:50,933 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:55:50,933 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:55:50,958 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:55:50,958 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:55:58,529 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:55:58,530 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test API for Broken Authentication/Authorization on Admin User Invite",
+  "scenario...
+2025-02-02 13:55:58,530 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_003_krtestoas_adminusersinvite_POST.feature
+2025-02-02 13:55:58,530 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:55:58,531 - karate_compatibility_verifier - INFO - {
+  "feature": "Test API for Broken Authentication/Authorization on Admin User Invite",
+  "scenario": "Verify that the admin user invitation endpoint requires proper authentication and authorization",
+    "steps": [
+      "Given url 'http://oas_slack_web.api/admin.users.invite'",
+      "And header Authorization = \'Bearer invalidToken\', // Attempting with an incorrect token to simulate broken authentication",
+      "When method post",
+      "Then status 401 or 500, // Expect a client error (Unautmished) due to improper authorization"
+    ],
+    "given": [
+        {
+            "url": 'http://oas_slack_web.api/admin.users.invite',
+            "method": "POST",
+            "headers": {"Authorization": "Bearer invalidToken"} // Using an incorrect token to simulate broken authentication
+        }
+    ],
+    "when": [
+      {
+          "action": "post"
+      },
+      {}
+  ]
+}
+2025-02-02 13:56:06,035 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:56:06,036 - karate_compatibility_verifier - INFO -  Feature: Test API for Broken Authentication/Authorization on Admin User Invite
+    http://oas_slack_web.api/admin.users.invite
+    
+Background: 
+* url 'http://oas_slack_web.api/admin.users.invite'
+
+Scenario: Verify that the admin user invitation endpoint requires proper authentication and authorization
+    * Given url 'http://oas_slack_web.api/admin.users.invite', method post, headers {Authorization: 'Bearer invalidToken'} // Using an incorrect token to simulate broken authentication
+    When http request is sent with the given parameters using POST method
+    Then status code should be 401 or 500 // Expect a client error (Unautmished) due to improper authorization
+2025-02-02 13:56:09,921 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:56:09,921 - karate_compatibility_verifier - INFO -  Feature: Test API for Broken Authentication/Authorization on Admin User Invite
+    Given url 'http://oas_slack_web.api/admin.users.invite'
+    
+Background: 
+* url 'http://oas_slack_web.api/admin.users.invite'
+
+Scenario: Verify that the admin user invitation endpoint requires proper authentication and authorization
+    * Given url 'http://oas_slack_web.api/admin.users.invite', method post, headers {Authorization: 'Bearer invalidToken'} // Using an incorrect token to simulate broken authentication
+    When http request is sent with the given parameters using POST method
+    Then status code should be 401 or 500 // Expect a client error (Unautmished) due to improper authorization
+2025-02-02 13:56:09,922 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_adminusersinvite_POST_verified.feature
+2025-02-02 13:56:09,922 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_adminusersinvite_POST.feature:  Feature: Test API for Broken Authentication/Authorization on Admin User Invite
+    Given url 'http://oas_slack_web.api/admin.users.invite'
+    
+Background: 
+* url 'http://oas_slack_web.api/admin.users.invite'
+
+Scenario: Verify that the admin user invitation endpoint requires proper authentication and authorization
+    * Given url 'http://oas_slack_web.api/admin.users.invite', method post, headers {Authorization: 'Bearer invalidToken'} // Using an incorrect token to simulate broken authentication
+    When http request is sent with the given parameters using POST method
+    Then status code should be 401 or 500 // Expect a client error (Unautmished) due to improper authorization
+2025-02-02 13:56:09,922 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 13:56:09,924 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 13:56:12,198 - __main__ - INFO - Skipping karate test run.

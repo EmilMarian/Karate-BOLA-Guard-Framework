@@ -1,0 +1,54 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the video is being attached.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The ID of the `Video` being operated on.\n",
+      "in": "path",
+      "name": "video_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/videos/{video_id}",
+  "requestBody": {},
+  "responses": {
+    "404": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error payload for the BigCommerce API.\n",
+            "properties": {
+              "instance": {
+                "type": "string"
+              },
+              "status": {
+                "description": "404 HTTP status code.\n",
+                "type": "integer"
+              },
+              "title": {
+                "description": "The error title describing the particular error.",
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "The resource was not found.\n"
+    }
+  }
+}

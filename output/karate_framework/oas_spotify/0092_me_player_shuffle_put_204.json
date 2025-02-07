@@ -1,0 +1,39 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.  \nThe access token must have been issued on behalf of a user.  \nThe access token must have the `user-modify-playback-state` scope authorized in order to control playback.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "**true** : Shuffle user's playback.  \n**false** : Do not shuffle user's playback.",
+      "in": "query",
+      "name": "state",
+      "required": true,
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "The id of the device this command is targeting. If not supplied, the user's currently active device is the target.",
+      "in": "query",
+      "name": "device_id",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/me/player/shuffle",
+  "requestBody": {},
+  "responses": {
+    "204": {
+      "description": "A completed request will return a `204 NO CONTENT` response code, and then issue the command to the player. Due to the asynchronous nature of the issuance of the command, you should use the [Get Information About The User's Current Playback](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-information-about-the-users-current-playback) endpoint to check that your issued command was handled correctly by the player.\n\nIf the device is not found, the request will return `404 NOT FOUND` response code.\n\nIf the user making the request is non-premium, a `403 FORBIDDEN` response code will be returned."
+    }
+  }
+}

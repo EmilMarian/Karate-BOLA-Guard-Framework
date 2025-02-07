@@ -1,0 +1,426 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/sources",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "mandate": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "owner": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "receiver": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "redirect": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "source_order": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "description": "Amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. Not supported for `receiver` type sources, where charge amount may not be specified until funds land.",
+              "type": "integer"
+            },
+            "currency": {
+              "description": "Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready.",
+              "format": "currency",
+              "type": "string"
+            },
+            "customer": {
+              "description": "The `Customer` to whom the original source is attached to. Must be set when the original source is not a `Source` (e.g., `Card`).",
+              "maxLength": 500,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "flow": {
+              "description": "The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows.",
+              "enum": [
+                "code_verification",
+                "none",
+                "receiver",
+                "redirect"
+              ],
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "mandate": {
+              "description": "Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.",
+              "properties": {
+                "acceptance": {
+                  "properties": {
+                    "date": {
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "ip": {
+                      "type": "string"
+                    },
+                    "offline": {
+                      "properties": {
+                        "contact_email": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "contact_email"
+                      ],
+                      "title": "mandate_offline_acceptance_params",
+                      "type": "object"
+                    },
+                    "online": {
+                      "properties": {
+                        "date": {
+                          "format": "unix-time",
+                          "type": "integer"
+                        },
+                        "ip": {
+                          "type": "string"
+                        },
+                        "user_agent": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        }
+                      },
+                      "title": "mandate_online_acceptance_params",
+                      "type": "object"
+                    },
+                    "status": {
+                      "enum": [
+                        "accepted",
+                        "pending",
+                        "refused",
+                        "revoked"
+                      ],
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "offline",
+                        "online"
+                      ],
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "user_agent": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ],
+                  "title": "mandate_acceptance_params",
+                  "type": "object"
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "currency": {
+                  "format": "currency",
+                  "type": "string"
+                },
+                "interval": {
+                  "enum": [
+                    "one_time",
+                    "scheduled",
+                    "variable"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "notification_method": {
+                  "enum": [
+                    "deprecated_none",
+                    "email",
+                    "manual",
+                    "none",
+                    "stripe_email"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              },
+              "title": "mandate_params",
+              "type": "object"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "original_source": {
+              "description": "The source to share.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "owner": {
+              "description": "Information about the owner of the payment instrument that may be used or required by particular source types.",
+              "properties": {
+                "address": {
+                  "properties": {
+                    "city": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line2": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "source_address",
+                  "type": "object"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "phone": {
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              },
+              "title": "owner",
+              "type": "object"
+            },
+            "receiver": {
+              "description": "Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).",
+              "properties": {
+                "refund_attributes_method": {
+                  "enum": [
+                    "email",
+                    "manual",
+                    "none"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              },
+              "title": "receiver_params",
+              "type": "object"
+            },
+            "redirect": {
+              "description": "Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`).",
+              "properties": {
+                "return_url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "return_url"
+              ],
+              "title": "redirect_params",
+              "type": "object"
+            },
+            "source_order": {
+              "description": "Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.",
+              "properties": {
+                "items": {
+                  "items": {
+                    "properties": {
+                      "amount": {
+                        "type": "integer"
+                      },
+                      "currency": {
+                        "format": "currency",
+                        "type": "string"
+                      },
+                      "description": {
+                        "maxLength": 1000,
+                        "type": "string"
+                      },
+                      "parent": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "quantity": {
+                        "type": "integer"
+                      },
+                      "type": {
+                        "enum": [
+                          "discount",
+                          "shipping",
+                          "sku",
+                          "tax"
+                        ],
+                        "maxLength": 5000,
+                        "type": "string"
+                      }
+                    },
+                    "title": "order_item_specs",
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "shipping": {
+                  "properties": {
+                    "address": {
+                      "properties": {
+                        "city": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "country": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "line1": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "line2": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "postal_code": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "state": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "line1"
+                      ],
+                      "title": "address",
+                      "type": "object"
+                    },
+                    "carrier": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "name": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "phone": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "tracking_number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "address"
+                  ],
+                  "title": "order_shipping",
+                  "type": "object"
+                }
+              },
+              "title": "shallow_order_specs",
+              "type": "object"
+            },
+            "statement_descriptor": {
+              "description": "An arbitrary string to be displayed on your customer's statement. As an example, if your website is `RunClub` and the item you're charging for is a race ticket, you may want to specify a `statement_descriptor` of `RunClub 5K race ticket.` While many payment types will display this information, some may not display it at all.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "token": {
+              "description": "An optional token used to create the source. When passed, token properties will override source parameters.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "type": {
+              "description": "The `type` of the source to create. Required unless `customer` and `original_source` are specified (see the [Cloning card Sources](https://stripe.com/docs/sources/connect#cloning-card-sources) guide)",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "usage": {
+              "enum": [
+                "reusable",
+                "single_use"
+              ],
+              "maxLength": 5000,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

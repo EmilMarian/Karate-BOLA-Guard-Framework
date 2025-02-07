@@ -1,0 +1,283 @@
+2025-01-25 19:56:36,907 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 19:56:36,971 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 19:56:37,209 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `calls:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/calls.participants.add", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"id": {"description": "`id` returned by the [`calls.add`](/methods/calls.add) method.", "type": "string"}, "users": {"description": "The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).", "type": "string"}}, "required": ["id", "users"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0143_calls.participants.add_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `users:read`", "in": "query", "name": "token", "required": true, "schema": {"type": "string"}}, {"description": "User to get presence info on. Defaults to the authed user.", "in": "query", "name": "user", "schema": {"type": "string"}}], "path": "/users.getPresence", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": {"type": "object"}, "description": "Schema for error response users.getPresence method", "properties": {"error": {"type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.counts error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0316_users.getPresence_get_default.json'}}], form collection oas_slack_web_fragments
+2025-01-25 19:56:37,210 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:56:37,211 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:56:37,690 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 19:56:37,691 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 19:56:44,845 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 19:56:44,846 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Broken Authentication/Authorization Check for Admin User Invite",
+  "scenario": "Inv...
+2025-01-25 19:56:44,847 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature
+2025-01-25 19:56:44,847 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 19:56:44,847 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Check for Admin User Invite",
+  "scenario": "Inviting a user without proper authentication should fail.",
+  "given": [
+    "url = 'http://oas_instagram.api/admin/users/invite'"
+  ],
+  "when": {
+    "def requestWithoutAuth = function() { return {} }", // Simulate a missing auth header or token for testing purposes
+    "And def inviteUserRequest = function(userId) { return { userId: userId, role: 'admin' }}",
+    "When method post"
+  },
+  "then": [
+    {"status": 401}, // Expecting unauthorized access due to missing authentication.
+    {
+      "assertStatus": function(response) {
+        return response.getStatus() === 403; // Assuming the API responds with a 'Forbidden' status for lack of proper authorization when inviting users without sufficient privileges.
+      }
+    },
+    {"message": "Unauthorized to perform this action."}
+  ]
+}
+2025-01-25 19:56:51,823 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 19:56:51,823 - karate_compatibility_verifier - INFO - Given url 'http://oas_instagram.api/admin/users/invite'
+And def requestWithoutAuth = function() { return {} }
+* call requestWithoutAuth()
+When method post
+    And param userId = 1234567890 // Replace with a valid admin user ID for testing purposes.
+Then status 401
+And assertStatus(response) == 403
+2025-01-25 19:56:53,713 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 19:56:53,713 - karate_compatibility_verifier - INFO - Given url 'http://oas_instagram.api/admin/users/invite'
+And def requestWithoutAuth = function() { return {'Authorization': None} } // Assuming the API requires Authorization header for unauthorized access test case
+When method post
+    And param userId = 1234567890 // Replace with a valid admin user ID for testing purposes.
+Then status 401
+And assertStatus(response) == 403
+2025-01-25 19:56:53,713 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST_verified.feature
+2025-01-25 19:56:53,713 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature: Given url 'http://oas_instagram.api/admin/users/invite'
+And def requestWithoutAuth = function() { return {'Authorization': None} } // Assuming the API requires Authorization header for unauthorized access test case
+When method post
+    And param userId = 1234567890 // Replace with a valid admin user ID for testing purposes.
+Then status 401
+And assertStatus(response) == 403
+2025-01-25 19:56:53,714 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:56:53,714 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:56:53,734 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 19:56:53,736 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 19:57:06,919 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 19:57:06,919 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: "Test API for Broken Authentication/Authorization on /calls.participants.add"
+  sce...
+2025-01-25 19:57:06,920 - __main__ - INFO - Generated Karate test for /calls.participants.add POST at output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature
+2025-01-25 19:57:06,921 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 19:57:06,921 - karate_compatibility_verifier - INFO - ```yaml
+feature: "Test API for Broken Authentication/Authorization on /calls.participants.add"
+  scenarios-name: "Broken Auth and Authorization in Call Participant Add Functionality"
+    g.env = { 'API_URL': 'http://oas_instagram.api' } // Set the API URL as environment variable for reuse across tests
+    
+    * def addCallParticipantsEndpoint = '/calls/participants/add/'
+      
+      * Given url ${g.env.API_URL} + ${{addCallParticipantsEndpoint}}
+        # Test 1: Attempt to access the endpoint without proper authentication (e.g., missing or invalid token)
+        
+        And header Authorization = 'Bearer INVALIDTOKEN' // Simulate a broken authorization by using an incorrect bearer token
+        
+        When method post
+        
+        Then status 401 // Expecting unauthorized access due to the missing or invalid authentication details.
+      
+      * Given url ${g.env.API_URL} + ${{addCallParticipantsEndpoint}}
+        # Test 2: Attempt with expired token (assuming tokens have an expiry)
+        
+        And header Authorization = 'BearerEXPIREDTOKEN' // Simulate a broken authorization by using an expired bearer token. Replace EXPIREDTOKEN with actual expired token value if available for testing purposes.
+        
+        When method post
+        
+        Then status 401 // Expecting unauthorized access due to the invalid or expired authentication details.
+      
+      * Given url ${g.env.API_URL} + ${{addCallParticipantsEndpoint}}
+        # Test 3: Attempt with insufficient permissions (e.g., trying to add a participant without sufficient privileges)
+        
+        And header Authorization = 'BearerTOKEN' // Simulate an authorized access but not enough privilege level for the action being tested. Replace TOKEN with actual bearer token value if available for testing purposes.
+        
+        When method post
+        
+        Then status 403 // Expecting forbidden due to insufficient permissions, even though authentication is successful.
+```
+2025-01-25 19:57:39,940 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 19:57:39,940 - karate_compatibility_verifier - INFO - ```yaml
+feature: "Test API for Broken Authentication/Authorization on /calls.participants.add"
+  scenarios-name: "Broken Auth and Authorization in Call Participant Add Functionality"
+    g.env = { 'API_URL': 'http://oas_instagram.api' } // Set the API URL as environment variable for reuse across tests
+    
+    * def addCallParticipantsEndpoint = '/calls/participants/add/'
+      
+      * Given url ${g.env.API_URL} + ${{addCallParticipantsEndpoint}}
+        # Test 1: Attempt to access the endpoint without proper authentication (e.g., missing or invalid token)
+        
+        And header Authorization = 'Bearer INVALIDTOKEN' // Simulate a broken authorization by using an incorrect bearer token
+        
+        When method post
+        
+        Then status 401 // Expecting unauthorized access due to the missing or invalid authentication details.
+      
+      * Given url ${g.env.API_URL} + ${{addCallParticipantsEndpoint}}
+        # Test 2: Attempt with expired token (assuming tokens have an expiry)
+        
+        And header Authorization = 'BearerEXPIREDTOKEN' // Simulate a broken authorization by using an expired bearer token. Replace EXPIREDTOKEN with actual expired token value if available for testing purposes.
+        
+        When method post
+        
+        Then status 401 // Expecting unauthorized access due to the invalid or expired authentication details.
+      
+      * Given url ${g.env.API_URL} + ${{addCallParticipantsEndpoint}}
+        # Test 3: Attempt with insufficient permissions (e.g., trying to add a participant without sufficient privileges)
+        
+        And header Authorization = 'BearerTOKEN' // Simulate an authorized access but not enough privilege level for the action being tested. Replace TOKEN with actual bearer token value if available for testing purposes.
+        
+        When method post
+        
+        Then status 403 // Expecting forbidden due to insufficient permissions, even though authentication is successful.
+```
+2025-01-25 19:58:06,067 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 19:58:06,067 - karate_compatibility_verifier - INFO - ```yaml
+feature: "Test API for Broken Authentication/Authorization on /calls.participants.add"
+scenarios-name: "Broken Auth and Authorization in Call Participant Add Functionality"
+  environment: { 'API_URL': 'http://oas_instagram.api' } // Set the API URL as an environmental variable for reuse across tests
+  
+    * def addCallParticipantsEndpoint = '/calls/participants/add/'
+    
+      # Test Case 1: Attempt to access endpoint without proper authentication (e.g., missing or invalid token)
+      
+      Given url ${API_URL} + ${{addCallParticipantsEndpoint}}
+        And header Authorization = 'Bearer INVALIDTOKEN' // Simulate a broken authorization by using an incorrect bearer token
+        
+        When method post
+        
+        Then status 401 // Expecting unauthorized access due to the missing or invalid authentication details.
+      
+      # Test Case 2: Attempt with expired token (assuming tokens have an expiry)
+      
+      Given url ${API_URL} + ${{addCallParticipantsEndpoint}}
+        And header Authorization = 'BearerEXPIREDTOKEN' // Simulate a broken authorization by using an expired bearer token. Replace EXPIREDTOKEN with actual expired token value if available for testing purposes.
+        
+        When method post
+        
+        Then status 401 // Expecting unauthorized access due to the invalid or expired authentication details.
+      
+      # Test Case 3: Attempt with insufficient permissions (e.g., trying to add a participant without sufficient privileges)
+      
+      Given url ${API_URL} + ${{addCallParticipantsEndpoint}}
+        And header Authorization = 'BearerTOKEN' // Simulate an authorized access but not enough privilege level for the action being tested. Replace TOKEN with actual bearer token value if available for testing purposes.
+        
+        When method post
+        
+        Then status 403 // Expecting forbidden due to insufficient permissions, even though authentication is successful.
+```
+2025-01-25 19:58:06,067 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST_verified.feature
+2025-01-25 19:58:06,067 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature: ```yaml
+feature: "Test API for Broken Authentication/Authorization on /calls.participants.add"
+scenarios-name: "Broken Auth and Authorization in Call Participant Add Functionality"
+  environment: { 'API_URL': 'http://oas_instagram.api' } // Set the API URL as an environmental variable for reuse across tests
+  
+    * def addCallParticipantsEndpoint = '/calls/participants/add/'
+    
+      # Test Case 1: Attempt to access endpoint without proper authentication (e.g., missing or invalid token)
+      
+      Given url ${API_URL} + ${{addCallParticipantsEndpoint}}
+        And header Authorization = 'Bearer INVALIDTOKEN' // Simulate a broken authorization by using an incorrect bearer token
+        
+        When method post
+        
+        Then status 401 // Expecting unauthorized access due to the missing or invalid authentication details.
+      
+      # Test Case 2: Attempt with expired token (assuming tokens have an expiry)
+      
+      Given url ${API_URL} + ${{addCallParticipantsEndpoint}}
+        And header Authorization = 'BearerEXPIREDTOKEN' // Simulate a broken authorization by using an expired bearer token. Replace EXPIREDTOKEN with actual expired token value if available for testing purposes.
+        
+        When method post
+        
+        Then status 401 // Expecting unauthorized access due to the invalid or expired authentication details.
+      
+      # Test Case 3: Attempt with insufficient permissions (e.g., trying to add a participant without sufficient privileges)
+      
+      Given url ${API_URL} + ${{addCallParticipantsEndpoint}}
+        And header Authorization = 'BearerTOKEN' // Simulate an authorized access but not enough privilege level for the action being tested. Replace TOKEN with actual bearer token value if available for testing purposes.
+        
+        When method post
+        
+        Then status 403 // Expecting forbidden due to insufficient permissions, even though authentication is successful.
+```
+2025-01-25 19:58:06,068 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:58:06,068 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:58:06,092 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 19:58:06,093 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 19:58:29,701 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 19:58:29,702 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Broken Authentication/Authorization Checks on /users.getPresence",
+  "scenario": "Ve...
+2025-01-25 19:58:29,703 - __main__ - INFO - Generated Karate test for /users.getPresence GET at output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature
+2025-01-25 19:58:29,703 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 19:58:29,703 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Checks on /users.getPresence",
+  "scenario": "Verify that unauthorized access attempts are blocked for the GET request to retrieve user presence data.",
+  "steps": [
+    {
+      "Given url http://oas_instagram.api/users.getPresence"
+    },
+    {
+      "And header Authorization = 'Bearer <invalid_token>'", // Assuming the API requires a Bearer token for authentication, even though it's not specified in the details provided.
+      "When method get"
+    },
+    {
+      "Then status 401 or 403",
+      "And match response contains 'Unauthorized access attempt detected.' or 'Access Denied: Invalid credentials'"
+    }
+  ]
+}
+2025-01-25 19:58:35,049 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 19:58:35,049 - karate_compatibility_verifier - INFO - Feature: Broken Authentication/Authorization Checks on /users.getPresence
+    http://oas_instagram.api/users.getPresence
+
+Scenario: Verify that unauthorized access attempts are blocked for the GET request to retrieve user presence data.
+
+* url 'http://oas_instagram.api/users.getPresence'
+* header Authorization = 'Bearer <invalid_token>' // Assuming API requires a Bearer token, even though not specified in details provided.
+When method get
+Then status 401 or 403
+And match response contains 'Unauthorized access attempt detected.' or 'Access Denied: Invalid credentials'
+2025-01-25 19:58:37,391 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 19:58:37,391 - karate_compatibility_verifier - INFO - Feature: Authentication/Authorization Checks on /users.getPresence
+    Given http://oas_instagram.api/users.getPresence
+    When Authorization = 'Bearer <invalid_token>' // Assuming API requires a Bearer token, even though not specified in details provided.
+Then status should be 401 or 403 and response body contains "Unauthorized access attempt detected." or "Access Denied: Invalid credentials"
+2025-01-25 19:58:37,392 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET_verified.feature
+2025-01-25 19:58:37,392 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature: Feature: Authentication/Authorization Checks on /users.getPresence
+    Given http://oas_instagram.api/users.getPresence
+    When Authorization = 'Bearer <invalid_token>' // Assuming API requires a Bearer token, even though not specified in details provided.
+Then status should be 401 or 403 and response body contains "Unauthorized access attempt detected." or "Access Denied: Invalid credentials"
+2025-01-25 19:58:37,392 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 19:58:37,394 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 19:58:39,876 - __main__ - INFO - Skipping karate test run.

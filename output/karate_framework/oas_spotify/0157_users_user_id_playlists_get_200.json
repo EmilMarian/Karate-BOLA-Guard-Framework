@@ -1,0 +1,155 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.  \nPrivate playlists are only retrievable *for the current user* and requires the `playlist-read-private` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) to have been authorized by the user. Note that this scope alone will not return collaborative playlists, even though they are always private.  \nCollaborative playlists are only retrievable *for the current user* and requires the `playlist-read-collaborative` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) to have been authorized by the user.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The user's [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).",
+      "in": "path",
+      "name": "user_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of playlists to return. Default: 20. Minimum: 1. Maximum: 50.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The index of the first playlist to return. Default: 0 (the first object). Maximum offset: 100.000. Use with `limit` to get the next set of playlists.",
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/users/{user_id}/playlists",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "externalDocs": {
+              "description": "Find more info on the official Spotify Web API Reference",
+              "url": "https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject"
+            },
+            "properties": {
+              "href": {
+                "description": "A link to the Web API endpoint returning the full result of the request",
+                "type": "string"
+              },
+              "items": {
+                "description": "The requested data.",
+                "items": {
+                  "externalDocs": {
+                    "description": "Find more info on the official Spotify Web API Reference",
+                    "url": "https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedplaylistobject"
+                  },
+                  "properties": {
+                    "collaborative": {
+                      "description": "`true` if the owner allows other users to modify the playlist.",
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "description": "The playlist description. *Only returned for modified, verified playlists, otherwise* `null`.",
+                      "type": "string"
+                    },
+                    "external_urls": {
+                      "$ref": "#/components/schemas/ExternalUrlObject"
+                    },
+                    "href": {
+                      "description": "A link to the Web API endpoint providing full details of the playlist.",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist.",
+                      "type": "string"
+                    },
+                    "images": {
+                      "description": "Images for the playlist. The array may be empty or contain up to three images. The images are returned by size in descending order. See [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/). *Note: If returned, the source URL for the image (`url`) is temporary and will expire in less than a day.*",
+                      "items": {
+                        "$ref": "#/components/schemas/ImageObject"
+                      },
+                      "type": "array"
+                    },
+                    "name": {
+                      "description": "The name of the playlist.",
+                      "type": "string"
+                    },
+                    "owner": {
+                      "$ref": "#/components/schemas/PublicUserObject"
+                    },
+                    "public": {
+                      "description": "The playlist's public/private status: `true` the playlist is public, `false` the playlist is private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/)",
+                      "type": "boolean"
+                    },
+                    "snapshot_id": {
+                      "description": "The version identifier for the current playlist. Can be supplied in other requests to target a specific playlist version",
+                      "type": "string"
+                    },
+                    "tracks": {
+                      "$ref": "#/components/schemas/PlaylistTracksRefObject"
+                    },
+                    "type": {
+                      "description": "The object type: \"playlist\"",
+                      "type": "string"
+                    },
+                    "uri": {
+                      "description": "The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "limit": {
+                "description": "The maximum number of items in the response (as set in the query or by default).",
+                "format": "int32",
+                "type": "integer"
+              },
+              "next": {
+                "description": "URL to the next page of items. ( `null` if none)",
+                "type": "string"
+              },
+              "offset": {
+                "description": "The offset of the items returned (as set in the query or by default)",
+                "format": "int32",
+                "type": "integer"
+              },
+              "previous": {
+                "description": "URL to the previous page of items. ( `null` if none)",
+                "type": "string"
+              },
+              "total": {
+                "description": "The total number of items available to return.",
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the HTTP status code in the response header is `200` OK and the response body contains an array of simplified [playlist objects](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedplaylistobject) (wrapped in a [paging object](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)) in JSON format. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema)."
+    }
+  }
+}

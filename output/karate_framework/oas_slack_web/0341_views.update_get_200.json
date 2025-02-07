@@ -1,0 +1,130 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `none`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A unique identifier of the view to be updated. Either `view_id` or `external_id` is required.",
+      "in": "query",
+      "name": "view_id",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A unique identifier of the view set by the developer. Must be unique for all views on a team. Max length of 255 characters. Either `view_id` or `external_id` is required.",
+      "in": "query",
+      "name": "external_id",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A [view object](/reference/surfaces/views). This must be a JSON-encoded string.",
+      "in": "query",
+      "name": "view",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A string that represents view state to protect against possible race conditions.",
+      "in": "query",
+      "name": "hash",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/views.update",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true,
+                "view": {
+                  "app_id": "AAD3351BQ",
+                  "blocks": [
+                    {
+                      "accessory": {
+                        "action_id": "button_4",
+                        "text": {
+                          "text": "Click me",
+                          "type": "plain_text"
+                        },
+                        "type": "button"
+                      },
+                      "block_id": "s_block",
+                      "text": {
+                        "emoji": true,
+                        "text": "I am but an updated modal",
+                        "type": "plain_text"
+                      },
+                      "type": "section"
+                    }
+                  ],
+                  "bot_id": "BADF7A34H",
+                  "callback_id": "view_2",
+                  "clear_on_close": true,
+                  "close": {
+                    "emoji": true,
+                    "text": "Close",
+                    "type": "plain_text"
+                  },
+                  "external_id": "",
+                  "hash": "1569262015.55b5e41b",
+                  "id": "VNM522E2U",
+                  "notify_on_close": false,
+                  "previous_view_id": null,
+                  "private_metadata": "",
+                  "root_view_id": "VNN729E3U",
+                  "state": {
+                    "values": {}
+                  },
+                  "submit": null,
+                  "team_id": "T9M4RL1JM",
+                  "title": {
+                    "emoji": true,
+                    "text": "Updated Modal",
+                    "type": "plain_text"
+                  },
+                  "type": "modal"
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "Default success template",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response includes the updated view payload."
+    }
+  }
+}

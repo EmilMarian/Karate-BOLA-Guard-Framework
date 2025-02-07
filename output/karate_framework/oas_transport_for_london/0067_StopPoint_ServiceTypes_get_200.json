@@ -1,0 +1,125 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The Naptan id of the stop",
+      "in": "query",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The lines which contain the given Naptan id (all lines relevant to the given stoppoint if empty)",
+      "explode": true,
+      "in": "query",
+      "name": "lineIds",
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "The modes which the lines are relevant to (all if empty)",
+      "explode": true,
+      "in": "query",
+      "name": "modes",
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/StopPoint/ServiceTypes",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "lineName": {
+                  "type": "string"
+                },
+                "lineSpecificServiceTypes": {
+                  "items": {
+                    "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.LineSpecificServiceType"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "items": {
+              "properties": {
+                "lineName": {
+                  "type": "string"
+                },
+                "lineSpecificServiceTypes": {
+                  "items": {
+                    "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.LineSpecificServiceType"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "lineName": {
+                  "type": "string"
+                },
+                "lineSpecificServiceTypes": {
+                  "items": {
+                    "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.LineSpecificServiceType"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "items": {
+              "properties": {
+                "lineName": {
+                  "type": "string"
+                },
+                "lineSpecificServiceTypes": {
+                  "items": {
+                    "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.LineSpecificServiceType"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

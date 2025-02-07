@@ -1,0 +1,778 @@
+2025-02-02 13:20:24,393 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 13:20:24,459 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 13:20:25,097 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/v1/identity/verification_sessions", "requestBody": {"content": {"application/x-www-form-urlencoded": {"encoding": {"expand": {"explode": true, "style": "deepObject"}, "metadata": {"explode": true, "style": "deepObject"}, "options": {"explode": true, "style": "deepObject"}, "provided_details": {"explode": true, "style": "deepObject"}}, "schema": {"additionalProperties": false, "properties": {"client_reference_id": {"description": "A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.", "maxLength": 5000, "type": "string"}, "expand": {"description": "Specifies which fields in the response should be expanded.", "items": {"maxLength": 5000, "type": "string"}, "type": "array"}, "metadata": {"additionalProperties": {"type": "string"}, "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.", "type": "object"}, "options": {"description": "A set of options for the session\\u2019s verification checks.", "properties": {"document": {"anyOf": [{"properties": {"allowed_types": {"items": {"enum": ["driving_license", "id_card", "passport"], "type": "string"}, "type": "array"}, "require_id_number": {"type": "boolean"}, "require_live_capture": {"type": "boolean"}, "require_matching_selfie": {"type": "boolean"}}, "title": "document_options", "type": "object"}, {"enum": [""], "type": "string"}]}}, "title": "session_options_param", "type": "object"}, "provided_details": {"description": "Details provided about the user being verified. These details may be shown to the user.", "properties": {"email": {"type": "string"}, "phone": {"type": "string"}}, "title": "provided_details_param", "type": "object"}, "related_customer": {"description": "Token referencing a Customer resource.", "maxLength": 5000, "type": "string"}, "return_url": {"description": "The URL that the user will be redirected to upon completing the verification flow.", "type": "string"}, "type": {"description": "The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.", "enum": ["document", "id_number"], "type": "string", "x-stripeBypassValidation": true}, "verification_flow": {"description": "The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.", "maxLength": 5000, "type": "string"}}, "type": "object"}}}, "required": false}, "responses": {"default": {"content": {"application/json": {"schema": {"description": "An error response from the Stripe API", "properties": {"error": {"$ref": "#/components/schemas/api_errors"}}, "required": ["error"], "type": "object"}}}, "description": "Error response."}}}', 'metadata': {'filename': '0430_v1_identity_verification_sessions_post_default.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/v1/identity/verification_sessions", "requestBody": {"content": {"application/x-www-form-urlencoded": {"encoding": {"expand": {"explode": true, "style": "deepObject"}, "metadata": {"explode": true, "style": "deepObject"}, "options": {"explode": true, "style": "deepObject"}, "provided_details": {"explode": true, "style": "deepObject"}}, "schema": {"additionalProperties": false, "properties": {"client_reference_id": {"description": "A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.", "maxLength": 5000, "type": "string"}, "expand": {"description": "Specifies which fields in the response should be expanded.", "items": {"maxLength": 5000, "type": "string"}, "type": "array"}, "metadata": {"additionalProperties": {"type": "string"}, "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.", "type": "object"}, "options": {"description": "A set of options for the session\\u2019s verification checks.", "properties": {"document": {"anyOf": [{"properties": {"allowed_types": {"items": {"enum": ["driving_license", "id_card", "passport"], "type": "string"}, "type": "array"}, "require_id_number": {"type": "boolean"}, "require_live_capture": {"type": "boolean"}, "require_matching_selfie": {"type": "boolean"}}, "title": "document_options", "type": "object"}, {"enum": [""], "type": "string"}]}}, "title": "session_options_param", "type": "object"}, "provided_details": {"description": "Details provided about the user being verified. These details may be shown to the user.", "properties": {"email": {"type": "string"}, "phone": {"type": "string"}}, "title": "provided_details_param", "type": "object"}, "related_customer": {"description": "Token referencing a Customer resource.", "maxLength": 5000, "type": "string"}, "return_url": {"description": "The URL that the user will be redirected to upon completing the verification flow.", "type": "string"}, "type": {"description": "The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.", "enum": ["document", "id_number"], "type": "string", "x-stripeBypassValidation": true}, "verification_flow": {"description": "The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.", "maxLength": 5000, "type": "string"}}, "type": "object"}}}, "required": false}, "responses": {"200": {"content": {"application/json": {"schema": {"description": "A VerificationSession guides you through the process of collecting and verifying the identities\\nof your users. It contains details about the type of verification, such as what [verification\\ncheck](/docs/identity/verification-checks) to perform. Only create one VerificationSession for\\neach verification in your system.\\n\\nA VerificationSession transitions through [multiple\\nstatuses](/docs/identity/how-sessions-work) throughout its lifetime as it progresses through\\nthe verification flow. The VerificationSession contains the user\'s verified data after\\nverification checks are complete.\\n\\nRelated guide: [The Verification Sessions API](https://stripe.com/docs/identity/verification-sessions)", "properties": {"client_reference_id": {"description": "A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.", "maxLength": 5000, "nullable": true, "type": "string"}, "client_secret": {"description": "The short-lived client secret used by Stripe.js to [show a verification modal](https://stripe.com/docs/js/identity/modal) inside your app. This client secret expires after 24 hours and can only be used once. Don\\u2019t store it, log it, embed it in a URL, or expose it to anyone other than the user. Make sure that you have TLS enabled on any page that includes the client secret. Refer to our docs on [passing the client secret to the frontend](https://stripe.com/docs/identity/verification-sessions#client-secret) to learn more.", "maxLength": 5000, "nullable": true, "type": "string"}, "created": {"description": "Time at which the object was created. Measured in seconds since the Unix epoch.", "format": "unix-time", "type": "integer"}, "id": {"description": "Unique identifier for the object.", "maxLength": 5000, "type": "string"}, "last_error": {"anyOf": [{"$ref": "#/components/schemas/gelato_session_last_error"}], "description": "If present, this property tells you the last error encountered when processing the verification.", "nullable": true}, "last_verification_report": {"anyOf": [{"maxLength": 5000, "type": "string"}, {"$ref": "#/components/schemas/identity.verification_report"}], "description": "ID of the most recent VerificationReport. [Learn more about accessing detailed verification results.](https://stripe.com/docs/identity/verification-sessions#results)", "nullable": true, "x-expansionResources": {"oneOf": [{"$ref": "#/components/schemas/identity.verification_report"}]}}, "livemode": {"description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.", "type": "boolean"}, "metadata": {"additionalProperties": {"maxLength": 500, "type": "string"}, "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.", "type": "object"}, "object": {"description": "String representing the object\'s type. Objects of the same type share the same value.", "enum": ["identity.verification_session"], "type": "string"}, "options": {"anyOf": [{"$ref": "#/components/schemas/gelato_verification_session_options"}], "description": "A set of options for the session\\u2019s verification checks.", "nullable": true}, "provided_details": {"anyOf": [{"$ref": "#/components/schemas/gelato_provided_details"}], "description": "Details provided about the user being verified. These details may be shown to the user.", "nullable": true}, "redaction": {"anyOf": [{"$ref": "#/components/schemas/verification_session_redaction"}], "description": "Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null.", "nullable": true}, "related_customer": {"description": "Token referencing a Customer resource.", "maxLength": 5000, "nullable": true, "type": "string"}, "status": {"description": "Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).", "enum": ["canceled", "processing", "requires_input", "verified"], "type": "string"}, "type": {"description": "The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.", "enum": ["document", "id_number", "verification_flow"], "type": "string", "x-stripeBypassValidation": true}, "url": {"description": "The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don\\u2019t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe.", "maxLength": 5000, "nullable": true, "type": "string"}, "verification_flow": {"description": "The configuration token of a verification flow from the dashboard.", "maxLength": 5000, "type": "string"}, "verified_outputs": {"anyOf": [{"$ref": "#/components/schemas/gelato_verified_outputs"}], "description": "The user\\u2019s verified data.", "nullable": true}}, "required": ["created", "id", "livemode", "metadata", "object", "status", "type"], "title": "GelatoVerificationSession", "type": "object", "x-expandableFields": ["last_error", "last_verification_report", "options", "provided_details", "redaction", "verified_outputs"], "x-resourceId": "identity.verification_session"}}}, "description": "Successful response."}}}', 'metadata': {'filename': '0429_v1_identity_verification_sessions_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.", "in": "query", "name": "client_reference_id", "required": false, "schema": {"maxLength": 5000, "type": "string"}, "style": "form"}, {"description": "Only return VerificationSessions that were created during the given date interval.", "explode": true, "in": "query", "name": "created", "required": false, "schema": {"anyOf": [{"properties": {"gt": {"type": "integer"}, "gte": {"type": "integer"}, "lt": {"type": "integer"}, "lte": {"type": "integer"}}, "title": "range_query_specs", "type": "object"}, {"type": "integer"}]}, "style": "deepObject"}, {"description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.", "in": "query", "name": "ending_before", "required": false, "schema": {"maxLength": 5000, "type": "string"}, "style": "form"}, {"description": "Specifies which fields in the response should be expanded.", "explode": true, "in": "query", "name": "expand", "required": false, "schema": {"items": {"maxLength": 5000, "type": "string"}, "type": "array"}, "style": "deepObject"}, {"description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.", "in": "query", "name": "limit", "required": false, "schema": {"type": "integer"}, "style": "form"}, {"in": "query", "name": "related_customer", "required": false, "schema": {"maxLength": 5000, "type": "string"}, "style": "form"}, {"description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.", "in": "query", "name": "starting_after", "required": false, "schema": {"maxLength": 5000, "type": "string"}, "style": "form"}, {"description": "Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).", "in": "query", "name": "status", "required": false, "schema": {"enum": ["canceled", "processing", "requires_input", "verified"], "type": "string"}, "style": "form"}], "path": "/v1/identity/verification_sessions", "requestBody": {"content": {"application/x-www-form-urlencoded": {"encoding": {}, "schema": {"additionalProperties": false, "properties": {}, "type": "object"}}}, "required": false}, "responses": {"default": {"content": {"application/json": {"schema": {"description": "An error response from the Stripe API", "properties": {"error": {"$ref": "#/components/schemas/api_errors"}}, "required": ["error"], "type": "object"}}}, "description": "Error response."}}}', 'metadata': {'filename': '0428_v1_identity_verification_sessions_get_default.json'}}], form collection oas_stripe_fragments
+2025-02-02 13:20:25,098 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:20:25,099 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:20:25,503 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:20:25,503 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:20:42,583 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:20:42,584 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-02-02 13:20:42,585 - __main__ - INFO - Generated Karate test for /v1/identity/verification_sessions POST at output/karate_feature_files/ID_001_krtestoas_v1_identity_verification_sessions_POST.feature
+2025-02-02 13:20:42,586 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:20:42,586 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+And request {
+  "grant_type": "authorization_code",
+  "code": "stolen_code",
+  "redirect_uri": "http://evil.example.com",
+  "client_id": "client_id",
+  "client_secret": "client_secret"
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach clientIds, function(clientId){
+  foreach redirectUris, function(redirectUri){
+    And request {
+      "grant_type": "code",
+      "client_id": clientId,
+      "redirect_uri": redirectUri,
+      "scope": "email",
+      "state": "xyz"
+    }
+    When method post
+    Then status != 500
+    And assert response does not contain 'Error'
+  }
+}
+```
+
+This script tests the OAuth token generation endpoint for potential vulnerabilities by attempting to exploit it with a stolen authorization code. It also fuzz tests the OAuth authorization process by trying different client IDs and redirect URIs, checking if any of them allow unauthorized access.
+
+Please note that this is just an example test script and you should adjust it according to your specific requirements and testing goals.
+2025-02-02 13:20:58,184 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:20:58,184 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```java
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+And request {
+  "grant_type": "authorization_code",
+  "code": "stolen_code",
+  "redirect_uri": "http://evil.example.com",
+  "client_id": "client_id",
+  "client_secret": "client_secret"
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach $clientId in clientIds
+  foreach $redirectUri in redirectUris
+    And request {
+      "grant_type": "code",
+      "client_id": $clientId,
+      "redirect_uri": $redirectUri,
+      "scope": "email",
+      "state": "xyz"
+    }
+    When method post
+    Then status != 500
+    And assert response does not contain 'Error'
+```
+2025-02-02 13:21:09,681 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:21:09,681 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```java
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+And request {
+    "grant_type": "authorization_code",
+    "code": "stolen_code",
+    "redirect_uri": "http://evil.example.com",
+    "client_id": "client_id",
+    "client_secret": "client_secret"
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach $clientId in clientIds
+  foreach $redirectUri in redirectUris
+    And request {
+       "grant_type": "code",
+       "client_id": $clientId,
+       "redirect_uri": $redirectUri,
+       "scope": "email",
+       "state": "xyz"
+     }
+    When method post
+    Then status != 500
+    And assert response does not contain 'Error'
+```
+2025-02-02 13:21:09,683 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_v1_identity_verification_sessions_POST_verified.feature
+2025-02-02 13:21:09,683 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_v1_identity_verification_sessions_POST.feature: Here is the corrected Karate DSL script:
+
+```java
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+And request {
+    "grant_type": "authorization_code",
+    "code": "stolen_code",
+    "redirect_uri": "http://evil.example.com",
+    "client_id": "client_id",
+    "client_secret": "client_secret"
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach $clientId in clientIds
+  foreach $redirectUri in redirectUris
+    And request {
+       "grant_type": "code",
+       "client_id": $clientId,
+       "redirect_uri": $redirectUri,
+       "scope": "email",
+       "state": "xyz"
+     }
+    When method post
+    Then status != 500
+    And assert response does not contain 'Error'
+```
+2025-02-02 13:21:09,683 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:21:09,684 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:21:09,709 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:21:09,710 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:21:43,384 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:21:43,385 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script for the given API endpoint:
+
+```
+Feature: Test API for Broken Aut...
+2025-02-02 13:21:43,386 - __main__ - INFO - Generated Karate test for /v1/identity/verification_sessions POST at output/karate_feature_files/ID_002_krtestoas_v1_identity_verification_sessions_POST.feature
+2025-02-02 13:21:43,387 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:21:43,387 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script for the given API endpoint:
+
+```
+Feature: Test API for Broken Authentication/Authorization on /v1/identity/verification_sessions
+Scenario: Attempt to create a verification session without authentication
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+When method post
+Then status 401
+
+Scenario: Attempt to create a verification session with invalid credentials
+* def invalidCredentials = { username: 'invalid', password: 'wrong' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidCredentials
+When method post
+Then status 401
+
+Scenario: Attempt to create a verification session with valid credentials but without required fields
+* def missingFields = { username: 'valid', password: '' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingFields
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but invalid data type for a field
+* def invalidDataType = { username: 'valid', password: 'correct', someField: 123.45 }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidDataType
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but missing expected field
+* def missingField = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingField
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but invalid expected field value
+* def invalidFieldValue = { username: 'valid', password: 'correct', someField: 'invalid' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidFieldValue
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but missing expected field value
+* def missingFieldValue = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingFieldValue
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but invalid expected field value type
+* def invalidFieldType = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidFieldType
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but missing expected field value type
+* def missingFieldType = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingFieldType
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but invalid expected field value type
+* def invalidFieldType = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidFieldType
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but missing expected field value type
+* def missingFieldType = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingFieldType
+When method post
+Then status 400
+2025-02-02 13:21:43,537 - karate_compatibility_verifier - ERROR - An error occurred while calling the LLM: Expecting value: line 1 column 1 (char 0)
+2025-02-02 13:21:43,537 - karate_compatibility_verifier - ERROR - 
+Compatibility check failed. Using original content for syntax verification.
+2025-02-02 13:22:10,665 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:22:10,665 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+``` 
+Feature: Test API for Broken Authentication/Authorization on /v1/identity/verification_sessions
+Scenario: Attempt to create a verification session without authentication
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+When method post
+Then status 401
+
+Scenario: Attempt to create a verification session with invalid credentials
+* def invalidCredentials = { username: 'invalid', password: 'wrong' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidCredentials
+When method post
+Then status 401
+
+Scenario: Attempt to create a verification session with valid credentials but without required fields
+* def missingFields = { username: 'valid', password: '' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingFields
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but invalid data type for a field
+* def invalidDataType = { username: 'valid', password: 'correct', someField: 123.45 }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidDataType
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but missing expected field
+* def missingField = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingField
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but invalid expected field value
+* def invalidFieldValue = { username: 'valid', password: 'correct', someField: 'invalid' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidFieldValue
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but missing expected field value
+* def missingFieldValue = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingFieldValue
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but invalid expected field value type
+* def invalidFieldType = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidFieldType
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but missing expected field value type
+* def missingFieldType = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingFieldType
+When method post
+Then status 400
+2025-02-02 13:22:10,666 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_v1_identity_verification_sessions_POST_verified.feature
+2025-02-02 13:22:10,666 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_v1_identity_verification_sessions_POST.feature: Here is the corrected Karate DSL script:
+
+``` 
+Feature: Test API for Broken Authentication/Authorization on /v1/identity/verification_sessions
+Scenario: Attempt to create a verification session without authentication
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+When method post
+Then status 401
+
+Scenario: Attempt to create a verification session with invalid credentials
+* def invalidCredentials = { username: 'invalid', password: 'wrong' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidCredentials
+When method post
+Then status 401
+
+Scenario: Attempt to create a verification session with valid credentials but without required fields
+* def missingFields = { username: 'valid', password: '' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingFields
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but invalid data type for a field
+* def invalidDataType = { username: 'valid', password: 'correct', someField: 123.45 }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidDataType
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but missing expected field
+* def missingField = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingField
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but invalid expected field value
+* def invalidFieldValue = { username: 'valid', password: 'correct', someField: 'invalid' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidFieldValue
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but missing expected field value
+* def missingFieldValue = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingFieldValue
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but invalid expected field value type
+* def invalidFieldType = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request invalidFieldType
+When method post
+Then status 400
+
+Scenario: Attempt to create a verification session with valid credentials and required fields but missing expected field value type
+* def missingFieldType = { username: 'valid', password: 'correct' }
+Given url 'http://oas_stripe.api'
+And path '/v1/identity/verification_sessions'
+And request missingFieldType
+When method post
+Then status 400
+2025-02-02 13:22:10,666 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:22:10,667 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:22:10,690 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:22:10,691 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:22:51,858 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:22:51,859 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-02-02 13:22:51,861 - __main__ - INFO - Generated Karate test for /v1/identity/verification_sessions GET at output/karate_feature_files/ID_003_krtestoas_v1_identity_verification_sessions_GET.feature
+2025-02-02 13:22:51,862 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:22:51,863 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```
+Feature: Test API for Verification Sessions
+Scenario: Attempt to access verification sessions without authentication
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+* def invalidToken = "invalid_token"
+* And header Authorization = "Bearer " + invalidToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with an expired token
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def expiredToken = "expired_token"
+* And header Authorization = "Bearer " + expiredToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a revoked token
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def revokedToken = "revoked_token"
+* And header Authorization = "Bearer " + revokedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been tampered with
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def tamperedToken = "tampered_token"
+* And header Authorization = "Bearer " + tamperedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been modified
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def modifiedToken = "modified_token"
+* And header Authorization = "Bearer " + modifiedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been compromised
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def compromisedToken = "compromised_token"
+* And header Authorization = "Bearer " + compromisedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been stolen
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def stolenToken = "stolen_token"
+* And header Authorization = "Bearer " + stolenToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been expired and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def expiredReissuedToken = "expired_reissued_token"
+* And header Authorization = "Bearer " + expiredReissuedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been tampered with and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def tamperedReissuedToken = "tampered_reissued_token"
+* And header Authorization = "Bearer " + tamperedReissuedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been modified and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def modifiedReissuedToken = "modified_reissued_token"
+* And header Authorization = "Bearer " + modifiedReissuedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been compromised and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def compromisedReissuedToken = "compromised_reissued_token"
+* And header Authorization = "Bearer " + compromisedReissuedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been stolen and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def stolenReissuedToken = "stolen_reissued_token"
+* And header Authorization = "Bearer " + stolenReissuedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been
+2025-02-02 13:22:52,036 - karate_compatibility_verifier - ERROR - An error occurred while calling the LLM: Expecting value: line 1 column 1 (char 0)
+2025-02-02 13:22:52,037 - karate_compatibility_verifier - ERROR - 
+Compatibility check failed. Using original content for syntax verification.
+2025-02-02 13:23:34,184 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:23:34,185 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+````
+Feature: Test API for Verification Sessions
+
+Scenario: Attempt to access verification sessions without authentication
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+* def invalidToken = "invalid_token"
+* And header Authorization = "Bearer " + invalidToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with an expired token
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def expiredToken = "expired_token"
+* And header Authorization = "Bearer " + expiredToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a revoked token
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def revokedToken = "revoked_token"
+* And header Authorization = "Bearer " + revokedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been tampered with
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def tamperedToken = "tampered_token"
+* And header Authorization = "Bearer " + tamperedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been modified
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def modifiedToken = "modified_token"
+* And header Authorization = "Bearer " + modifiedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been compromised
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def compromisedToken = "compromised_token"
+* And header Authorization = "Bearer " + compromisedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been stolen
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def stolenToken = "stolen_token"
+* And header Authorization = "Bearer " + stolenToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been expired and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def expiredReissuedToken = "expired_reissued_token"
+* And header Authorization = "Bearer " + expiredReissuedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been tampered with and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def tamperedReissuedToken = "tampered_reissued_token"
+* And header Authorization = "Bearer " + tamperedReissuedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been modified and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def modifiedReissuedToken = "modified_reissued_token"
+* And header Authorization = "Bearer " + modifiedReissuedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been compromised and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def compromisedReissuedToken = "compromised_reissued_token"
+* And header Authorization = "Bearer " + compromisedReissuedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been stolen and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def stolenReissuedToken = "stolen_reissued_token"
+* And header Authorization = "Bearer " + stolenReissuedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+```
+
+The only change made was replacing the spaces in the URLs with underscores, as per Karate's URL
+2025-02-02 13:23:34,185 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_v1_identity_verification_sessions_GET_verified.feature
+2025-02-02 13:23:34,185 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_v1_identity_verification_sessions_GET.feature: Here is the corrected Karate DSL script:
+
+````
+Feature: Test API for Verification Sessions
+
+Scenario: Attempt to access verification sessions without authentication
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+* def invalidToken = "invalid_token"
+* And header Authorization = "Bearer " + invalidToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with an expired token
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def expiredToken = "expired_token"
+* And header Authorization = "Bearer " + expiredToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a revoked token
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def revokedToken = "revoked_token"
+* And header Authorization = "Bearer " + revokedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been tampered with
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def tamperedToken = "tampered_token"
+* And header Authorization = "Bearer " + tamperedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been modified
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def modifiedToken = "modified_token"
+* And header Authorization = "Bearer " + modifiedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been compromised
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def compromisedToken = "compromised_token"
+* And header Authorization = "Bearer " + compromisedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been stolen
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def stolenToken = "stolen_token"
+* And header Authorization = "Bearer " + stolenToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been expired and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def expiredReissuedToken = "expired_reissued_token"
+* And header Authorization = "Bearer " + expiredReissuedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been tampered with and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def tamperedReissuedToken = "tampered_reissued_token"
+* And header Authorization = "Bearer " + tamperedReissuedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been modified and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def modifiedReissuedToken = "modified_reissued_token"
+* And header Authorization = "Bearer " + modifiedReissuedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+Scenario: Attempt to access verification sessions with a token that has been compromised and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def compromisedReissuedToken = "compromised_reissued_token"
+* And header Authorization = "Bearer " + compromisedReissuedToken
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to access verification sessions with a token that has been stolen and then re-issued
+Given url 'http://oas_stripe.api/v1/identity/verification_sessions'
+* def stolenReissuedToken = "stolen_reissued_token"
+* And header Authorization = "Bearer " + stolenReissuedToken
+When method get
+Then status 403
+And match response contains "You are not authorized to access this resource"
+
+```
+
+The only change made was replacing the spaces in the URLs with underscores, as per Karate's URL
+2025-02-02 13:23:34,186 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 13:23:34,188 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 13:23:36,475 - __main__ - INFO - Skipping karate test run.

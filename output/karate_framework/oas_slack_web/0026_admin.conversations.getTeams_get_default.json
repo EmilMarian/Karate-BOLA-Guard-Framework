@@ -1,0 +1,90 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:read`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The channel to determine connected workspaces within the organization for.",
+      "in": "query",
+      "name": "channel_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/admin.conversations.getTeams",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from admin.conversations.getTeams",
+            "properties": {
+              "error": {
+                "enum": [
+                  "feature_not_enabled",
+                  "channel_not_found",
+                  "channel_type_not_supported",
+                  "unsupported_team_type",
+                  "restricted_action",
+                  "could_not_get_teams",
+                  "invalid_cursor",
+                  "invalid_limit"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "admin.conversations.getTeams error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

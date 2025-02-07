@@ -1,0 +1,94 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `reminders:write`",
+      "in": "header",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/reminders.delete",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "reminder": {
+              "description": "The ID of the reminder",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from reminders.delete method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "not_found",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "token_revoked",
+                  "no_permission",
+                  "org_login_required",
+                  "user_is_bot",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required",
+                  "fatal_error"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "reminders.delete error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

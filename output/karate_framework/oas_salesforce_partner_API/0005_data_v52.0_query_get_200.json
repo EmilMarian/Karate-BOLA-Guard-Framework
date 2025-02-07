@@ -1,0 +1,41 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "search results matching criteria",
+      "in": "query",
+      "name": "q",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/data/v52.0/query",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "records": {
+                  "items": {
+                    "$ref": "#/components/schemas/Records"
+                  },
+                  "type": "array"
+                },
+                "totalSize": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "search results matching criteria"
+    }
+  }
+}

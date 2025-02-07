@@ -1,0 +1,105 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `conversations:read`",
+      "in": "query",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "ID of the conversation to retrieve members for",
+      "in": "query",
+      "name": "channel",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/conversations.members",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "members": [
+                  "U023BECGF",
+                  "U061F7AUR",
+                  "W012A3CDE"
+                ],
+                "ok": true,
+                "response_metadata": {
+                  "next_cursor": "e3VzZXJfaWQ6IFcxMjM0NTY3fQ=="
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response conversations.members method",
+            "properties": {
+              "members": {
+                "items": {
+                  "pattern": "^[UW][A-Z0-9]{2,}$",
+                  "title": "User ID",
+                  "type": "string"
+                },
+                "minItems": 1,
+                "type": "array",
+                "uniqueItems": true
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "response_metadata": {
+                "additionalProperties": false,
+                "properties": {
+                  "next_cursor": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "next_cursor"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "ok",
+              "members",
+              "response_metadata"
+            ],
+            "title": "conversations.members success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical paginated success response"
+    }
+  }
+}

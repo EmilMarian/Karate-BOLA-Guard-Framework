@@ -1,0 +1,403 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `conversations:history`",
+      "in": "query",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Conversation ID to fetch thread from.",
+      "in": "query",
+      "name": "channel",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Unique identifier of a thread's parent message. `ts` must be the timestamp of an existing message with 0 or more replies. If there are no replies then just the single message referenced by `ts` will return - it is just an ordinary, unthreaded message.",
+      "in": "query",
+      "name": "ts",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "End of time range of messages to include in results.",
+      "in": "query",
+      "name": "latest",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "Start of time range of messages to include in results.",
+      "in": "query",
+      "name": "oldest",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "Include messages with latest or oldest timestamp in results only when either timestamp is specified.",
+      "in": "query",
+      "name": "inclusive",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/conversations.replies",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "has_more": true,
+                "messages": [
+                  {
+                    "last_read": "1484678597.521003",
+                    "reply_count": 3,
+                    "subscribed": true,
+                    "text": "island",
+                    "thread_ts": "1482960137.003543",
+                    "ts": "1482960137.003543",
+                    "type": "message",
+                    "unread_count": 0,
+                    "user": "U061F7AUR"
+                  },
+                  {
+                    "parent_user_id": "U061F7AUR",
+                    "text": "one island",
+                    "thread_ts": "1482960137.003543",
+                    "ts": "1483037603.017503",
+                    "type": "message",
+                    "user": "U061F7AUR"
+                  },
+                  {
+                    "parent_user_id": "U061F7AUR",
+                    "text": "two island",
+                    "thread_ts": "1482960137.003543",
+                    "ts": "1483051909.018632",
+                    "type": "message",
+                    "user": "U061F7AUR"
+                  },
+                  {
+                    "parent_user_id": "U061F7AUR",
+                    "text": "three for the land",
+                    "thread_ts": "1482960137.003543",
+                    "ts": "1483125339.020269",
+                    "type": "message",
+                    "user": "U061F7AUR"
+                  }
+                ],
+                "ok": true,
+                "response_metadata": {
+                  "next_cursor": "bmV4dF90czoxNDg0Njc4MjkwNTE3MDkx"
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from conversations.replies method",
+            "properties": {
+              "has_more": {
+                "type": "boolean"
+              },
+              "messages": {
+                "items": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "last_read": {
+                            "pattern": "^\\d{10}\\.\\d{6}$",
+                            "title": "Timestamp in format 0123456789.012345",
+                            "type": "string"
+                          },
+                          "latest_reply": {
+                            "pattern": "^\\d{10}\\.\\d{6}$",
+                            "title": "Timestamp in format 0123456789.012345",
+                            "type": "string"
+                          },
+                          "reply_count": {
+                            "type": "integer"
+                          },
+                          "reply_users": {
+                            "items": {
+                              "pattern": "^[UW][A-Z0-9]{2,}$",
+                              "title": "User ID",
+                              "type": "string"
+                            },
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "reply_users_count": {
+                            "type": "integer"
+                          },
+                          "source_team": {
+                            "pattern": "^[T][A-Z0-9]{2,}$",
+                            "title": "Team ID",
+                            "type": "string"
+                          },
+                          "subscribed": {
+                            "type": "boolean"
+                          },
+                          "team": {
+                            "pattern": "^[T][A-Z0-9]{2,}$",
+                            "title": "Team ID",
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string"
+                          },
+                          "thread_ts": {
+                            "pattern": "^\\d{10}\\.\\d{6}$",
+                            "title": "Timestamp in format 0123456789.012345",
+                            "type": "string"
+                          },
+                          "ts": {
+                            "pattern": "^\\d{10}\\.\\d{6}$",
+                            "title": "Timestamp in format 0123456789.012345",
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "unread_count": {
+                            "type": "integer"
+                          },
+                          "user": {
+                            "pattern": "^[UW][A-Z0-9]{2,}$",
+                            "title": "User ID",
+                            "type": "string"
+                          },
+                          "user_profile": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "avatar_hash": {
+                                "type": "string"
+                              },
+                              "display_name": {
+                                "type": "string"
+                              },
+                              "display_name_normalized": {
+                                "type": "string"
+                              },
+                              "first_name": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "image_72": {
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "is_restricted": {
+                                "type": "boolean"
+                              },
+                              "is_ultra_restricted": {
+                                "type": "boolean"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "real_name": {
+                                "type": "string"
+                              },
+                              "real_name_normalized": {
+                                "type": "string"
+                              },
+                              "team": {
+                                "$ref": "#/components/schemas/defs_workspace_id"
+                              }
+                            },
+                            "required": [
+                              "avatar_hash",
+                              "image_72",
+                              "first_name",
+                              "real_name",
+                              "display_name",
+                              "team",
+                              "name",
+                              "is_restricted",
+                              "is_ultra_restricted"
+                            ],
+                            "type": "object"
+                          },
+                          "user_team": {
+                            "pattern": "^[T][A-Z0-9]{2,}$",
+                            "title": "Team ID",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "user",
+                          "text",
+                          "thread_ts",
+                          "reply_count",
+                          "subscribed",
+                          "ts"
+                        ],
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "is_starred": {
+                            "type": "boolean"
+                          },
+                          "parent_user_id": {
+                            "pattern": "^[UW][A-Z0-9]{2,}$",
+                            "title": "User ID",
+                            "type": "string"
+                          },
+                          "source_team": {
+                            "pattern": "^[T][A-Z0-9]{2,}$",
+                            "title": "Team ID",
+                            "type": "string"
+                          },
+                          "team": {
+                            "pattern": "^[T][A-Z0-9]{2,}$",
+                            "title": "Team ID",
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string"
+                          },
+                          "thread_ts": {
+                            "pattern": "^\\d{10}\\.\\d{6}$",
+                            "title": "Timestamp in format 0123456789.012345",
+                            "type": "string"
+                          },
+                          "ts": {
+                            "pattern": "^\\d{10}\\.\\d{6}$",
+                            "title": "Timestamp in format 0123456789.012345",
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "user": {
+                            "pattern": "^[UW][A-Z0-9]{2,}$",
+                            "title": "User ID",
+                            "type": "string"
+                          },
+                          "user_profile": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "avatar_hash": {
+                                "type": "string"
+                              },
+                              "display_name": {
+                                "type": "string"
+                              },
+                              "display_name_normalized": {
+                                "type": "string"
+                              },
+                              "first_name": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "image_72": {
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "is_restricted": {
+                                "type": "boolean"
+                              },
+                              "is_ultra_restricted": {
+                                "type": "boolean"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "real_name": {
+                                "type": "string"
+                              },
+                              "real_name_normalized": {
+                                "type": "string"
+                              },
+                              "team": {
+                                "$ref": "#/components/schemas/defs_workspace_id"
+                              }
+                            },
+                            "required": [
+                              "avatar_hash",
+                              "image_72",
+                              "first_name",
+                              "real_name",
+                              "display_name",
+                              "team",
+                              "name",
+                              "is_restricted",
+                              "is_ultra_restricted"
+                            ],
+                            "type": "object"
+                          },
+                          "user_team": {
+                            "pattern": "^[T][A-Z0-9]{2,}$",
+                            "title": "Team ID",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "user",
+                          "text",
+                          "thread_ts",
+                          "parent_user_id",
+                          "ts"
+                        ],
+                        "type": "object"
+                      }
+                    ]
+                  }
+                },
+                "type": "array"
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "messages"
+            ],
+            "title": "conversations.replies success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

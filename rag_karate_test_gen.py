@@ -6,8 +6,9 @@ from oas_fragment_retriever import OASFragmentRetriever
 from karate_security_test_template import generate_prompt
 from karate_llm_test_gen import generate_karate_test
 from karate_compatibility_verifier import process_karate_file
+from oas_fragment_store import embed_and_store_fragments
 from langfuse import Langfuse
-from config import SESSION_ID, TRACE_ID, langfuse, OUTPUT_DIR, OUTPUT_LOG, TEST_CASE_NUMBER, OAS_FILE_PATH, BOLA_MAIN_QUERY, ERROR_CHECK_NR, configure_logging
+from config import SESSION_ID, TRACE_ID, langfuse, OUTPUT_DIR, OUTPUT_LOG, TEST_CASE_NUMBER, OAS_FILE_PATH, BOLA_MAIN_QUERY, ERROR_CHECK_NR,ARHITECTURE,  configure_logging
 import sys
 import logging
 import shutil
@@ -34,7 +35,7 @@ log = configure_logging(__name__)
 
 def main():
     # Check if the skip flag is provided
-    trace = langfuse.trace(name=f"Test_{TRACE_ID}", session_id = SESSION_ID, id = TRACE_ID)
+    trace = langfuse.trace(name=f"Test_{TRACE_ID}", session_id = SESSION_ID, id = TRACE_ID, tags=[ARHITECTURE])
 
     skip_fragment_creation = len(sys.argv) > 1 and sys.argv[1] == "skipFragmentCreation"
     log.info(f"Skipping fragment creation: {skip_fragment_creation}")
@@ -53,7 +54,7 @@ def main():
         query = BOLA_MAIN_QUERY
 
         fragments = retriever.retrieve_fragments(query, n_results=TEST_CASE_NUMBER)
-        log.debug(f"Retrieved fragments: {fragments}")
+        log.debug(f"Retrieved fragments: {fragments}, form collection {collection_name}")
 
         context_span.update(output = f"{collection_name}: {fragments}")
 
@@ -98,8 +99,12 @@ def main():
             from karate_test_framework import KarateTestFramework
             log.info("Creating the Karate Test Framework with generated feature files")
             framework = KarateTestFramework()
-            framework.run()
+            log.info("Skipping karate test run.")
+
+            # framework.run()
         else:
+            # create fragments
+            # embed_and_store_fragments(fragments, collection_name)
             log.warning("No fragments found, skipped test running.")
 
 if __name__ == "__main__":

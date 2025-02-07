@@ -1,0 +1,201 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `users.profile:read`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter by visibility.",
+      "in": "query",
+      "name": "visibility",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/team.profile.get",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true,
+                "profile": {
+                  "fields": [
+                    {
+                      "hint": "Enter the extension to reach your desk",
+                      "id": "Xf06054AAA",
+                      "is_hidden": 1,
+                      "label": "Phone extension",
+                      "options": null,
+                      "ordering": 0,
+                      "possible_values": null,
+                      "type": "text"
+                    },
+                    {
+                      "hint": "When you were born",
+                      "id": "Xf06054BBB",
+                      "label": "Date of birth",
+                      "options": null,
+                      "ordering": 1,
+                      "possible_values": null,
+                      "type": "date"
+                    },
+                    {
+                      "hint": "Enter a link to your Facebook profile",
+                      "id": "Xf06054CCC",
+                      "label": "Facebook",
+                      "options": null,
+                      "ordering": 2,
+                      "possible_values": null,
+                      "type": "link"
+                    },
+                    {
+                      "hint": "Hogwarts, obviously",
+                      "id": "Xf06054DDD",
+                      "label": "House",
+                      "options": null,
+                      "ordering": 3,
+                      "possible_values": [
+                        "Gryffindor",
+                        "Hufflepuff",
+                        "Ravenclaw",
+                        "Slytherin"
+                      ],
+                      "type": "options_list"
+                    },
+                    {
+                      "hint": "Office location (LDAP)",
+                      "id": "Xf06054EEE",
+                      "label": "Location",
+                      "options": {
+                        "is_protected": 1
+                      },
+                      "ordering": 4,
+                      "possible_values": null,
+                      "type": "text"
+                    },
+                    {
+                      "hint": "The boss",
+                      "id": "Xf06054FFF",
+                      "label": "Manager",
+                      "options": null,
+                      "ordering": 5,
+                      "possible_values": null,
+                      "type": "user"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from team.profile.get method",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "profile": {
+                "additionalProperties": false,
+                "properties": {
+                  "fields": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "field_name": {
+                          "nullable": true,
+                          "type": "string"
+                        },
+                        "hint": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "pattern": "^X[a-zA-Z0-9]{9,}$",
+                          "type": "string"
+                        },
+                        "is_hidden": {
+                          "type": "boolean"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "options": {
+                          "items": {
+                            "anyOf": [
+                              {
+                                "nullable": true
+                              },
+                              {
+                                "$ref": "#/components/schemas/objs_team_profile_field_option"
+                              }
+                            ]
+                          }
+                        },
+                        "ordering": {
+                          "type": "number"
+                        },
+                        "possible_values": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "nullable": true,
+                          "type": "array"
+                        },
+                        "type": {
+                          "enum": [
+                            "text",
+                            "date",
+                            "link",
+                            "mailto",
+                            "options_list",
+                            "user"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "ordering",
+                        "label",
+                        "hint",
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "fields"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "ok",
+              "profile"
+            ],
+            "title": "team.profile.get success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

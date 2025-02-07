@@ -1,0 +1,46 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "An [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or the string `from_token`. Provide this parameter if you want to apply [Track\nRelinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/).",
+      "in": "query",
+      "name": "market",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/tracks/{id}",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponseObject"
+          }
+        }
+      },
+      "description": "Unexpected error"
+    }
+  }
+}

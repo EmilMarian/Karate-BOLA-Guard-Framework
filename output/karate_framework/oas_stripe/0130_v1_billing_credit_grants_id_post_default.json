@@ -1,0 +1,95 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Unique identifier for the object.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/billing/credit_grants/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expires_at": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "expires_at": {
+              "anyOf": [
+                {
+                  "format": "unix-time",
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire."
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

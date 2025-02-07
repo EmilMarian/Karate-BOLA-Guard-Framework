@@ -1,0 +1,51 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/books/v1",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "book_title": {
+              "example": "book99",
+              "type": "string"
+            },
+            "secret": {
+              "example": "pass1secret",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "Add new book with title and secret content only available to the user who added it.",
+    "required": true
+  },
+  "responses": {
+    "400": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "message": {
+                "example": "Book Already exists!",
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "fail"
+                ],
+                "example": "fail",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Invalid request"
+    }
+  }
+}

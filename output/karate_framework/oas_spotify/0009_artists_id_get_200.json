@@ -1,0 +1,88 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid user access token or your client credentials.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The Spotify ID of the artist.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/artists/{id}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "externalDocs": {
+              "description": "Find more info on the official Spotify Web API Reference",
+              "url": "https://developer.spotify.com/documentation/web-api/reference/#object-artistobject"
+            },
+            "properties": {
+              "external_urls": {
+                "$ref": "#/components/schemas/ExternalUrlObject"
+              },
+              "followers": {
+                "$ref": "#/components/schemas/FollowersObject"
+              },
+              "genres": {
+                "description": "A list of the genres the artist is associated with. If not yet classified, the array is empty.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "href": {
+                "description": "A link to the Web API endpoint providing full details of the artist.",
+                "type": "string"
+              },
+              "id": {
+                "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the artist.",
+                "type": "string"
+              },
+              "images": {
+                "description": "Images of the artist in various sizes, widest first.",
+                "items": {
+                  "$ref": "#/components/schemas/ImageObject"
+                },
+                "type": "array"
+              },
+              "name": {
+                "description": "The name of the artist.",
+                "type": "string"
+              },
+              "popularity": {
+                "description": "The popularity of the artist. The value will be between 0 and 100, with 100 being the most popular. The artist's popularity is calculated from the popularity of all the artist's tracks.",
+                "format": "int32",
+                "type": "integer"
+              },
+              "type": {
+                "description": "The object type.",
+                "type": "string"
+              },
+              "uri": {
+                "description": "The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the artist.",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the HTTP status code in the response header is `200` OK and the response body contains an [artist object](https://developer.spotify.com/documentation/web-api/reference/#object-artistobject) in JSON format. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema)."
+    }
+  }
+}

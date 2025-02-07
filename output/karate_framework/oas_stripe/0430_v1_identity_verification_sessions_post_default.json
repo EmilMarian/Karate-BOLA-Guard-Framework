@@ -1,0 +1,156 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/identity/verification_sessions",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "options": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "provided_details": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "client_reference_id": {
+              "description": "A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "options": {
+              "description": "A set of options for the session\u2019s verification checks.",
+              "properties": {
+                "document": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "allowed_types": {
+                          "items": {
+                            "enum": [
+                              "driving_license",
+                              "id_card",
+                              "passport"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "require_id_number": {
+                          "type": "boolean"
+                        },
+                        "require_live_capture": {
+                          "type": "boolean"
+                        },
+                        "require_matching_selfie": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "document_options",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "title": "session_options_param",
+              "type": "object"
+            },
+            "provided_details": {
+              "description": "Details provided about the user being verified. These details may be shown to the user.",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                }
+              },
+              "title": "provided_details_param",
+              "type": "object"
+            },
+            "related_customer": {
+              "description": "Token referencing a Customer resource.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "return_url": {
+              "description": "The URL that the user will be redirected to upon completing the verification flow.",
+              "type": "string"
+            },
+            "type": {
+              "description": "The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.",
+              "enum": [
+                "document",
+                "id_number"
+              ],
+              "type": "string",
+              "x-stripeBypassValidation": true
+            },
+            "verification_flow": {
+              "description": "The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.",
+              "maxLength": 5000,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

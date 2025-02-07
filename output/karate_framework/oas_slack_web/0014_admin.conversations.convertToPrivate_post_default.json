@@ -1,0 +1,84 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.conversations.convertToPrivate",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel_id": {
+              "description": "The channel to convert to private.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel_id"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from admin.conversations.convertToPrivate",
+            "properties": {
+              "error": {
+                "enum": [
+                  "feature_not_enabled",
+                  "restricted_action",
+                  "name_taken",
+                  "channel_not_found",
+                  "channel_type_not_supported",
+                  "default_org_wide_channel",
+                  "method_not_supported_for_channel_type",
+                  "could_not_convert_channel",
+                  "external_channel_migrating"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "admin.conversations.convertToPrivate error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

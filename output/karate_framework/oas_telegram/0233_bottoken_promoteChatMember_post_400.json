@@ -1,0 +1,86 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "properties": {
+          "can_change_info": {
+            "type": "boolean",
+            "x-nullable": true
+          },
+          "can_delete_messages": {
+            "type": "boolean",
+            "x-nullable": true
+          },
+          "can_edit_messages": {
+            "type": "boolean",
+            "x-nullable": true
+          },
+          "can_invite_users": {
+            "type": "boolean",
+            "x-nullable": true
+          },
+          "can_pin_messages": {
+            "type": "boolean",
+            "x-nullable": true
+          },
+          "can_post_messages": {
+            "type": "boolean",
+            "x-nullable": true
+          },
+          "can_promote_members": {
+            "type": "boolean",
+            "x-nullable": true
+          },
+          "can_restrict_members": {
+            "type": "boolean",
+            "x-nullable": true
+          },
+          "chat_id": {
+            "type": "object"
+          },
+          "user_id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "chat_id",
+          "user_id"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/promoteChatMember",
+  "requestBody": {},
+  "responses": {
+    "400": {
+      "description": "Bad Request",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

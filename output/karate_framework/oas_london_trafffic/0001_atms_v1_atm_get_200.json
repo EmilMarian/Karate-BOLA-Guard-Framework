@@ -1,0 +1,147 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Zero-based offset where the response will start. The actual start position is this value +1. An offset of 10 starts at item 11. Combined with the PageLength option this allows pagination to be supported through the service requests.",
+      "in": "query",
+      "name": "PageOffset",
+      "required": true,
+      "type": "integer",
+      "x-example": "0",
+      "x-explorer": true
+    },
+    {
+      "description": "Maximum number of items to retrieve within the current \"page\" of results.",
+      "in": "query",
+      "name": "PageLength",
+      "required": true,
+      "type": "integer",
+      "x-example": "5",
+      "x-explorer": true
+    },
+    {
+      "description": "Line 1 of the street address for the merchant location.  Usually includes the street number and name. This parameter is ignored if latitude and longitude are provided. If you provide this parameter you must also provide the Country parameter and either City parameter or PostalCode parameter.",
+      "in": "query",
+      "name": "AddressLine1",
+      "required": false,
+      "type": "string",
+      "x-example": "114 Fifth Avenue",
+      "x-explorer": false
+    },
+    {
+      "description": "Line 2 of the street address usually an apartment number or suite number. This parameter is used rarely and is ignored if latitude and longitude are provided. If you provide this parameter you must also provide the Country parameter and either City parameter or PostalCode parameter.",
+      "in": "query",
+      "name": "AddressLine2",
+      "required": false,
+      "type": "string",
+      "x-example": "Apartment 1",
+      "x-explorer": false
+    },
+    {
+      "description": "The name of the city for a merchant location.  This parameter is ignored if latitude and longitude are provided. If you provide this parameter you must also provide the Country parameter.",
+      "in": "query",
+      "name": "City",
+      "required": false,
+      "type": "string",
+      "x-example": "New York City",
+      "x-explorer": false
+    },
+    {
+      "description": "The state or province for a merchant location (only supported for US and Canada locations).  This parameter is ignored if latitude and longitude are provided. If you provide this parameter you must also provide the Country parameter.",
+      "in": "query",
+      "name": "CountrySubdivision",
+      "required": false,
+      "type": "string",
+      "x-example": "NY",
+      "x-explorer": false
+    },
+    {
+      "description": "The zip code or postal code for a merchant location.  This parameter is ignored if latitude and longitude are provided. If you provide this parameter you must also provide the Country parameter.",
+      "in": "query",
+      "name": "PostalCode",
+      "required": false,
+      "type": "string",
+      "x-example": "11101",
+      "x-explorer": true
+    },
+    {
+      "description": "Any three digit country code for an ATM location.  Valid values are Three digit alpha country code as defined in ISO 3166-1.  This parameter is ignored if latitude and longitude are provided. This parameter is required if any other address information is provided including AddressLine1 AddressLine2 City PostalCode or CountrySubdivision.",
+      "in": "query",
+      "name": "Country",
+      "required": false,
+      "type": "string",
+      "x-example": "USA",
+      "x-explorer": false
+    },
+    {
+      "description": "The latitude of a merchant location.  If latitude is provided longitude must also be provided.",
+      "format": "double",
+      "in": "query",
+      "name": "Latitude",
+      "required": false,
+      "type": "number",
+      "x-example": "38.76006576913497",
+      "x-explorer": false
+    },
+    {
+      "description": "The longitude of a merchant location.  If longitude is provided latitude must also be provided.",
+      "format": "double",
+      "in": "query",
+      "name": "Longitude",
+      "required": false,
+      "type": "number",
+      "x-example": "-90.74615107952418",
+      "x-explorer": false
+    },
+    {
+      "description": "Indicates the unit for the radius as well as the units of the distance of each location from the basepoint in the response.",
+      "in": "query",
+      "name": "DistanceUnit",
+      "required": false,
+      "type": "string",
+      "x-example": "MILE",
+      "x-explorer": false
+    },
+    {
+      "description": "This is the radius from the search point in the distance unit you set.  For example if you want to search for locations within 50 miles of a certain point you would set DistanceUnit=mile and Radius=50.  This parameter is ignored in non-geocoded countries.",
+      "in": "query",
+      "name": "Radius",
+      "required": false,
+      "type": "integer",
+      "x-example": "25",
+      "x-explorer": false
+    },
+    {
+      "description": "This indicates whether the ATM should have the ability to read chip cards or not.",
+      "in": "query",
+      "name": "SupportEMV",
+      "required": false,
+      "type": "integer",
+      "x-example": "1",
+      "x-explorer": false
+    },
+    {
+      "description": "This field will provide ATM Terminals which can still process Maestro transactions but are not yet EMV chip reader enabled. Information available only for USA and Argentina till October 2014.",
+      "in": "query",
+      "name": "InternationalMaestroAccepted",
+      "required": false,
+      "type": "integer",
+      "x-example": "1",
+      "x-explorer": false
+    }
+  ],
+  "path": "/atms/v1/atm",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "description": "An array of ATM locations",
+      "schema": {
+        "properties": {
+          "Atms": {
+            "$ref": "#/definitions/Atms"
+          }
+        }
+      }
+    }
+  }
+}

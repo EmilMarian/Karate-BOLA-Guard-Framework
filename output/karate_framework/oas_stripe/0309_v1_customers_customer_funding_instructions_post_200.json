@@ -1,0 +1,164 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "customer",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/customers/{customer}/funding_instructions",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "bank_transfer": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "bank_transfer": {
+              "description": "Additional parameters for `bank_transfer` funding types",
+              "properties": {
+                "eu_bank_transfer": {
+                  "properties": {
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "country"
+                  ],
+                  "title": "eu_bank_account_params",
+                  "type": "object"
+                },
+                "requested_address_types": {
+                  "items": {
+                    "enum": [
+                      "iban",
+                      "sort_code",
+                      "spei",
+                      "zengin"
+                    ],
+                    "type": "string",
+                    "x-stripeBypassValidation": true
+                  },
+                  "type": "array"
+                },
+                "type": {
+                  "enum": [
+                    "eu_bank_transfer",
+                    "gb_bank_transfer",
+                    "jp_bank_transfer",
+                    "mx_bank_transfer",
+                    "us_bank_transfer"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "bank_transfer_params",
+              "type": "object"
+            },
+            "currency": {
+              "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+              "format": "currency",
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "funding_type": {
+              "description": "The `funding_type` to get the instructions for.",
+              "enum": [
+                "bank_transfer"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "bank_transfer",
+            "currency",
+            "funding_type"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Each customer has a [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance) that is\nautomatically applied to future invoices and payments using the `customer_balance` payment method.\nCustomers can fund this balance by initiating a bank transfer to any account in the\n`financial_addresses` field.\nRelated guide: [Customer balance funding instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)",
+            "properties": {
+              "bank_transfer": {
+                "$ref": "#/components/schemas/funding_instructions_bank_transfer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "funding_type": {
+                "description": "The `funding_type` of the returned instructions",
+                "enum": [
+                  "bank_transfer"
+                ],
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "funding_instructions"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "bank_transfer",
+              "currency",
+              "funding_type",
+              "livemode",
+              "object"
+            ],
+            "title": "CustomerBalanceFundingInstructionsCustomerBalanceFundingInstructions",
+            "type": "object",
+            "x-expandableFields": [
+              "bank_transfer"
+            ],
+            "x-resourceId": "funding_instructions"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

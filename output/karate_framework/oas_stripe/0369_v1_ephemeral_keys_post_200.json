@@ -1,0 +1,108 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/ephemeral_keys",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "customer": {
+              "description": "The ID of the Customer you'd like to modify using the resulting ephemeral key.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "issuing_card": {
+              "description": "The ID of the Issuing Card you'd like to access using the resulting ephemeral key.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "nonce": {
+              "description": "A single-use token, created by Stripe.js, used for creating ephemeral keys for Issuing Cards without exchanging sensitive information.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "verification_session": {
+              "description": "The ID of the Identity VerificationSession you'd like to access using the resulting ephemeral key",
+              "maxLength": 5000,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "",
+            "properties": {
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "expires": {
+                "description": "Time at which the key will expire. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "ephemeral_key"
+                ],
+                "type": "string"
+              },
+              "secret": {
+                "description": "The key's secret. You can use this value to make authorized requests to the Stripe API.",
+                "maxLength": 5000,
+                "type": "string"
+              }
+            },
+            "required": [
+              "created",
+              "expires",
+              "id",
+              "livemode",
+              "object"
+            ],
+            "title": "EphemeralKey",
+            "type": "object",
+            "x-expandableFields": [],
+            "x-resourceId": "ephemeral_key"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

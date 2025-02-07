@@ -1,0 +1,92 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The sort field. if sort param is provided. Can be either asc or desc.",
+      "in": "query",
+      "name": "order",
+      "schema": {
+        "default": "desc",
+        "enum": [
+          "desc",
+          "asc"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "The search terms. This can be any combination of the supported repository\nsearch parameters:\n'Search In' Qualifies which fields are searched. With this qualifier you\ncan restrict the search to just the repository name, description, readme,\nor any combination of these.\n'Size' Finds repositories that match a certain size (in kilobytes).\n'Forks' Filters repositories based on the number of forks, and/or whether\nforked repositories should be included in the results at all.\n'Created' and 'Last Updated' Filters repositories based on times of\ncreation, or when they were last updated.\n'Users or Repositories' Limits searches to a specific user or repository.\n'Languages' Searches repositories based on the language they are written in.\n'Stars' Searches repositories based on the number of stars.\n",
+      "in": "query",
+      "name": "q",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "If not provided, results are sorted by best match.",
+      "in": "query",
+      "name": "sort",
+      "schema": {
+        "enum": [
+          "stars",
+          "forks",
+          "updated"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/search/repositories",
+  "requestBody": {},
+  "responses": {
+    "403": {
+      "content": {},
+      "description": "API rate limit exceeded. See http://developer.github.com/v3/#rate-limiting\nfor details.\n"
+    }
+  }
+}

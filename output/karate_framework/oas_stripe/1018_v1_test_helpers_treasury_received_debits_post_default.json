@@ -1,0 +1,122 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/test_helpers/treasury/received_debits",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "initiating_payment_method_details": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "description": "Amount (in cents) to be transferred.",
+              "type": "integer"
+            },
+            "currency": {
+              "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+              "format": "currency",
+              "type": "string"
+            },
+            "description": {
+              "description": "An arbitrary string attached to the object. Often useful for displaying to users.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "financial_account": {
+              "description": "The FinancialAccount to pull funds from.",
+              "type": "string"
+            },
+            "initiating_payment_method_details": {
+              "description": "Initiating payment method details for the object.",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "us_bank_account"
+                  ],
+                  "type": "string"
+                },
+                "us_bank_account": {
+                  "properties": {
+                    "account_holder_name": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "account_number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "routing_number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "us_bank_account_source_params",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "source_params",
+              "type": "object"
+            },
+            "network": {
+              "description": "Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.",
+              "enum": [
+                "ach"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "amount",
+            "currency",
+            "financial_account",
+            "network"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Q parameter",
+      "example": "SELECT+Id,WhoId,WhatId,StartDateTime,EndDateTime,Subject,Location,Status__c,Type,Owner.Name,Owner.Type,Site__r.Name,Site__c+FROM+Event+WHERE+Owner.Type!='User'+AND+Site__c='a083M000000EFK7QAO'",
+      "in": "query",
+      "name": "q",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/services/data/v48.0/query/",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "done": {
+                "description": "Success or Error",
+                "example": true,
+                "type": "boolean"
+              },
+              "records": {
+                "description": "Added Interest records",
+                "items": {
+                  "properties": {
+                    "endDateTime": {
+                      "description": "Date and Time of the end of the event - EndDateTime field on the Event",
+                      "example": "2020-04-16T11:00:00.000",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Id of the Event",
+                      "example": "a083M000000EFK7QAO",
+                      "type": "string"
+                    },
+                    "location": {
+                      "description": "Location of the Event - Location field on the Event",
+                      "example": "London",
+                      "type": "string"
+                    },
+                    "ownerName": {
+                      "description": "Name of the owner - Owner.Name field on the Event",
+                      "example": "Kuba Feter",
+                      "type": "string"
+                    },
+                    "ownerType": {
+                      "description": "Type of the owner - Owner.Type field on the Event",
+                      "example": "User",
+                      "type": "string"
+                    },
+                    "site": {
+                      "description": "Id of the Site - Site__c field on the Event",
+                      "example": "0060C000003S9WRQA0",
+                      "type": "string"
+                    },
+                    "siteName": {
+                      "description": "Name of the Site - Site__r.Name field on the Event",
+                      "example": "Thames",
+                      "type": "string"
+                    },
+                    "startDateTime": {
+                      "description": "Date and Time of the start of the event - StartDateTime field on the Event",
+                      "example": "2020-04-16T09:00:00.000",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "Status of the Event (Active or Cancelled) - Status__c field on the Event",
+                      "example": "Active",
+                      "type": "string"
+                    },
+                    "subject": {
+                      "description": "Subject of the Event - Subject field on the Event",
+                      "example": "General - Smith",
+                      "type": "string"
+                    },
+                    "whatId": {
+                      "description": "Id object the Event is Assigned to - WhatId field on the Event",
+                      "example": "0060C000003S9WRQA0",
+                      "type": "string"
+                    },
+                    "whoId": {
+                      "description": "Id of the Contact or Lead the Event is assigned to - WhoId field on the Event",
+                      "example": "0030C00000886KbQAI",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "totalSize": {
+                "description": "Records found that match the criteria",
+                "example": 3,
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

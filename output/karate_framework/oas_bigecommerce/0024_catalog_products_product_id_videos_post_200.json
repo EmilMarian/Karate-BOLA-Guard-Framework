@@ -1,0 +1,74 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the video is being attached.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/videos",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "A product video model.\n",
+          "properties": {
+            "description": {
+              "description": "The description for the video. If left blank, this will be filled in according to data on YouTube.\n",
+              "type": "string"
+            },
+            "id": {
+              "description": "The ID of a YouTube video.\n",
+              "type": "integer"
+            },
+            "length": {
+              "description": "Length of the video. This will be filled in according to data on YouTube.\n",
+              "type": "string"
+            },
+            "product_id": {
+              "description": "The unique numeric identifier for the product with which the image is associated.\n",
+              "type": "integer"
+            },
+            "sort_order": {
+              "description": "The order in which the video will be displayed on the product page. Higher integers give the video a lower priority. When updating, if the video is given a lower priority, all videos with a `sort_order` the same as or greater than the video's new `sort_order` value will have their `sort_order`s reordered.\n",
+              "type": "integer"
+            },
+            "title": {
+              "description": "The title for the video. If left blank, this will be filled in according to data on YouTube.\n",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "A BigCommerce `ProductVideo` object.\n",
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ProductVideo"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/CollectionMeta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "A product video\n"
+    }
+  }
+}

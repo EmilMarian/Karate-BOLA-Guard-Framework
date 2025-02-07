@@ -1,0 +1,219 @@
+2025-01-25 20:11:34,860 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 20:11:34,927 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 20:11:35,165 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `calls:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/calls.participants.add", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"id": {"description": "`id` returned by the [`calls.add`](/methods/calls.add) method.", "type": "string"}, "users": {"description": "The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).", "type": "string"}}, "required": ["id", "users"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0143_calls.participants.add_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `users:read`", "in": "query", "name": "token", "required": true, "schema": {"type": "string"}}, {"description": "User to get presence info on. Defaults to the authed user.", "in": "query", "name": "user", "schema": {"type": "string"}}], "path": "/users.getPresence", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": {"type": "object"}, "description": "Schema for error response users.getPresence method", "properties": {"error": {"type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.counts error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0316_users.getPresence_get_default.json'}}], form collection oas_slack_web_fragments
+2025-01-25 20:11:35,166 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:11:35,166 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:11:35,599 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:11:35,600 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:11:40,996 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:11:40,997 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Broken Authentication/Authorization Test for Admin User Invite",
+  "scenario...
+2025-01-25 20:11:40,998 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature
+2025-01-25 20:11:40,998 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:11:40,998 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Broken Authentication/Authorization Test for Admin User Invite",
+  "scenario": "Testing broken authentication and authorization on admin user invitation endpoint.",
+  "given-when-then": [
+    {
+      "Given url http://oas_slack_web.api/admin.users.invite"
+    },
+    {
+  	  "When method post with body: {}", // No data provided to test broken authentication handling
+    },
+    {
+    	"Then status code is not in the range of [200,499] and contains 'Unauthorized' or similar error message indicating failed authorization check."
+  	},
+  ],
+}
+```
+2025-01-25 20:11:47,610 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:11:47,611 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization Test for Admin User Invite
+    which is just example code as we couldn't find an online sandbox to test contributions welcome !
+    
+Background:
+    * url 'http://oas_slack_web.api/admin.users.invite'
+
+Scenario: Testing broken authentication and authorization on admin user invitation endpoint.
+  Given url 'http://oas_slack_web.api/admin.users.invite'
+  When method post with body: {}
+  Then status code is not in the range of [200,499] and contains 'Unauthorized' or similar error message indicating failed authorization check.
+```
+2025-01-25 20:11:52,667 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:11:52,667 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization Test for Admin User Invite
+    which is just example code as we couldn't find an online sandbox to test contributions welcome !
+    
+Background:
+    * url 'http://oas_slack_web.api/admin.users.invite'
+
+Scenario: Testing broken authentication and authorization on admin user invitation endpoint.
+  Given the URL for admin user invitation is http://oas_slack_web.api/admin.users.invite
+  When making a POST request to the above URL with an empty body
+  Then status code should not be in range [200,499] and must contain 'Unauthorized' or similar error message indicating failed authorization check.
+```
+2025-01-25 20:11:52,668 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST_verified.feature
+2025-01-25 20:11:52,668 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature: ```yaml
+Feature: Broken Authentication/Authorization Test for Admin User Invite
+    which is just example code as we couldn't find an online sandbox to test contributions welcome !
+    
+Background:
+    * url 'http://oas_slack_web.api/admin.users.invite'
+
+Scenario: Testing broken authentication and authorization on admin user invitation endpoint.
+  Given the URL for admin user invitation is http://oas_slack_web.api/admin.users.invite
+  When making a POST request to the above URL with an empty body
+  Then status code should not be in range [200,499] and must contain 'Unauthorized' or similar error message indicating failed authorization check.
+```
+2025-01-25 20:11:52,668 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:11:52,669 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:11:52,689 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:11:52,691 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:12:03,152 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:12:03,153 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: Broken Authentication/Authorization for /calls.participants.add endpoint
+scenario: ...
+2025-01-25 20:12:03,154 - __main__ - INFO - Generated Karate test for /calls.participants.add POST at output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature
+2025-01-25 20:12:03,154 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:12:03,154 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization for /calls.participants.add endpoint
+scenario: Attempt to add a participant without proper authentication or authorization
+given url: http://oas_slack_web.api/calls/participants/add
+when method: POST
+status 403 UnauthorizedResponse
+and assert response message contains 'Invalid credentials'
+* def unauthenticatedUser = { "user": null, "password": "" }
+call function(unauth) when method post given url json.param('username', auth['user'], json.param('password', auth['password']))
+then status 403 UnauthorizedResponse and assert response message contains 'Invalid credentials'
+* def authorizedUser = { "user": "admin", "password": "<correct_password>" }
+call function(auth) when method post given url json.param('username', auth['user'], json.param('password', auth['password']))
+then status 403 UnauthorizedResponse and assert response message contains 'Access Denied' or similar error indicating insufficient permissions for non-admin user trying to add a participant without proper authorization
+```
+2025-01-25 20:12:18,447 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:12:18,447 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization for /calls.participants.add endpoint
+scenario: Attempt to add a participant without proper authentication or authorization
+given url: 'http://oas_slack_web.api/calls/participants/add'
+when method: POST
+status 403 UnauthorizedResponse
+and assert response message contains 'Invalid credentials'
+* def unauthenticatedUser = { "user": null, "password": "" }
+call function('unauthenticated') when method post given url json.param('username', 'unauth['user'], json.param('password', 'unauth['password']))
+then status 403 UnauthorizedResponse and assert response message contains 'Invalid credentials'
+* def authorizedUser = { "user": "admin", "password": "<correct_password>" }
+call function('authenticated') when method post given url json.param('username', 'auth['user'], json.param('password', 'auth['password']))
+then status 403 UnauthorizedResponse and assert response message contains 'Access Denied' or similar error indicating insufficient permissions for non-admin user trying to add a participant without proper authorization
+```
+2025-01-25 20:12:32,434 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:12:32,461 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization for /calls.participants.add endpoint
+scenario: Attempt to add a participant without proper authentication or authorization
+given url: 'http://oas_slack_web.api/calls/participants/add'
+when method: POST
+status 403 UnauthorizedResponse
+and assert response message contains 'Invalid credentials'
+* def unauthenticatedUser = { "user": null, "password": "" }
+call function('unauthenticated') when post given url json.param('username', 'participant[user]', unauthenticatedUser['user'], json.param('password', 'participant[password]', unauthenticatedUser['password']))
+then status 403 UnauthorizedResponse and assert response message contains 'Invalid credentials'
+* def authorizedAdmin = { "user": "admin", "password": "<correct_password>" }
+call function('authenticated') when post given url json.param('username', 'participant[user]', admin['user'], json.param('password', 'participant[password]', admin['password']))
+then status 403 UnauthorizedResponse and assert response message contains 'Access Denied' or similar error indicating insufficient permissions for non-admin user trying to add a participant without proper authorization
+```
+2025-01-25 20:12:32,461 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST_verified.feature
+2025-01-25 20:12:32,462 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature: ```yaml
+feature: Broken Authentication/Authorization for /calls.participants.add endpoint
+scenario: Attempt to add a participant without proper authentication or authorization
+given url: 'http://oas_slack_web.api/calls/participants/add'
+when method: POST
+status 403 UnauthorizedResponse
+and assert response message contains 'Invalid credentials'
+* def unauthenticatedUser = { "user": null, "password": "" }
+call function('unauthenticated') when post given url json.param('username', 'participant[user]', unauthenticatedUser['user'], json.param('password', 'participant[password]', unauthenticatedUser['password']))
+then status 403 UnauthorizedResponse and assert response message contains 'Invalid credentials'
+* def authorizedAdmin = { "user": "admin", "password": "<correct_password>" }
+call function('authenticated') when post given url json.param('username', 'participant[user]', admin['user'], json.param('password', 'participant[password]', admin['password']))
+then status 403 UnauthorizedResponse and assert response message contains 'Access Denied' or similar error indicating insufficient permissions for non-admin user trying to add a participant without proper authorization
+```
+2025-01-25 20:12:32,462 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:12:32,463 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:12:32,483 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:12:32,484 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:12:48,516 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:12:48,517 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+Feature: Broken Authentication/Authorization on Users.GetPresence API Endpoint
+  Background:...
+2025-01-25 20:12:48,517 - __main__ - INFO - Generated Karate test for /users.getPresence GET at output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature
+2025-01-25 20:12:48,518 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:12:48,518 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization on Users.GetPresence API Endpoint
+  Background:
+    Given url 'http://oas_slack_web.api'
+    
+Scenario: Attempt to access with invalid credentials
+  * def response = call(method, '/users.getPresence', {queryParams: {userName: 'invalidUser'} })
+  * when response
+    | status matcher contains('401 Unauthorized') or contains('403 Forbidden')
+```
+2025-01-25 20:12:53,167 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:12:53,167 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Authentication/Authorization on Users.GetPresence API Endpoint
+  Background:
+    Given url 'http://oas_slack_web.api'
+    
+Scenario: Attempt to access with invalid credentials
+  * def response = call(method POST, '/users.getPresence', {queryParams: {userName: 'invalidUser'}, headers: {'Authorization': ''}})
+  * when response status matches('401 Unauthorized') or status equals('403 Forbidden')
+```
+2025-01-25 20:12:55,894 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:12:55,894 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Authentication/Authorization on Users.GetPresence API Endpoint
+  Background:
+    Given url 'http://oas_slack_web.api'
+    
+Scenario: Attempt to access with invalid credentials
+  * def response = call(method POST, '/users.getPresence', {queryParams: {userName: 'invalidUser'}, headers: {'Authorization': ''}})
+  * when (response status is oneOf('401 Unauthorized' or '4net Worker'))
+```
+2025-01-25 20:12:55,895 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET_verified.feature
+2025-01-25 20:12:55,895 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature: ```yaml
+Feature: Authentication/Authorization on Users.GetPresence API Endpoint
+  Background:
+    Given url 'http://oas_slack_web.api'
+    
+Scenario: Attempt to access with invalid credentials
+  * def response = call(method POST, '/users.getPresence', {queryParams: {userName: 'invalidUser'}, headers: {'Authorization': ''}})
+  * when (response status is oneOf('401 Unauthorized' or '4net Worker'))
+```
+2025-01-25 20:12:55,895 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 20:12:55,897 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 20:12:58,235 - __main__ - INFO - Skipping karate test run.

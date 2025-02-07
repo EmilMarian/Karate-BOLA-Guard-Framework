@@ -1,0 +1,69 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `conversations:write`",
+      "in": "header",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/conversations.close",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel": {
+              "description": "Conversation to close.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response conversations.close method",
+            "properties": {
+              "already_closed": {
+                "type": "boolean"
+              },
+              "no_op": {
+                "type": "boolean"
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "conversations.close success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "properties": {
+          "emojis": {
+            "type": "string"
+          },
+          "mask_position": {
+            "$ref": "#/definitions/MaskPosition"
+          },
+          "name": {
+            "type": "string"
+          },
+          "png_sticker": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "user_id",
+          "name",
+          "png_sticker",
+          "emojis"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/addStickerToSet#link",
+  "requestBody": {},
+  "responses": {
+    "400": {
+      "description": "Bad Request",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

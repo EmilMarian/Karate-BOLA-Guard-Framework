@@ -1,0 +1,47 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the `Option` belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The ID of the `Option`.\n",
+      "in": "path",
+      "name": "option_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/options/{option_id}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Option"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/CollectionMeta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "An `Option` object.\n"
+    }
+  }
+}

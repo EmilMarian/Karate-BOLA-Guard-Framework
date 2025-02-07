@@ -1,0 +1,73 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/admin.conversations.restrictAccess.removeGroup",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel_id": {
+              "description": "The channel to remove the linked group from.",
+              "type": "string"
+            },
+            "group_id": {
+              "description": "The [IDP Group](https://slack.com/help/articles/115001435788-Connect-identity-provider-groups-to-your-Enterprise-Grid-org) ID to remove from the private channel.",
+              "type": "string"
+            },
+            "team_id": {
+              "description": "The workspace where the channel exists. This argument is required for channels only tied to one workspace, and optional for channels that are shared across an organization.",
+              "type": "string"
+            },
+            "token": {
+              "description": "Authentication token. Requires scope: `admin.conversations:write`",
+              "type": "string"
+            }
+          },
+          "required": [
+            "token",
+            "team_id",
+            "group_id",
+            "channel_id"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "Default success template",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

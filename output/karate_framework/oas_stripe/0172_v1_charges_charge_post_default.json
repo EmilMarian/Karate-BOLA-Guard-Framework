@@ -1,0 +1,188 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "charge",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/charges/{charge}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "fraud_details": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "shipping": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "customer": {
+              "description": "The ID of an existing customer that will be associated with this request. This field may only be updated if there is no existing associated customer with this charge.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "description": {
+              "description": "An arbitrary string which you can attach to a charge object. It is displayed when in the web interface alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers, your receipt emails will include the `description` of the charge(s) that they are describing.",
+              "maxLength": 40000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "fraud_details": {
+              "description": "A set of key-value pairs you can attach to a charge giving information about its riskiness. If you believe a charge is fraudulent, include a `user_report` key with a value of `fraudulent`. If you believe a charge is safe, include a `user_report` key with a value of `safe`. Stripe will use the information you send to improve our fraud detection algorithms.",
+              "properties": {
+                "user_report": {
+                  "enum": [
+                    "",
+                    "fraudulent",
+                    "safe"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "user_report"
+              ],
+              "title": "fraud_details",
+              "type": "object"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`."
+            },
+            "receipt_email": {
+              "description": "This is the email address that the receipt for this charge will be sent to. If this field is updated, then a new email receipt will be sent to the updated address.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "shipping": {
+              "description": "Shipping information for the charge. Helps prevent fraud on charges for physical goods.",
+              "properties": {
+                "address": {
+                  "properties": {
+                    "city": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line2": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "optional_fields_address",
+                  "type": "object"
+                },
+                "carrier": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "name": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "phone": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "tracking_number": {
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "address",
+                "name"
+              ],
+              "title": "optional_fields_shipping",
+              "type": "object"
+            },
+            "transfer_group": {
+              "description": "A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

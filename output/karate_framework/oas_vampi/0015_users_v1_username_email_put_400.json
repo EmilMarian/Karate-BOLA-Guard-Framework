@@ -1,0 +1,58 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "username to update email",
+      "in": "path",
+      "name": "username",
+      "required": true,
+      "schema": {
+        "example": "name1",
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users/v1/{username}/email",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "email": {
+              "example": "mail3@mail.com",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "field to update",
+    "required": true
+  },
+  "responses": {
+    "400": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "message": {
+                "example": "Please Provide a valid email address.",
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "fail"
+                ],
+                "example": "fail",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Invalid request"
+    }
+  }
+}

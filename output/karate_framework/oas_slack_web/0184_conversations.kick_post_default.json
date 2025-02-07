@@ -1,0 +1,107 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `conversations:write`",
+      "in": "header",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/conversations.kick",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel": {
+              "description": "ID of conversation to remove user from.",
+              "type": "string"
+            },
+            "user": {
+              "description": "User ID to be removed.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "cant_kick_self",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response conversations.kick method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "method_not_supported_for_channel_type",
+                  "missing_scope",
+                  "channel_not_found",
+                  "user_not_found",
+                  "cant_kick_self",
+                  "not_in_channel",
+                  "cant_kick_from_general",
+                  "restricted_action",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "user_is_bot",
+                  "user_is_restricted",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required"
+                ],
+                "type": "string"
+              },
+              "needed": {
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              },
+              "provided": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "conversations.kick error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response when you attempt to kick yourself from a channel"
+    }
+  }
+}

@@ -1,0 +1,348 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `conversations:history`",
+      "in": "query",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Conversation ID to fetch history for.",
+      "in": "query",
+      "name": "channel",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "End of time range of messages to include in results.",
+      "in": "query",
+      "name": "latest",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "Start of time range of messages to include in results.",
+      "in": "query",
+      "name": "oldest",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "Include messages with latest or oldest timestamp in results only when either timestamp is specified.",
+      "in": "query",
+      "name": "inclusive",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the users list hasn't been reached.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/conversations.history",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "has_more": true,
+                "messages": [
+                  {
+                    "text": "I find you punny and would like to smell your nose letter",
+                    "ts": "1512085950.000216",
+                    "type": "message",
+                    "user": "U012AB3CDE"
+                  },
+                  {
+                    "text": "What, you want to smell my shoes better?",
+                    "ts": "1512104434.000490",
+                    "type": "message",
+                    "user": "U061F7AUR"
+                  }
+                ],
+                "ok": true,
+                "pin_count": 0,
+                "response_metadata": {
+                  "next_cursor": "bmV4dF90czoxNTEyMDg1ODYxMDAwNTQz"
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from conversations.history method",
+            "properties": {
+              "channel_actions_count": {
+                "type": "integer"
+              },
+              "channel_actions_ts": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "nullable": true
+                    }
+                  ]
+                }
+              },
+              "has_more": {
+                "type": "boolean"
+              },
+              "messages": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "attachments": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "fallback": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "image_bytes": {
+                            "type": "integer"
+                          },
+                          "image_height": {
+                            "type": "integer"
+                          },
+                          "image_url": {
+                            "type": "string"
+                          },
+                          "image_width": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "id"
+                        ],
+                        "type": "object"
+                      },
+                      "minItems": 1,
+                      "type": "array",
+                      "uniqueItems": true
+                    },
+                    "blocks": {
+                      "$ref": "#/components/schemas/blocks"
+                    },
+                    "bot_id": {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "$ref": "#/components/schemas/defs_bot_id"
+                          },
+                          {
+                            "nullable": true,
+                            "title": "Nil bot_id set when display_as_bot is false"
+                          }
+                        ]
+                      }
+                    },
+                    "bot_profile": {
+                      "$ref": "#/components/schemas/objs_bot_profile"
+                    },
+                    "client_msg_id": {
+                      "type": "string"
+                    },
+                    "comment": {
+                      "$ref": "#/components/schemas/objs_comment"
+                    },
+                    "display_as_bot": {
+                      "type": "boolean"
+                    },
+                    "file": {
+                      "$ref": "#/components/schemas/objs_file"
+                    },
+                    "files": {
+                      "items": {
+                        "$ref": "#/components/schemas/objs_file"
+                      },
+                      "minItems": 1,
+                      "type": "array",
+                      "uniqueItems": true
+                    },
+                    "icons": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "emoji": {
+                          "type": "string"
+                        },
+                        "image_64": {
+                          "format": "uri",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "inviter": {
+                      "$ref": "#/components/schemas/defs_user_id"
+                    },
+                    "is_delayed_message": {
+                      "type": "boolean"
+                    },
+                    "is_intro": {
+                      "type": "boolean"
+                    },
+                    "is_starred": {
+                      "type": "boolean"
+                    },
+                    "last_read": {
+                      "$ref": "#/components/schemas/defs_ts"
+                    },
+                    "latest_reply": {
+                      "$ref": "#/components/schemas/defs_ts"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "old_name": {
+                      "type": "string"
+                    },
+                    "parent_user_id": {
+                      "$ref": "#/components/schemas/defs_user_id"
+                    },
+                    "permalink": {
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "pinned_to": {
+                      "items": {
+                        "$ref": "#/components/schemas/defs_channel"
+                      },
+                      "type": "array"
+                    },
+                    "purpose": {
+                      "type": "string"
+                    },
+                    "reactions": {
+                      "items": {
+                        "$ref": "#/components/schemas/objs_reaction"
+                      },
+                      "type": "array"
+                    },
+                    "reply_count": {
+                      "type": "integer"
+                    },
+                    "reply_users": {
+                      "items": {
+                        "$ref": "#/components/schemas/defs_user_id"
+                      },
+                      "minItems": 1,
+                      "type": "array",
+                      "uniqueItems": true
+                    },
+                    "reply_users_count": {
+                      "type": "integer"
+                    },
+                    "source_team": {
+                      "$ref": "#/components/schemas/defs_workspace_id"
+                    },
+                    "subscribed": {
+                      "type": "boolean"
+                    },
+                    "subtype": {
+                      "type": "string"
+                    },
+                    "team": {
+                      "$ref": "#/components/schemas/defs_workspace_id"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "thread_ts": {
+                      "$ref": "#/components/schemas/defs_ts"
+                    },
+                    "topic": {
+                      "type": "string"
+                    },
+                    "ts": {
+                      "$ref": "#/components/schemas/defs_ts"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "unread_count": {
+                      "type": "integer"
+                    },
+                    "upload": {
+                      "type": "boolean"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/defs_user_id"
+                    },
+                    "user_profile": {
+                      "$ref": "#/components/schemas/objs_user_profile_short"
+                    },
+                    "user_team": {
+                      "$ref": "#/components/schemas/defs_workspace_id"
+                    },
+                    "username": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "type",
+                    "ts"
+                  ],
+                  "title": "Message object",
+                  "type": "object"
+                },
+                "minItems": 1,
+                "type": "array",
+                "uniqueItems": true
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "pin_count": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "ok",
+              "messages",
+              "has_more",
+              "pin_count",
+              "channel_actions_ts",
+              "channel_actions_count"
+            ],
+            "title": "conversations.history success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response containing a channel's messages"
+    }
+  }
+}

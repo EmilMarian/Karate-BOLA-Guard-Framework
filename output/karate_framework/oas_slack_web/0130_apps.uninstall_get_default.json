@@ -1,0 +1,98 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `none`",
+      "in": "query",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Issued when you created your application.",
+      "in": "query",
+      "name": "client_id",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Issued when you created your application.",
+      "in": "query",
+      "name": "client_secret",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/apps.uninstall",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from apps.uninstall method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "invalid_client_id",
+                  "bad_client_secret",
+                  "client_id_token_mismatch",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "token_revoked",
+                  "no_permission",
+                  "org_login_required",
+                  "user_is_bot",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required",
+                  "fatal_error"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "apps.uninstall error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

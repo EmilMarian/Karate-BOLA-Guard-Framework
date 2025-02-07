@@ -1,0 +1,46 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the video is being attached.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The ID of the `Video` being operated on.\n",
+      "in": "path",
+      "name": "video_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/videos/{video_id}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ProductVideo"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/CollectionMeta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "An array of product videos and metadata.\n"
+    }
+  }
+}

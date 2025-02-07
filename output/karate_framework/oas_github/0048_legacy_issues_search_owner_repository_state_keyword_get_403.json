@@ -1,0 +1,95 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The search term.",
+      "in": "path",
+      "name": "keyword",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Indicates the state of the issues to return. Can be either open or closed.",
+      "in": "path",
+      "name": "state",
+      "required": true,
+      "schema": {
+        "enum": [
+          "open",
+          "closed"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "in": "path",
+      "name": "owner",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "path",
+      "name": "repository",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/legacy/issues/search/{owner}/{repository}/{state}/{keyword}",
+  "requestBody": {},
+  "responses": {
+    "403": {
+      "content": {},
+      "description": "API rate limit exceeded. See http://developer.github.com/v3/#rate-limiting\nfor details.\n"
+    }
+  }
+}

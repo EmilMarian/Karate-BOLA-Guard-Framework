@@ -1,0 +1,119 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/billing/alerts/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A billing alert is a resource that notifies you when a certain usage threshold on a meter is crossed. For example, you might create a billing alert to notify you when a certain user made 100 API requests.",
+            "properties": {
+              "alert_type": {
+                "description": "Defines the type of the alert.",
+                "enum": [
+                  "usage_threshold"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "billing.alert"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "Status of the alert. This can be active, inactive or archived.",
+                "enum": [
+                  "active",
+                  "archived",
+                  "inactive"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "title": {
+                "description": "Title of the alert.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "usage_threshold": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/thresholds_resource_usage_threshold_config"
+                  }
+                ],
+                "description": "Encapsulates configuration of the alert to monitor usage on a specific [Billing Meter](https://stripe.com/docs/api/billing/meter).",
+                "nullable": true
+              }
+            },
+            "required": [
+              "alert_type",
+              "id",
+              "livemode",
+              "object",
+              "title"
+            ],
+            "title": "ThresholdsResourceAlert",
+            "type": "object",
+            "x-expandableFields": [
+              "usage_threshold"
+            ],
+            "x-resourceId": "billing.alert"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

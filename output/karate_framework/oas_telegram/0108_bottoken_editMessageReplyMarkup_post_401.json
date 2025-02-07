@@ -1,0 +1,56 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "chat_id": {
+            "type": "object"
+          },
+          "inline_message_id": {
+            "type": "string"
+          },
+          "message_id": {
+            "type": "integer"
+          },
+          "reply_markup": {
+            "$ref": "#/definitions/InlineKeyboardMarkup"
+          }
+        },
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/editMessageReplyMarkup",
+  "requestBody": {},
+  "responses": {
+    "401": {
+      "description": "Unauthorized",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

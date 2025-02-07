@@ -1,0 +1,324 @@
+2025-02-02 14:35:00,495 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 14:35:00,555 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 14:35:00,787 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}, {"description": "", "in": "query", "name": "user_id", "required": true, "type": "string"}], "path": "/bot{token}/unbanChatMember", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0465_bottoken_unbanChatMember_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}, {"description": "", "in": "query", "name": "user_id", "required": true, "type": "string"}], "path": "/bot{token}/getChatMember", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0150_bottoken_getChatMember_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}], "path": "/bot{token}/getChatMembersCount", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0157_bottoken_getChatMembersCount_get_401.json'}}], form collection oas_telegram_fragments
+2025-02-02 14:35:00,788 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:35:00,789 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:35:01,211 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:35:01,212 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:35:10,242 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:35:10,243 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:35:10,244 - __main__ - INFO - Generated Karate test for /bot{token}/unbanChatMember GET at output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature
+2025-02-02 14:35:10,244 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:35:10,244 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `/bot{token}/unbanChatMember`:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /bot{token}/unbanChatMember
+  Scenario: Attempt to unban a chat member without proper authentication
+    Given url "http://oas_telegram.api/bot{token}/unbanChatMember"
+    And request {
+      method = GET
+      queryString {
+        key = token
+        value = "<invalid_token>"
+      }
+    }
+    When method get
+    Then status 401
+    And match response contains "Unauthorized"
+```
+This test script checks if the API endpoint `/bot{token}/unbanChatMember` requires authentication and if it returns a 401 Unauthorized error when an invalid token is provided.
+2025-02-02 14:35:16,488 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:35:16,488 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on /bot{token}/unbanChatMember
+  Scenario: Attempt to unban a chat member without proper authentication
+    Given url "http://oas_telegram.api/bot{token}/unbanChatMember"
+    And request {
+      method = GET
+      queryString {
+        key = token
+        value = "<invalid_token>"
+      }
+    }
+    When method get
+    Then status 401
+    And match response contains "Unauthorized"
+2025-02-02 14:35:20,346 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:35:20,346 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on /bot{token}/unbanChatMember
+Scenario: Attempt to unban a chat member without proper authentication
+Given url "http://oas_telegram.api/bot{token}/unbanChatMember"
+And request {
+method = GET
+queryString {
+key = token
+value = "<invalid\_token>"
+}
+}
+When method get
+Then status 401
+And match response contains "Unauthorized"
+2025-02-02 14:35:20,347 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET_verified.feature
+2025-02-02 14:35:20,347 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature:  Feature: Test for Broken Authentication/Authorization on /bot{token}/unbanChatMember
+Scenario: Attempt to unban a chat member without proper authentication
+Given url "http://oas_telegram.api/bot{token}/unbanChatMember"
+And request {
+method = GET
+queryString {
+key = token
+value = "<invalid\_token>"
+}
+}
+When method get
+Then status 401
+And match response contains "Unauthorized"
+2025-02-02 14:35:20,347 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:35:20,350 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:35:20,368 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:35:20,369 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:35:34,190 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:35:34,191 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:35:34,191 - __main__ - INFO - Generated Karate test for /bot{token}/getChatMember GET at output/karate_feature_files/ID_002_krtestoas_bottoken_getChatMember_GET.feature
+2025-02-02 14:35:34,191 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:35:34,192 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities in the given API endpoint:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /bot{token}/getChatMember
+  Scenario: Attempt to access /bot{token}/getChatMember without a valid token
+    Given url "http://oas_telegram.api/bot{token}/getChatMember"
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access /bot{token}/getChatMember with an invalid token
+    Given url "http://oas_telegram.api/bot{token}/getChatMember"
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access /bot{token}/getChatMember with a valid token but without the required permissions
+    Given url "http://oas_telegram.api/bot{token}/getChatMember"
+    When method get
+    Then status code is 403
+    And match response contains "Forbidden"
+  
+  Scenario: Attempt to access /bot{token}/getChatMember with a valid token and the required permissions
+    Given url "http://oas_telegram.api/bot{token}/getChatMember"
+    When method get
+    Then status code is 200
+    And match response contains "Successful operation"
+```
+2025-02-02 14:35:46,968 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:35:46,969 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on /bot{token}/getChatMember
+  Scenario: Attempt to access /bot{token}/getChatMember without a valid token
+    Given url "http://oas_telegram.api/bot{token}/getChatMember"
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access /bot{token}/getChatMember with an invalid token
+    Given url "http://oas_telegram.api/bot{token}/getChatMember"
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access /bot{token}/getChatMember with a valid token but without the required permissions
+    Given url "http://oas_telegram.api/bot{token}/getChatMember"
+    When method get
+    Then status code is 403
+    And match response contains "Forbidden"
+  
+  Scenario: Attempt to access /bot{token}/getChatMember with a valid token and the required permissions
+    Given url "http://oas_telegram.api/bot{token}/getChatMember"
+    When method get
+    Then status code is 200
+    And match response contains "Successful operation"
+2025-02-02 14:35:56,526 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:35:56,526 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on /bot{token}/getChatMember
+Scenario: Attempt to access /bot{token}/getChatMember without a valid token
+Given url "http://oas_telegram.api/bot{token}/getChatMember"
+When method get
+Then status code is 401
+And match response contains "Unauthorized"
+Scenario: Attempt to access /bot{token}/getChatMember with an invalid token
+Given url "http://oas_telegram.api/bot{token}/getChatMember"
+When method get
+Then status code is 401
+And match response contains "Unauthorized"
+Scenario: Attempt to access /bot{token}/getChatMember with a valid token but without the required permissions
+Given url "http://oas_telegram.api/bot{token}/getChatMember"
+When method get
+Then status code is 403
+And match response contains "Forbidden"
+Scenario: Attempt to access /bot{token}/getChatMember with a valid token and the required permissions
+Given url "http://oas_telegram.api/bot{token}/getChatMember"
+When method get
+Then status code is 200
+And match response contains "Successful operation"
+2025-02-02 14:35:56,527 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_bottoken_getChatMember_GET_verified.feature
+2025-02-02 14:35:56,527 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_bottoken_getChatMember_GET.feature:  Feature: Test for Broken Authentication/Authorization on /bot{token}/getChatMember
+Scenario: Attempt to access /bot{token}/getChatMember without a valid token
+Given url "http://oas_telegram.api/bot{token}/getChatMember"
+When method get
+Then status code is 401
+And match response contains "Unauthorized"
+Scenario: Attempt to access /bot{token}/getChatMember with an invalid token
+Given url "http://oas_telegram.api/bot{token}/getChatMember"
+When method get
+Then status code is 401
+And match response contains "Unauthorized"
+Scenario: Attempt to access /bot{token}/getChatMember with a valid token but without the required permissions
+Given url "http://oas_telegram.api/bot{token}/getChatMember"
+When method get
+Then status code is 403
+And match response contains "Forbidden"
+Scenario: Attempt to access /bot{token}/getChatMember with a valid token and the required permissions
+Given url "http://oas_telegram.api/bot{token}/getChatMember"
+When method get
+Then status code is 200
+And match response contains "Successful operation"
+2025-02-02 14:35:56,528 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:35:56,528 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:35:56,548 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:35:56,549 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:36:12,393 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:36:12,394 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:36:12,395 - __main__ - INFO - Generated Karate test for /bot{token}/getChatMembersCount GET at output/karate_feature_files/ID_003_krtestoas_bottoken_getChatMembersCount_GET.feature
+2025-02-02 14:36:12,395 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:36:12,396 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities of the API endpoint `/bot{token}/getChatMembersCount`:
+```scss
+Feature: Test for Broken Authentication/Authorization on /bot{token}/getChatMembersCount
+  Scenario: Attempt to access chat members count without authentication token
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount"
+    When method get
+    Then status code is 401
+    And match response contains "Authorization required"
+  
+  Scenario: Attempt to access chat members count with invalid authentication token
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount"
+    When method get
+    Then status code is 401
+    And match response contains "Invalid authorization token"
+  
+  Scenario: Attempt to access chat members count with valid authentication token but invalid user ID
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount?user_id=invalid_user_id"
+    When method get
+    Then status code is 403
+    And match response contains "Forbidden: User not authorized to access chat members count"
+  
+  Scenario: Attempt to access chat members count with valid authentication token and valid user ID but invalid bot token
+    Given url "http://oas_telegram.api/bot{invalid_token}/getChatMembersCount?user_id=valid_user_id"
+    When method get
+    Then status code is 403
+    And match response contains "Forbidden: Invalid bot token"
+```
+Note that you will need to replace `{token}` and `{invalid_token}` with the actual values for your API.
+2025-02-02 14:36:28,233 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:36:28,234 - karate_compatibility_verifier - INFO -  Here's the corrected Karate DSL script:
+```scss
+Feature: Test for Broken Authentication/Authorization on /bot{token}/getChatMembersCount
+  Scenario: Attempt to access chat members count without authentication token
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount"
+    When method get
+    Then status code is 401
+    And match response contains "Authorization required"
+  
+  Scenario: Attempt to access chat members count with invalid authentication token
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount"
+    When method get
+    Then status code is 401
+    And match response contains "Invalid authorization token"
+  
+  Scenario: Attempt to access chat members count with valid authentication token but invalid user ID
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount?user_id=invalid_user_id"
+    When method get
+    Then status code is 403
+    And match response contains "Forbidden: User not authorized to access chat members count"
+  
+  Scenario: Attempt to access chat members count with valid authentication token and valid user ID but invalid bot token
+    Given url "http://oas_telegram.api/bot{invalid_token}/getChatMembersCount?user_id=valid_user_id"
+    When method get
+    Then status code is 403
+    And match response contains "Forbidden: Invalid bot token"
+```
+2025-02-02 14:36:40,002 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:36:40,002 - karate_compatibility_verifier - INFO -  Here's the corrected Karate DSL script:
+```scss
+Feature: Test for Broken Authentication/Authorization on /bot{token}/getChatMembersCount
+  Scenario: Attempt to access chat members count without authentication token
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount"
+    When method get
+    Then status code is 401
+    And match response contains "Authorization required"
+  
+  Scenario: Attempt to access chat members count with invalid authentication token
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount"
+    When method get
+    Then status code is 401
+    And match response contains "Invalid authorization token"
+  
+  Scenario: Attempt to access chat members count with valid authentication token but invalid user ID
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount?user_id=invalid_user_id"
+    When method get
+    Then status code is 403
+    And match response contains "Forbidden: User not authorized to access chat members count"
+  
+  Scenario: Attempt to access chat members count with valid authentication token and valid user ID but invalid bot token
+    Given url "http://oas_telegram.api/bot{invalid_token}/getChatMembersCount?user_id=valid_user_id"
+    When method get
+    Then status code is 403
+    And match response contains "Forbidden: Invalid bot token"
+```
+2025-02-02 14:36:40,003 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_bottoken_getChatMembersCount_GET_verified.feature
+2025-02-02 14:36:40,003 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_bottoken_getChatMembersCount_GET.feature:  Here's the corrected Karate DSL script:
+```scss
+Feature: Test for Broken Authentication/Authorization on /bot{token}/getChatMembersCount
+  Scenario: Attempt to access chat members count without authentication token
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount"
+    When method get
+    Then status code is 401
+    And match response contains "Authorization required"
+  
+  Scenario: Attempt to access chat members count with invalid authentication token
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount"
+    When method get
+    Then status code is 401
+    And match response contains "Invalid authorization token"
+  
+  Scenario: Attempt to access chat members count with valid authentication token but invalid user ID
+    Given url "http://oas_telegram.api/bot{token}/getChatMembersCount?user_id=invalid_user_id"
+    When method get
+    Then status code is 403
+    And match response contains "Forbidden: User not authorized to access chat members count"
+  
+  Scenario: Attempt to access chat members count with valid authentication token and valid user ID but invalid bot token
+    Given url "http://oas_telegram.api/bot{invalid_token}/getChatMembersCount?user_id=valid_user_id"
+    When method get
+    Then status code is 403
+    And match response contains "Forbidden: Invalid bot token"
+```
+2025-02-02 14:36:40,003 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 14:36:40,005 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 14:36:42,315 - __main__ - INFO - Skipping karate test run.

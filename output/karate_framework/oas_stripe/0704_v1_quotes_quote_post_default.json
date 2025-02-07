@@ -1,0 +1,556 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "quote",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/quotes/{quote}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "application_fee_amount": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "application_fee_percent": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "automatic_tax": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "default_tax_rates": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "description": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "discounts": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "footer": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "header": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "invoice_settings": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "line_items": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "on_behalf_of": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "subscription_data": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "transfer_data": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "application_fee_amount": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field."
+            },
+            "application_fee_percent": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field."
+            },
+            "automatic_tax": {
+              "description": "Settings for automatic tax lookup for this quote and resulting invoices and subscriptions.",
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "liability": {
+                  "properties": {
+                    "account": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "account",
+                        "self"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "title": "param",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "enabled"
+              ],
+              "title": "automatic_tax_param",
+              "type": "object"
+            },
+            "collection_method": {
+              "description": "Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or at invoice finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.",
+              "enum": [
+                "charge_automatically",
+                "send_invoice"
+              ],
+              "type": "string"
+            },
+            "customer": {
+              "description": "The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "default_tax_rates": {
+              "anyOf": [
+                {
+                  "items": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The tax rates that will apply to any line item that does not have `tax_rates` set."
+            },
+            "description": {
+              "anyOf": [
+                {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "A description that will be displayed on the quote PDF."
+            },
+            "discounts": {
+              "anyOf": [
+                {
+                  "items": {
+                    "properties": {
+                      "coupon": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "discount": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "promotion_code": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      }
+                    },
+                    "title": "discounts_data_param",
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The discounts applied to the quote."
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "expires_at": {
+              "description": "A future timestamp on which the quote will be canceled if in `open` or `draft` status. Measured in seconds since the Unix epoch.",
+              "format": "unix-time",
+              "type": "integer"
+            },
+            "footer": {
+              "anyOf": [
+                {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "A footer that will be displayed on the quote PDF."
+            },
+            "header": {
+              "anyOf": [
+                {
+                  "maxLength": 50,
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "A header that will be displayed on the quote PDF."
+            },
+            "invoice_settings": {
+              "description": "All invoices will be billed using the specified settings.",
+              "properties": {
+                "days_until_due": {
+                  "type": "integer"
+                },
+                "issuer": {
+                  "properties": {
+                    "account": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "account",
+                        "self"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "title": "param",
+                  "type": "object"
+                }
+              },
+              "title": "quote_param",
+              "type": "object"
+            },
+            "line_items": {
+              "description": "A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.",
+              "items": {
+                "properties": {
+                  "discounts": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "properties": {
+                            "coupon": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "discount": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "promotion_code": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            }
+                          },
+                          "title": "discounts_data_param",
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "id": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "price": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "price_data": {
+                    "properties": {
+                      "currency": {
+                        "format": "currency",
+                        "type": "string"
+                      },
+                      "product": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "recurring": {
+                        "properties": {
+                          "interval": {
+                            "enum": [
+                              "day",
+                              "month",
+                              "week",
+                              "year"
+                            ],
+                            "type": "string"
+                          },
+                          "interval_count": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "interval"
+                        ],
+                        "title": "recurring_adhoc",
+                        "type": "object"
+                      },
+                      "tax_behavior": {
+                        "enum": [
+                          "exclusive",
+                          "inclusive",
+                          "unspecified"
+                        ],
+                        "type": "string"
+                      },
+                      "unit_amount": {
+                        "type": "integer"
+                      },
+                      "unit_amount_decimal": {
+                        "format": "decimal",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "currency",
+                      "product"
+                    ],
+                    "title": "price_data",
+                    "type": "object"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "tax_rates": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "title": "line_item_update_params",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "on_behalf_of": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The account on behalf of which to charge."
+            },
+            "subscription_data": {
+              "description": "When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.",
+              "properties": {
+                "description": {
+                  "anyOf": [
+                    {
+                      "maxLength": 500,
+                      "type": "string"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "effective_date": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "current_period_end"
+                      ],
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    {
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "metadata": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "trial_period_days": {
+                  "anyOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "title": "subscription_data_update_params",
+              "type": "object"
+            },
+            "transfer_data": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "amount": {
+                      "type": "integer"
+                    },
+                    "amount_percent": {
+                      "type": "number"
+                    },
+                    "destination": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "destination"
+                  ],
+                  "title": "transfer_data_specs",
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The data with which to automatically create a Transfer for each of the invoices."
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

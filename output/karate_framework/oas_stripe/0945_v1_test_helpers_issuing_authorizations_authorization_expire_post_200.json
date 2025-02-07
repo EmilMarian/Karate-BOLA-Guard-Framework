@@ -1,0 +1,312 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "authorization",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/test_helpers/issuing/authorizations/{authorization}/expire",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "When an [issued card](https://stripe.com/docs/issuing) is used to make a purchase, an Issuing `Authorization`\nobject is created. [Authorizations](https://stripe.com/docs/issuing/purchases/authorizations) must be approved for the\npurchase to be completed successfully.\n\nRelated guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)",
+            "properties": {
+              "amount": {
+                "description": "The total amount that was authorized or rejected. This amount is in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `amount` should be the same as `merchant_amount`, unless `currency` and `merchant_currency` are different.",
+                "type": "integer"
+              },
+              "amount_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/issuing_authorization_amount_details"
+                  }
+                ],
+                "description": "Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).",
+                "nullable": true
+              },
+              "approved": {
+                "description": "Whether the authorization has been approved.",
+                "type": "boolean"
+              },
+              "authorization_method": {
+                "description": "How the card details were provided.",
+                "enum": [
+                  "chip",
+                  "contactless",
+                  "keyed_in",
+                  "online",
+                  "swipe"
+                ],
+                "type": "string"
+              },
+              "balance_transactions": {
+                "description": "List of balance transactions associated with this authorization.",
+                "items": {
+                  "$ref": "#/components/schemas/balance_transaction"
+                },
+                "type": "array"
+              },
+              "card": {
+                "$ref": "#/components/schemas/issuing.card"
+              },
+              "cardholder": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/issuing.cardholder"
+                  }
+                ],
+                "description": "The cardholder to whom this authorization belongs.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/issuing.cardholder"
+                    }
+                  ]
+                }
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "format": "currency",
+                "type": "string"
+              },
+              "fleet": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/issuing_authorization_fleet_data"
+                  }
+                ],
+                "description": "Fleet-specific information for authorizations using Fleet cards.",
+                "nullable": true
+              },
+              "fraud_challenges": {
+                "description": "Fraud challenges sent to the cardholder, if this authorization was declined for fraud risk reasons.",
+                "items": {
+                  "$ref": "#/components/schemas/issuing_authorization_fraud_challenge"
+                },
+                "nullable": true,
+                "type": "array"
+              },
+              "fuel": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/issuing_authorization_fuel_data"
+                  }
+                ],
+                "description": "Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.",
+                "nullable": true
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "merchant_amount": {
+                "description": "The total amount that was authorized or rejected. This amount is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `merchant_amount` should be the same as `amount`, unless `merchant_currency` and `currency` are different.",
+                "type": "integer"
+              },
+              "merchant_currency": {
+                "description": "The local currency that was presented to the cardholder for the authorization. This currency can be different from the cardholder currency and the `currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "format": "currency",
+                "type": "string"
+              },
+              "merchant_data": {
+                "$ref": "#/components/schemas/issuing_authorization_merchant_data"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "network_data": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/issuing_authorization_network_data"
+                  }
+                ],
+                "description": "Details about the authorization, such as identifiers, set by the card network.",
+                "nullable": true
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "issuing.authorization"
+                ],
+                "type": "string"
+              },
+              "pending_request": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/issuing_authorization_pending_request"
+                  }
+                ],
+                "description": "The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.",
+                "nullable": true
+              },
+              "request_history": {
+                "description": "History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined.",
+                "items": {
+                  "$ref": "#/components/schemas/issuing_authorization_request"
+                },
+                "type": "array"
+              },
+              "status": {
+                "description": "The current status of the authorization in its lifecycle.",
+                "enum": [
+                  "closed",
+                  "pending",
+                  "reversed"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "token": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/issuing.token"
+                  }
+                ],
+                "description": "[Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/issuing.token"
+                    }
+                  ]
+                }
+              },
+              "transactions": {
+                "description": "List of [transactions](https://stripe.com/docs/api/issuing/transactions) associated with this authorization.",
+                "items": {
+                  "$ref": "#/components/schemas/issuing.transaction"
+                },
+                "type": "array"
+              },
+              "treasury": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/issuing_authorization_treasury"
+                  }
+                ],
+                "description": "[Treasury](https://stripe.com/docs/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://stripe.com/docs/api/treasury/financial_accounts).",
+                "nullable": true
+              },
+              "verification_data": {
+                "$ref": "#/components/schemas/issuing_authorization_verification_data"
+              },
+              "verified_by_fraud_challenge": {
+                "description": "Whether the authorization bypassed fraud risk checks because the cardholder has previously completed a fraud challenge on a similar high-risk authorization from the same merchant.",
+                "nullable": true,
+                "type": "boolean"
+              },
+              "wallet": {
+                "description": "The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              }
+            },
+            "required": [
+              "amount",
+              "approved",
+              "authorization_method",
+              "balance_transactions",
+              "card",
+              "created",
+              "currency",
+              "id",
+              "livemode",
+              "merchant_amount",
+              "merchant_currency",
+              "merchant_data",
+              "metadata",
+              "object",
+              "request_history",
+              "status",
+              "transactions",
+              "verification_data"
+            ],
+            "title": "IssuingAuthorization",
+            "type": "object",
+            "x-expandableFields": [
+              "amount_details",
+              "balance_transactions",
+              "card",
+              "cardholder",
+              "fleet",
+              "fraud_challenges",
+              "fuel",
+              "merchant_data",
+              "network_data",
+              "pending_request",
+              "request_history",
+              "token",
+              "transactions",
+              "treasury",
+              "verification_data"
+            ],
+            "x-resourceId": "issuing.authorization"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

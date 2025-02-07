@@ -1,0 +1,275 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+      "in": "query",
+      "name": "ending_before",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "The FinancialAccount that funds were pulled from.",
+      "in": "query",
+      "name": "financial_account",
+      "required": true,
+      "schema": {
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+      "in": "query",
+      "name": "starting_after",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Only return ReceivedDebits that have the given status: `succeeded` or `failed`.",
+      "in": "query",
+      "name": "status",
+      "required": false,
+      "schema": {
+        "enum": [
+          "failed",
+          "succeeded"
+        ],
+        "type": "string",
+        "x-stripeBypassValidation": true
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/treasury/received_debits",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "",
+            "properties": {
+              "data": {
+                "description": "Details about each object.",
+                "items": {
+                  "description": "ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.",
+                  "properties": {
+                    "amount": {
+                      "description": "Amount (in cents) transferred.",
+                      "type": "integer"
+                    },
+                    "created": {
+                      "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "currency": {
+                      "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                      "format": "currency",
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "An arbitrary string attached to the object. Often useful for displaying to users.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "failure_code": {
+                      "description": "Reason for the failure. A ReceivedDebit might fail because the FinancialAccount doesn't have sufficient funds, is closed, or is frozen.",
+                      "enum": [
+                        "account_closed",
+                        "account_frozen",
+                        "insufficient_funds",
+                        "international_transaction",
+                        "other"
+                      ],
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "financial_account": {
+                      "description": "The FinancialAccount that funds were pulled from.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "hosted_regulatory_receipt_url": {
+                      "description": "A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the object.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "initiating_payment_method_details": {
+                      "$ref": "#/components/schemas/treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details"
+                    },
+                    "linked_flows": {
+                      "$ref": "#/components/schemas/treasury_received_debits_resource_linked_flows"
+                    },
+                    "livemode": {
+                      "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                      "type": "boolean"
+                    },
+                    "network": {
+                      "description": "The network used for the ReceivedDebit.",
+                      "enum": [
+                        "ach",
+                        "card",
+                        "stripe"
+                      ],
+                      "type": "string",
+                      "x-stripeBypassValidation": true
+                    },
+                    "object": {
+                      "description": "String representing the object's type. Objects of the same type share the same value.",
+                      "enum": [
+                        "treasury.received_debit"
+                      ],
+                      "type": "string"
+                    },
+                    "reversal_details": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/treasury_received_debits_resource_reversal_details"
+                        }
+                      ],
+                      "description": "Details describing when a ReceivedDebit might be reversed.",
+                      "nullable": true
+                    },
+                    "status": {
+                      "description": "Status of the ReceivedDebit. ReceivedDebits are created with a status of either `succeeded` (approved) or `failed` (declined). The failure reason can be found under the `failure_code`.",
+                      "enum": [
+                        "failed",
+                        "succeeded"
+                      ],
+                      "type": "string",
+                      "x-stripeBypassValidation": true
+                    },
+                    "transaction": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/treasury.transaction"
+                        }
+                      ],
+                      "description": "The Transaction associated with this object.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/treasury.transaction"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "amount",
+                    "created",
+                    "currency",
+                    "description",
+                    "id",
+                    "linked_flows",
+                    "livemode",
+                    "network",
+                    "object",
+                    "status"
+                  ],
+                  "title": "TreasuryReceivedDebitsResourceReceivedDebit",
+                  "type": "object",
+                  "x-expandableFields": [
+                    "initiating_payment_method_details",
+                    "linked_flows",
+                    "reversal_details",
+                    "transaction"
+                  ],
+                  "x-resourceId": "treasury.received_debit"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "description": "True if this list has another page of items after this one that can be fetched.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                "enum": [
+                  "list"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "The URL where this list can be accessed.",
+                "maxLength": 5000,
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "TreasuryReceivedDebitsResourceReceivedDebitList",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

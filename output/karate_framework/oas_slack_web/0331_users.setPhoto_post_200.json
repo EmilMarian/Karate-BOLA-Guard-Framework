@@ -1,0 +1,128 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/users.setPhoto",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "crop_w": {
+              "description": "Width/height of crop box (always square)",
+              "type": "string"
+            },
+            "crop_x": {
+              "description": "X coordinate of top-left corner of crop box",
+              "type": "string"
+            },
+            "crop_y": {
+              "description": "Y coordinate of top-left corner of crop box",
+              "type": "string"
+            },
+            "image": {
+              "description": "File contents via `multipart/form-data`.",
+              "type": "string"
+            },
+            "token": {
+              "description": "Authentication token. Requires scope: `users.profile:write`",
+              "type": "string"
+            }
+          },
+          "required": [
+            "token"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from users.setPhoto method",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "profile": {
+                "additionalProperties": false,
+                "properties": {
+                  "avatar_hash": {
+                    "pattern": "^[0-9a-f]{12}$",
+                    "type": "string"
+                  },
+                  "image_1024": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "image_192": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "image_24": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "image_32": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "image_48": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "image_512": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "image_72": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "image_original": {
+                    "format": "uri",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "image_24",
+                  "image_32",
+                  "image_48",
+                  "image_72",
+                  "image_192",
+                  "image_512",
+                  "image_1024",
+                  "image_original",
+                  "avatar_hash"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "ok",
+              "profile"
+            ],
+            "title": "users.setPhoto schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

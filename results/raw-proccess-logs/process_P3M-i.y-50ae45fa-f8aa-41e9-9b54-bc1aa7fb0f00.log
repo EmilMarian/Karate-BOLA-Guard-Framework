@@ -1,0 +1,289 @@
+2025-01-27 19:55:57,851 - __main__ - INFO - Skipping fragment creation: False
+2025-01-27 19:55:57,942 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-27 19:55:58,191 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/users/v1/register", "requestBody": {"content": {"application/json": {"schema": {"properties": {"email": {"example": "user@tempmail.com", "type": "string"}, "password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Successfully registered. Login to receive an auth token.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully created user"}}}', 'metadata': {'filename': '0005_users_v1_register_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"auth_token": {"example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw", "type": "string"}, "message": {"example": "Successfully logged in.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully logged in user"}}}', 'metadata': {'filename': '0007_users_v1_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Password is not correct for the given username.", "type": "string"}, "status": {"enum": ["fail"], "example": "fail", "type": "string"}}, "type": "object"}}}, "description": "Invalid request"}}}', 'metadata': {'filename': '0008_users_v1_login_post_400.json'}}], form collection vampi_fragments
+2025-01-27 19:55:58,191 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 19:55:58,192 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 19:55:58,628 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 19:55:58,628 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 19:56:21,663 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 19:56:21,665 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test for Broken Authentication/Authorization on User Registration",
+  "scenario": "...
+2025-01-27 19:56:21,667 - __main__ - INFO - Generated Karate test for /users/v1/register POST at output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature
+2025-01-27 19:56:21,667 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 19:56:21,668 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on User Registration",
+  "scenario": "User registration with invalid credentials should fail due to broken authentication or authorization checks.",
+  "steps": [
+    "Given url 'http://oas_salesforce_partner_API.api/users/v1/register'",
+    "And header Authorization = ''" , // Assuming no valid token is provided, simulating an unauthenticated request
+    "When method post with body { username: 'admin', password: '', email: 'invalid@example.com' }",
+    "Then status 401 or 403", // Expecting a failure due to broken authentication/authorization checks, could be either unautxpected access granted (status code not specified) or forbidden action attempted with invalid credentials
+    "* def isAccessDenied = function(response){ return response.contains('Unauthorized') || response.contains('Forbidden') }", // Custom assertion to check for a denial message in the response
+    "And match response contains 'Unauthorized' or 'Forbidden'"
+  ]
+}
+2025-01-27 19:56:27,367 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 19:56:27,367 - karate_compatibility_verifier - INFO -  Given url 'http://oas_salesforce_partner_API.api/users/v1/register'
+And header Authorization = ''
+When method post with body { username: 'admin', password: '', email: 'invalid@example.com'}
+Then status 401 or 403
+* def isAccessDenied = function(response){ return response.contains('Unauthorized') || response.contains('Forbidden') }
+And match response contains 'Unauthorized' or 'Forbidden'
+2025-01-27 19:56:30,701 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 19:56:30,702 - karate_compatibility_verifier - INFO -  Feature: Salesforce Partner API Test
+
+Scenario: Register a user with invalid credentials and check for access denied status codes
+  Given url 'https://oas_salesforce_partner_API.api/users/v1/register'
+    And header Authorization = '' // Assuming we need to provide an authorization token, add it here if necessary
+    When method post with body { username: 'admin', password: '', email: 'invalid@example.com'}
+  Then status should be equalTo(401) or equalTo(403)
+* def isAccessDenied = function(response){ return response.statusCode == 401 || response.statusCode == 403 } // Renamed and simplified the match condition for better readability
+2025-01-27 19:56:30,702 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST_verified.feature
+2025-01-27 19:56:30,702 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature:  Feature: Salesforce Partner API Test
+
+Scenario: Register a user with invalid credentials and check for access denied status codes
+  Given url 'https://oas_salesforce_partner_API.api/users/v1/register'
+    And header Authorization = '' // Assuming we need to provide an authorization token, add it here if necessary
+    When method post with body { username: 'admin', password: '', email: 'invalid@example.com'}
+  Then status should be equalTo(401) or equalTo(403)
+* def isAccessDenied = function(response){ return response.statusCode == 401 || response.statusCode == 403 } // Renamed and simplified the match condition for better readability
+2025-01-27 19:56:30,703 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 19:56:30,704 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 19:56:30,733 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 19:56:30,735 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 19:56:37,320 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 19:56:37,321 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Testing for Broken Authentication/Authorization",
+  "scenario": "Verify that the /u...
+2025-01-27 19:56:37,323 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature
+2025-01-27 19:56:37,323 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 19:56:37,323 - karate_compatibility_verifier - INFO - {
+  "feature": "Testing for Broken Authentication/Authorization",
+  "scenario": "Verify that the /users/v1/login endpoint does not allow unauthorized access or incorrect credentials to be used successfully.",
+  "steps": [
+    {
+      "Given url http://oas_salesforce_partner_API.api",
+      "And request { username: 'unauthorizedUser', password: 'invalidPassword' }"
+    },
+    {
+      "When method post"
+    },
+    {
+      "Then status 401 or 403" // Expecting a Forbidden (403) response due to unautconed access attempt.
+    },
+    {
+      "And match error message contains 'Unauthorized'" // Ensuring that the application responds with an appropriate authentication failure message, indicating potential broken authorization handling if different messages are returned for incorrect credentials attempts.
+    }
+  ]
+}
+2025-01-27 19:56:44,776 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 19:56:44,777 - karate_compatibility_verifier - INFO -  Feature: Testing for Broken Authentication/Authorization
+    http://oas_salesforce_partner_API.api
+    
+Background:
+* url 'http://oas_salesforce_partner_API.api'
+* def form = { username: 'unauthorizedUser', password: 'invalidPassword' }
+ 
+Scenario: Verify that the /users/v1/login endpoint does not allow unauthorized access or incorrect credentials to be used successfully.
+    * Given url http://oas_salesforce_partner_API.api
+    * And form field username = 'unauthorizedUser'
+    * And form field password = 'invalidPassword'
+    * When method post
+    * Then status 401 or 403
+    * And match response message contains "Unauthorized"
+2025-01-27 19:56:48,688 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 19:56:48,689 - karate_compatibility_verifier - INFO -  Feature: Testing for Broken Authentication/Authorization
+    Given url 'https://oas_salesforce_partner_API.api'
+    
+Background:
+* url 'https://oas_salesforce_partner_API.api'
+* def form = { username: 'unauthorizedUser', password: 'invalidPassword' }
+ 
+Scenario: Verify that the /users/v1/login endpoint does not allow unauthorized access or incorrect credentials to be used successfully.
+    * Given url https://oas_salesforce_partner_API.api
+    * And form field username = 'unauthorizedUser'
+    * And form field password = 'invalidPassword'
+    * When method post
+    * Then status 401 or 403
+    * And match response message contains "Unauthorized"
+2025-01-27 19:56:48,690 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST_verified.feature
+2025-01-27 19:56:48,690 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature:  Feature: Testing for Broken Authentication/Authorization
+    Given url 'https://oas_salesforce_partner_API.api'
+    
+Background:
+* url 'https://oas_salesforce_partner_API.api'
+* def form = { username: 'unauthorizedUser', password: 'invalidPassword' }
+ 
+Scenario: Verify that the /users/v1/login endpoint does not allow unauthorized access or incorrect credentials to be used successfully.
+    * Given url https://oas_salesforce_partner_API.api
+    * And form field username = 'unauthorizedUser'
+    * And form field password = 'invalidPassword'
+    * When method post
+    * Then status 401 or 403
+    * And match response message contains "Unauthorized"
+2025-01-27 19:56:48,691 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 19:56:48,692 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 19:56:48,719 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 19:56:48,722 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 19:57:05,150 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 19:57:05,151 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Broken Authentication/Authorization Vulnerability Testing",
+  "scenario": "Attempt ...
+2025-01-27 19:57:05,152 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST.feature
+2025-01-27 19:57:05,155 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 19:57:05,155 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Vulnerability Testing",
+  "scenario": "Attempt to exploit broken authentication by using incorrect credentials and observe the response behavior.",
+  "steps": [
+    "Given url 'http://oas_salesforce_partner_API.api/users/v1/login'",
+    
+    // Attempt with invalid username or password (broken auth)
+    "* def credentials = [{username: 'wronguser', password: ''}, {username: '', password: 'incorrectpass'}]",
+    "When method post using credentials[0]",
+    "Then status 401 and match response contains 'Unauthorized'" ,
+    
+    // Attempt with empty username (broken auth)
+    "* def credentials = [{username: '', password: 'correctpass'}]",
+    "When method post using credentials[1]",
+    "Then status 401 and match response contains 'Bad Request - Missing fields or invalid parameters'" ,
+    
+    // Attempt with empty password (broken auth)
+    "* def credentials = [{username: 'correctuser', password: ''}]",
+    "When method post using credentials[2]",
+    "Then status 401 and match response contains 'Bad Request - Missing fields or invalid parameters'" ,
+    
+    // Attempt with null username (broken auth)
+    "* def credentials = [{username: null, password: 'correctpass'}]",
+    "When method post using credentials[3]",
+    "Then status 401 and match response contains 'Bad Request - Missing fields or invalid parameters'" ,
+    
+    // Attempt with null password (broken auth)
+    "* def credentials = [{username: 'correctuser', password: null}]",
+    "When method post using credentials[4]",
+    "Then status 401 and match response contains 'Bad Request - Missing fields or invalid parameters'" ,
+    
+    // Attempt with empty username, incorrect password (broken auth)
+    "* def credentials = [{username: '', password: 'wrongpass'}]",
+    "When method post using credentials[5]",
+    "Then status 401 and match response contains 'Bad Request - Missing fields or invalid parameters'" ,
+    
+    // Attempt with correct username, incorrect password (broken auth)
+    "* def credentials = [{username: 'correctuser', password: ''}]",
+    "When method post using credentials[6]",
+  
+    "# Explanation: This scenario checks for broken authentication by attempting to authenticate with a variety of invalid or incomplete login attempts. The expectation is that the API will respond consistently across these scenarios, indicating potential vulnerabilities in its handling of incorrect user input."
+  ]
+}
+2025-01-27 19:57:18,525 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 19:57:18,526 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization Vulnerability Testing
+    * url 'http://oas_salesforce_partner_API.api/users/v1/login'
+    
+    Scenario: Attempt to exploit broken authentication by using incorrect credentials and observe the response behavior.
+        
+        Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+        
+        * def credentials = [{username: 'wronguser', password: ''}, {username: '', password: 'incorrectpass'}, 
+                            {username: null, password: 'correctpass'}, {username: 'correctuser', password: null}]
+        
+        When method post using credentials[0]
+        Then status 401 and match response contains 'Unauthorized'
+        
+        When method post using credentials[1]
+        Then status 401 and match response contains 'Bad Request - Missing fields or invalid parameters'
+        
+        When method post using credentials[2]
+        Then status 401 and match response contains 'Bad Request - Missing fields or invalid parameters'
+        
+        When method post using credentials[3]
+        Then status 401 and match response contains 'Bad Request - Missing fields or invalid parameters'
+        
+        When method post using credentials[4]
+        Then status 401 and match response contains 'Bad Request - Missing fields or invalid parameters'
+        
+        * def validCredentials = {username: 'correctuser', password: 'correctpass'}
+        
+        When method post using validCredentials
+        # This step is intentionally left blank to simulate a failed login attempt due to the previous broken auth scenarios.
+        
+    Explanation: This scenario checks for broken authentication by attempting to authenticate with various invalid or incomplete credentials and observing how the API handles these attempts, which should result in consistent error responses indicating potential vulnerabilities related to improper input validation.
+2025-01-27 19:57:27,328 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 19:57:27,328 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization Vulnerability Testing
+    * url 'http://oas_salesforce_partner_API.api/users/v1/login'
+    
+    Scenario: Attempt to exploit broken authentication by using incorrect credentials and observe the response behavior.
+        
+        Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+        
+        * def invalidCredentials = [{username: 'wronguser', password: ''}, {username: '', password: 'incorrectpass'}, 
+                                   {username: null, password: 'correctpass'}, {username: 'correctuser', password: null}]
+        
+        When method post using invalidCredentials[0]
+        Then status should be equal to 401 and match response contains 'Unauthorized'
+        
+        When method post using invalidCredentials[1]
+        Then status should be equal to 401 and match response contains 'Bad Request - Missing fields or invalid parameters'
+        
+        When method post using invalidCredentials[2]
+        Then status should be equal to 401 and match response contains 'Unauthorized' (assuming the API returns this for null username)
+        
+        When method post using invalidCredentials[3]
+        Then status should be equal to 401 and match response contains 'Bad Request - Missing fields or invalid parameters' (assuming that a non-null but empty username is considered an error by the API)
+        
+        When method post using validCredentials = {username: 'correctuser', password: 'correctpass'}
+        Then status should be equal to 401 and match response contains 'Unauthorized' (assuming that incorrect credentials always result in a 401 Unauthorized for this endpoint)
+2025-01-27 19:57:27,328 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST_verified.feature
+2025-01-27 19:57:27,329 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST.feature:  Feature: Broken Authentication/Authorization Vulnerability Testing
+    * url 'http://oas_salesforce_partner_API.api/users/v1/login'
+    
+    Scenario: Attempt to exploit broken authentication by using incorrect credentials and observe the response behavior.
+        
+        Given url 'http://oas_salesforce_partner_API.api/users/v1/login'
+        
+        * def invalidCredentials = [{username: 'wronguser', password: ''}, {username: '', password: 'incorrectpass'}, 
+                                   {username: null, password: 'correctpass'}, {username: 'correctuser', password: null}]
+        
+        When method post using invalidCredentials[0]
+        Then status should be equal to 401 and match response contains 'Unauthorized'
+        
+        When method post using invalidCredentials[1]
+        Then status should be equal to 401 and match response contains 'Bad Request - Missing fields or invalid parameters'
+        
+        When method post using invalidCredentials[2]
+        Then status should be equal to 401 and match response contains 'Unauthorized' (assuming the API returns this for null username)
+        
+        When method post using invalidCredentials[3]
+        Then status should be equal to 401 and match response contains 'Bad Request - Missing fields or invalid parameters' (assuming that a non-null but empty username is considered an error by the API)
+        
+        When method post using validCredentials = {username: 'correctuser', password: 'correctpass'}
+        Then status should be equal to 401 and match response contains 'Unauthorized' (assuming that incorrect credentials always result in a 401 Unauthorized for this endpoint)
+2025-01-27 19:57:27,329 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-27 19:57:27,331 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-27 19:57:29,528 - __main__ - INFO - Skipping karate test run.

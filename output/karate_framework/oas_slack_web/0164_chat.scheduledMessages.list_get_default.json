@@ -1,0 +1,121 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `none`",
+      "in": "header",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The channel of the scheduled messages",
+      "in": "query",
+      "name": "channel",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A UNIX timestamp of the latest value in the time range",
+      "in": "query",
+      "name": "latest",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "A UNIX timestamp of the oldest value in the time range",
+      "in": "query",
+      "name": "oldest",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "Maximum number of original entries to return.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "For pagination purposes, this is the `cursor` value returned from a previous call to `chat.scheduledmessages.list` indicating where you want to start this call from.",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/chat.scheduledMessages.list",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_channel",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from chat.scheduledMessages.list method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "invalid_channel",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "token_revoked",
+                  "no_permission",
+                  "org_login_required",
+                  "ekm_access_denied",
+                  "missing_scope",
+                  "invalid_arguments",
+                  "invalid_arg_name",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required",
+                  "fatal_error"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "chat.scheduledMessages.list error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response if the channel passed is invalid"
+    }
+  }
+}

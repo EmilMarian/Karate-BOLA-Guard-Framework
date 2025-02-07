@@ -1,0 +1,62 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "error_message": {
+            "type": "string"
+          },
+          "ok": {
+            "type": "boolean"
+          },
+          "shipping_options": {
+            "items": {
+              "$ref": "#/definitions/ShippingOption"
+            },
+            "type": "array"
+          },
+          "shipping_query_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "shipping_query_id",
+          "ok"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/answerShippingQuery",
+  "requestBody": {},
+  "responses": {
+    "500": {
+      "description": "Internal",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

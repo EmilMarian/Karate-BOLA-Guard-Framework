@@ -1,0 +1,74 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:read`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The channel to get preferences for.",
+      "in": "query",
+      "name": "channel_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.conversations.getConversationPrefs",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from admin.conversations.getConversationPrefs",
+            "properties": {
+              "error": {
+                "enum": [
+                  "feature_not_enabled",
+                  "not_an_admin",
+                  "not_an_enterprise",
+                  "restricted_action",
+                  "missing_scope",
+                  "channel_not_found",
+                  "channel_type_not_supported",
+                  "could_not_get_conversation_prefs"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "admin.conversations.unarchive error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

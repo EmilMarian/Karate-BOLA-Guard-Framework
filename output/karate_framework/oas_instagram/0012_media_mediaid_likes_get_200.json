@@ -1,0 +1,40 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of the media resource.",
+      "in": "path",
+      "name": "media-id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/media/{media-id}/likes",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "User short information entries",
+                "items": {
+                  "$ref": "#/components/schemas/UserShortInfo"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "List of users who liked the media resource."
+    }
+  }
+}

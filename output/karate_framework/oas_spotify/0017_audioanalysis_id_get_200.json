@@ -1,0 +1,78 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/audio-analysis/{id}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "externalDocs": {
+              "description": "Find more info on the official Spotify Web API Reference",
+              "url": "https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/#audio-analysis-object"
+            },
+            "properties": {
+              "bars": {
+                "description": "The time intervals of the bars throughout the track. A bar (or measure) is a segment of time defined as a given number of beats. Bar offsets also indicate downbeats, the first beat of the measure.",
+                "items": {
+                  "$ref": "#/components/schemas/TimeIntervalObject"
+                },
+                "type": "array"
+              },
+              "beats": {
+                "description": "The time intervals of beats throughout the track. A beat is the basic time unit of a piece of music; for example, each tick of a metronome. Beats are typically multiples of tatums.",
+                "items": {
+                  "$ref": "#/components/schemas/TimeIntervalObject"
+                },
+                "type": "array"
+              },
+              "sections": {
+                "description": "Sections are defined by large variations in rhythm or timbre, e.g. chorus, verse, bridge, guitar solo, etc. Each section contains its own descriptions of tempo, key, mode, time_signature, and loudness.",
+                "items": {
+                  "$ref": "#/components/schemas/SectionObject"
+                },
+                "type": "array"
+              },
+              "segments": {
+                "description": "Audio segments attempts to subdivide a song into many segments, with each segment containing a roughly consistent sound throughout its duration.",
+                "items": {
+                  "$ref": "#/components/schemas/SegmentObject"
+                },
+                "type": "array"
+              },
+              "tatums": {
+                "description": "A tatum represents the lowest regular pulse train that a listener intuitively infers from the timing of perceived musical events (segments).",
+                "items": {
+                  "$ref": "#/components/schemas/TimeIntervalObject"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the HTTP status code in the response header is `200 OK` and the response body contains an audio analysis object in JSON format. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema)."
+    }
+  }
+}

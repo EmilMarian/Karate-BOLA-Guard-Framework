@@ -1,0 +1,186 @@
+2025-02-02 14:29:47,140 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 14:29:47,220 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 14:29:47,452 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/users.setActive", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": false, "description": "Schema for error response from users.setActive method", "properties": {"callstack": {"description": "Note: PHP callstack is only visible in dev/qa", "type": "string"}, "error": {"enum": ["not_authed", "invalid_auth", "account_inactive", "token_revoked", "no_permission", "org_login_required", "ekm_access_denied", "missing_scope", "invalid_arguments", "invalid_arg_name", "invalid_charset", "invalid_form_data", "invalid_post_type", "missing_post_type", "team_added_to_org", "request_timeout", "fatal_error", "internal_error"], "type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.setActive error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0330_users.setActive_post_default.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `identity.basic`", "in": "query", "name": "token", "schema": {"type": "string"}}], "path": "/users.identity", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "account_inactive", "ok": false}}}, "schema": {"additionalProperties": false, "description": "Schema for error response from users.identity method", "properties": {"callstack": {"description": "Note: PHP callstack is only visible in dev/qa", "type": "string"}, "error": {"enum": ["not_authed", "invalid_auth", "account_inactive", "token_revoked", "no_permission", "org_login_required", "user_is_bot", "invalid_arg_name", "invalid_array_arg", "invalid_charset", "invalid_form_data", "invalid_post_type", "missing_post_type", "team_added_to_org", "invalid_json", "json_not_object", "request_timeout", "upgrade_required", "fatal_error"], "type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.identity error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0318_users.identity_get_default.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}], form collection oas_slack_web_fragments
+2025-02-02 14:29:47,453 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:29:47,453 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:29:47,882 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:29:47,882 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:29:57,314 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:29:57,315 - karate_llm_test_gen - INFO - Generated test case:  Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization ...
+2025-02-02 14:29:57,316 - __main__ - INFO - Generated Karate test for /users.setActive POST at output/karate_feature_files/ID_001_krtestoas_userssetActive_POST.feature
+2025-02-02 14:29:57,316 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:29:57,316 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint /users.setActive:
+```kotlin
+Feature: Testing Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to set user active status without authentication
+    Given url http://oas_slack_web.api/users.setActive
+    And request { "active": true }
+    When method post
+    Then status code is 401
+    And match response contains "Unauthorized"
+```
+This test script checks if the API endpoint /users.setActive can be accessed without authentication, which would indicate a Broken Authentication/Authorization vulnerability. The request to set the user active status only includes the `active` parameter and does not include any authentication credentials. If the API returns a 401 Unauthorized response, it indicates that authentication is required for this endpoint.
+2025-02-02 14:30:03,055 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:30:03,055 - karate_compatibility_verifier - INFO -  ```kotlin
+Feature: Testing Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to set user active status without authentication
+    Given url http://oas_slack_web.api/users.setActive
+    And request { "active": true }
+    When method post
+    Then status code is 401
+    And match response contains "Unauthorized"
+```
+2025-02-02 14:30:06,058 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:30:06,058 - karate_compatibility_verifier - INFO -  Feature: Testing Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to set user active status without authentication
+Given url http://oas\_slack\_web.api/users.setActive
+And request { "active": true }
+When method post
+Then status code is 401
+And match response contains "Unauthorized"
+2025-02-02 14:30:06,059 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_userssetActive_POST_verified.feature
+2025-02-02 14:30:06,059 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_userssetActive_POST.feature:  Feature: Testing Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to set user active status without authentication
+Given url http://oas\_slack\_web.api/users.setActive
+And request { "active": true }
+When method post
+Then status code is 401
+And match response contains "Unauthorized"
+2025-02-02 14:30:06,059 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:30:06,060 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:30:06,078 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:30:06,078 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:30:14,966 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:30:14,966 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:30:14,968 - __main__ - INFO - Generated Karate test for /users.identity GET at output/karate_feature_files/ID_002_krtestoas_usersidentity_GET.feature
+2025-02-02 14:30:14,968 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:30:14,968 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `http://oas_slack_web.api/users.identity` using GET method:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user details without authentication
+    Given url http://oas_slack_web.api/users.identity
+    When method get
+    Then status code is 401
+    And match response contains 'Unauthorized'
+```
+This test script checks if the API endpoint requires authentication by attempting to access it without any tokens or credentials. If the request returns a `401 Unauthorized` error, then the API has proper authentication requirements and is not vulnerable to Broken Authentication/Authorization attacks.
+2025-02-02 14:30:20,335 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:30:20,335 - karate_compatibility_verifier - INFO -  Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user details without authentication
+    Given url http://oas_slack_web.api/users.identity
+    When method get
+    Then status code is 401
+```
+2025-02-02 14:30:23,360 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:30:23,360 - karate_compatibility_verifier - INFO -  Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user details without authentication
+    Given url http://oas_slack_web.api/users.identity
+    When method get
+    Then status code is 401
+```
+2025-02-02 14:30:23,360 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_usersidentity_GET_verified.feature
+2025-02-02 14:30:23,360 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_usersidentity_GET.feature:  Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user details without authentication
+    Given url http://oas_slack_web.api/users.identity
+    When method get
+    Then status code is 401
+```
+2025-02-02 14:30:23,361 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:30:23,361 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:30:23,381 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:30:23,382 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:30:35,470 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:30:35,471 - karate_llm_test_gen - INFO - Generated test case:  Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization ...
+2025-02-02 14:30:35,472 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_003_krtestoas_adminusersinvite_POST.feature
+2025-02-02 14:30:35,472 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:30:35,473 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `http://oas_slack_web.api/admin.users.invite` using POST method:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to invite a user without proper authentication credentials
+    Given url 'http://oas_slack_web.api/admin.users.invite'
+    And request {
+      method: POST,
+      body: {
+        "userIds": ["123", "456"]
+      }
+    }
+    When method post
+    Then status 401
+    And match response contains 'Unauthorized'
+```
+This test script sends a POST request to the `http://oas_slack_web.api/admin.users.invite` endpoint with an empty body and checks if the server responds with a 401 Unauthorized status code and the message "Unauthorized". If this is not the case, it means that there is no authentication required for inviting users on this API endpoint, which could be considered as a potential Broken Authentication/Authorization vulnerability.
+2025-02-02 14:30:42,589 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:30:42,589 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to invite a user without proper authentication credentials
+    Given url 'http://oas_slack_web.api/admin.users.invite'
+    And request {
+      method: POST,
+      body: {
+        "userIds": ["123", "456"]
+      }
+    }
+    When method post
+    Then status 401
+    And match response contains 'Unauthorized'
+2025-02-02 14:30:46,336 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:30:46,336 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to invite a user without proper authentication credentials
+Given url 'http://oas_slack_web.api/admin.users.invite'
+And request {
+method: POST,
+body: {
+"userIds": ["123", "456"]
+}
+}
+When method post
+Then status 401
+And match response contains 'Unauthorized'
+2025-02-02 14:30:46,337 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_adminusersinvite_POST_verified.feature
+2025-02-02 14:30:46,337 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_adminusersinvite_POST.feature:  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to invite a user without proper authentication credentials
+Given url 'http://oas_slack_web.api/admin.users.invite'
+And request {
+method: POST,
+body: {
+"userIds": ["123", "456"]
+}
+}
+When method post
+Then status 401
+And match response contains 'Unauthorized'
+2025-02-02 14:30:46,337 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 14:30:46,339 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 14:30:48,709 - __main__ - INFO - Skipping karate test run.

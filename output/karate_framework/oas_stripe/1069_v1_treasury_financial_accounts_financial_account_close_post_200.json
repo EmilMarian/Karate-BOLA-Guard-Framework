@@ -1,0 +1,255 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "financial_account",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/treasury/financial_accounts/{financial_account}/close",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "forwarding_settings": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "forwarding_settings": {
+              "description": "A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0",
+              "properties": {
+                "financial_account": {
+                  "type": "string"
+                },
+                "payment_method": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "financial_account",
+                    "payment_method"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "forwarding_settings",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Stripe Treasury provides users with a container for money called a FinancialAccount that is separate from their Payments balance.\nFinancialAccounts serve as the source and destination of Treasury\u2019s money movement APIs.",
+            "properties": {
+              "active_features": {
+                "description": "The array of paths to active Features in the Features hash.",
+                "items": {
+                  "enum": [
+                    "card_issuing",
+                    "deposit_insurance",
+                    "financial_addresses.aba",
+                    "financial_addresses.aba.forwarding",
+                    "inbound_transfers.ach",
+                    "intra_stripe_flows",
+                    "outbound_payments.ach",
+                    "outbound_payments.us_domestic_wire",
+                    "outbound_transfers.ach",
+                    "outbound_transfers.us_domestic_wire",
+                    "remote_deposit_capture"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                },
+                "type": "array"
+              },
+              "balance": {
+                "$ref": "#/components/schemas/treasury_financial_accounts_resource_balance"
+              },
+              "country": {
+                "description": "Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "features": {
+                "$ref": "#/components/schemas/treasury.financial_account_features"
+              },
+              "financial_addresses": {
+                "description": "The set of credentials that resolve to a FinancialAccount.",
+                "items": {
+                  "$ref": "#/components/schemas/treasury_financial_accounts_resource_financial_address"
+                },
+                "type": "array"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "is_default": {
+                "type": "boolean"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "nullable": true,
+                "type": "object"
+              },
+              "nickname": {
+                "description": "The nickname for the FinancialAccount.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "treasury.financial_account"
+                ],
+                "type": "string"
+              },
+              "pending_features": {
+                "description": "The array of paths to pending Features in the Features hash.",
+                "items": {
+                  "enum": [
+                    "card_issuing",
+                    "deposit_insurance",
+                    "financial_addresses.aba",
+                    "financial_addresses.aba.forwarding",
+                    "inbound_transfers.ach",
+                    "intra_stripe_flows",
+                    "outbound_payments.ach",
+                    "outbound_payments.us_domestic_wire",
+                    "outbound_transfers.ach",
+                    "outbound_transfers.us_domestic_wire",
+                    "remote_deposit_capture"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                },
+                "type": "array"
+              },
+              "platform_restrictions": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/treasury_financial_accounts_resource_platform_restrictions"
+                  }
+                ],
+                "description": "The set of functionalities that the platform can restrict on the FinancialAccount.",
+                "nullable": true
+              },
+              "restricted_features": {
+                "description": "The array of paths to restricted Features in the Features hash.",
+                "items": {
+                  "enum": [
+                    "card_issuing",
+                    "deposit_insurance",
+                    "financial_addresses.aba",
+                    "financial_addresses.aba.forwarding",
+                    "inbound_transfers.ach",
+                    "intra_stripe_flows",
+                    "outbound_payments.ach",
+                    "outbound_payments.us_domestic_wire",
+                    "outbound_transfers.ach",
+                    "outbound_transfers.us_domestic_wire",
+                    "remote_deposit_capture"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                },
+                "type": "array"
+              },
+              "status": {
+                "description": "Status of this FinancialAccount.",
+                "enum": [
+                  "closed",
+                  "open"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "status_details": {
+                "$ref": "#/components/schemas/treasury_financial_accounts_resource_status_details"
+              },
+              "supported_currencies": {
+                "description": "The currencies the FinancialAccount can hold a balance in. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "balance",
+              "country",
+              "created",
+              "financial_addresses",
+              "id",
+              "livemode",
+              "object",
+              "status",
+              "status_details",
+              "supported_currencies"
+            ],
+            "title": "TreasuryFinancialAccountsResourceFinancialAccount",
+            "type": "object",
+            "x-expandableFields": [
+              "balance",
+              "features",
+              "financial_addresses",
+              "platform_restrictions",
+              "status_details"
+            ],
+            "x-resourceId": "treasury.financial_account"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

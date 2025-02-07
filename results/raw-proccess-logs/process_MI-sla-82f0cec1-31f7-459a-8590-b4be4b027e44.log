@@ -1,0 +1,137 @@
+2025-01-25 15:33:43,300 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 15:33:43,406 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 15:33:43,797 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `calls:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/calls.participants.add", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"id": {"description": "`id` returned by the [`calls.add`](/methods/calls.add) method.", "type": "string"}, "users": {"description": "The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).", "type": "string"}}, "required": ["id", "users"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0143_calls.participants.add_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `users:read`", "in": "query", "name": "token", "required": true, "schema": {"type": "string"}}, {"description": "User to get presence info on. Defaults to the authed user.", "in": "query", "name": "user", "schema": {"type": "string"}}], "path": "/users.getPresence", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": {"type": "object"}, "description": "Schema for error response users.getPresence method", "properties": {"error": {"type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.counts error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0316_users.getPresence_get_default.json'}}], form collection oas_slack_web_fragments
+2025-01-25 15:33:43,801 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 15:33:43,801 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 15:33:44,896 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 15:33:44,896 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 15:40:32,217 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 15:40:32,218 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-25 15:40:32,219 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature
+2025-01-25 15:40:32,219 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 15:40:32,219 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/admin.users.invite` endpoint:
+```kotlin
+Feature: Admin Users Invitation API Testing
+  Scenario: Verify that only authorized users can invite new users
+    Given url http://apimockurl.example/admin.users.invite
+    And request {
+      "username": "regular_user",
+      "password": "Password123!"
+    }
+    When method post
+    Then status 403
+    And match response contains "Access denied. Admin rights required."
+    
+    Given url http://apimockurl.example/admin.users.invite
+    And request {
+      "username": "admin_user",
+      "password": "AdminPassword123!"
+    }
+    When method post
+    Then status 200
+    And match response contains "User invited successfully."
+```
+This test script simulates two scenarios: one for an unauthorized user attempting to invite a new user, and another for an authorized admin user attempting the same action. The first scenario should return a `403 Forbidden` status code with an error message indicating that only admin rights are required. The second scenario should return a `200 OK` status code with a success message indicating that the invitation was successful.
+2025-01-25 15:45:03,314 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 15:45:03,314 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Admin Users Invitation API Testing
+  Scenario: Verify that only authorized users can invite new users
+    Given url http://apimockurl.example/admin.users.invite
+    And request {
+      "username": "regular_user",
+      "password": "Password123!"
+    }
+    When method post
+    Then status 403
+    And match response contains "Access denied. Admin rights required."
+    
+    Given url http://apimockurl.example/admin.users.invite
+    And request {
+      "username": "admin_user",
+      "password": "AdminPassword123!"
+    }
+    When method post
+    Then status 200
+    And match response contains "User invited successfully."
+```
+2025-01-25 15:46:43,444 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 15:46:43,444 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Admin Users Invitation API Testing
+  Scenario: Verify that only authorized users can invite new users
+    Given url http://apimockurl.example/admin.users.invite
+    And request {
+      "username": "regular_user",
+      "password": "Password123!"
+    }
+    When method post
+    Then status 403
+    And match response contains "Access denied. Admin rights required."
+    
+    Given url http://apimockurl.example/admin.users.invite
+    And request {
+      "username": "admin_user",
+      "password": "AdminPassword123!"
+    }
+    When method post
+    Then status 200
+    And match response contains "User invited successfully."
+```
+2025-01-25 15:46:43,445 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST_verified.feature
+2025-01-25 15:46:43,445 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature: Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Admin Users Invitation API Testing
+  Scenario: Verify that only authorized users can invite new users
+    Given url http://apimockurl.example/admin.users.invite
+    And request {
+      "username": "regular_user",
+      "password": "Password123!"
+    }
+    When method post
+    Then status 403
+    And match response contains "Access denied. Admin rights required."
+    
+    Given url http://apimockurl.example/admin.users.invite
+    And request {
+      "username": "admin_user",
+      "password": "AdminPassword123!"
+    }
+    When method post
+    Then status 200
+    And match response contains "User invited successfully."
+```
+2025-01-25 15:46:43,446 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 15:46:43,446 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 15:46:43,523 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 15:46:43,524 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 15:50:23,586 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 15:50:23,587 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-25 15:50:23,588 - __main__ - INFO - Generated Karate test for /calls.participants.add POST at output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature
+2025-01-25 15:50:23,589 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 15:50:23,589 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: Test API Endpoint Security
+  Scenario: Check for Broken Authentication/Authorization on /calls.participants.add endpoint
+    Given url http://apimockurl.example/calls.participants.add
+    And request { "token": "<invalid_access_token>" }
+    When method post
+    Then status 401
+    And match response contains 'Unauthorized'
+```
+This test script checks if the endpoint requires authentication by sending a POST request with an invalid access token. If the endpoint returns a 401 Unauthorized status, it means that authentication is required and the test case passes.

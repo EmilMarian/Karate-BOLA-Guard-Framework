@@ -1,0 +1,448 @@
+2025-01-26 00:06:56,807 - __main__ - INFO - Skipping fragment creation: False
+2025-01-26 00:06:56,870 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-26 00:06:57,139 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The id of the user being queried", "in": "path", "name": "userId", "required": true, "type": "string"}], "path": "/users/{userId}/publications", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, lacks the listPublications scope or has been revoked."}}}', 'metadata': {'filename': '0015_users_userId_publications_get_401.json'}}, {'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"401": {"description": "The \\"accessToken\\" is invalid or has been revoked."}}}', 'metadata': {'filename': '0003_me_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The id of the publication being queried", "in": "path", "name": "publicationId", "required": true, "type": "string"}], "path": "/publications/{publicationId}/contributors", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, or has been revoked."}}}', 'metadata': {'filename': '0005_publications_publicationId_contributors_get_401.json'}}], form collection oas_medium_fragments
+2025-01-26 00:06:57,139 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 00:06:57,140 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 00:06:57,583 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 00:06:57,583 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 00:10:54,392 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 00:10:54,393 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 00:10:54,393 - __main__ - INFO - Generated Karate test for /users/{userId}/publications GET at output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature
+2025-01-26 00:10:54,394 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 00:10:54,394 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /users/{userId}/publications Endpoint
+  Scenario: Attempt to access publications without proper authentication or authorization
+    Given url http://oas_medium.api/users/{userId}/publications
+    And header Authorization = 'Bearer <invalid_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+```
+This test script checks if the API endpoint returns a `401 Unauthorized` error when an invalid token is provided in the Authorization header. If the API endpoint does not return this error, it may indicate that authentication or authorization checks are broken and unauthorized access could be possible.
+2025-01-26 00:13:38,045 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 00:13:38,046 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /users/{userId}/publications Endpoint
+  Scenario: Attempt to access publications without proper authentication or authorization
+    Given url http://oas_medium.api/users/{userId}/publications
+    And header Authorization = 'Bearer <invalid_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+```
+2025-01-26 00:14:32,200 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 00:14:32,200 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /users/{userId}/publications Endpoint
+  Scenario: Attempt to access publications without proper authentication or authorization
+    Given url http://oas_medium.api/users/{userId}/publications
+    And header Authorization = 'Bearer <invalid_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+```
+2025-01-26 00:14:32,200 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET_verified.feature
+2025-01-26 00:14:32,201 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature: Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /users/{userId}/publications Endpoint
+  Scenario: Attempt to access publications without proper authentication or authorization
+    Given url http://oas_medium.api/users/{userId}/publications
+    And header Authorization = 'Bearer <invalid_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+```
+2025-01-26 00:14:32,201 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 00:14:32,202 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 00:14:32,236 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 00:14:32,237 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 00:20:39,370 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 00:20:39,371 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 00:20:39,372 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_002_krtestoas_me_GET.feature
+2025-01-26 00:20:39,372 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 00:20:39,372 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  Scenario: Attempt to access the /me endpoint without authentication
+    Given url http://oas_medium.api/me
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with invalid credentials
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials but missing scope
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials and scope but missing state
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      State: abc123
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials, scope, and state but missing nonce
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      State: abc123
+      Nonce: 123
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials, scope, state, and nonce but missing expiration time
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      State: abc123
+      Nonce: 123
+      ExpiresIn: 0
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+```
+2025-01-26 00:27:30,096 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 00:27:30,096 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  Scenario: Attempt to access the /me endpoint without authentication
+    Given url http://oas_medium.api/me
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with invalid credentials
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials but missing scope
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials and scope but missing state
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      State: abc123
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials, scope, state, and nonce but missing expiration time
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      State: abc123
+      Nonce: 123
+      ExpiresIn: 0
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+```
+2025-01-26 00:31:17,166 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 00:31:17,166 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is as follows:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  Scenario: Attempt to access the /me endpoint without authentication
+    Given url http://oas_medium.api/me
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with invalid credentials
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials but missing scope
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials and scope but missing state
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      State: abc123
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials, scope, state, and nonce but missing expiration time
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      State: abc123
+      Nonce: 123
+      ExpiresIn: 0
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+```
+2025-01-26 00:31:17,167 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_me_GET_verified.feature
+2025-01-26 00:31:17,167 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_me_GET.feature: The corrected Karate DSL script is as follows:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  Scenario: Attempt to access the /me endpoint without authentication
+    Given url http://oas_medium.api/me
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with invalid credentials
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials but missing scope
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials and scope but missing state
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      State: abc123
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access the /me endpoint with valid credentials, scope, state, and nonce but missing expiration time
+    Given url http://oas_medium.api/me
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      State: abc123
+      Nonce: 123
+      ExpiresIn: 0
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+```
+2025-01-26 00:31:17,168 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 00:31:17,168 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 00:31:17,204 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 00:31:17,204 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 00:36:25,259 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 00:36:25,260 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 00:36:25,261 - __main__ - INFO - Generated Karate test for /publications/{publicationId}/contributors GET at output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature
+2025-01-26 00:36:25,261 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 00:36:25,261 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `/publications/{publicationId}/contributors`:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Publications Contributor Listing
+  Scenario: Attempt to access publications contributor list without authentication
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = ''
+      When method get
+        Then status 401
+        And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to access publications contributor list with invalid authentication token
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <invalid_token>'
+      When method get
+        Then status 401
+        And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to access publications contributor list with valid authentication token but invalid role
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <valid_token>'
+      When method get
+        Then status 403
+        And match response contains 'Forbidden'
+  
+  Scenario: Attempt to access publications contributor list with valid authentication token and role
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <valid_token>'
+      When method get
+        Then status 200
+```
+Note: The above test script assumes that the API endpoint requires authentication and has a role-based access control mechanism. You may need to modify the script based on your specific requirements and implementation details.
+2025-01-26 00:41:06,584 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 00:41:06,584 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Publications Contributor Listing
+  Scenario: Attempt to access publications contributor list without authentication
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = ''
+      When method get
+        Then status 401
+        And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to access publications contributor list with invalid authentication token
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <invalid_token>'
+      When method get
+        Then status 401
+        And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to access publications contributor list with valid authentication token but invalid role
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <valid_token>'
+      When method get
+        Then status 403
+        And match response contains 'Forbidden'
+  
+  Scenario: Attempt to access publications contributor list with valid authentication token and role
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <valid_token>'
+      When method get
+        Then status 200
+```
+2025-01-26 00:43:39,832 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 00:43:39,832 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Publications Contributor Listing
+  Scenario: Attempt to access publications contributor list without authentication
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = ''
+      When method get
+        Then status 401
+        And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to access publications contributor list with invalid authentication token
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <invalid_token>'
+      When method get
+        Then status 401
+        And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to access publications contributor list with valid authentication token but invalid role
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <valid_token>'
+      When method get
+        Then status 403
+        And match response contains 'Forbidden'
+  
+  Scenario: Attempt to access publications contributor list with valid authentication token and role
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <valid_token>'
+      When method get
+        Then status 200
+```
+2025-01-26 00:43:39,833 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET_verified.feature
+2025-01-26 00:43:39,833 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature: Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Publications Contributor Listing
+  Scenario: Attempt to access publications contributor list without authentication
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = ''
+      When method get
+        Then status 401
+        And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to access publications contributor list with invalid authentication token
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <invalid_token>'
+      When method get
+        Then status 401
+        And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to access publications contributor list with valid authentication token but invalid role
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <valid_token>'
+      When method get
+        Then status 403
+        And match response contains 'Forbidden'
+  
+  Scenario: Attempt to access publications contributor list with valid authentication token and role
+    Given url http://oas_medium.api/publications/{publicationId}/contributors
+      And header Authorization = 'Bearer <valid_token>'
+      When method get
+        Then status 200
+```
+2025-01-26 00:43:39,833 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-26 00:43:39,835 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-26 00:43:42,417 - __main__ - INFO - Skipping karate test run.

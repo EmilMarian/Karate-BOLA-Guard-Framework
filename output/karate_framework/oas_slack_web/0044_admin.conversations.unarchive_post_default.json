@@ -1,0 +1,83 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.conversations.unarchive",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel_id": {
+              "description": "The channel to unarchive.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel_id"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from admin.conversations.unarchive",
+            "properties": {
+              "error": {
+                "enum": [
+                  "feature_not_enabled",
+                  "channel_not_found",
+                  "channel_not_archived",
+                  "channel_type_not_supported",
+                  "restricted_action",
+                  "could_not_unarchive_channel",
+                  "default_org_wide_channel",
+                  "missing_scope"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "admin.conversations.unarchive error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

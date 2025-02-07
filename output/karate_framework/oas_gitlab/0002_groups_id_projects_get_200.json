@@ -1,0 +1,279 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "if passed, limit by archived status",
+      "in": "query",
+      "name": "archived",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "if passed, limit by visibility `public`, `internal`, `private`",
+      "in": "query",
+      "name": "visibility",
+      "schema": {
+        "enum": [
+          "public",
+          "internal",
+          "private"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "Return requests ordered by `id`, `name`, `path`, `created_at`, `updated_at` or `last_activity_at` fields. Default is `created_at",
+      "in": "query",
+      "name": "order_by",
+      "schema": {
+        "enum": [
+          "id",
+          "name",
+          "path",
+          "created_at",
+          "updated_at",
+          "last_activity_at"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "Return requests sorted in `asc` or `desc` order. Default is `desc`",
+      "in": "query",
+      "name": "sort",
+      "schema": {
+        "enum": [
+          "asc",
+          "desc"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "Return list of authorized projects according to a search criteria",
+      "in": "query",
+      "name": "search",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Return projects ordered by ci_enabled flag. Projects with enabled GitLab CI go first",
+      "in": "query",
+      "name": "ci_enabled_first",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "path": "/groups/{id}/projects",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "example": [
+            {
+              "archived": false,
+              "avatar_url": "http://example.com/uploads/project/avatar/4/uploads/avatar.png",
+              "builds_enabled": true,
+              "created_at": "2013-09-30T13: 46: 02Z",
+              "creator_id": 3,
+              "default_branch": "master",
+              "description": null,
+              "http_url_to_repo": "http://example.com/diaspora/diaspora-client.git",
+              "id": 4,
+              "issues_enabled": true,
+              "last_activity_at": "2013-09-30T13: 46: 02Z",
+              "merge_requests_enabled": true,
+              "name": "Diaspora Client",
+              "name_with_namespace": "Diaspora / Diaspora Client",
+              "namespace": {
+                "created_at": "2013-09-30T13: 46: 02Z",
+                "description": "",
+                "id": 3,
+                "name": "Diaspora",
+                "owner_id": 1,
+                "path": "diaspora",
+                "updated_at": "2013-09-30T13: 46: 02Z"
+              },
+              "owner": {
+                "created_at": "2013-09-30T13: 46: 02Z",
+                "id": 3,
+                "name": "Diaspora"
+              },
+              "path": "diaspora-client",
+              "path_with_namespace": "diaspora/diaspora-client",
+              "public": false,
+              "snippets_enabled": false,
+              "ssh_url_to_repo": "git@example.com:diaspora/diaspora-client.git",
+              "tag_list": [
+                "example",
+                "disapora client"
+              ],
+              "visibility_level": 0,
+              "web_url": "http://example.com/diaspora/diaspora-client",
+              "wiki_enabled": true
+            }
+          ],
+          "schema": {
+            "items": {
+              "properties": {
+                "archived": {
+                  "type": "boolean"
+                },
+                "avatar_url": {
+                  "type": "string"
+                },
+                "builds_enabled": {
+                  "type": "boolean"
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "creator_id": {
+                  "type": "number"
+                },
+                "default_branch": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "http_url_to_repo": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                },
+                "issues_enabled": {
+                  "type": "boolean"
+                },
+                "last_activity_at": {
+                  "type": "string"
+                },
+                "merge_requests_enabled": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "name_with_namespace": {
+                  "type": "string"
+                },
+                "namespace": {
+                  "properties": {
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner_id": {
+                      "type": "number"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "owner": {
+                  "properties": {
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "path_with_namespace": {
+                  "type": "string"
+                },
+                "public": {
+                  "type": "boolean"
+                },
+                "snippets_enabled": {
+                  "type": "boolean"
+                },
+                "ssh_url_to_repo": {
+                  "type": "string"
+                },
+                "tag_list": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "visibility_level": {
+                  "type": "number"
+                },
+                "web_url": {
+                  "type": "string"
+                },
+                "wiki_enabled": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "archived",
+                "avatar_url",
+                "builds_enabled",
+                "created_at",
+                "creator_id",
+                "default_branch",
+                "description",
+                "http_url_to_repo",
+                "id",
+                "issues_enabled",
+                "last_activity_at",
+                "merge_requests_enabled",
+                "name",
+                "name_with_namespace",
+                "namespace",
+                "path",
+                "path_with_namespace",
+                "public",
+                "snippets_enabled",
+                "ssh_url_to_repo",
+                "tag_list",
+                "visibility_level",
+                "web_url",
+                "wiki_enabled"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

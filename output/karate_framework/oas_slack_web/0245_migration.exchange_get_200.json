@@ -1,0 +1,110 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `tokens.basic`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A comma-separated list of user ids, up to 400 per request",
+      "in": "query",
+      "name": "users",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Specify team_id starts with `T` in case of Org Token",
+      "in": "query",
+      "name": "team_id",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Specify `true` to convert `W` global user IDs to workspace-specific `U` IDs. Defaults to `false`.",
+      "in": "query",
+      "name": "to_old",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "path": "/migration.exchange",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "enterprise_id": "E1KQTNXE1",
+                "invalid_user_ids": [
+                  "U21ABZZXX"
+                ],
+                "ok": true,
+                "team_id": "T1KR7PE1W",
+                "user_id_map": {
+                  "U06UBSUN5": "W06M56XJM",
+                  "U06UBSVB3": "W06PUUDLY",
+                  "U06UBSVDX": "W06PUUDMW",
+                  "U06UEB62U": "W06PTT6GH",
+                  "W06UAZ65Q": "W06UAZ65Q"
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "Schema for successful response from migration.exchange method",
+            "properties": {
+              "enterprise_id": {
+                "title": "The enterprise grid organization ID containing the workspace/team.",
+                "type": "string"
+              },
+              "invalid_user_ids": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "A list of User IDs that cannot be mapped or found",
+                "type": "array"
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "team_id": {
+                "pattern": "^[T][A-Z0-9]{2,}$",
+                "title": "Team ID",
+                "type": "string"
+              },
+              "user_id_map": {
+                "additionalProperties": true,
+                "title": "A mapping of provided user IDs with mapped user IDs",
+                "type": "object"
+              }
+            },
+            "required": [
+              "ok",
+              "team_id",
+              "enterprise_id"
+            ],
+            "title": "migration.exchange success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response when mappings exist for the specified user IDs"
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "query",
+      "name": "chat_id",
+      "required": true,
+      "type": "string"
+    }
+  ],
+  "path": "/bot{token}/getChat",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "description": "",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          },
+          "result": {
+            "properties": {
+              "all_members_are_administrators": {
+                "type": "boolean"
+              },
+              "can_set_sticker_set": {
+                "type": "boolean"
+              },
+              "description": {
+                "type": "string"
+              },
+              "first_name": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer",
+                "x-nullable": false
+              },
+              "invite_link": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "photo": {
+                "$ref": "#/definitions/ChatPhoto"
+              },
+              "pinned_message": {
+                "$ref": "#/definitions/Message"
+              },
+              "sticker_set_name": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "private",
+                  "group",
+                  "supergroup",
+                  "channel"
+                ],
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "type"
+            ],
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

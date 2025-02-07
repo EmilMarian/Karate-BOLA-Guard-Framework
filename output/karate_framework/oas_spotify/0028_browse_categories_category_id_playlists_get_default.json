@@ -1,0 +1,66 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid user access token or your client credentials.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The [Spotify category ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the category.",
+      "in": "path",
+      "name": "category_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A country: an [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). Provide this parameter to ensure that the category exists for a particular country.",
+      "in": "query",
+      "name": "country",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The index of the first item to return. Default: 0 (the first object). Use with `limit` to get the next set of items.",
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/browse/categories/{category_id}/playlists",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponseObject"
+          }
+        }
+      },
+      "description": "Unexpected error"
+    }
+  }
+}

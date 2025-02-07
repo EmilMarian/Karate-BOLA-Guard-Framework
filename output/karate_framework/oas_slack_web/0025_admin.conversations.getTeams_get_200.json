@@ -1,0 +1,100 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:read`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The channel to determine connected workspaces within the organization for.",
+      "in": "query",
+      "name": "channel_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/admin.conversations.getTeams",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true,
+                "teams": [
+                  "T1234",
+                  "T5678"
+                ]
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response of admin.conversations.getTeams",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "response_metadata": {
+                "additionalProperties": false,
+                "properties": {
+                  "next_cursor": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "next_cursor"
+                ],
+                "type": "object"
+              },
+              "team_ids": {
+                "items": {
+                  "pattern": "^[T][A-Z0-9]{2,}$",
+                  "title": "Team ID",
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "ok",
+              "team_ids"
+            ],
+            "title": "admin.conversations.getTeams schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

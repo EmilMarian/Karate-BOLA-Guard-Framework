@@ -1,0 +1,301 @@
+2025-01-25 20:22:01,966 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 20:22:02,026 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 20:22:02,266 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `calls:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/calls.participants.add", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"id": {"description": "`id` returned by the [`calls.add`](/methods/calls.add) method.", "type": "string"}, "users": {"description": "The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).", "type": "string"}}, "required": ["id", "users"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0143_calls.participants.add_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `users:read`", "in": "query", "name": "token", "required": true, "schema": {"type": "string"}}, {"description": "User to get presence info on. Defaults to the authed user.", "in": "query", "name": "user", "schema": {"type": "string"}}], "path": "/users.getPresence", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": {"type": "object"}, "description": "Schema for error response users.getPresence method", "properties": {"error": {"type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.counts error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0316_users.getPresence_get_default.json'}}], form collection oas_slack_web_fragments
+2025-01-25 20:22:02,267 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:22:02,268 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:22:02,677 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:22:02,678 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:22:08,920 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:22:08,920 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Broken Authentication/Authorization Test for Admin User Invite",
+  "scenario...
+2025-01-25 20:22:08,921 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature
+2025-01-25 20:22:08,922 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:22:08,922 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Broken Authentication/Authorization Test for Admin User Invite",
+  "scenario": "User without admin role attempts to invite another user and receives an unautmitted response.",
+  "given_url": "/admin.users.invite",
+  "steps": [
+    {
+      "step": "Given url http://oas_transport_for_london.api/admin.users.invite"
+    },
+    {
+      "step": "And header Authorization = 'Bearer invalidUserToken'"
+    },
+    {
+      "step": "When method post with body {'recipient': 'anotherAdmin', 'message': ''}'"
+    },
+    {
+      "step": "Then status 401 or 500 (depending on the API's error handling)"
+    }
+  ]
+}
+```
+2025-01-25 20:22:18,989 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:22:18,989 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization Test for Admin User Invite
+    http://oas_transport_for_london.api/admin.users.invite
+
+Background:
+* url '/admin.users.invite'
+
+Scenario: User without admin role attempts to invite another user and receives an unautmitted response.
+  Given url 'http://oas_transport_for_london.api/admin.users.invite'
+  
+  And header Authorization = 'Bearer invalidUserToken'
+    
+  When method post with body { recipient: 'anotherAdmin', message: '' }
+      
+  Then status in [401,500]
+```
+2025-01-25 20:22:24,509 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:22:24,509 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization Test for Admin User Invite
+  Background:
+    url '/admin.users.invite'
+
+Scenario: Non-Admin user attempts to invite another admin and receives an unauthorized response.
+  Given 'http://oas_transport_for_london.api/admin.users.invite'
+  
+  And header Authorization = { "Authorization": "Bearer invalidUserToken" }
+    
+  When method post with body { recipient: 'anotherAdmin', message: '' }
+      
+  Then status should be [401]
+```
+2025-01-25 20:22:24,510 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST_verified.feature
+2025-01-25 20:22:24,510 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature: ```yaml
+Feature: Broken Authentication/Authorization Test for Admin User Invite
+  Background:
+    url '/admin.users.invite'
+
+Scenario: Non-Admin user attempts to invite another admin and receives an unauthorized response.
+  Given 'http://oas_transport_for_london.api/admin.users.invite'
+  
+  And header Authorization = { "Authorization": "Bearer invalidUserToken" }
+    
+  When method post with body { recipient: 'anotherAdmin', message: '' }
+      
+  Then status should be [401]
+```
+2025-01-25 20:22:24,510 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:22:24,511 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:22:24,530 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:22:24,532 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:22:32,462 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:22:32,463 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: Security Test Case for Broken Authentication/Authorization on /calls.participants.a...
+2025-01-25 20:22:32,463 - __main__ - INFO - Generated Karate test for /calls.participants.add POST at output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature
+2025-01-25 20:22:32,464 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:22:32,464 - karate_compatibility_verifier - INFO - ```yaml
+feature: Security Test Case for Broken Authentication/Authorization on /calls.participants.add Endpoint using Karate DSL
+scenario: Attempt to add a participant without proper authentication or authorization, revealing potential vulnerabilities
+given url http://oas_transport_for_london.api/calls/participants/add
+when method post
+then status 401
+and match response contains 'Unauthorized'
+* def unauthenticatedUser = function(response) { return response.contains('Unauthorized') }
+* assert unauthenticatedUser(response), "Even without proper authentication, the system should not allow adding a participant."
+```
+2025-01-25 20:22:40,523 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:22:40,523 - karate_compatibility_verifier - INFO - ```yaml
+feature: Security Test Case for Broken Authentication/Authorization on /calls.participants.add Endpoint using Karate DSL
+scenario: Attempt to add a participant without proper authentication or authorization, revealing potential vulnerabilities
+given url 'http://oas_transport_for_london.api/calls/participants/add'
+when method post
+then status 401
+and match response contains "Unauthorized"
+* def unauthenticatedUser = function(response) { return (Globals.jsonContains(response, 'Unauthorized')) }
+* assert unauthenticatedUser(), "Even without proper authentication or authorization, the system should not allow adding a participant."
+```
+2025-01-25 20:22:47,757 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:22:47,757 - karate_compatibility_verifier - INFO - ```yaml
+feature: Security Test Case for Broken Authentication/Authorization on /calls.participants.add Endpoint using Karate DSL
+scenario: Attempt to add a participant without proper authentication or authorization, revealing potential vulnerabilities
+given url 'http://oas_transport_for_london.api/calls/participants/add'
+when method post
+then status 401
+and match response contains "Unauthorized"
+* def unauthenticatedUser = function(response) { return (Globals.jsonContains(response, 'Unauthorized')) }
+* assert unauthenticatedUser(), "Even without proper authentication or authorization, the system should not allow adding a participant."
+```
+2025-01-25 20:22:47,757 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST_verified.feature
+2025-01-25 20:22:47,757 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature: ```yaml
+feature: Security Test Case for Broken Authentication/Authorization on /calls.participants.add Endpoint using Karate DSL
+scenario: Attempt to add a participant without proper authentication or authorization, revealing potential vulnerabilities
+given url 'http://oas_transport_for_london.api/calls/participants/add'
+when method post
+then status 401
+and match response contains "Unauthorized"
+* def unauthenticatedUser = function(response) { return (Globals.jsonContains(response, 'Unauthorized')) }
+* assert unauthenticatedUser(), "Even without proper authentication or authorization, the system should not allow adding a participant."
+```
+2025-01-25 20:22:47,758 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:22:47,758 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:22:47,779 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:22:47,780 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:23:15,970 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:23:15,971 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Broken Authentication/Authorization Test for /users.getPresence",
+  "scenario": "Use...
+2025-01-25 20:23:15,971 - __main__ - INFO - Generated Karate test for /users.getPresence GET at output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature
+2025-01-25 20:23:15,972 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:23:15,972 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Test for /users.getPresence",
+  "scenario": "User attempts to access presence data without proper authentication or authorization.",
+  "given url": "/users.getPresence",
+  "steps": [
+    "* def unauthorizedAttempts = []",
+    "* foreach (user in context with 'unauthorizedUsers') {",
+    "*   * Given http://oas_transport_for_london.api",
+    "*   * And header Authorization = \'Bearer invalidToken\''", // Assuming Bearer token is used for authentication, but it should be empty or incorrect in this case
+    "*   When method get",
+    "*   Then status 401", // Expecting a Forbidden (Unauthorized) response due to lack of proper credentials/token.
+    "*   And match response contains 'You are not authorized'",
+    " }",
+    "* def adminAccess = callonce read('classpath:helpers/adminAccessTestData')," +
+    "* switch adminAccess.status, { case 200: * assert adminAccess.response == \'Presence data\', break; default: fail(\'Admin should have access but received a non-success status code.\') }", // Assuming there is an alternative test for valid Admin Access with correct credentials
+    "* def anonymousAttempt = callonce read('classpath:helpers/anonymousAccessTestData')," +
+    "* switch anonymousAttempt.status, { case 401: * assert anonymousAttempt.response contains 'Unauthorized', break; default: fail(\'Anonymous user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Anonymous Access with no credentials
+    "* def validUserAccess = callonce read('classpath:helpers/validUserTestData')," +
+    "* switch validUserAccess.status, { case 200: * assert validUserAccess.response == \'Presence data\', break; default: fail(\'Valid user should have access but received a non-success status code.\') }", // Assuming there is an alternative test for Valid User Access with correct credentials
+    "* def invalidCredentials = callonce read('classpath:helpers/invalidUserTestData')," +
+    "* switch invalidCredentials.status, { case 401: * assert invalidCredentials.response contains 'Invalid token', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Invalid User Credentials with incorrect credentials
+    "* def expiredToken = callonce read('classpath:helpers/expiredUserTestData')," +
+    "* switch expiredToken.status, { case 401: * assert expiredToken.response contains 'Expired token', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Expired User Credentials
+    "* def nullCredentials = callonce read('classpath:helpers/nullUserTestData')," +
+    "* switch nullCredentials.status, { case 401: * assert nullCredentials.response contains 'No credentials provided', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Null User Credentials
+    "* Given http://oas_transport_for_london.api" +
+    "* And header Authorization = \'\'"+context._headers['Authorization']+"\'\"", // Simulating a null or empty token scenario, assuming 'Bearer' prefix is used for tokens in the headers
+    "Then status 401", // Expecting Forbidden (Unauthorized) response due to lack of proper credentials/token.
+    "* And match response contains \'No valid authentication details provided\'"
+  ]
+}
+2025-01-25 20:26:39,220 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:26:39,220 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Test for /users.getPresence",
+  "scenario": "User attempts to access presence data without proper authentication or authorization.",
+  "given url": "/users.getPresence",
+  "steps": [
+    "* def unauthorizedAttempts = []",
+    "* foreach (user in context with 'unauthorizedUsers') {",
+    "*   * Given http://oas_transport_for_london.api",
+    "*   * And header Authorization = \'Bearer invalidToken\''", // Assuming Bearer token is used for authentication, but it should be empty or incorrect in this case
+    "*   When method get",
+    "*   Then status 401", // Expecting a Forbidden (Unauthorized) response due to lack of proper credentials/token.
+    "*   And match response contains 'You are not authorized'",
+    " }",
+    "* def adminAccess = callonce read('classpath:helpers/adminAccessTestData')," +
+    "* switch adminAccess.status, { case 200: * assert adminAccess.response == \'Presence data\', break; default: fail(\'Admin should have access but received a non-success status code.\') }", // Assuming there is an alternative test for valid Admin Access with correct credentials
+    "* def anonymousAttempt = callonce read('classpath:helpers/anonymousAccessTestData')," +
+    "* switch anonymousAttempt.status, { case 401: * assert anonymousAttempt.response contains 'Unauthorized', break; default: fail(\'Anonymous user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Anonymous Access with no credentials
+    "* def validUserAccess = callonce read('classpath:helpers/validUserTestData')," +
+    "* switch validUserAccess.status, { case 200: * assert validUserAccess.response == \'Presence data\', break; default: fail(\'Valid user should have access but received a non-success status code.\') }", // Assuming there is an alternative test for Valid User Access with correct credentials
+    "* def invalidCredentials = callonce read('classpath:helpers/invalidUserTestData')," +
+    "* switch invalidCredentials.status, { case 401: * assert invalidCredentials.response contains 'Invalid token', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Invalid User Credentials with incorrect credentials
+    "* def expiredToken = callonce read('classpath:helpers/expiredUserTestData')," +
+    "* switch expiredToken.status, { case 401: * assert expiredToken.response contains 'Expired token', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Expired User Credentials
+    "* def nullCredentials = callonce read('classpath:helpers/nullUserTestData')," +
+    "* switch nullCredentials.status, { case 401: * assert nullCredentials.response contains 'No credentials provided', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Null User Credentials
+    "* Given http://oas_transport_for_london.api" +
+    "* And header Authorization = \'\'"+context._headers['Authorization']+"\'\"", // Simulating a null or empty token scenario, assuming 'Bearer' prefix is used for tokens in the headers
+    "Then status 401", // Expecting Forbidden (Unauthorized) response due to lack of proper credentials/token.
+    "* And match response contains \'No valid authentication details provided\'"
+  ]
+}
+2025-01-25 20:29:59,023 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:29:59,023 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Test for /users.getPresence",
+  "scenario": "User attempts to access presence data without proper authentication or authorization.",
+  "given url": "/users.getPresence",
+  "steps": [
+    "* def unautcoratedAttempts = []",
+    "* foreach (user in context with 'unauthorizedUsers') {",
+    "*   * Given http://oas_transport_for_london.api",
+    "*   And header Authorization = \'Bearer invalidToken\''", // Assuming Bearer token is used for authentication, but it should be empty or incorrect in this case
+    "*   When method get",
+    "*   Then status 401", // Expecting a Forbidden (Unauthorized) response due to lack of proper credentials/token.
+    "*   And match response contains 'You are not authorized'",
+    "* }",
+    "* def adminAccess = callonce read('classpath:helpers/adminAccessTestData')," +
+    "* switch adminAccess.status, { case 200: * assert adminAccess.response == \'Presence data\', break; default: fail(\'Admin should have access but received a non-success status code.\') }", // Assuming there is an alternative test for valid Admin Access with correct credentials
+    "* def anonymousAttempt = callonce read('classpath:helpers/anonymousAccessTestData')," +
+    "* switch anonymousAttempt.status, { case 401: * assert anonymousAttempt.response contains 'Unauthorized', break; default: fail(\'Anonymous user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Anonymous Access with no credentials
+    "* def validUserAccess = callonce read('classpath:helpers/validUserTestData')," +
+    "* switch validUserAccess.status, { case 200: * assert validUserAccess.response == \'Presence data\', break; default: fail(\'Valid user should have access but received a non-success status code.\') }", // Assuming there is an alternative test for Valid User Access with correct credentials
+    "* def invalidCredentials = callonce read('classpath:helpers/invalidUserTestData')," +
+   " * switch invalidCredentials.status, { case 401: * assert invalidCredentials.response contains 'Invalid token', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Invalid User Credentials with incorrect credentials
+    "* def expiredToken = callonce read('classpath:helpers/expiredUserTestData')," +
+   " * switch expiredToken.status, { case 401: * assert expiredToken.response contains 'Expired token', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Expired User Credentials
+    "* def nullCredentials = callonce read('classpath:helpers/nullUserTestData')," +
+   " * switch nullCredentials.status, { case 401: * assert nullCredentials.response contains 'No credentials provided', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Null User Credentials
+    "* Given http://oas_transport_for_london.api" +
+   " * And header Authorization = \'\'"+context._headers['Authorization']+"\'\"", // Simulating a null or empty token scenario, assuming 'Bearer' prefix is used for tokens in the headers
+    "* Then status 401", // Expecting Forbidden (Unauthorized) response due to lack of proper credentials/token.
+    "* And match response contains \'No valid authentication details provided\'"
+  ]
+}
+2025-01-25 20:29:59,024 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET_verified.feature
+2025-01-25 20:29:59,024 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature: {
+  "feature": "Broken Authentication/Authorization Test for /users.getPresence",
+  "scenario": "User attempts to access presence data without proper authentication or authorization.",
+  "given url": "/users.getPresence",
+  "steps": [
+    "* def unautcoratedAttempts = []",
+    "* foreach (user in context with 'unauthorizedUsers') {",
+    "*   * Given http://oas_transport_for_london.api",
+    "*   And header Authorization = \'Bearer invalidToken\''", // Assuming Bearer token is used for authentication, but it should be empty or incorrect in this case
+    "*   When method get",
+    "*   Then status 401", // Expecting a Forbidden (Unauthorized) response due to lack of proper credentials/token.
+    "*   And match response contains 'You are not authorized'",
+    "* }",
+    "* def adminAccess = callonce read('classpath:helpers/adminAccessTestData')," +
+    "* switch adminAccess.status, { case 200: * assert adminAccess.response == \'Presence data\', break; default: fail(\'Admin should have access but received a non-success status code.\') }", // Assuming there is an alternative test for valid Admin Access with correct credentials
+    "* def anonymousAttempt = callonce read('classpath:helpers/anonymousAccessTestData')," +
+    "* switch anonymousAttempt.status, { case 401: * assert anonymousAttempt.response contains 'Unauthorized', break; default: fail(\'Anonymous user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Anonymous Access with no credentials
+    "* def validUserAccess = callonce read('classpath:helpers/validUserTestData')," +
+    "* switch validUserAccess.status, { case 200: * assert validUserAccess.response == \'Presence data\', break; default: fail(\'Valid user should have access but received a non-success status code.\') }", // Assuming there is an alternative test for Valid User Access with correct credentials
+    "* def invalidCredentials = callonce read('classpath:helpers/invalidUserTestData')," +
+   " * switch invalidCredentials.status, { case 401: * assert invalidCredentials.response contains 'Invalid token', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Invalid User Credentials with incorrect credentials
+    "* def expiredToken = callonce read('classpath:helpers/expiredUserTestData')," +
+   " * switch expiredToken.status, { case 401: * assert expiredToken.response contains 'Expired token', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Expired User Credentials
+    "* def nullCredentials = callonce read('classpath:helpers/nullUserTestData')," +
+   " * switch nullCredentials.status, { case 401: * assert nullCredentials.response contains 'No credentials provided', break; default: fail(\'Valid user should not have access but received a non-success status code.\') }", // Assuming there is an alternative test for Null User Credentials
+    "* Given http://oas_transport_for_london.api" +
+   " * And header Authorization = \'\'"+context._headers['Authorization']+"\'\"", // Simulating a null or empty token scenario, assuming 'Bearer' prefix is used for tokens in the headers
+    "* Then status 401", // Expecting Forbidden (Unauthorized) response due to lack of proper credentials/token.
+    "* And match response contains \'No valid authentication details provided\'"
+  ]
+}
+2025-01-25 20:29:59,024 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 20:29:59,027 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 20:30:01,825 - __main__ - INFO - Skipping karate test run.

@@ -1,0 +1,581 @@
+2025-01-31 12:30:22,836 - __main__ - INFO - Skipping fragment creation: False
+2025-01-31 12:30:22,926 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-31 12:30:23,177 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The ID of a user to get information about, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}", "requestBody": {}, "responses": {"404": {"content": {}, "description": "Not Found, user with such ID does not exist."}}}', 'metadata': {'filename': '0023_users_userid_get_404.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The ID of a user, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}/follows", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"data": {"description": "List of user short information entries", "items": {"$ref": "#/components/schemas/UserShortInfo"}, "type": "array"}, "meta": {"$ref": "#/components/schemas/MetaData"}, "pagination": {"$ref": "#/components/schemas/CursorPaginationInfo"}}, "type": "object"}}}, "description": "List of users this user follows."}}}', 'metadata': {'filename': '0025_users_userid_follows_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The ID of a user, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}/followed-by", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"data": {"description": "List of user short information entries", "items": {"$ref": "#/components/schemas/UserShortInfo"}, "type": "array"}, "meta": {"$ref": "#/components/schemas/MetaData"}, "pagination": {"$ref": "#/components/schemas/CursorPaginationInfo"}}, "type": "object"}}}, "description": "List of users this user is followed by."}}}', 'metadata': {'filename': '0024_users_userid_followedby_get_200.json'}}], form collection oas_instagram_fragments
+2025-01-31 12:30:23,181 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 12:30:23,182 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 12:30:23,635 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 12:30:23,635 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 12:35:31,094 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 12:35:31,095 - karate_llm_test_gen - INFO - Generated test case: Here's a sample Karate DSL test script:
+
+```
+Feature: Test API for Instagram Users Endpoint
+
+Scenari...
+2025-01-31 12:35:31,095 - __main__ - INFO - Generated Karate test for /users/{user-id} GET at output/karate_feature_files/ID_001_krtestoas_users_user-id_GET.feature
+2025-01-31 12:35:31,096 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 12:35:31,096 - karate_compatibility_verifier - INFO - Here's a sample Karate DSL test script:
+
+```
+Feature: Test API for Instagram Users Endpoint
+
+Scenario: Attempt to access user profile without authentication
+Given url 'http://oas_instagram.api'
+And path '/users/{user-id}'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Access own user profile with valid authentication
+* def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+* def authenticatedUserId = generateUserId()
+Given url 'http://oas_instagram.api'
+And path '/users/' + authenticatedUserId
+When method get
+Then status 200
+
+Scenario: Attempt to access another user's profile without authentication
+* def privateUserId = generateUserId()
+Given url 'http://oas_instagram.api'
+And path '/users/' + privateUserId
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Access own user profile with valid authentication and parameters
+* def authenticatedUserId = generateUserId()
+Given url 'http://oas_Instagram.api'
+And path '/users/' + authenticatedUserId
+And param foo = 'bar'
+When method get
+Then status 200
+
+```
+
+This script tests the Instagram users endpoint for potential Broken Authentication/Authorization vulnerabilities. It checks:
+
+1. Attempting to access a user's profile without authentication (401 Unauthorized)
+2. Accessing own user profile with valid authentication (200 OK)
+3. Attempting to access another user's profile without authentication (401 Unauthorized)
+
+Note that this script assumes the API endpoint is available at `http://oas_Instagram.api` and uses the Karate DSL features for generating random IDs, making HTTP requests, and asserting response status codes and contents.
+
+Please adjust according to your actual requirements.
+2025-01-31 12:41:01,025 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 12:41:01,026 - karate_compatibility_verifier - INFO - Here's the corrected Karate test script:
+
+````
+Feature: Test API for Instagram Users Endpoint
+
+Scenario: Attempt to access user profile without authentication
+Given url 'http://oas_Instagram.api'
+And path '/users/{user-id}'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Access own user profile with valid authentication
+* def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+* def authenticatedUserId = generateUserId()
+Given url 'http://oas_Instagram.api'
+And path '/users/' + authenticatedUserId
+When method get
+Then status 200
+
+Scenario: Attempt to access another user's profile without authentication
+* def privateUserId = generateUserId()
+Given url 'http://oas_Instagram.api'
+And path '/users/' + privateUserId
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Access own user profile with valid authentication and parameters
+* def authenticatedUserId = generateUserId()
+Given url 'http://oas_Instagram.api'
+And path '/users/' + authenticatedUserId
+And param foo = 'bar'
+When method get
+Then status 200
+2025-01-31 12:43:46,465 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 12:43:46,465 - karate_compatibility_verifier - INFO - Here is the corrected Karate test script:
+
+```
+Feature: Test API for Instagram Users Endpoint
+
+Scenario: Attempt to access user profile without authentication
+Given url 'http://oas_Instagram.api'
+And path '/users/{user-id}'
+When method GET
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Access own user profile with valid authentication
+* def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+* def authenticatedUserId = generateUserId()
+Given url 'http://oas_Instagram.api'
+And path '/users/' + authenticatedUserId
+When method GET
+Then status 200
+
+Scenario: Attempt to access another user's profile without authentication
+* def privateUserId = generateUserId()
+Given url 'http://oas_Instagram.api'
+And path '/users/' + privateUserId
+When method GET
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Access own user profile with valid authentication and parameters
+* def authenticatedUserId = generateUserId()
+Given url 'http://oas_Instagram.api'
+And path '/users/' + authenticatedUserId
+And param foo = 'bar'
+When method GET
+Then status 200
+2025-01-31 12:43:46,466 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_user-id_GET_verified.feature
+2025-01-31 12:43:46,466 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_user-id_GET.feature: Here is the corrected Karate test script:
+
+```
+Feature: Test API for Instagram Users Endpoint
+
+Scenario: Attempt to access user profile without authentication
+Given url 'http://oas_Instagram.api'
+And path '/users/{user-id}'
+When method GET
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Access own user profile with valid authentication
+* def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+* def authenticatedUserId = generateUserId()
+Given url 'http://oas_Instagram.api'
+And path '/users/' + authenticatedUserId
+When method GET
+Then status 200
+
+Scenario: Attempt to access another user's profile without authentication
+* def privateUserId = generateUserId()
+Given url 'http://oas_Instagram.api'
+And path '/users/' + privateUserId
+When method GET
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Access own user profile with valid authentication and parameters
+* def authenticatedUserId = generateUserId()
+Given url 'http://oas_Instagram.api'
+And path '/users/' + authenticatedUserId
+And param foo = 'bar'
+When method GET
+Then status 200
+2025-01-31 12:43:46,466 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 12:43:46,467 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 12:43:46,511 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 12:43:46,511 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 12:50:00,879 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 12:50:00,880 - karate_llm_test_gen - INFO - Generated test case: Here's the Karate DSL test script:
+
+```
+Feature: Test API for User Follows Endpoint with Potential B...
+2025-01-31 12:50:00,881 - __main__ - INFO - Generated Karate test for /users/{user-id}/follows GET at output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET.feature
+2025-01-31 12:50:00,881 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 12:50:00,885 - karate_compatibility_verifier - INFO - Here's the Karate DSL test script:
+
+```
+Feature: Test API for User Follows Endpoint with Potential Broken Authentication/Authorization Vulnerability
+
+Scenario: Attempt to access user follows without authentication
+Given url 'http://oas_instagram.api/users/{userId}/follows'
+And param userId = 'some-user-id' // replace this with a dynamic ID generation
+When method get
+Then status 401
+And match response contains "Error: Unauthorized"
+
+Scenario: Authenticate and then attempt to access user follows without proper authorization
+Given url 'http://oas_instagram.api/users/{userId}/follows'
+And param userId = '{some-user-id}' // replace this with a dynamic ID generation
+And header Authorization = 'Bearer <user_token>' // replace this with the actual token for the authenticated user
+When method get
+Then status 403
+And match response contains "Error: You are not authorized to access this resource"
+
+Scenario: Authenticate and then attempt to access another user's follows without proper authorization
+Given url 'http://oas_instagram.api/users/{otherUserId}/follows'
+And param otherUserId = '{some-other-user-id}' // replace this with a dynamic ID generation (different from the authenticated user)
+And header Authorization = 'Bearer <user_token>' // replace this with the actual token for the authenticated user
+When method get
+Then status 403
+And match response contains "Error: You are not authorized to access this resource"
+
+Scenario: Authenticate and then attempt to access own follows without proper authorization (should be allowed)
+Given url 'http://oas_instagram.api/users/{userId}/follows'
+And param userId = '{some-user-id}' // replace this with the actual ID of the authenticated user
+And header Authorization = 'Bearer <user_token>' // replace this with the actual token for the authenticated user
+When method get
+Then status 200
+
+* def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+```
+
+This script tests three scenarios:
+
+1. Attempting to access another user's follows without authentication (should result in a 401 Unauthorized error).
+2. Authenticating and then attempting to access another user's follows without proper authorization (should result in a 403 Forbidden error).
+3. Authenticating and then accessing own follows without proper authorization (should be allowed).
+
+Note that you'll need to replace the placeholders (`{some-user-id}`, `{otherUserId}`, `<user_token>`) with actual values or dynamic ID generation mechanisms, depending on your specific use case.
+
+Also, keep in mind that this script is just a starting point and may require additional testing scenarios based on your API's specific requirements.
+2025-01-31 12:56:43,819 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 12:56:43,819 - karate_compatibility_verifier - INFO - ````
+Feature: Test API for User Follows Endpoint with Potential Broken Authentication/Authorization Vulnerability
+
+Background:
+  * url 'http://oas_instagram.api'
+
+Scenario: Attempt to access user follows without authentication
+Given path '/users/{userId}/follows'
+And param userId = '{some-user-id}'
+When method get
+Then status 401
+And match response contains "Error: Unauthorized"
+
+Scenario: Authenticate and then attempt to access user follows without proper authorization
+* def token = 'Bearer <user_token>'
+Given header Authorization = token
+And path '/users/{userId}/follows'
+And param userId = '{some-user-id}'
+When method get
+Then status 403
+And match response contains "Error: You are not authorized to access this resource"
+
+Scenario: Authenticate and then attempt to access another user's follows without proper authorization
+* def token = 'Bearer <user_token>'
+Given header Authorization = token
+And path '/users/{otherUserId}/follows'
+And param otherUserId = '{some-other-user-id}'
+When method get
+Then status 403
+And match response contains "Error: You are not authorized to access this resource"
+
+Scenario: Authenticate and then attempt to access own follows without proper authorization (should be allowed)
+* def token = 'Bearer <user_token>'
+Given header Authorization = token
+And path '/users/{userId}/follows'
+And param userId = '{some-user-id}'
+When method get
+Then status 200
+
+def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+```
+2025-01-31 13:00:26,020 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 13:00:26,020 - karate_compatibility_verifier - INFO - Here is the modified Karate DSL code snippet:
+
+```
+Feature: Test API for User Follows Endpoint with Potential Broken Authentication/Authorization Vulnerability
+
+Background:
+* url 'http://oas_instagram.api'
+
+Scenario: Attempt to access user follows without authentication
+Given path '/users/{userId}/follows'
+And param userId = '{some-user-id}'
+When method get
+Then status 401
+And match response contains "Error: Unauthorized"
+
+Scenario: Authenticate and then attempt to access user follows without proper authorization
+* def token = 'Bearer <user_token>'
+Given header Authorization = token
+And path '/users/{userId}/follows'
+And param userId = '{some-user-id}'
+When method get
+Then status 403
+And match response contains "Error: You are not authorized to access this resource"
+
+Scenario: Authenticate and then attempt to access another user's follows without proper authorization
+* def token = 'Bearer <user_token>'
+Given header Authorization = token
+And path '/users/{otherUserId}/follows'
+And param otherUserId = '{some-other-user-id}'
+When method get
+Then status 403
+And match response contains "Error: You are not authorized to access this resource"
+
+Scenario: Authenticate and then attempt to access own follows without proper authorization (should be allowed)
+* def token = 'Bearer <user_token>'
+Given header Authorization = token
+And path '/users/{userId}/follows'
+And param userId = '{some-user-id}'
+When method get
+Then status 200
+
+def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+```
+
+Note that I did not make any changes to the original code, as it appears to be already correct and well-formatted.
+2025-01-31 13:00:26,020 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET_verified.feature
+2025-01-31 13:00:26,021 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET.feature: Here is the modified Karate DSL code snippet:
+
+```
+Feature: Test API for User Follows Endpoint with Potential Broken Authentication/Authorization Vulnerability
+
+Background:
+* url 'http://oas_instagram.api'
+
+Scenario: Attempt to access user follows without authentication
+Given path '/users/{userId}/follows'
+And param userId = '{some-user-id}'
+When method get
+Then status 401
+And match response contains "Error: Unauthorized"
+
+Scenario: Authenticate and then attempt to access user follows without proper authorization
+* def token = 'Bearer <user_token>'
+Given header Authorization = token
+And path '/users/{userId}/follows'
+And param userId = '{some-user-id}'
+When method get
+Then status 403
+And match response contains "Error: You are not authorized to access this resource"
+
+Scenario: Authenticate and then attempt to access another user's follows without proper authorization
+* def token = 'Bearer <user_token>'
+Given header Authorization = token
+And path '/users/{otherUserId}/follows'
+And param otherUserId = '{some-other-user-id}'
+When method get
+Then status 403
+And match response contains "Error: You are not authorized to access this resource"
+
+Scenario: Authenticate and then attempt to access own follows without proper authorization (should be allowed)
+* def token = 'Bearer <user_token>'
+Given header Authorization = token
+And path '/users/{userId}/follows'
+And param userId = '{some-user-id}'
+When method get
+Then status 200
+
+def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+```
+
+Note that I did not make any changes to the original code, as it appears to be already correct and well-formatted.
+2025-01-31 13:00:26,021 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 13:00:26,022 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 13:00:26,060 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 13:00:26,061 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 13:06:18,106 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 13:06:18,107 - karate_llm_test_gen - INFO - Generated test case: Here are three Karate DSL scenarios:
+
+**Scenario: User Follow Functionality with Privacy Respect**
+`...
+2025-01-31 13:06:18,108 - __main__ - INFO - Generated Karate test for /users/{user-id}/followed-by GET at output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET.feature
+2025-01-31 13:06:18,108 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 13:06:18,108 - karate_compatibility_verifier - INFO - Here are three Karate DSL scenarios:
+
+**Scenario: User Follow Functionality with Privacy Respect**
+```json
+{
+    "feature": "User Follow Functionality with Privacy Respect",
+    "scenario": "Dynamically test the ability to follow a user, respecting their privacy settings",
+    "steps": [
+        "Given url http://oas_instagram.api/users/{publicUserId}/followed-by",
+        "* def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }",
+        "* def privateUserId = generateUserId()",
+        "* def publicUserId = generateUserId()",
+        "And request {}",
+        "When method get",
+        "Then status 200",
+        "And match response contains '{publicUserId} follows {privateUserId}'"
+    ]
+}
+```
+
+**Scenario: Authorization Bypass through User ID Enumeration**
+```json
+{
+    "feature": "Authorization Bypass: User ID Enumeration",
+    "scenario": "Detect and prevent unauthorized access through User ID enumeration",
+    "steps": [
+        "Given url http://oas_instagram.api/users/{userId}",
+        "And header Authorization = 'Bearer <user_token>'",
+        "When method get",
+        "Then status 403",
+        "And match response contains 'Unauthorized access attempt detected.'"
+    ]
+}
+```
+
+**Scenario: OAuth Token Generation Flaw**
+```json
+{
+    "feature": "Test API for OAuth Token Generation Flaw",
+    "scenario": "Attempt to exploit OAuth token generation with a stolen authorization code",
+    "steps": [
+        "Given url http://oas_instagram.api/oauth/token",
+        "And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }",
+        "When method post",
+        "Then status 400",
+        "And match response contains 'Invalid grant: authorization code is invalid'"
+    ]
+}
+```
+
+Note that these scenarios are designed to test for potential Broken Authentication/Authorization vulnerabilities in the API. The first scenario tests the user follow functionality and ensures it respects privacy settings, while the second scenario attempts to bypass authentication through User ID enumeration. The third scenario simulates an OAuth token generation flaw by attempting to use a stolen authorization code.
+2025-01-31 13:12:51,888 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 13:12:51,889 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts:
+
+```feature
+Feature: User Follow Functionality with Privacy Respect
+
+Background:
+  * url 'http://oas_instagram.api'
+
+Scenario: Dynamically test the ability to follow a user, respecting their privacy settings
+  Given path '/users/{publicUserId}/followed-by'
+  And def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+  And def privateUserId = generateUserId()
+  And def publicUserId = generateUserId()
+  When method get
+  Then status 200
+  And match response contains '{publicUserId} follows {privateUserId}'
+```
+
+```feature
+Feature: Authorization Bypass: User ID Enumeration
+
+Background:
+  * url 'http://oas_instagram.api'
+
+Scenario: Detect and prevent unauthorized access through User ID enumeration
+  Given path '/users/{userId}'
+  And header Authorization = 'Bearer <user_token>'
+  When method get
+  Then status 403
+  And match response contains 'Unauthorized access attempt detected.'
+```
+
+```feature
+Feature: Test API for OAuth Token Generation Flaw
+
+Background:
+  * url 'http://oas_instagram.api'
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+  Given path '/oauth/token'
+  And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+  When method post
+  Then status 400
+  And match response contains 'Invalid grant: authorization code is invalid'
+```
+2025-01-31 13:16:28,973 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 13:16:28,974 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts:
+
+```
+Feature: User Follow Functionality with Privacy Respect
+Background:
+* url 'http://oas_instagram.api'
+Scenario: Dynamically test the ability to follow a user, respecting their privacy settings
+  Given path '/users/{publicUserId}/followed-by'
+  And def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+  And def privateUserId = generateUserId()
+  And def publicUserId = generateUserId()
+  When method get
+  Then status 200
+  And match response contains '{publicUserId} follows {privateUserId}'
+```
+
+```
+Feature: Authorization Bypass: User ID Enumeration
+Background:
+* url 'http://oas_instagram.api'
+Scenario: Detect and prevent unauthorized access through User ID enumeration
+  Given path '/users/{userId}'
+  And header Authorization = 'Bearer <user_token>'
+  When method get
+  Then status 403
+  And match response contains 'Unauthorized access attempt detected.'
+```
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Background:
+* url 'http://oas_instagram.api'
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+  Given path '/oauth/token'
+  And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+  When method post
+  Then status 400
+  And match response contains 'Invalid grant: authorization code is invalid'
+```
+2025-01-31 13:16:28,974 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET_verified.feature
+2025-01-31 13:16:28,974 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET.feature: Here are the corrected Karate DSL scripts:
+
+```
+Feature: User Follow Functionality with Privacy Respect
+Background:
+* url 'http://oas_instagram.api'
+Scenario: Dynamically test the ability to follow a user, respecting their privacy settings
+  Given path '/users/{publicUserId}/followed-by'
+  And def generateUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+  And def privateUserId = generateUserId()
+  And def publicUserId = generateUserId()
+  When method get
+  Then status 200
+  And match response contains '{publicUserId} follows {privateUserId}'
+```
+
+```
+Feature: Authorization Bypass: User ID Enumeration
+Background:
+* url 'http://oas_instagram.api'
+Scenario: Detect and prevent unauthorized access through User ID enumeration
+  Given path '/users/{userId}'
+  And header Authorization = 'Bearer <user_token>'
+  When method get
+  Then status 403
+  And match response contains 'Unauthorized access attempt detected.'
+```
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Background:
+* url 'http://oas_instagram.api'
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+  Given path '/oauth/token'
+  And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+  When method post
+  Then status 400
+  And match response contains 'Invalid grant: authorization code is invalid'
+```
+2025-01-31 13:16:28,975 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-31 13:16:28,977 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-31 13:16:31,684 - __main__ - INFO - Skipping karate test run.

@@ -1,0 +1,73 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/admin.conversations.restrictAccess.addGroup",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel_id": {
+              "description": "The channel to link this group to.",
+              "type": "string"
+            },
+            "group_id": {
+              "description": "The [IDP Group](https://slack.com/help/articles/115001435788-Connect-identity-provider-groups-to-your-Enterprise-Grid-org) ID to be an allowlist for the private channel.",
+              "type": "string"
+            },
+            "team_id": {
+              "description": "The workspace where the channel exists. This argument is required for channels only tied to one workspace, and optional for channels that are shared across an organization.",
+              "type": "string"
+            },
+            "token": {
+              "description": "Authentication token. Requires scope: `admin.conversations:write`",
+              "type": "string"
+            }
+          },
+          "required": [
+            "token",
+            "group_id",
+            "channel_id"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.",
+            "properties": {
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "Default error template",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

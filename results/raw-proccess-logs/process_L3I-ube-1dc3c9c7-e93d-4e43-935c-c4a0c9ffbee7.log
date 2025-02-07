@@ -1,0 +1,405 @@
+2025-01-26 19:44:55,154 - __main__ - INFO - Skipping fragment creation: False
+2025-01-26 19:44:55,228 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-26 19:44:55,569 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"email": {"description": "Email address of the Uber user", "type": "string"}, "first_name": {"description": "First name of the Uber user.", "type": "string"}, "last_name": {"description": "Last name of the Uber user.", "type": "string"}, "picture": {"description": "Image URL of the Uber user.", "type": "string"}, "promo_code": {"description": "Promo code of the Uber user.", "type": "string"}}, "type": "object"}}}, "description": "Profile information for a user"}}}', 'metadata': {'filename': '0007_me_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Latitude component of start location.", "in": "query", "name": "start_latitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Longitude component of start location.", "in": "query", "name": "start_longitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Unique customer identifier to be used for experience customization.", "in": "query", "name": "customer_uuid", "schema": {"format": "uuid", "type": "string"}}, {"description": "Unique identifier representing a specific product for a given latitude & longitude.", "in": "query", "name": "product_id", "schema": {"type": "string"}}], "path": "/estimates/time", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"items": {"properties": {"capacity": {"description": "Capacity of product. For example, 4 people.", "type": "string"}, "description": {"description": "Description of product.", "type": "string"}, "display_name": {"description": "Display name of product.", "type": "string"}, "image": {"description": "Image URL representing the product.", "type": "string"}, "product_id": {"description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.", "type": "string"}}, "type": "object"}, "type": "array"}}}, "description": "An array of products"}}}', 'metadata': {'filename': '0005_estimates_time_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Latitude component of start location.", "in": "query", "name": "start_latitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Longitude component of start location.", "in": "query", "name": "start_longitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Unique customer identifier to be used for experience customization.", "in": "query", "name": "customer_uuid", "schema": {"format": "uuid", "type": "string"}}, {"description": "Unique identifier representing a specific product for a given latitude & longitude.", "in": "query", "name": "product_id", "schema": {"type": "string"}}], "path": "/estimates/time", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"schema": {"properties": {"code": {"format": "int32", "type": "integer"}, "fields": {"type": "string"}, "message": {"type": "string"}}, "type": "object"}}}, "description": "Unexpected error"}}}', 'metadata': {'filename': '0006_estimates_time_get_default.json'}}], form collection oas_uber_fragments
+2025-01-26 19:44:55,570 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 19:44:55,571 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 19:44:56,015 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 19:44:56,016 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 19:50:42,681 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 19:50:42,682 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-01-26 19:50:42,683 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_001_krtestoas_me_GET.feature
+2025-01-26 19:50:42,683 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 19:50:42,683 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```karate
+Feature: Test API for User Documents Access
+
+Scenario: Attempt to access a document without being an 'admin' or 'editor'
+Given url http://oas_uber.api/me
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this resource."
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url http://oas_uber.api/oauth/token
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+
+Feature: Test API for OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url http://oas_uber.api/oauth/authorize
+* def clientIds = ['knownClientId', '', ' OR 1=1', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain "Error"
+    }
+}
+```
+
+This script tests for potential Broken Authentication/Authorization vulnerabilities in the API endpoints. The first scenario checks if a regular user can access their own document without being an admin or editor, which should return a 403 error with a specific message. The second scenario attempts to exploit OAuth token generation by providing a stolen authorization code and checks that it returns a 400 error with an invalid grant message. The third scenario fuzz tests the OAuth authorization process for vulnerabilities by trying different client IDs and redirect URIs in the request, checking that each attempt does not return a 500 error or contain specific error messages.
+2025-01-26 19:57:30,546 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 19:57:30,547 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+
+```karate
+Feature: Test API for User Documents Access
+
+Scenario: Attempt to access a document without being an 'admin' or 'editor'
+Given url http://oas_uber.api/me
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this resource."
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url http://oas_uber.api/oauth/token
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+
+Feature: Test API for OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url http://oas_uber.api/oauth/authorize
+* def clientIds = ['knownClientId', '', ' OR 1=1', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status 200
+        And match response does not contain "Error"
+    }
+}
+```
+
+Note that I did not make any changes to the first two scenarios as they were already correct. The third scenario was corrected by changing `Then status != 500` and `And assert response does not contain "Error"` to `Then status 200` and `And match response does not contain "Error"`, respectively, since we are fuzz testing for vulnerabilities that do not return a 500 error or specific error messages.
+2025-01-26 20:01:43,949 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 20:01:43,950 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```karate
+Feature: Test API for User Documents Access
+
+Scenario: Attempt to access a document without being an  'admin' or 'editor'
+Given url http://oas_uber.api/me
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this resource."
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url http://oas_uber.api/oauth/token
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+
+Feature: Test API for OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url http://oas_uber.api/oauth/authorize
+* def clientIds = ['knownClientId', '', ' OR 1=1', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status 200
+        And match response does not contain "Error"
+    }
+}
+```
+2025-01-26 20:01:43,950 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_me_GET_verified.feature
+2025-01-26 20:01:43,950 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_me_GET.feature: Here is the corrected Karate DSL script:
+
+```karate
+Feature: Test API for User Documents Access
+
+Scenario: Attempt to access a document without being an  'admin' or 'editor'
+Given url http://oas_uber.api/me
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this resource."
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url http://oas_uber.api/oauth/token
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+
+Feature: Test API for OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url http://oas_uber.api/oauth/authorize
+* def clientIds = ['knownClientId', '', ' OR 1=1', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status 200
+        And match response does not contain "Error"
+    }
+}
+```
+2025-01-26 20:01:43,951 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 20:01:43,951 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 20:01:43,990 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 20:01:43,991 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 20:06:26,365 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 20:06:26,365 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-01-26 20:06:26,366 - __main__ - INFO - Generated Karate test for /estimates/time GET at output/karate_feature_files/ID_002_krtestoas_estimates_time_GET.feature
+2025-01-26 20:06:26,366 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 20:06:26,366 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```
+Feature: Test API for Estimates Time Access
+
+Scenario: Attempt to access estimates time without being authorized
+Given url 'http://oas_uber.api'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this estimate."
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+*
+switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Scenario: Attempt to exploit estimates time generation with a stolen authorization code
+Given url 'http://oas_uber.api/estimates/time'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.uber.com' }
+When method get
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+
+This test script checks for potential Broken Authentication/Authorization vulnerabilities by attempting to access the estimates time endpoint without being authorized and also attempts to exploit the API generation with a stolen authorization code.
+
+Please note that you need to replace `<regular_user_token>` with an actual regular user token, and `classpath:helpers/adminAccess.feature` should be replaced with your actual admin access feature file.
+2025-01-26 20:10:41,601 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 20:10:41,602 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+
+````
+Feature: Test API for Estimates Time Access
+
+Scenario: Attempt to access estimates time without being authorized
+Given url 'http://oas_uber.api'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this estimate."
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+*
+switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Scenario: Attempt to exploit estimates time generation with a stolen authorization code
+Given url 'http://oas_uber.api/estimates/time'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.uber.com' }
+When method get
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+2025-01-26 20:12:12,758 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 20:12:12,759 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for Estimates Time Access
+Scenario: Attempt to access estimates time without being authorized
+Given url 'http://oas_uber.api'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this estimate."
+
+Scenario: Attempt to exploit estimates time generation with a stolen authorization code
+Given url 'http://oas_uber.api/estimates/time'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.uber.com' }
+When method get
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+2025-01-26 20:12:12,759 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_estimates_time_GET_verified.feature
+2025-01-26 20:12:12,759 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_estimates_time_GET.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for Estimates Time Access
+Scenario: Attempt to access estimates time without being authorized
+Given url 'http://oas_uber.api'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this estimate."
+
+Scenario: Attempt to exploit estimates time generation with a stolen authorization code
+Given url 'http://oas_uber.api/estimates/time'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.uber.com' }
+When method get
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+2025-01-26 20:12:12,760 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 20:12:12,760 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 20:12:12,792 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 20:12:12,794 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 20:16:20,305 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 20:16:20,305 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-01-26 20:16:20,306 - __main__ - INFO - Generated Karate test for /estimates/time GET at output/karate_feature_files/ID_003_krtestoas_estimates_time_GET.feature
+2025-01-26 20:16:20,306 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 20:16:20,306 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```
+Feature: Test API for Estimates Time Access
+
+Scenario: Attempt to access estimates time without being authorized
+Given url 'http://oas_uber.api'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this estimate."
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+*
+switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Scenario: Attempt to exploit estimates time generation with a stolen authorization code
+Given url 'http://oas_uber.api/estimates/time'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.uber.com' }
+When method get
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+
+This test script checks for potential Broken Authentication/Authorization vulnerabilities by attempting to access the estimates time endpoint without being authorized and also attempts to exploit the API generation with a stolen authorization code.
+
+Please note that you need to replace `<regular_user_token>` with an actual regular user token, and `classpath:helpers/adminAccess.feature` should be replaced with your actual admin access feature file.
+2025-01-26 20:20:35,091 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 20:20:35,092 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+
+````
+Feature: Test API for Estimates Time Access
+
+Scenario: Attempt to access estimates time without being authorized
+Given url 'http://oas_uber.api'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this estimate."
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+*
+switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Scenario: Attempt to exploit estimates time generation with a stolen authorization code
+Given url 'http://oas_uber.api/estimates/time'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.uber.com' }
+When method get
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+2025-01-26 20:22:07,065 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 20:22:07,065 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for Estimates Time Access
+Scenario: Attempt to access estimates time without being authorized
+Given url 'http://oas_uber.api'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this estimate."
+
+Scenario: Attempt to exploit estimates time generation with a stolen authorization code
+Given url 'http://oas_uber.api/estimates/time'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.uber.com' }
+When method get
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+2025-01-26 20:22:07,065 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_estimates_time_GET_verified.feature
+2025-01-26 20:22:07,066 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_estimates_time_GET.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for Estimates Time Access
+Scenario: Attempt to access estimates time without being authorized
+Given url 'http://oas_uber.api'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this estimate."
+
+Scenario: Attempt to exploit estimates time generation with a stolen authorization code
+Given url 'http://oas_uber.api/estimates/time'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.uber.com' }
+When method get
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+2025-01-26 20:22:07,066 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-26 20:22:07,067 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-26 20:22:09,467 - __main__ - INFO - Skipping karate test run.

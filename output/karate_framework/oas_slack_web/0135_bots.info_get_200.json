@@ -1,0 +1,133 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `users:read`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Bot user to get info on",
+      "in": "query",
+      "name": "bot",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/bots.info",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "bot": {
+                  "app_id": "A161CLERW",
+                  "deleted": false,
+                  "icons": {
+                    "image_36": "https://...",
+                    "image_48": "https://...",
+                    "image_72": "https://..."
+                  },
+                  "id": "B061F7JD2",
+                  "name": "beforebot",
+                  "updated": 1449272004,
+                  "user_id": "U012ABCDEF"
+                },
+                "ok": true
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from bots.info method",
+            "properties": {
+              "bot": {
+                "additionalProperties": false,
+                "properties": {
+                  "app_id": {
+                    "pattern": "^A[A-Z0-9]{1,}$",
+                    "title": "App ID",
+                    "type": "string"
+                  },
+                  "deleted": {
+                    "type": "boolean"
+                  },
+                  "icons": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "image_36": {
+                        "format": "uri",
+                        "type": "string"
+                      },
+                      "image_48": {
+                        "format": "uri",
+                        "type": "string"
+                      },
+                      "image_72": {
+                        "format": "uri",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "image_36",
+                      "image_48",
+                      "image_72"
+                    ],
+                    "type": "object"
+                  },
+                  "id": {
+                    "pattern": "^B[A-Z0-9]{8,}$",
+                    "title": "Bot User ID",
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "updated": {
+                    "type": "integer"
+                  },
+                  "user_id": {
+                    "pattern": "^[UW][A-Z0-9]{2,}$",
+                    "title": "User ID",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "deleted",
+                  "name",
+                  "updated",
+                  "app_id",
+                  "icons"
+                ],
+                "type": "object"
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "bot"
+            ],
+            "title": "bots.info schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "When successful, returns bot info by bot ID."
+    }
+  }
+}

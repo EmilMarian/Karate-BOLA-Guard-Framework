@@ -1,0 +1,427 @@
+2025-01-26 03:34:15,182 - __main__ - INFO - Skipping fragment creation: False
+2025-01-26 03:34:15,265 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-26 03:34:15,497 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}, {"description": "", "in": "query", "name": "user_id", "required": true, "type": "string"}], "path": "/bot{token}/unbanChatMember", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0465_bottoken_unbanChatMember_get_401.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "formData", "name": "user_id", "required": true, "type": "integer"}, {"description": "", "in": "formData", "name": "name", "required": true, "type": "string"}, {"description": "", "in": "formData", "name": "png_sticker", "required": true, "type": "file"}, {"description": "", "in": "formData", "name": "emojis", "required": true, "type": "string"}, {"description": "Serialized to JSON MaskPosition", "in": "formData", "name": "mask_position", "required": false, "type": "string"}], "path": "/bot{token}/addStickerToSet", "requestBody": {}, "responses": {"200": {"description": "", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}, "result": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0001_bottoken_addStickerToSet_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "formData", "name": "user_id", "required": true, "type": "integer"}, {"description": "", "in": "formData", "name": "name", "required": true, "type": "string"}, {"description": "", "in": "formData", "name": "png_sticker", "required": true, "type": "file"}, {"description": "", "in": "formData", "name": "emojis", "required": true, "type": "string"}, {"description": "Serialized to JSON MaskPosition", "in": "formData", "name": "mask_position", "required": false, "type": "string"}], "path": "/bot{token}/addStickerToSet", "requestBody": {}, "responses": {"420": {"description": "Flood", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0006_bottoken_addStickerToSet_post_420.json'}}], form collection oas_telegram_fragments
+2025-01-26 03:34:15,498 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 03:34:15,499 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 03:34:15,946 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 03:34:15,946 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 03:37:59,748 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 03:37:59,749 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 03:37:59,750 - __main__ - INFO - Generated Karate test for /bot{token}/unbanChatMember GET at output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature
+2025-01-26 03:37:59,750 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 03:37:59,751 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `/bot{token}/unbanChatMember`:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Unban Chat Member API Endpoint
+  Scenario: Attempt to unban a chat member without proper authentication
+    Given url http://oas_telegram.api/bot{token}/unbanChatMember
+    And request {
+      "chatId": "1234567890",
+      "userId": "user123"
+    }
+  When method get
+  Then status code is 401
+  And match response contains "Unauthorized"
+```
+This test script checks if the API endpoint `/bot{token}/unbanChatMember` requires proper authentication by sending a GET request with an invalid token and checking for a 401 Unauthorized error. If the API does not require authentication, you can modify this test script to check for other types of vulnerabilities such as Broken Authorization or Improper Access Control.
+2025-01-26 03:41:31,250 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 03:41:31,250 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Unban Chat Member API Endpoint
+  Scenario: Attempt to unban a chat member without proper authentication
+    Given url http://oas_telegram.api/bot{token}/unbanChatMember
+    And request {
+      "chatId": "1234567890",
+      "userId": "user123"
+    }
+  When method get
+  Then status code is 401
+  And match response contains "Unauthorized"
+```
+2025-01-26 03:42:35,655 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 03:42:35,655 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Unban Chat Member API Endpoint
+  Scenario: Attempt to unban a chat member without proper authentication
+    Given url http://oas_telegram.api/bot{token}/unbanChatMember
+    And request {
+      "chatId": "1234567890",
+      "userId": "user123"
+    }
+  When method get
+  Then status code is 401
+  And match response contains "Unauthorized"
+```
+2025-01-26 03:42:35,656 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET_verified.feature
+2025-01-26 03:42:35,656 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature: Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Unban Chat Member API Endpoint
+  Scenario: Attempt to unban a chat member without proper authentication
+    Given url http://oas_telegram.api/bot{token}/unbanChatMember
+    And request {
+      "chatId": "1234567890",
+      "userId": "user123"
+    }
+  When method get
+  Then status code is 401
+  And match response contains "Unauthorized"
+```
+2025-01-26 03:42:35,656 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 03:42:35,657 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 03:42:35,689 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 03:42:35,689 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 03:47:19,190 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 03:47:19,190 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 03:47:19,191 - __main__ - INFO - Generated Karate test for /bot{token}/addStickerToSet POST at output/karate_feature_files/ID_002_krtestoas_bottoken_addStickerToSet_POST.feature
+2025-01-26 03:47:19,191 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 03:47:19,191 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities in the given API endpoint:
+```kotlin
+Feature: Test API for Broken Authentication/Authorization on Adding Stickers to Sets
+  Scenario: Attempt to add sticker to set without authentication
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 401
+  And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to add sticker to set with invalid authentication token
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 401
+  And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to add sticker to set with valid authentication token but invalid permissions
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 403
+  And match response contains 'Forbidden'
+  
+  Scenario: Attempt to add sticker to set with valid authentication token and permissions
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 200
+```
+Note: Replace `{token}` in the URL with your actual Telegram Bot Token.
+2025-01-26 03:52:49,647 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 03:52:49,647 - karate_compatibility_verifier - INFO - Feature: Test API for Broken Authentication/Authorization on Adding Stickers to Sets
+  Scenario: Attempt to add sticker to set without authentication
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 401
+  And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to add sticker to set with invalid authentication token
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 401
+  And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to add sticker to set with valid authentication token but invalid permissions
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 403
+  And match response contains 'Forbidden'
+  
+  Scenario: Attempt to add sticker to set with valid authentication token and permissions
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 200
+2025-01-26 03:55:42,312 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 03:55:42,312 - karate_compatibility_verifier - INFO - Feature: Test API for Broken Authentication/Authorization on Adding Stickers to Sets
+Scenario: Attempt to add sticker to set without authentication
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 401
+And match response contains 'Unauthorized'
+Scenario: Attempt to add sticker to set with invalid authentication token
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 401
+And match response contains 'Unauthorized'
+Scenario: Attempt to add sticker to set with valid authentication token but invalid permissions
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 403
+And match response contains 'Forbidden'
+Scenario: Attempt to add sticker to set with valid authentication token and permissions
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 200
+2025-01-26 03:55:42,313 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_bottoken_addStickerToSet_POST_verified.feature
+2025-01-26 03:55:42,313 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_bottoken_addStickerToSet_POST.feature: Feature: Test API for Broken Authentication/Authorization on Adding Stickers to Sets
+Scenario: Attempt to add sticker to set without authentication
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 401
+And match response contains 'Unauthorized'
+Scenario: Attempt to add sticker to set with invalid authentication token
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 401
+And match response contains 'Unauthorized'
+Scenario: Attempt to add sticker to set with valid authentication token but invalid permissions
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 403
+And match response contains 'Forbidden'
+Scenario: Attempt to add sticker to set with valid authentication token and permissions
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 200
+2025-01-26 03:55:42,313 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 03:55:42,314 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 03:55:42,346 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 03:55:42,347 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 04:00:26,893 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 04:00:26,894 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 04:00:26,894 - __main__ - INFO - Generated Karate test for /bot{token}/addStickerToSet POST at output/karate_feature_files/ID_003_krtestoas_bottoken_addStickerToSet_POST.feature
+2025-01-26 04:00:26,895 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 04:00:26,895 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities in the given API endpoint:
+```kotlin
+Feature: Test API for Broken Authentication/Authorization on Adding Stickers to Sets
+  Scenario: Attempt to add sticker to set without authentication
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 401
+  And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to add sticker to set with invalid authentication token
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 401
+  And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to add sticker to set with valid authentication token but invalid permissions
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 403
+  And match response contains 'Forbidden'
+  
+  Scenario: Attempt to add sticker to set with valid authentication token and permissions
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 200
+```
+Note: Replace `{token}` in the URL with your actual Telegram Bot Token.
+2025-01-26 04:05:58,672 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 04:05:58,672 - karate_compatibility_verifier - INFO - Feature: Test API for Broken Authentication/Authorization on Adding Stickers to Sets
+  Scenario: Attempt to add sticker to set without authentication
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 401
+  And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to add sticker to set with invalid authentication token
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 401
+  And match response contains 'Unauthorized'
+  
+  Scenario: Attempt to add sticker to set with valid authentication token but invalid permissions
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 403
+  And match response contains 'Forbidden'
+  
+  Scenario: Attempt to add sticker to set with valid authentication token and permissions
+    Given url http://oas_telegram.api/bot{token}/addStickerToSet
+    And request {
+      "stickerId": "12345",
+      "setId": "67890"
+    }
+  When method post
+  Then status 200
+2025-01-26 04:08:51,005 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 04:08:51,005 - karate_compatibility_verifier - INFO - Feature: Test API for Broken Authentication/Authorization on Adding Stickers to Sets
+Scenario: Attempt to add sticker to set without authentication
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 401
+And match response contains 'Unauthorized'
+Scenario: Attempt to add sticker to set with invalid authentication token
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 401
+And match response contains 'Unauthorized'
+Scenario: Attempt to add sticker to set with valid authentication token but invalid permissions
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 403
+And match response contains 'Forbidden'
+Scenario: Attempt to add sticker to set with valid authentication token and permissions
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 200
+2025-01-26 04:08:51,005 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_bottoken_addStickerToSet_POST_verified.feature
+2025-01-26 04:08:51,005 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_bottoken_addStickerToSet_POST.feature: Feature: Test API for Broken Authentication/Authorization on Adding Stickers to Sets
+Scenario: Attempt to add sticker to set without authentication
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 401
+And match response contains 'Unauthorized'
+Scenario: Attempt to add sticker to set with invalid authentication token
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 401
+And match response contains 'Unauthorized'
+Scenario: Attempt to add sticker to set with valid authentication token but invalid permissions
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 403
+And match response contains 'Forbidden'
+Scenario: Attempt to add sticker to set with valid authentication token and permissions
+Given url http://oas_telegram.api/bot{token}/addStickerToSet
+And request {
+"stickerId": "12345",
+"setId": "67890"
+}
+When method post
+Then status 200
+2025-01-26 04:08:51,006 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-26 04:08:51,008 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-26 04:08:54,130 - __main__ - INFO - Skipping karate test run.

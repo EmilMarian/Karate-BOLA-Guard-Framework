@@ -1,0 +1,113 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Similar to other List endpoints, filters results based on created timestamp. You can pass gt, gte, lt, and lte timestamp values.",
+      "explode": true,
+      "in": "query",
+      "name": "created",
+      "required": false,
+      "schema": {
+        "properties": {
+          "gt": {
+            "type": "integer"
+          },
+          "gte": {
+            "type": "integer"
+          },
+          "lt": {
+            "type": "integer"
+          },
+          "lte": {
+            "type": "integer"
+          }
+        },
+        "title": "created_param",
+        "type": "object"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A pagination cursor to fetch the previous page of the list. The value must be a ForwardingRequest ID.",
+      "in": "query",
+      "name": "ending_before",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A pagination cursor to fetch the next page of the list. The value must be a ForwardingRequest ID.",
+      "in": "query",
+      "name": "starting_after",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/forwarding/requests",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

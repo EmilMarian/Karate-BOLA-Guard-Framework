@@ -1,0 +1,115 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Name of repository owner.",
+      "in": "path",
+      "name": "owner",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Name of repository.",
+      "in": "path",
+      "name": "repo",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Number of issue.",
+      "in": "path",
+      "name": "number",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/repos/{owner}/{repo}/issues/{number}/labels",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "201": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "color": {
+                "maxLength": 6,
+                "minLength": 6,
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Created"
+    }
+  }
+}

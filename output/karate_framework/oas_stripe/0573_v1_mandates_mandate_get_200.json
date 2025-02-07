@@ -1,0 +1,146 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "mandate",
+      "required": true,
+      "schema": {
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/mandates/{mandate}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Mandate is a record of the permission that your customer gives you to debit their payment method.",
+            "properties": {
+              "customer_acceptance": {
+                "$ref": "#/components/schemas/customer_acceptance"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "multi_use": {
+                "$ref": "#/components/schemas/mandate_multi_use"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "mandate"
+                ],
+                "type": "string"
+              },
+              "on_behalf_of": {
+                "description": "The account (if any) that the mandate is intended for.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "payment_method": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/payment_method"
+                  }
+                ],
+                "description": "ID of the payment method associated with this mandate.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/payment_method"
+                    }
+                  ]
+                }
+              },
+              "payment_method_details": {
+                "$ref": "#/components/schemas/mandate_payment_method_details"
+              },
+              "single_use": {
+                "$ref": "#/components/schemas/mandate_single_use"
+              },
+              "status": {
+                "description": "The mandate status indicates whether or not you can use it to initiate a payment.",
+                "enum": [
+                  "active",
+                  "inactive",
+                  "pending"
+                ],
+                "type": "string"
+              },
+              "type": {
+                "description": "The type of the mandate.",
+                "enum": [
+                  "multi_use",
+                  "single_use"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "customer_acceptance",
+              "id",
+              "livemode",
+              "object",
+              "payment_method",
+              "payment_method_details",
+              "status",
+              "type"
+            ],
+            "title": "Mandate",
+            "type": "object",
+            "x-expandableFields": [
+              "customer_acceptance",
+              "multi_use",
+              "payment_method",
+              "payment_method_details",
+              "single_use"
+            ],
+            "x-resourceId": "mandate"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

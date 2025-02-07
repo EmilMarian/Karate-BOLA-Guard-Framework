@@ -1,0 +1,92 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.conversations.disconnectShared",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel_id": {
+              "description": "The channel to be disconnected from some workspaces.",
+              "type": "string"
+            },
+            "leaving_team_ids": {
+              "description": "The team to be removed from the channel. Currently only a single team id can be specified.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel_id"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from admin.conversations.disconnectShared",
+            "properties": {
+              "error": {
+                "enum": [
+                  "feature_not_enabled",
+                  "not_an_admin",
+                  "not_an_enterprise",
+                  "channel_not_found",
+                  "not_supported",
+                  "team_not_found",
+                  "restricted_action",
+                  "missing_scope",
+                  "leaving_team_not_in_channel",
+                  "no_teams_to_disconnect",
+                  "leaving_team_required",
+                  "cannot_kick_team",
+                  "cannot_kick_home_team"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "admin.conversations.disconnectShared error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

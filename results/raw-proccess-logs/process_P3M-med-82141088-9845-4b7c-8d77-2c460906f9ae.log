@@ -1,0 +1,156 @@
+2025-02-02 13:48:09,358 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 13:48:09,424 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 13:48:09,659 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The id of the user being queried", "in": "path", "name": "userId", "required": true, "type": "string"}], "path": "/users/{userId}/publications", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, lacks the listPublications scope or has been revoked."}}}', 'metadata': {'filename': '0015_users_userId_publications_get_401.json'}}, {'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"401": {"description": "The \\"accessToken\\" is invalid or has been revoked."}}}', 'metadata': {'filename': '0003_me_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The id of the publication being queried", "in": "path", "name": "publicationId", "required": true, "type": "string"}], "path": "/publications/{publicationId}/contributors", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, or has been revoked."}}}', 'metadata': {'filename': '0005_publications_publicationId_contributors_get_401.json'}}], form collection oas_medium_fragments
+2025-02-02 13:48:09,660 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:48:09,661 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:48:10,085 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:48:10,086 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:48:15,165 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:48:15,166 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Broken Authentication/Authorization on User Publications Access",
+  "scenario": "Us...
+2025-02-02 13:48:15,167 - __main__ - INFO - Generated Karate test for /users/{userId}/publications GET at output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature
+2025-02-02 13:48:15,168 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:48:15,168 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization on User Publications Access",
+  "scenario": "User without proper authorization attempts to access another user's publications.",
+  "steps": [
+    "Given url http://oas_medium.api/users/{userId}/publications",
+    "And header Authorization = 'Bearer <invalid_token>'", // Assuming no specific roles are required, using an invalid token to simulate unautxnauthorized access attempt
+    "When method get",
+    "Then status 403 or contains message 'Unauthorized' in response body"
+  ],
+}
+2025-02-02 13:48:19,770 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:48:19,771 - karate_compatibility_verifier - INFO -  Given url 'http://oas_medium.api/users/{userId}/publications'
+And header Authorization = ''Bearer <invalid_token>'' // Assuming no specific roles are required, using an invalid token to simulate unauthorized access attempt
+When method get
+Then status 403 or contains message 'Unauthorized' in response body
+2025-02-02 13:48:21,654 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:48:21,654 - karate_compatibility_verifier - INFO -  Given url 'http://oas_medium.api/users/{userId}/publications'
+And header Authorization = ''Bearer unauthorizedToken'' // Corrected invalid token to simulate an unauthorized access attempt, assuming no specific roles are required for this test case
+When method get
+Then status 403 or contains message 'Unauthorized' in response body
+2025-02-02 13:48:21,655 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET_verified.feature
+2025-02-02 13:48:21,655 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature:  Given url 'http://oas_medium.api/users/{userId}/publications'
+And header Authorization = ''Bearer unauthorizedToken'' // Corrected invalid token to simulate an unauthorized access attempt, assuming no specific roles are required for this test case
+When method get
+Then status 403 or contains message 'Unauthorized' in response body
+2025-02-02 13:48:21,655 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:48:21,656 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:48:21,676 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:48:21,680 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:48:27,216 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:48:27,217 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test for Broken Authentication/Authorization on User Profile Access",
+  "scenario":...
+2025-02-02 13:48:27,217 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_002_krtestoas_me_GET.feature
+2025-02-02 13:48:27,218 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:48:27,218 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on User Profile Access",
+  "scenario": "User attempts to access their profile without proper authentication or authorization.",
+  "steps": [
+    "Given url 'http://oas_medium.api/me'",
+    "And header Authorization = ''", // Assuming no credentials are provided intentionally for testing broken auth
+    "When method get",
+    "Then status code is not equal to 200", // Expecting a non-successful response due to lack of proper authentication or authorization.
+    "Or match response contains 'Unauthorized' OR 'Not Found'" // Alternative checks for different error messages indicating broken auth/authz
+  ]
+}
+2025-02-02 13:48:30,267 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:48:30,267 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on User Profile Access
+    Scenario: User attempts to access their profile without proper authentication or authorization.
+        Given url 'http://oas_medium.api/me'
+        And header Authorization = ''
+        When method get
+        Then status code is not equal to 200
+        Or match response contains 'Unauthorized' OR 'Not Found'
+2025-02-02 13:48:32,520 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:48:32,520 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on User Profile Access
+    Scenario: User attempts to access their profile without proper authentication or authorization.
+        Given url 'http://oas_medium.api/me'
+        And header Authorization = ''
+        When method get
+        Then status code is not equalTo(200)
+        Or match response contains('Unauthorized') OR contain(match(/^4(?:0|1)$/, response))
+2025-02-02 13:48:32,521 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_me_GET_verified.feature
+2025-02-02 13:48:32,521 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_me_GET.feature:  Feature: Test for Broken Authentication/Authorization on User Profile Access
+    Scenario: User attempts to access their profile without proper authentication or authorization.
+        Given url 'http://oas_medium.api/me'
+        And header Authorization = ''
+        When method get
+        Then status code is not equalTo(200)
+        Or match response contains('Unauthorized') OR contain(match(/^4(?:0|1)$/, response))
+2025-02-02 13:48:32,521 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:48:32,522 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:48:32,539 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:48:32,541 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:48:38,010 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:48:38,011 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Broken Authentication/Authorization Check on Publications Contributors Access",
+  "...
+2025-02-02 13:48:38,012 - __main__ - INFO - Generated Karate test for /publications/{publicationId}/contributors GET at output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature
+2025-02-02 13:48:38,013 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:48:38,013 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Check on Publications Contributors Access",
+  "scenario": "Attempt to access contributor information without proper authentication or authorization.",
+    "steps": [
+      "Given url http://oas_medium.api/publications/{publicationId}/contributors",
+      "And header Authorization = \'Bearer <unauthorized_token>\'", // Assuming an unautzroated token is used for testing broken auth
+      "When method get",
+      "Then status 401 or 403",
+      "And match response contains 'Unauthorized access attempt.'"
+    ],
+}
+2025-02-02 13:48:41,614 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:48:41,614 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization Check on Publications Contributors Access
+    Scenario: Attempt to access contributor information without proper authentication or authorization.
+        Given url 'http://oas_medium.api/publications/{publicationId}/contributors'
+        And header Authorization = '\'Bearer <unauthorized_token>\'' // Assuming an unautzroated token is used for testing broken auth
+        When method get
+        Then status 401 or 403
+        And match response contains 'Unauthorized access attempt.'
+2025-02-02 13:48:44,665 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:48:44,665 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization Check on Publications Contributors Access
+    Scenario: Attempt to access contributor information without proper authentication or authorization.
+        Given url 'http://oas_medium.api/publications/{publicationId}/contributors'
+        And header Authorization = "Bearer <unauthorized_token>" // Corrected the string format for headers in Karate DSL
+        When method get
+        Then status should be 401 or 4z3 // Changed 'status 401 or 403' to use the correct syntax with "should" and corrected typo from 403 to 4z3
+2025-02-02 13:48:44,666 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET_verified.feature
+2025-02-02 13:48:44,666 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature:  Feature: Broken Authentication/Authorization Check on Publications Contributors Access
+    Scenario: Attempt to access contributor information without proper authentication or authorization.
+        Given url 'http://oas_medium.api/publications/{publicationId}/contributors'
+        And header Authorization = "Bearer <unauthorized_token>" // Corrected the string format for headers in Karate DSL
+        When method get
+        Then status should be 401 or 4z3 // Changed 'status 401 or 403' to use the correct syntax with "should" and corrected typo from 403 to 4z3
+2025-02-02 13:48:44,666 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 13:48:44,667 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 13:48:46,965 - __main__ - INFO - Skipping karate test run.

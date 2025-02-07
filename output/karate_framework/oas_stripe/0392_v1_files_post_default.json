@@ -1,0 +1,117 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/files",
+  "requestBody": {
+    "content": {
+      "multipart/form-data": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "file_link_data": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "file": {
+              "description": "A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the `multipart/form-data` protocol.",
+              "format": "binary",
+              "type": "string"
+            },
+            "file_link_data": {
+              "description": "Optional parameters that automatically create a [file link](https://stripe.com/docs/api#file_links) for the newly created file.",
+              "properties": {
+                "create": {
+                  "type": "boolean"
+                },
+                "expires_at": {
+                  "format": "unix-time",
+                  "type": "integer"
+                },
+                "metadata": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "create"
+              ],
+              "title": "file_link_creation_params",
+              "type": "object"
+            },
+            "purpose": {
+              "description": "The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.",
+              "enum": [
+                "account_requirement",
+                "additional_verification",
+                "business_icon",
+                "business_logo",
+                "customer_signature",
+                "dispute_evidence",
+                "identity_document",
+                "issuing_regulatory_reporting",
+                "pci_document",
+                "tax_document_user_upload",
+                "terminal_reader_splashscreen"
+              ],
+              "type": "string",
+              "x-stripeBypassValidation": true
+            }
+          },
+          "required": [
+            "file",
+            "purpose"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

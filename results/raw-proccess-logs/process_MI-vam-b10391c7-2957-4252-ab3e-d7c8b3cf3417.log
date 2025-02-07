@@ -1,0 +1,245 @@
+2025-02-02 14:39:48,025 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 14:39:48,107 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 14:39:48,335 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/users/v1/register", "requestBody": {"content": {"application/json": {"schema": {"properties": {"email": {"example": "user@tempmail.com", "type": "string"}, "password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Successfully registered. Login to receive an auth token.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully created user"}}}', 'metadata': {'filename': '0005_users_v1_register_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"auth_token": {"example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw", "type": "string"}, "message": {"example": "Successfully logged in.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully logged in user"}}}', 'metadata': {'filename': '0007_users_v1_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Password is not correct for the given username.", "type": "string"}, "status": {"enum": ["fail"], "example": "fail", "type": "string"}}, "type": "object"}}}, "description": "Invalid request"}}}', 'metadata': {'filename': '0008_users_v1_login_post_400.json'}}], form collection oas_vampi_fragments
+2025-02-02 14:39:48,336 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:39:48,337 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:39:48,755 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:39:48,756 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:40:00,078 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:40:00,079 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script that checks for potential Broken Authentication/Authorization vuln...
+2025-02-02 14:40:00,079 - __main__ - INFO - Generated Karate test for /users/v1/register POST at output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST.feature
+2025-02-02 14:40:00,080 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:40:00,080 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script that checks for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: Test API for User Registration Vulnerability
+  Scenario: Attempt to register with invalid credentials
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'invalid', password: 'password' }
+    When method post
+    Then status 403
+    And match response contains 'Invalid credentials'
+    
+  Scenario: Attempt to register with a valid username and invalid password
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'valid', password: 'invalid' }
+    When method post
+    Then status 403
+    And match response contains 'Invalid credentials'
+    
+  Scenario: Attempt to register with a valid username and valid password
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'valid', password: 'valid' }
+    When method post
+    Then status 201
+    And match response contains 'User registered successfully'
+```
+2025-02-02 14:40:11,509 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:40:11,509 - karate_compatibility_verifier - INFO -  Feature: Test API for User Registration Vulnerability
+```kotlin
+Feature: Test API for User Registration Vulnerability
+  Scenario: Attempt to register with invalid credentials
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'invalid', password: 'password' }
+    When method post
+    Then status 403
+    And match response contains 'Invalid credentials'
+    
+  Scenario: Attempt to register with a valid username and invalid password
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'valid', password: 'invalid' }
+    When method post
+    Then status 403
+    And match response contains 'Invalid credentials'
+    
+  Scenario: Attempt to register with a valid username and valid password
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'valid', password: 'valid' }
+    When method post
+    Then status 201
+    And match response contains 'User registered successfully'
+```
+2025-02-02 14:40:20,199 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:40:20,199 - karate_compatibility_verifier - INFO -  Feature: Test API for User Registration Vulnerability
+```kotlin
+Feature: Test API for User Registration Vulnerability
+  Scenario: Attempt to register with invalid credentials
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'invalid', password: 'password' }
+    When method post
+    Then status 403
+    And match response contains 'Invalid credentials'
+    
+  Scenario: Attempt to register with a valid username and invalid password
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'valid', password: 'invalid' }
+    When method post
+    Then status 403
+    And match response contains 'Invalid credentials'
+    
+  Scenario: Attempt to register with a valid username and valid password
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'valid', password: 'valid' }
+    When method post
+    Then status 201
+    And match response contains 'User registered successfully'
+```
+2025-02-02 14:40:20,200 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST_verified.feature
+2025-02-02 14:40:20,200 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST.feature:  Feature: Test API for User Registration Vulnerability
+```kotlin
+Feature: Test API for User Registration Vulnerability
+  Scenario: Attempt to register with invalid credentials
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'invalid', password: 'password' }
+    When method post
+    Then status 403
+    And match response contains 'Invalid credentials'
+    
+  Scenario: Attempt to register with a valid username and invalid password
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'valid', password: 'invalid' }
+    When method post
+    Then status 403
+    And match response contains 'Invalid credentials'
+    
+  Scenario: Attempt to register with a valid username and valid password
+    Given url http://oas_vampi.api/users/v1/register
+    And request { username: 'valid', password: 'valid' }
+    When method post
+    Then status 201
+    And match response contains 'User registered successfully'
+```
+2025-02-02 14:40:20,200 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:40:20,201 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:40:20,222 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:40:20,222 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:40:29,201 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:40:29,202 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:40:29,203 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST.feature
+2025-02-02 14:40:29,203 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:40:29,203 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/users/v1/login` endpoint:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to bypass authentication with invalid credentials
+    Given url "http://oas_vampi.api/users/v1/login"
+    And request { username: "invaliduser", password: "wrongpassword" }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+```
+This scenario tests whether the application responds with a generic error message when an invalid username and password are provided. This is an indication of Broken Authentication/Authorization vulnerabilities, as attackers can potentially use this information to enumerate valid usernames or brute-force their way into the system.
+2025-02-02 14:40:34,637 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:40:34,637 - karate_compatibility_verifier - INFO -  ```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to bypass authentication with invalid credentials
+    Given url "http://oas_vampi.api/users/v1/login"
+    And request { username: "invaliduser", password: "wrongpassword" }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+```
+2025-02-02 14:40:37,968 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:40:37,968 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to bypass authentication with invalid credentials
+Given url "http://oas\_vampi.api/users/v1/login"
+And request { username: "invaliduser", password: "wrongpassword" }
+When method post
+Then status 401
+And match response contains "Unauthorized"
+2025-02-02 14:40:37,969 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST_verified.feature
+2025-02-02 14:40:37,969 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST.feature:  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to bypass authentication with invalid credentials
+Given url "http://oas\_vampi.api/users/v1/login"
+And request { username: "invaliduser", password: "wrongpassword" }
+When method post
+Then status 401
+And match response contains "Unauthorized"
+2025-02-02 14:40:37,970 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:40:37,971 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:40:37,992 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:40:37,993 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:40:45,428 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:40:45,429 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:40:45,429 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST.feature
+2025-02-02 14:40:45,430 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:40:45,430 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user documents without proper authentication and authorization checks
+    Given url http://oas_vampi.api/users/v1/login
+    And request {
+      "username": "nonexistent_user",
+      "password": "Password123"
+    }
+    When method post
+    Then status 401
+    And match response contains("Incorrect username or password.")
+```
+2025-02-02 14:40:51,779 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:40:51,779 - karate_compatibility_verifier - INFO -  ```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user documents without proper authentication and authorization checks
+    Given url http://oas_vampi.api/users/v1/login
+    And request {
+      "username": "nonexistent_user",
+      "password": "Password123"
+    }
+    When method post
+    Then status 401
+    And match response contains("Incorrect username or password.")
+```
+2025-02-02 14:40:55,936 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:40:55,936 - karate_compatibility_verifier - INFO -  ```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user documents without proper authentication and authorization checks
+    Given url http://oas_vampi.api/users/v1/login
+    And request {
+      "username": "nonexistent_user",
+      "password": "Password123"
+    }
+    When method post
+    Then status 401
+    And match response contains("Incorrect username or password.")
+```
+2025-02-02 14:40:55,937 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST_verified.feature
+2025-02-02 14:40:55,937 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST.feature:  ```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user documents without proper authentication and authorization checks
+    Given url http://oas_vampi.api/users/v1/login
+    And request {
+      "username": "nonexistent_user",
+      "password": "Password123"
+    }
+    When method post
+    Then status 401
+    And match response contains("Incorrect username or password.")
+```
+2025-02-02 14:40:55,937 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 14:40:55,939 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 14:40:58,434 - __main__ - INFO - Skipping karate test run.

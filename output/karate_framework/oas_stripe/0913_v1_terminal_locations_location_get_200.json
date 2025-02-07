@@ -1,0 +1,146 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "location",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/terminal/locations/{location}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "anyOf": [
+              {
+                "description": "A Location represents a grouping of readers.\n\nRelated guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)",
+                "properties": {
+                  "address": {
+                    "$ref": "#/components/schemas/address"
+                  },
+                  "configuration_overrides": {
+                    "description": "The ID of a configuration that will be used to customize all readers in this location.",
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "display_name": {
+                    "description": "The display name of the location.",
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "Unique identifier for the object.",
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "livemode": {
+                    "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                    "type": "boolean"
+                  },
+                  "metadata": {
+                    "additionalProperties": {
+                      "maxLength": 500,
+                      "type": "string"
+                    },
+                    "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                    "type": "object"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value.",
+                    "enum": [
+                      "terminal.location"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "address",
+                  "display_name",
+                  "id",
+                  "livemode",
+                  "metadata",
+                  "object"
+                ],
+                "title": "TerminalLocationLocation",
+                "type": "object",
+                "x-expandableFields": [
+                  "address"
+                ],
+                "x-resourceId": "terminal.location"
+              },
+              {
+                "description": "",
+                "properties": {
+                  "deleted": {
+                    "description": "Always true for a deleted object",
+                    "enum": [
+                      true
+                    ],
+                    "type": "boolean"
+                  },
+                  "id": {
+                    "description": "Unique identifier for the object.",
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value.",
+                    "enum": [
+                      "terminal.location"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "deleted",
+                  "id",
+                  "object"
+                ],
+                "title": "TerminalLocationDeletedLocation",
+                "type": "object",
+                "x-expandableFields": [],
+                "x-resourceId": "deleted_terminal.location"
+              }
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

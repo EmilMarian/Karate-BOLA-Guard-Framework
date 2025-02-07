@@ -1,0 +1,123 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "test_clock",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/test_helpers/test_clocks/{test_clock}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A test clock enables deterministic control over objects in testmode. With a test clock, you can create\nobjects at a frozen time in the past or future, and advance to a specific future time to observe webhooks and state changes. After the clock advances,\nyou can either validate the current state of your scenario (and test your assumptions), change the current state of your scenario (and test more complex scenarios), or keep advancing forward in time.",
+            "properties": {
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "deletes_after": {
+                "description": "Time at which this clock is scheduled to auto delete.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "frozen_time": {
+                "description": "Time at which all objects belonging to this clock are frozen.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "name": {
+                "description": "The custom name supplied at creation.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "test_helpers.test_clock"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "The status of the Test Clock.",
+                "enum": [
+                  "advancing",
+                  "internal_failure",
+                  "ready"
+                ],
+                "type": "string"
+              },
+              "status_details": {
+                "$ref": "#/components/schemas/billing_clocks_resource_status_details_status_details"
+              }
+            },
+            "required": [
+              "created",
+              "deletes_after",
+              "frozen_time",
+              "id",
+              "livemode",
+              "object",
+              "status",
+              "status_details"
+            ],
+            "title": "TestClock",
+            "type": "object",
+            "x-expandableFields": [
+              "status_details"
+            ],
+            "x-resourceId": "test_helpers.test_clock"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,894 @@
+2025-02-02 17:59:04,234 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 17:59:04,297 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 17:59:04,616 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/customers/subscribers", "requestBody": {"content": {"application/json": {"schema": {"properties": {"date_created": {"description": "The date on which the subscriber was created.\\n", "format": "data-time", "type": "string"}, "date_modified": {"description": "The date on which the subscriber was modified.\\n", "format": "data-time", "type": "string"}, "email": {"description": "The email of the subscriber. Must be unique.\\n", "type": "string"}, "first_name": {"description": "The first name of the subscriber.\\n", "type": "string"}, "id": {"description": "The unique numeric ID of the subscriber; increments sequentially.\\n", "type": "integer"}, "last_name": {"description": "The last name of the subscriber.\\n", "type": "string"}, "order_id": {"description": "The ID of the source order, if source was an order.\\n", "type": "integer"}, "source": {"description": "The source of the subscriber. Values are: `storefront`, `order`, or `custom`.\\n", "type": "string"}}, "type": "object"}}}, "description": "`Subscriber` object\\n", "required": true}, "responses": {"422": {"content": {"application/json": {"schema": {"allOf": [{"$ref": "#/components/schemas/BaseError"}, {"properties": {"errors": {"$ref": "#/components/schemas/DetailedErrors"}}, "type": "object"}]}}}, "description": "The `Subscriber` was not valid. This is the result of missing required fields, or of invalid data. See the response for more details.\\n"}}}', 'metadata': {'filename': '0157_customers_subscribers_post_422.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/customers/subscribers", "requestBody": {"content": {"application/json": {"schema": {"properties": {"date_created": {"description": "The date on which the subscriber was created.\\n", "format": "data-time", "type": "string"}, "date_modified": {"description": "The date on which the subscriber was modified.\\n", "format": "data-time", "type": "string"}, "email": {"description": "The email of the subscriber. Must be unique.\\n", "type": "string"}, "first_name": {"description": "The first name of the subscriber.\\n", "type": "string"}, "id": {"description": "The unique numeric ID of the subscriber; increments sequentially.\\n", "type": "integer"}, "last_name": {"description": "The last name of the subscriber.\\n", "type": "string"}, "order_id": {"description": "The ID of the source order, if source was an order.\\n", "type": "integer"}, "source": {"description": "The source of the subscriber. Values are: `storefront`, `order`, or `custom`.\\n", "type": "string"}}, "type": "object"}}}, "description": "`Subscriber` object\\n", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"description": "Response payload for the Bigcommerce API.\\n", "properties": {"data": {"$ref": "#/components/schemas/Subscriber"}, "meta": {"$ref": "#/components/schemas/Meta"}}, "type": "object"}}}, "description": "A `Subscriber` object.\\n"}}}', 'metadata': {'filename': '0155_customers_subscribers_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/customers/subscribers", "requestBody": {"content": {"application/json": {"schema": {"properties": {"date_created": {"description": "The date on which the subscriber was created.\\n", "format": "data-time", "type": "string"}, "date_modified": {"description": "The date on which the subscriber was modified.\\n", "format": "data-time", "type": "string"}, "email": {"description": "The email of the subscriber. Must be unique.\\n", "type": "string"}, "first_name": {"description": "The first name of the subscriber.\\n", "type": "string"}, "id": {"description": "The unique numeric ID of the subscriber; increments sequentially.\\n", "type": "integer"}, "last_name": {"description": "The last name of the subscriber.\\n", "type": "string"}, "order_id": {"description": "The ID of the source order, if source was an order.\\n", "type": "integer"}, "source": {"description": "The source of the subscriber. Values are: `storefront`, `order`, or `custom`.\\n", "type": "string"}}, "type": "object"}}}, "description": "`Subscriber` object\\n", "required": true}, "responses": {"409": {"content": {"application/json": {"schema": {"allOf": [{"$ref": "#/components/schemas/BaseError"}, {"properties": {"errors": {"$ref": "#/components/schemas/DetailedErrors"}}, "type": "object"}]}}}, "description": "The `Subscriber` was in conflict with another subscriber. This is the result of duplicate unique values, such as `email`.\\n"}}}', 'metadata': {'filename': '0156_customers_subscribers_post_409.json'}}], form collection oas_bigecommerce_fragments
+2025-02-02 17:59:04,617 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 17:59:04,618 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 17:59:05,019 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 17:59:05,020 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 17:59:39,828 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 17:59:39,829 - karate_llm_test_gen - INFO - Generated test case: <think>
+Okay, so I need to create a Karate DSL test script for an API endpoint that's part of a shop...
+2025-02-02 17:59:39,830 - __main__ - INFO - Generated Karate test for /customers/subscribers POST at output/karate_feature_files/ID_001_krtestoas_customers_subscribers_POST.feature
+2025-02-02 17:59:39,831 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 17:59:39,831 - karate_compatibility_verifier - INFO - <think>
+Okay, so I need to create a Karate DSL test script for an API endpoint that's part of a shopping cart system. The endpoint is /customers/subscribers with POST method and no description or authentication specified.
+
+First, since there are no descriptions provided in the API spec, I should make sure my tests cover different possible scenarios without relying on specific details about what each parameter does. That way, even if someone adds new parameters later, our tests will still catch issues related to those endpoints.
+
+I remember that for POST requests with authentication challenges, a common vulnerability is an incorrect or missing body part in the request data. So I should test different possible values for key fields like username and password because they're often used as credentials during login or registration flows which might be connected through this endpoint.
+
+Also, since there's no description but we know it's related to customers and subscribers (like creating a new customer), maybe some parameters are optional in the API. Testing with empty data could help check if the system handles such cases gracefully without errors.
+
+I should also consider using different values for required fields like client_id or redirect_uri because sometimes these can be manipulated by attackers, even when they're supposed to come from legitimate sources. For example, an attacker might try to inject malicious scripts into those parameters through query strings or body data if the API isn't properly sanitized and validated.
+
+Another thing is to check that certain attributes are present in the response since missing required information could indicate a flaw where sensitive data like session IDs aren’t being returned correctly when they should be. This can help prevent CSRF attacks by ensuring necessary tokens are included in every request, even for unauthorized users.
+
+I need to structure each test case with clear steps: given the URL and parameters, make requests under different scenarios (like missing required fields or invalid values), check if certain conditions trigger errors or unexpected behavior, and then assert whether those issues were resolved based on responses from the API. 
+
+By covering these aspects systematically using Karate DSL syntax for each scenario, I can ensure thorough testing of potential vulnerabilities without relying too much on specific details that might change over time.
+</think>
+
+Here is a step-by-step explanation along with the corresponding Karate DSL test script:
+
+---
+
+**Step 1: Identify Key Scenarios**
+
+Since there are no descriptions or authentication specified in the API spec for `/customers/subscribers`, we'll assume it's part of an existing system (e.g., shopping cart) and focus on potential vulnerabilities related to POST requests, missing parameters, empty data validation, and malicious query/HTTP body injection.
+
+**Step 2: Create Test Scenarios**
+
+1. **Test Scenario:** Verify proper handling when required fields are missing.
+   - **Description:** Ensure the API returns an error if any of its required fields (e.g., `username`, `password`) or parameters (`client_id`), etc., are omitted in a POST request.
+
+2. **Test Scenario:** Check for empty data validation vulnerabilities.
+   - **Description:** Test that the system doesn't process requests with missing, invalid, or improperly formatted JSON/HTTP body data without throwing appropriate errors.
+
+3. **Test Scenario:** Validate proper handling of malicious query string parameters.
+   - **Description:** Ensure the API rejects any unexpected or malicious values in query strings to prevent injection attacks (e.g., SQLi).
+
+4. **Test Scenario:** Verify that required fields are validated correctly when provided as empty data.
+   - **Description:** Test if providing an empty value for a required field results in appropriate error messages instead of processing invalid requests.
+
+5. **Test Scenario:** Check proper handling of malicious HTTP body injection attempts on certain parameters (e.g., `redirect_uri`, `client_id`).
+   - **Description:** Ensure the API rejects any injected scripts or values when they appear as part of a POST request's JSON/HTTP body for sensitive fields like `redirect_uri`.
+
+---
+
+**Step 3: Write Karate DSL Test Script**
+
+```kata
+# [feature]: "Test API for /customers/subscribers Vulnerability Check"
+[scenario]: "Check for potential Broken Authentication/Authorization vulnerabilities in /customers/subscribers endpoint"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        username: 'missing',
+        password: 'empty',
+        client_id: '',
+        redirect_uri: ''
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/subscribers - Verify Empty Data Handling"
+[scenario]: "Verify that the endpoint rejects empty data without proper validation"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        username: '',
+        password: 'empty',
+        client_id: null,
+        redirect_uri: ''
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub
+2025-02-02 18:00:14,738 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 18:00:14,738 - karate_compatibility_verifier - INFO - <think>
+Okay, so I need to create a Karate DSL test script for an API endpoint that's part of a shopping cart system. The endpoint is /customers/subscribers with POST method and no description or authentication specified.
+
+First, since there are no descriptions provided in the API spec, I should make sure my tests cover different possible scenarios without relying on specific details about what each parameter does. That way, even if someone adds new parameters later, our tests will still catch issues related to those endpoints.
+
+I remember that for POST requests with authentication challenges, a common vulnerability is an incorrect or missing body part in the request data. So I should test different possible values for key fields like username and password because they're often used as credentials during login or registration flows which might be connected through this endpoint.
+
+Also, since there's no description but we know it's related to customers and subscribers (like creating a new customer), maybe some parameters are optional in the API. Testing with empty data could help check if the system handles such cases gracefully without errors.
+
+I should also consider using different values for required fields like client_id or redirect_uri because sometimes these can be manipulated by attackers, even when they're supposed to come from legitimate sources. For example, an attacker might try to inject malicious scripts into those parameters through query strings or body data if the API isn't properly sanitized and validated.
+
+Another thing is to check that certain attributes are present in the response since missing required information could indicate a flaw where sensitive data like session IDs aren’t being returned correctly when they should be. This can help prevent CSRF attacks by ensuring necessary tokens are included in every request, even for unauthorized users.
+
+I need to structure each test case with clear steps: given the URL and parameters, make requests under different scenarios (like missing required fields or invalid values), check if certain conditions trigger errors or unexpected behavior, and then assert whether those issues were resolved based on responses from the API. 
+
+By covering these aspects systematically using Karate DSL syntax for each scenario, I can ensure thorough testing of potential vulnerabilities without relying too much on specific details that might change over time.
+</think>
+
+Here is a step-by-step explanation along with the corresponding Karate DSL test script:
+
+---
+
+**Step 1: Identify Key Scenarios**
+
+Since there are no descriptions or authentication specified in the API spec for `/customers/subscribers`, we'll assume it's part of an existing system (e.g., shopping cart) and focus on potential vulnerabilities related to POST requests, missing parameters, empty data validation, and malicious injection attempts.
+
+**Step 2: Create Test Scenarios**
+
+1. **Test Scenario:** Verify proper handling when required fields are omitted.
+   - **Description:** Ensure the API returns an error if any of its required fields (e.g., `username`, `password`) or parameters (`client_id`), etc., are missing in a POST request.
+
+2. **Test Scenario:** Check for empty data validation vulnerabilities.
+   - **Description:** Test that the system rejects requests with invalid JSON/HTTP body, such as missing keys like `client_id`.
+
+3. **Test Scenario:** Validate proper handling of malicious query string parameters.
+   - **Description:** Ensure the API rejects any unexpected or malicious values in query strings to prevent injection attacks (e.g., SQLi).
+
+4. **Test Scenario:** Verify that required fields are validated correctly when provided as empty data.
+   - **Description:** Test if providing an empty value for a required field results in appropriate error messages instead of processing invalid requests.
+
+5. **Test Scenario:** Check proper handling of malicious HTTP body injection attempts on certain parameters (e.g., `redirect_uri`, `client_id`).
+   - **Description:** Ensure the API rejects any injected scripts or values when they appear as part of a POST request's JSON/HTTP body for sensitive fields like `redirect_uri`.
+
+---
+
+**Step 3: Write Karate DSL Test Script**
+
+```kata
+# [feature]: "Test API for /customers/subscribers Vulnerability Check"
+[scenario]: "Check for potential Broken Authentication/Authorization vulnerabilities in /customers/subscribers endpoint"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        username: 'missing',
+        password: 'empty',
+        client_id: '',
+        redirect_uri: ''
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub subscribers - Verify Empty Data Handling"
+[scenario]: "Verify that the endpoint rejects empty data without proper validation"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        username: '',
+        password: 'empty',
+        client_id: null,
+        redirect_uri: ''
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub subscribers - Check Malicious Query String Injection"
+
+2025-02-02 18:00:49,688 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 18:00:49,688 - karate_compatibility_verifier - INFO - <think>
+Okay, so I'm trying to figure out how to create a Karate DSL test script for an API endpoint that's part of a shopping cart system. The endpoint is `/customers/subscribers` with POST method and no description or authentication specified.
+
+First off, since there are no descriptions provided in the API spec, it means we don't have detailed information about what each parameter does beyond their names. That makes testing tricky because if something changes later on (like adding new parameters), our tests might not catch those issues unless they're related to known endpoints.
+
+I remember that when dealing with POST requests without authentication headers or body parts like username and password, there's a higher risk of injection attacks compared to GET requests which are typically safe from such vulnerabilities. So I need to make sure my test cases cover scenarios where these parameters might be missing or have invalid values.
+
+Maybe some parameters in the API spec aren't described at all because they're inherited from another endpoint that has more detailed documentation. In those cases, it's important not to assume their behavior but instead treat them as potential points of failure if they change later on.
+
+I should also consider edge cases like providing empty data for required fields or malicious scripts injected into query parameters even though authentication isn't specified in the spec itself because sometimes attackers might try to bypass security measures through other means. 
+
+Another thing is ensuring that certain attributes are present in the response since missing information could indicate a flaw where sensitive data, such as session IDs, aren’t being returned correctly when they should be required for further processing.
+
+By structuring each test case with clear steps—given URL and parameters, make requests under different scenarios (like missing fields or invalid values), check if certain conditions trigger errors or unexpected behavior, then assert whether those issues were resolved based on responses from the API—we can systematically cover potential vulnerabilities without relying too much on specific details that might change over time.
+
+In summary, my approach is to:
+
+1. Identify key parameters and scenarios where they could be problematic.
+2. Create test cases for each identified scenario using Karate DSL syntax.
+3. Ensure tests are comprehensive but flexible enough to adapt if the API spec changes in the future.
+
+This way, I can help maintain security by catching potential issues early on without being too prescriptive about every possible parameter or field structure since that could lead to over-zealous validation and missed opportunities for legitimate users with valid data.
+</think>
+
+To address these considerations systematically, here's a structured Karate DSL test script:
+
+---
+
+**Step-by-Step Explanation:**
+
+1. **Identify Key Scenarios:**
+   - Test if required fields are properly validated when omitted or have invalid values.
+   - Ensure the API rejects malformed requests to prevent potential injection attacks on sensitive parameters.
+
+2. **Create Test Cases Using Karate DSL Syntax:**
+
+```kata
+# [feature]: "Test API for /customers/subscribers Vulnerability Check"
+[scenario]: "Check for Potential Broken Authentication/Authorization vulnerabilities in /customers/subscribers endpoint"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        username: 'missing',
+        password: 'empty',
+        client_id: '',
+        redirect_uri: ''
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub subscribers - Verify Empty Data Handling"
+[scenario]: "Verify that the endpoint rejects empty data without proper validation"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        username: '',
+        password: 'empty',
+        client_id: null,
+        redirect_uri: ''
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub subscribers - Check Malicious Query String Injection"
+[scenario]: "Check if the endpoint rejects malicious query string parameters"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        ?query_string: '{"username":"malicious","password":"script"}'
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub subscribers - Verify Sensitive Parameter Handling"
+[scenario]: "Ensure sensitive parameters like redirect_uri are validated correctly"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        username: 'testuser',
+        password: 'secret',
+        client_id: 'valid_client_id',
+        redirect_uri: '{"script":"evil"}'
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub subscribers - Check Required Fields"
+[scenario]: "Verify that all required fields are present in the request body"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+
+2025-02-02 18:00:49,689 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_customers_subscribers_POST_verified.feature
+2025-02-02 18:00:49,689 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_customers_subscribers_POST.feature: <think>
+Okay, so I'm trying to figure out how to create a Karate DSL test script for an API endpoint that's part of a shopping cart system. The endpoint is `/customers/subscribers` with POST method and no description or authentication specified.
+
+First off, since there are no descriptions provided in the API spec, it means we don't have detailed information about what each parameter does beyond their names. That makes testing tricky because if something changes later on (like adding new parameters), our tests might not catch those issues unless they're related to known endpoints.
+
+I remember that when dealing with POST requests without authentication headers or body parts like username and password, there's a higher risk of injection attacks compared to GET requests which are typically safe from such vulnerabilities. So I need to make sure my test cases cover scenarios where these parameters might be missing or have invalid values.
+
+Maybe some parameters in the API spec aren't described at all because they're inherited from another endpoint that has more detailed documentation. In those cases, it's important not to assume their behavior but instead treat them as potential points of failure if they change later on.
+
+I should also consider edge cases like providing empty data for required fields or malicious scripts injected into query parameters even though authentication isn't specified in the spec itself because sometimes attackers might try to bypass security measures through other means. 
+
+Another thing is ensuring that certain attributes are present in the response since missing information could indicate a flaw where sensitive data, such as session IDs, aren’t being returned correctly when they should be required for further processing.
+
+By structuring each test case with clear steps—given URL and parameters, make requests under different scenarios (like missing fields or invalid values), check if certain conditions trigger errors or unexpected behavior, then assert whether those issues were resolved based on responses from the API—we can systematically cover potential vulnerabilities without relying too much on specific details that might change over time.
+
+In summary, my approach is to:
+
+1. Identify key parameters and scenarios where they could be problematic.
+2. Create test cases for each identified scenario using Karate DSL syntax.
+3. Ensure tests are comprehensive but flexible enough to adapt if the API spec changes in the future.
+
+This way, I can help maintain security by catching potential issues early on without being too prescriptive about every possible parameter or field structure since that could lead to over-zealous validation and missed opportunities for legitimate users with valid data.
+</think>
+
+To address these considerations systematically, here's a structured Karate DSL test script:
+
+---
+
+**Step-by-Step Explanation:**
+
+1. **Identify Key Scenarios:**
+   - Test if required fields are properly validated when omitted or have invalid values.
+   - Ensure the API rejects malformed requests to prevent potential injection attacks on sensitive parameters.
+
+2. **Create Test Cases Using Karate DSL Syntax:**
+
+```kata
+# [feature]: "Test API for /customers/subscribers Vulnerability Check"
+[scenario]: "Check for Potential Broken Authentication/Authorization vulnerabilities in /customers/subscribers endpoint"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        username: 'missing',
+        password: 'empty',
+        client_id: '',
+        redirect_uri: ''
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub subscribers - Verify Empty Data Handling"
+[scenario]: "Verify that the endpoint rejects empty data without proper validation"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        username: '',
+        password: 'empty',
+        client_id: null,
+        redirect_uri: ''
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub subscribers - Check Malicious Query String Injection"
+[scenario]: "Check if the endpoint rejects malicious query string parameters"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        ?query_string: '{"username":"malicious","password":"script"}'
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub subscribers - Verify Sensitive Parameter Handling"
+[scenario]: "Ensure sensitive parameters like redirect_uri are validated correctly"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+    And request { 
+        username: 'testuser',
+        password: 'secret',
+        client_id: 'valid_client_id',
+        redirect_uri: '{"script":"evil"}'
+    }
+    When method post
+    Then status 400
+
+# [feature]: "Test API for /customers/sub subscribers - Check Required Fields"
+[scenario]: "Verify that all required fields are present in the request body"
+
+steps:
+    Given url http://oas_bigecommerce.api/customers/subscribers
+
+2025-02-02 18:00:49,690 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 18:00:49,690 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 18:00:49,755 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 18:00:49,756 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 18:01:24,698 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 18:01:24,699 - karate_llm_test_gen - INFO - Generated test case: <think>
+Okay, so I need to create a Karate DSL test script for an API endpoint. The given informatio...
+2025-02-02 18:01:24,700 - __main__ - INFO - Generated Karate test for /customers/subscribers POST at output/karate_feature_files/ID_002_krtestoas_customers_subscribers_POST.feature
+2025-02-02 18:01:24,700 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 18:01:24,700 - karate_compatibility_verifier - INFO - <think>
+Okay, so I need to create a Karate DSL test script for an API endpoint. The given information is about the /customers/subscribers path with POST method and no description or authentication specified.
+
+First, since there's no description provided in the API spec, that means it might be vulnerable because attackers can exploit missing security features like CSRF protection or proper authentication headers. I should focus on testing these areas to ensure they're secure against common vulnerabilities.
+
+Next, looking at the parameters for this endpoint: username and password are required fields but not specified here. Wait, no—the API path is /customers/subscribers with POST method—so maybe there's a form field like email or something else? Hmm, perhaps I need more information about what exactly is being sent in the request.
+
+Authentication isn't mentioned either, so that could be another point of attack since without proper authentication headers (like JWT), an attacker might inject malicious data. Also, if it doesn't have CSRF protection, a client-side injection could allow attackers to send forged requests with valid credentials or other sensitive information.
+
+I should structure the test scenarios around these potential issues: missing security tokens and lack of CSRF protection. Each scenario will involve sending different types of inputs that bypass authentication checks without proper validation.
+
+For each step in Karate DSL:
+- Given URL is http://oas_bigecommerce.api/customers/subscribers
+- For each scenario, define the parameters with malicious data or correct ones as needed.
+- Use assertions to check if expected errors occur when invalid data is sent. If no error occurs but it shouldn't be secure, that's a problem.
+
+I'll create two test cases:
+1. Test without any authentication headers: Send an empty form field and expect a 401 Unauthorized or similar response indicating missing auth.
+2. Fuzz the client_id parameter with malicious strings to see if the API returns errors instead of processing them as valid, which would indicate CSRF vulnerability.
+
+I need to make sure each test case is clear in its scenario description so that anyone reviewing it can understand what's being tested and why.
+
+Also, I should include a function for each assertion since Karate DSL requires functions like assertXXX to validate the results. This way, if any of these tests fail (i.e., no error occurs when one is expected), it indicates an actual vulnerability in the API that needs fixing.
+</think>
+
+```json
+{
+  "feature": "Test API for Broken Authentication/Authorization Vulnerabilities",
+  "scenario": "Check missing security tokens and lack of CSRF protection",
+  "steps": [
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"form\": { \"email\": "" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"client_id\": \'\', \"form\": { \"email\": \"test@example.com\" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"client_id\": \".\", \"form\": { \"email\": \"test@example.com\" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"client_id\": \".\", \"form\": { \"email\": \"test@example.com\" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"client_id\": \".\", \"form\": { \"email\": \"test@example.com\" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"client_id\": \".\", \"form\": { \"email\": \"test@example.com\" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_big
+2025-02-02 18:01:59,721 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 18:01:59,721 - karate_compatibility_verifier - INFO - <think>
+Okay, so I need to create a Karate DSL test script for an API endpoint. The given information is about the /customers/subscribers path with POST method and no description or authentication specified.
+
+First, since there's no description provided in the API spec, that means it might be vulnerable because attackers can exploit missing security features like CSRF protection or proper authentication headers. I should focus on testing these areas to ensure they're secure against common vulnerabilities.
+
+Next, looking at the parameters for this endpoint: username and password are required fields but not specified here. Wait, no—the API path is /customers/subscribers with POST method—so maybe there's a form field like email or something else? Hmm, perhaps I need more information about what exactly is being sent in the request.
+
+Authentication isn't mentioned either, so that could be another point of attack since without proper authentication headers (like JWT), an attacker might inject malicious data. Also, if it doesn't have CSRF protection, a client-side injection could allow attackers to send forged requests with valid credentials or other sensitive information.
+
+I should structure the test scenarios around these potential issues: missing security tokens and lack of CSRF protection. Each scenario will involve sending different types of inputs that bypass authentication checks without proper validation.
+
+For each step in Karate DSL:
+- Given URL is http://oas_bigecommerce.api/customers/subscribers
+- For each scenario, define the parameters with malicious data or correct ones as needed.
+- Use assertions to check if expected errors occur when invalid data is sent. If no error occurs but it shouldn't be secure, that's a problem.
+
+I'll create two test cases:
+1. Test without any authentication headers: Send an empty form field and expect a 401 Unauthorized or similar response indicating missing auth.
+2. Fuzz the client_id parameter with malicious strings to see if the API returns errors instead of processing them as valid, which would indicate CSRF vulnerability.
+
+I need to make sure each test case is clear in its scenario description so that anyone reviewing it can understand what's being tested and why.
+
+Also, I should include a function for each assertion since Karate DSL requires functions like assertXXX to validate the results. This way, if any of these tests fail (i.e., no error occurs when one is expected), it indicates an actual vulnerability in the API that needs fixing.
+</think>
+
+```json
+{
+  "feature": "Test API for Broken Authentication/Authorization Vulnerabilities",
+  "scenario": "Check missing security tokens and lack of CSRF protection",
+  "steps": [
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"form\": { \"email\": "" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"client_id\": \'\', \"form\": { \"email\": \"test@example.com\" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"client_id\": \".\", \"form\": { \"email\": \"test@example.com\" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"client_id\": \".\", \"form\": { \"email\": \"test@example.com\" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"client_id\": \".\", \"form\": { \"email\": \"test@example.com\" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_bigecommerce.api/customers/subscribers",
+      "And request { \"client_id\": \".\", \"form\": { \"email\": \"test@example.com\" } }",
+      "When method post",
+      "Then status != 201",
+      "And match response contains 'Missing or invalid token(s)'"
+    },
+    {
+      "Given url": "http://oas_big
+2025-02-02 18:02:26,181 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 18:02:26,181 - karate_compatibility_verifier - INFO - <think>
+Alright, let's break this down step by step.
+
+**Step 1: Understand the API Endpoint**
+
+We're dealing with an endpoint at `/customers/subscribers` which accepts POST requests. The parameters required are `username`, `email`, and `client_id`. However, there’s no mention of any authentication headers being sent in the request or response.
+
+**Step 2: Identify Potential Vulnerabilities**
+
+1. **Missing Authentication Headers:** Since there's no Authorization header included with the POST request, an attacker could potentially bypass this endpoint by sending a valid username and email without proper authentication.
+   
+2. **Lack of CSRF Protection:** Without any form of client-side validation or token checking (like JWT), an attacker might be able to inject malicious data into the `client_id` parameter.
+
+**Step 3: Create Test Scenarios**
+
+1. **Test Case 1 - Missing Authentication Headers**
+   - **Scenario:** Send a POST request without any authentication headers.
+   - **Expected Result:** The API should return a 401 Unauthorized status because it expects an Authorization header for access control.
+   
+2. **Test Case 2 - Fuzzing the Client ID Parameter**
+   - **Scenario:** Inject malicious values into the `client_id` parameter while keeping other required fields valid to test if the system correctly identifies and rejects invalid data without proper CSRF protection.
+
+**Step 4: Implement Karate DSL Tests**
+
+```json
+{
+  "feature": "Test API for Broken Authentication/Authorization Vulnerabilities",
+  
+  "scenario": "Check missing security tokens and lack of CSRF protection",
+  
+  "steps": [
+    {
+      "givenUrl": "http://oas_bigecommerce.api/customers/subscribers",
+      "andRequest": "{ \"form\": { \"email\": "" }}",
+      "whenMethod": "post",
+      "thenStatusShouldBe": ["401", "Unauthorized"],
+      "assertResponseContains": ["Missing or invalid token(s)"]
+    },
+    {
+      "givenUrl": "http://oas_bigecommerce.api/customers/subscribers",
+      "andRequest": "{ \"client_id\": \'\', \"form\": { \"email\": \"test@example.com\" }}",
+      "whenMethod": "post",
+      "thenStatusShouldBe": ["401", "Unauthorized"],
+      "assertResponseContains": ["Missing or invalid token(s)"]
+    },
+    {
+      "givenUrl": "http://oas_bigecommerce.api/customers/subscribers",
+      "andRequest": "{ \"client_id\": \".\", \"form\": { \"email\": \"test@example.com\" }}",
+      "whenMethod": "post",
+      "thenStatusShouldBe": ["401", "Unauthorized"],
+      "assertResponseContains": ["Missing or invalid token(s)"]
+    }
+  ]
+}
+```
+
+**Step 5: Explain the Tests**
+
+- **Test Case 1:** Ensures that sending a request without any authentication headers results in an unauthorized access error, indicating proper security measures.
+  
+- **Test Cases 2 & 3:** By injecting malicious data into `client_id`, we verify if the system correctly identifies and rejects such inputs. If no errors occur for these scenarios, it suggests potential CSRF vulnerabilities.
+
+**Step 6: Review and Refine**
+
+After running these tests:
+1. Check that all expected responses (401) are returned.
+2. Ensure any injected malicious data is properly rejected by checking the response messages contain "Missing or invalid token(s)".
+
+If any of these test cases fail, it indicates a real vulnerability in your API endpoint that needs immediate attention and fixing to secure against such attacks.
+2025-02-02 18:02:26,182 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_customers_subscribers_POST_verified.feature
+2025-02-02 18:02:26,182 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_customers_subscribers_POST.feature: <think>
+Alright, let's break this down step by step.
+
+**Step 1: Understand the API Endpoint**
+
+We're dealing with an endpoint at `/customers/subscribers` which accepts POST requests. The parameters required are `username`, `email`, and `client_id`. However, there’s no mention of any authentication headers being sent in the request or response.
+
+**Step 2: Identify Potential Vulnerabilities**
+
+1. **Missing Authentication Headers:** Since there's no Authorization header included with the POST request, an attacker could potentially bypass this endpoint by sending a valid username and email without proper authentication.
+   
+2. **Lack of CSRF Protection:** Without any form of client-side validation or token checking (like JWT), an attacker might be able to inject malicious data into the `client_id` parameter.
+
+**Step 3: Create Test Scenarios**
+
+1. **Test Case 1 - Missing Authentication Headers**
+   - **Scenario:** Send a POST request without any authentication headers.
+   - **Expected Result:** The API should return a 401 Unauthorized status because it expects an Authorization header for access control.
+   
+2. **Test Case 2 - Fuzzing the Client ID Parameter**
+   - **Scenario:** Inject malicious values into the `client_id` parameter while keeping other required fields valid to test if the system correctly identifies and rejects invalid data without proper CSRF protection.
+
+**Step 4: Implement Karate DSL Tests**
+
+```json
+{
+  "feature": "Test API for Broken Authentication/Authorization Vulnerabilities",
+  
+  "scenario": "Check missing security tokens and lack of CSRF protection",
+  
+  "steps": [
+    {
+      "givenUrl": "http://oas_bigecommerce.api/customers/subscribers",
+      "andRequest": "{ \"form\": { \"email\": "" }}",
+      "whenMethod": "post",
+      "thenStatusShouldBe": ["401", "Unauthorized"],
+      "assertResponseContains": ["Missing or invalid token(s)"]
+    },
+    {
+      "givenUrl": "http://oas_bigecommerce.api/customers/subscribers",
+      "andRequest": "{ \"client_id\": \'\', \"form\": { \"email\": \"test@example.com\" }}",
+      "whenMethod": "post",
+      "thenStatusShouldBe": ["401", "Unauthorized"],
+      "assertResponseContains": ["Missing or invalid token(s)"]
+    },
+    {
+      "givenUrl": "http://oas_bigecommerce.api/customers/subscribers",
+      "andRequest": "{ \"client_id\": \".\", \"form\": { \"email\": \"test@example.com\" }}",
+      "whenMethod": "post",
+      "thenStatusShouldBe": ["401", "Unauthorized"],
+      "assertResponseContains": ["Missing or invalid token(s)"]
+    }
+  ]
+}
+```
+
+**Step 5: Explain the Tests**
+
+- **Test Case 1:** Ensures that sending a request without any authentication headers results in an unauthorized access error, indicating proper security measures.
+  
+- **Test Cases 2 & 3:** By injecting malicious data into `client_id`, we verify if the system correctly identifies and rejects such inputs. If no errors occur for these scenarios, it suggests potential CSRF vulnerabilities.
+
+**Step 6: Review and Refine**
+
+After running these tests:
+1. Check that all expected responses (401) are returned.
+2. Ensure any injected malicious data is properly rejected by checking the response messages contain "Missing or invalid token(s)".
+
+If any of these test cases fail, it indicates a real vulnerability in your API endpoint that needs immediate attention and fixing to secure against such attacks.
+2025-02-02 18:02:26,182 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 18:02:26,183 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 18:02:26,198 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 18:02:26,199 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 18:02:52,270 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 18:02:52,271 - karate_llm_test_gen - INFO - Generated test case: <think>
+Okay, so I need to create a Karate DSL test script for the API endpoint /customers/subscribe...
+2025-02-02 18:02:52,272 - __main__ - INFO - Generated Karate test for /customers/subscribers POST at output/karate_feature_files/ID_003_krtestoas_customers_subscribers_POST.feature
+2025-02-02 18:02:52,272 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 18:02:52,272 - karate_compatibility_verifier - INFO - <think>
+Okay, so I need to create a Karate DSL test script for the API endpoint /customers/subscribers. The task mentions that if there's no description or authentication details provided in the original spec, we should use http://oas_bigecommerce.api with the path included each time.
+
+First, let me recall what Karate DSL is used for. It helps write automated security test cases by defining scenarios and steps concisely. For checking Broken Authentication/Authorization vulnerabilities, I need to consider common issues like incorrect grant types or invalid tokens leading to 403 Forbidden errors.
+
+Looking at the example provided earlier, each scenario starts with a feature name that includes "Test API for...". Then there's a scenario description explaining what it tests. The steps define given URLs and requests made under certain parameters, followed by expected responses.
+
+For this endpoint:
+- Path: /customers/subscribers
+- Method: POST
+
+I should think about possible ways an attacker might exploit authentication issues here. Common vulnerabilities include missing or incorrect authentication headers (like Authorization), using the wrong grant type in a token request, and providing invalid credentials leading to unauthorized access with 403 status.
+
+So I'll outline two scenarios:
+1. Testing if sending no Authorization header results in a forbidden response.
+2. Verifying that an incorrect grant_type returns a 400 Bad Request instead of allowing the request through or showing some other error message.
+
+I need to make sure each step uses http://oas_bigecommerce.api/customers/subscribers with POST method and includes parameters relevant to authentication issues, like headers for missing auth info or specific grant types that shouldn't be valid.
+
+In the first scenario, I'll send a request without any Authorization header. The expected response is 403 Forbidden because no auth was provided correctly.
+
+In the second scenario, I'll use an invalid grant_type (like 'invalid_grant') in the POST body and check if it results in a 400 Bad Request with appropriate error messages indicating authentication failure or other issues like incorrect token type.
+
+I should also ensure that each step includes assertions to validate responses. For example, checking for specific status codes and message contents as per the expected behavior.
+</think>
+
+**Test Case: Verify Broken Authentication/Authorization Vulnerabilities in /customers/subscribers Endpoint**
+
+---
+
+**Feature:** Test API for Broken Authentication/Authorization Vulnerabilities  
+**Scenario:** Ensure unauthorized access is denied when missing or incorrect authentication headers are provided.  
+
+**Steps:**  
+
+1. **Given URL:** `http://oas_bigecommerce.api/customers/subscribers`  
+2. **And request { grant_type: 'invalid_grant', username: 'testuser', password: 'testpass' }**:  
+   - **When method post**  
+   - **Then status 403**  
+   - **Match response contains:** "Unauthorized"  
+
+---
+
+**Test Case:** Verify Incorrect Grant Type Handling in /customers/subscribers Endpoint  
+
+---
+
+**Feature:** Test API for Broken Authentication/Authorization Vulnerabilities  
+**Scenario:** Ensure unauthorized access is denied when an invalid grant type is provided.  
+
+**Steps:**  
+
+1. **Given URL:** `http://oas_bigecommerce.api/customers/subscribers`  
+2. **And request { grant_type: 'invalid_grant', username: 'testuser', password: 'testpass' }**:  
+   - **When method post**  
+   - **Then status 400**  
+   - **Match response contains:** "Invalid grant type"  
+
+---
+
+These test cases ensure that unauthorized access is properly denied when missing or incorrect authentication information is provided, preventing potential security vulnerabilities.
+2025-02-02 18:03:06,294 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 18:03:06,294 - karate_compatibility_verifier - INFO - <think>
+Alright, let's break down how I approached creating the test cases.
+
+**Step 1: Understand the Requirements**
+
+I needed to verify that authentication/authorization vulnerabilities were correctly handled in the /customers/subscribers endpoint. Specifically:
+- Missing or incorrect headers should result in a forbidden response.
+- Invalid grant types should return an error instead of being allowed through.
+
+**Step 2: Identify Possible Scenarios**
+
+Two main scenarios came to mind:
+1. **Missing Authorization Header:** Sending a POST request without any authentication header would be unauthorized, expecting a 403 Forbidden.
+2. **Invalid Grant Type Request:** Providing an invalid grant_type in the token should result in an error response instead of being allowed.
+
+**Step 3: Structure Each Scenario**
+
+For each scenario:
+- Define the URL path and HTTP method (POST).
+- Include relevant parameters like headers or request body elements that mimic potential vulnerabilities.
+- Expect specific status codes and messages to validate security responses correctly.
+
+**Final Test Cases**
+</think>
+
+```kata
+Feature: Verify Broken Authentication/Authorization Vulnerabilities in /customers/subscribers Endpoint  
+
+Scenario 1 - Missing Authorization Header  
+Given path http://oas_bigecommerce.api/customers/subscribers  
+And request { username: 'testuser', password: 'testpass' }  
+When method post  
+Then status 403 Forbidden  
+Match response contains "Unauthorized"  
+
+Scenario 2 - Invalid Grant Type Request  
+Given path http://oas_bigecommerce.api/customers/subscribers  
+And request { grant_type: 'invalid_grant', username: 'testuser', password: 'testpass' }  
+When method post  
+Then status 400 Bad Request  
+Match response contains "Invalid grant type"  
+
+# Note to self:
+- Ensure that all scenarios use http://oas_bigecommerce.api/customers/subscribers
+```
+2025-02-02 18:03:20,183 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 18:03:20,184 - karate_compatibility_verifier - INFO - <think>
+Alright, let's break down how I approached creating the test cases.
+
+**Step 1: Understand the Requirements**
+
+I needed to verify that authentication/authorization vulnerabilities were correctly handled in the /customers/subscribers endpoint. Specifically:
+- Missing or incorrect headers should result in a forbidden response.
+- Invalid grant types should return an error instead of being allowed through.
+
+**Step 2: Identify Possible Scenarios**
+
+Two main scenarios came to mind:
+1. **Missing Authorization Header:** Sending a POST request without any authentication header would be unauthorized, expecting a 403 Forbidden.
+2. **Invalid Grant Type Request:** Providing an invalid grant_type in the token should result in an error response instead of being allowed.
+
+**Step 3: Structure Each Scenario**
+
+For each scenario:
+- Define the URL path and HTTP method (POST).
+- Include relevant parameters like headers or request body elements that mimic potential vulnerabilities.
+- Expect specific status codes and messages to validate security responses correctly.
+
+**Final Test Cases**
+```kata
+Feature: Verify Broken Authentication/Authorization Vulnerabilities in /customers/subscribers Endpoint  
+
+Scenario 1 - Missing Authorization Header  
+Given path http://oas_bigecommerce.api/customers/subscribers  
+And request { username: 'testuser', password: 'testpass' }  
+When method post  
+Then status 403 Forbidden  
+Match response contains "Unauthorized"  
+
+Scenario 2 - Invalid Grant Type Request  
+Given path http://oas_bigecommerce.api/customers/subscribers  
+And request { grant_type: 'invalid_grant', username: 'testuser', password: 'testpass' }  
+When method post  
+Then status 400 Bad Request  
+Match response contains "Invalid grant type"  
+
+# Note to self:
+- Ensure that all scenarios use http://oas_bigecommerce.api/customers/subscribers
+```
+2025-02-02 18:03:20,184 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_customers_subscribers_POST_verified.feature
+2025-02-02 18:03:20,184 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_customers_subscribers_POST.feature: <think>
+Alright, let's break down how I approached creating the test cases.
+
+**Step 1: Understand the Requirements**
+
+I needed to verify that authentication/authorization vulnerabilities were correctly handled in the /customers/subscribers endpoint. Specifically:
+- Missing or incorrect headers should result in a forbidden response.
+- Invalid grant types should return an error instead of being allowed through.
+
+**Step 2: Identify Possible Scenarios**
+
+Two main scenarios came to mind:
+1. **Missing Authorization Header:** Sending a POST request without any authentication header would be unauthorized, expecting a 403 Forbidden.
+2. **Invalid Grant Type Request:** Providing an invalid grant_type in the token should result in an error response instead of being allowed.
+
+**Step 3: Structure Each Scenario**
+
+For each scenario:
+- Define the URL path and HTTP method (POST).
+- Include relevant parameters like headers or request body elements that mimic potential vulnerabilities.
+- Expect specific status codes and messages to validate security responses correctly.
+
+**Final Test Cases**
+```kata
+Feature: Verify Broken Authentication/Authorization Vulnerabilities in /customers/subscribers Endpoint  
+
+Scenario 1 - Missing Authorization Header  
+Given path http://oas_bigecommerce.api/customers/subscribers  
+And request { username: 'testuser', password: 'testpass' }  
+When method post  
+Then status 403 Forbidden  
+Match response contains "Unauthorized"  
+
+Scenario 2 - Invalid Grant Type Request  
+Given path http://oas_bigecommerce.api/customers/subscribers  
+And request { grant_type: 'invalid_grant', username: 'testuser', password: 'testpass' }  
+When method post  
+Then status 400 Bad Request  
+Match response contains "Invalid grant type"  
+
+# Note to self:
+- Ensure that all scenarios use http://oas_bigecommerce.api/customers/subscribers
+```
+2025-02-02 18:03:20,184 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 18:03:20,186 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 18:03:22,814 - __main__ - INFO - Skipping karate test run.

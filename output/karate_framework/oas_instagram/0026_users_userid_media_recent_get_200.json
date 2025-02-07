@@ -1,0 +1,85 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of a user to get recent media of, or **self** to retrieve media of authenticated user.",
+      "in": "path",
+      "name": "user-id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Count of media to return.",
+      "in": "query",
+      "name": "count",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Return media before this UNIX timestamp.",
+      "in": "query",
+      "name": "max_timestamp",
+      "schema": {
+        "format": "int64",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Return media after this UNIX timestamp.",
+      "in": "query",
+      "name": "min_timestamp",
+      "schema": {
+        "format": "int64",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Return media later than this `min_id`.",
+      "in": "query",
+      "name": "min_id",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Return media earlier than this `max_id`.",
+      "in": "query",
+      "name": "max_id",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users/{user-id}/media/recent",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "List of media entries",
+                "items": {
+                  "$ref": "#/components/schemas/MediaEntry"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              },
+              "pagination": {
+                "$ref": "#/components/schemas/IdPaginationInfo"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Users media entries."
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "End of time range of logs to include in results (inclusive).",
+      "in": "query",
+      "name": "before",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "count",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "page",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/team.accessLogs",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "paid_only",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from team.accessLogs method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "paid_only",
+                  "over_pagination_limit",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "token_revoked",
+                  "no_permission",
+                  "org_login_required",
+                  "user_is_bot",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required",
+                  "fatal_error"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "team.accessLogs error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "A workspace must be on a paid plan to use this method, otherwise the `paid_only` error is thrown:"
+    }
+  }
+}

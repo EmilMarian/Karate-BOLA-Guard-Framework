@@ -1,0 +1,155 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/tax/transactions/create_reversal",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "line_items": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "shipping_cost": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "flat_amount": {
+              "description": "A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.",
+              "type": "integer"
+            },
+            "line_items": {
+              "description": "The line item amounts to reverse.",
+              "items": {
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "amount_tax": {
+                    "type": "integer"
+                  },
+                  "metadata": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "original_line_item": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "reference": {
+                    "maxLength": 500,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "amount",
+                  "amount_tax",
+                  "original_line_item",
+                  "reference"
+                ],
+                "title": "transaction_line_item_reversal",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "mode": {
+              "description": "If `partial`, the provided line item or shipping cost amounts are reversed. If `full`, the original transaction is fully reversed.",
+              "enum": [
+                "full",
+                "partial"
+              ],
+              "type": "string"
+            },
+            "original_transaction": {
+              "description": "The ID of the Transaction to partially or fully reverse.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "reference": {
+              "description": "A custom identifier for this reversal, such as `myOrder_123-refund_1`, which must be unique across all transactions. The reference helps identify this reversal transaction in exported [tax reports](https://stripe.com/docs/tax/reports).",
+              "maxLength": 500,
+              "type": "string"
+            },
+            "shipping_cost": {
+              "description": "The shipping cost to reverse.",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "amount_tax": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "amount",
+                "amount_tax"
+              ],
+              "title": "transaction_shipping_cost_reversal",
+              "type": "object"
+            }
+          },
+          "required": [
+            "mode",
+            "original_transaction",
+            "reference"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

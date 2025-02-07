@@ -1,0 +1,509 @@
+2025-01-26 04:36:15,621 - __main__ - INFO - Skipping fragment creation: False
+2025-01-26 04:36:15,685 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-26 04:36:15,913 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"email": {"description": "Email address of the Uber user", "type": "string"}, "first_name": {"description": "First name of the Uber user.", "type": "string"}, "last_name": {"description": "Last name of the Uber user.", "type": "string"}, "picture": {"description": "Image URL of the Uber user.", "type": "string"}, "promo_code": {"description": "Promo code of the Uber user.", "type": "string"}}, "type": "object"}}}, "description": "Profile information for a user"}}}', 'metadata': {'filename': '0007_me_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Latitude component of start location.", "in": "query", "name": "start_latitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Longitude component of start location.", "in": "query", "name": "start_longitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Unique customer identifier to be used for experience customization.", "in": "query", "name": "customer_uuid", "schema": {"format": "uuid", "type": "string"}}, {"description": "Unique identifier representing a specific product for a given latitude & longitude.", "in": "query", "name": "product_id", "schema": {"type": "string"}}], "path": "/estimates/time", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"items": {"properties": {"capacity": {"description": "Capacity of product. For example, 4 people.", "type": "string"}, "description": {"description": "Description of product.", "type": "string"}, "display_name": {"description": "Display name of product.", "type": "string"}, "image": {"description": "Image URL representing the product.", "type": "string"}, "product_id": {"description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.", "type": "string"}}, "type": "object"}, "type": "array"}}}, "description": "An array of products"}}}', 'metadata': {'filename': '0005_estimates_time_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Latitude component of start location.", "in": "query", "name": "start_latitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Longitude component of start location.", "in": "query", "name": "start_longitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Unique customer identifier to be used for experience customization.", "in": "query", "name": "customer_uuid", "schema": {"format": "uuid", "type": "string"}}, {"description": "Unique identifier representing a specific product for a given latitude & longitude.", "in": "query", "name": "product_id", "schema": {"type": "string"}}], "path": "/estimates/time", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"schema": {"properties": {"code": {"format": "int32", "type": "integer"}, "fields": {"type": "string"}, "message": {"type": "string"}}, "type": "object"}}}, "description": "Unexpected error"}}}', 'metadata': {'filename': '0006_estimates_time_get_default.json'}}], form collection oas_uber_fragments
+2025-01-26 04:36:15,914 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 04:36:15,914 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 04:36:16,338 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 04:36:16,338 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 04:39:54,352 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 04:39:54,353 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 04:39:54,354 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_001_krtestoas_me_GET.feature
+2025-01-26 04:39:54,354 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 04:39:54,355 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  Scenario: Attempt to access user data without proper authentication
+    Given url http://oas_uber.api/me
+    And request { method: GET }
+    When status is not 401
+      Then response contains "User not found"
+```
+This test script checks if the `/me` endpoint returns a `401 Unauthorized` status code when an unauthenticated user attempts to access it. If the status code returned is anything other than `401`, then there may be a Broken Authentication/Authorization vulnerability in the system.
+2025-01-26 04:42:29,016 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 04:42:29,017 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  Scenario: Attempt to access user data without proper authentication
+    Given url http://oas_uber.api/me
+    And request { method: GET }
+    When status is not 401
+      Then response contains "User not found"
+```
+2025-01-26 04:43:12,467 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 04:43:12,467 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  Scenario: Attempt to access user data without proper authentication
+    Given url http://oas_uber.api/me
+    And request { method: GET }
+    When status is not 401
+      Then response contains "User not found"
+```
+2025-01-26 04:43:12,467 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_me_GET_verified.feature
+2025-01-26 04:43:12,468 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_me_GET.feature: Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  Scenario: Attempt to access user data without proper authentication
+    Given url http://oas_uber.api/me
+    And request { method: GET }
+    When status is not 401
+      Then response contains "User not found"
+```
+2025-01-26 04:43:12,468 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 04:43:12,469 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 04:43:12,500 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 04:43:12,501 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 04:48:59,739 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 04:48:59,740 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 04:48:59,741 - __main__ - INFO - Generated Karate test for /estimates/time GET at output/karate_feature_files/ID_002_krtestoas_estimates_time_GET.feature
+2025-01-26 04:48:59,741 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 04:48:59,741 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `http://oas_uber.api/estimates/time`:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access estimates without authentication
+    Given url http://oas_uber.api/estimates/time
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with invalid credentials
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials but missing scope
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials and scope but missing token type
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials, scope, and token type but missing expiration time
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+      ExpiresIn: 1800
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+```
+Note that the above test script assumes that the API endpoint requires authentication using Basic Authentication and expects a token type of `Bearer`. You may need to modify the script based on your specific requirements.
+2025-01-26 04:54:43,187 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 04:54:43,187 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access estimates without authentication
+    Given url http://oas_uber.api/estimates/time
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with invalid credentials
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials but missing scope
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials and scope but missing token type
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials, scope, and token type but missing expiration time
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+      ExpiresIn: 1800
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+```
+2025-01-26 04:58:32,732 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 04:58:32,733 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is as follows:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access estimates without authentication
+    Given url http://oas_uber.api/estimates/time
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with invalid credentials
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials but missing scope
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials and scope but missing token type
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials, scope, and token type but missing expiration time
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+      ExpiresIn: 1800
+    }
+    When method get
+    Then status code is 200
+```
+2025-01-26 04:58:32,733 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_estimates_time_GET_verified.feature
+2025-01-26 04:58:32,733 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_estimates_time_GET.feature: The corrected Karate DSL script is as follows:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access estimates without authentication
+    Given url http://oas_uber.api/estimates/time
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with invalid credentials
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials but missing scope
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials and scope but missing token type
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials, scope, and token type but missing expiration time
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+      ExpiresIn: 1800
+    }
+    When method get
+    Then status code is 200
+```
+2025-01-26 04:58:32,733 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 04:58:32,734 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 04:58:32,764 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 04:58:32,765 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 05:04:29,186 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 05:04:29,187 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 05:04:29,187 - __main__ - INFO - Generated Karate test for /estimates/time GET at output/karate_feature_files/ID_003_krtestoas_estimates_time_GET.feature
+2025-01-26 05:04:29,188 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 05:04:29,188 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `http://oas_uber.api/estimates/time`:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access estimates without authentication
+    Given url http://oas_uber.api/estimates/time
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with invalid credentials
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials but missing scope
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials and scope but missing token type
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials, scope, and token type but missing expiration time
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+      ExpiresIn: 1800
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+```
+Note that the above test script assumes that the API endpoint requires authentication using Basic Authentication and expects a token type of `Bearer`. You may need to modify the script based on your specific requirements.
+2025-01-26 05:10:14,327 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 05:10:14,327 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access estimates without authentication
+    Given url http://oas_uber.api/estimates/time
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with invalid credentials
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials but missing scope
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials and scope but missing token type
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials, scope, and token type but missing expiration time
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+      ExpiresIn: 1800
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+```
+2025-01-26 05:14:02,714 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 05:14:02,714 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is as follows:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access estimates without authentication
+    Given url http://oas_uber.api/estimates/time
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with invalid credentials
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials but missing scope
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials and scope but missing token type
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials, scope, and token type but missing expiration time
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+      ExpiresIn: 1800
+    }
+    When method get
+    Then status code is 200
+```
+2025-01-26 05:14:02,714 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_estimates_time_GET_verified.feature
+2025-01-26 05:14:02,714 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_estimates_time_GET.feature: The corrected Karate DSL script is as follows:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access estimates without authentication
+    Given url http://oas_uber.api/estimates/time
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with invalid credentials
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials but missing scope
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials and scope but missing token type
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+    }
+    When method get
+    Then status code is 401
+    And match response contains "Unauthorized"
+  
+  Scenario: Attempt to access estimates with valid credentials, scope, and token type but missing expiration time
+    Given url http://oas_uber.api/estimates/time
+    And request {
+      Authorization: Basic YWRtaW46cGFzc3dvcmQ=
+      Scope: email
+      TokenType: Bearer
+      ExpiresIn: 1800
+    }
+    When method get
+    Then status code is 200
+```
+2025-01-26 05:14:02,714 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-26 05:14:02,716 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-26 05:14:05,665 - __main__ - INFO - Skipping karate test run.

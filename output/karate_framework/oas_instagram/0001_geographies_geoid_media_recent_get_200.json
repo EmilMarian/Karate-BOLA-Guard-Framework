@@ -1,0 +1,60 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The geography ID.",
+      "in": "path",
+      "name": "geo-id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Max number of media to return.",
+      "in": "query",
+      "name": "count",
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Return media before this `min_id`.",
+      "in": "query",
+      "name": "min_id",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/geographies/{geo-id}/media/recent",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "List of media entries",
+                "items": {
+                  "$ref": "#/components/schemas/MediaEntry"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              },
+              "pagination": {
+                "$ref": "#/components/schemas/IdPaginationInfo"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "List of recent media entries from a geography subscription."
+    }
+  }
+}

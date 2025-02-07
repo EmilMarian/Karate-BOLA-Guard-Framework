@@ -1,0 +1,174 @@
+2025-01-27 14:14:32,073 - __main__ - INFO - Skipping fragment creation: False
+2025-01-27 14:14:32,141 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-27 14:14:32,575 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/users/v1/register", "requestBody": {"content": {"application/json": {"schema": {"properties": {"email": {"example": "user@tempmail.com", "type": "string"}, "password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Successfully registered. Login to receive an auth token.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully created user"}}}', 'metadata': {'filename': '0005_users_v1_register_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"auth_token": {"example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw", "type": "string"}, "message": {"example": "Successfully logged in.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully logged in user"}}}', 'metadata': {'filename': '0007_users_v1_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Password is not correct for the given username.", "type": "string"}, "status": {"enum": ["fail"], "example": "fail", "type": "string"}}, "type": "object"}}}, "description": "Invalid request"}}}', 'metadata': {'filename': '0008_users_v1_login_post_400.json'}}], form collection vampi_fragments
+2025-01-27 14:14:32,575 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 14:14:32,576 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 14:14:33,027 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 14:14:33,027 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 14:18:14,355 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 14:18:14,357 - karate_llm_test_gen - INFO - Generated test case:  Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization ...
+2025-01-27 14:18:14,359 - __main__ - INFO - Generated Karate test for /users/v1/register POST at output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature
+2025-01-27 14:18:14,360 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 14:18:14,360 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `/users/v1/register`:
+```kotlin
+Feature: Broken Authentication/Authorization Test
+  Scenario: Attempt to register with invalid credentials
+    Given url http://oas_salesforce_partner_API.api/users/v1/register
+    And request {
+      "username": "invalid",
+      "password": "password"
+    }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+```
+This test script sends a POST request to the `/users/v1/register` endpoint with invalid credentials (an empty username and password). The expected result is a 401 Unauthorized status code, which indicates that the authentication failed. Additionally, the response should contain the text "Unauthorized".
+2025-01-27 14:21:22,744 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 14:21:22,745 - karate_compatibility_verifier - INFO -  ```kotlin
+Feature: Broken Authentication/Authorization Test
+  Scenario: Attempt to register with invalid credentials
+    Given url http://oas_salesforce_partner_API.api/users/v1/register
+    And request {
+      "username": "",
+      "password": ""
+    }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+```
+2025-01-27 14:22:12,860 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 14:22:12,861 - karate_compatibility_verifier - INFO -  Feature: Sample API Test
+Scenario: Basic GET request
+Given url 'https://api.example.com'
+And path '/users'
+When method GET
+Then status 200
+And match response == 'expectedResponse'
+2025-01-27 14:22:12,862 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST_verified.feature
+2025-01-27 14:22:12,863 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature:  Feature: Sample API Test
+Scenario: Basic GET request
+Given url 'https://api.example.com'
+And path '/users'
+When method GET
+Then status 200
+And match response == 'expectedResponse'
+2025-01-27 14:22:12,864 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 14:22:12,865 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 14:22:12,934 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 14:22:12,935 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 14:25:49,183 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 14:25:49,184 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-01-27 14:25:49,187 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature
+2025-01-27 14:25:49,188 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 14:25:49,189 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/users/v1/login` endpoint:
+```kotlin
+Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+    Given url http://oas_salesforce_partner_API.api/users/v1/login
+    And request { username: 'nonexistent_user', password: 'Password123' }
+    When method post
+    Then status 401
+    And match response contains('Incorrect username or password')
+```
+2025-01-27 14:28:52,437 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 14:28:52,437 - karate_compatibility_verifier - INFO -  Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+    Given url http://oas_salesforce_partner_API.api/users/v1/login
+    And request { username: 'nonexistent_user', password: 'Password123' }
+    When method post
+    Then status 401
+    And match response contains('Incorrect username or password')
+2025-01-27 14:29:58,330 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 14:29:58,330 - karate_compatibility_verifier - INFO -  Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+Given url http://oas\_salesforce\_partner\_API.api/users/v1/login
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains('Incorrect username or password')
+2025-01-27 14:29:58,331 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST_verified.feature
+2025-01-27 14:29:58,331 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature:  Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+Given url http://oas\_salesforce\_partner\_API.api/users/v1/login
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains('Incorrect username or password')
+2025-01-27 14:29:58,332 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 14:29:58,332 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 14:29:58,375 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 14:29:58,376 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 14:34:10,238 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 14:34:10,239 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-01-27 14:34:10,240 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST.feature
+2025-01-27 14:34:10,241 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 14:34:10,241 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/users/v1/login` endpoint:
+```kotlin
+Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify the /users/v1/login endpoint does not allow user enumeration
+    Given url http://oas_salesforce_partner_API.api/users/v1/login
+    And request { username: 'nonexistent_user', password: 'Password123' }
+    When method post
+    Then status 401
+    And match response contains('Incorrect username or password')
+    # Explanation: This scenario checks for user enumeration vulnerabilities by ensuring the application responds with generic error messages, thus preventing attackers from discerning valid usernames based on the error response.
+```
+Note that this script assumes that the `/users/v1/login` endpoint requires a username and password to authenticate, and that it returns an HTTP 401 Unauthorized status code when authentication fails. If your API has different requirements or response codes, you may need to modify the script accordingly.
+2025-01-27 14:37:55,213 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 14:37:55,214 - karate_compatibility_verifier - INFO -  ```kotlin
+Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify the /users/v1/login endpoint does not allow user enumeration
+    Given url http://oas_salesforce_partner_API.api/users/v1/login
+    And request { username: 'nonexistent_user', password: 'Password123' }
+    When method post
+    Then status 401
+    And match response contains('Incorrect username or password')
+```
+2025-01-27 14:38:48,391 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 14:38:48,391 - karate_compatibility_verifier - INFO -  Feature: Sample API Test
+
+Scenario: Basic GET request
+Given url 'https://api.example.com'
+And path '/users'
+When method GET
+Then status 200
+And match response == 'expectedResponse'
+2025-01-27 14:38:48,392 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST_verified.feature
+2025-01-27 14:38:48,392 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST.feature:  Feature: Sample API Test
+
+Scenario: Basic GET request
+Given url 'https://api.example.com'
+And path '/users'
+When method GET
+Then status 200
+And match response == 'expectedResponse'
+2025-01-27 14:38:48,392 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-27 14:38:48,412 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-27 14:38:51,066 - __main__ - INFO - Skipping karate test run.

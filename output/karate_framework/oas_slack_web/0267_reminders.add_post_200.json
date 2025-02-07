@@ -1,0 +1,112 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `reminders:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/reminders.add",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "text": {
+              "description": "The content of the reminder",
+              "type": "string"
+            },
+            "time": {
+              "description": "When this reminder should happen: the Unix timestamp (up to five years from now), the number of seconds until the reminder (if within 24 hours), or a natural language description (Ex. \"in 15 minutes,\" or \"every Thursday\")",
+              "type": "string"
+            },
+            "user": {
+              "description": "The user who will receive the reminder. If no user is specified, the reminder will go to user who created it.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "text",
+            "time"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from reminders.add method",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "reminder": {
+                "additionalProperties": false,
+                "properties": {
+                  "complete_ts": {
+                    "type": "integer"
+                  },
+                  "creator": {
+                    "$ref": "#/components/schemas/defs_user_id"
+                  },
+                  "id": {
+                    "$ref": "#/components/schemas/defs_reminder_id"
+                  },
+                  "recurring": {
+                    "type": "boolean"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "integer"
+                  },
+                  "user": {
+                    "$ref": "#/components/schemas/defs_user_id"
+                  }
+                },
+                "required": [
+                  "id",
+                  "creator",
+                  "user",
+                  "text",
+                  "recurring"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "ok",
+              "reminder"
+            ],
+            "title": "reminders.add schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

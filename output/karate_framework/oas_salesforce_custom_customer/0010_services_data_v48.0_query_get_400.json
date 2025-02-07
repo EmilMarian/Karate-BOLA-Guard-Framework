@@ -1,0 +1,45 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Q parameter",
+      "example": "SELECT+Id,WhoId,WhatId,StartDateTime,EndDateTime,Subject,Location,Status__c,Type,Owner.Name,Owner.Type,Site__r.Name,Site__c+FROM+Event+WHERE+Owner.Type!='User'+AND+Site__c='a083M000000EFK7QAO'",
+      "in": "query",
+      "name": "q",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/services/data/v48.0/query/",
+  "requestBody": {},
+  "responses": {
+    "400": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "errorMessage": {
+                "description": "Error Message",
+                "example": "Bad request, Cannot find a record, Unexpected exception, Required field missing",
+                "type": "string"
+              },
+              "statusCode": {
+                "description": "Status code",
+                "example": 400,
+                "type": "integer"
+              },
+              "success": {
+                "description": "Boolean to define whether the call was successfull or not",
+                "example": false,
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Bad Request"
+    }
+  }
+}

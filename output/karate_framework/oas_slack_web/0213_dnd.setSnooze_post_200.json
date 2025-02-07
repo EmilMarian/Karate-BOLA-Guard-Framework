@@ -1,0 +1,75 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/dnd.setSnooze",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "num_minutes": {
+              "description": "Number of minutes, from now, to snooze until.",
+              "type": "string"
+            },
+            "token": {
+              "description": "Authentication token. Requires scope: `dnd:write`",
+              "type": "string"
+            }
+          },
+          "required": [
+            "token",
+            "num_minutes"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from dnd.setSnooze method",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "snooze_enabled": {
+                "type": "boolean"
+              },
+              "snooze_endtime": {
+                "type": "integer"
+              },
+              "snooze_remaining": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "ok",
+              "snooze_enabled",
+              "snooze_endtime",
+              "snooze_remaining"
+            ],
+            "title": "dnd.setSnooze schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

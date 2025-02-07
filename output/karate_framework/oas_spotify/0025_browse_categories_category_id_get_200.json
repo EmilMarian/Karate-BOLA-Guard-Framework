@@ -1,0 +1,80 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid user access token or your client credentials.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The [Spotify category ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the category.",
+      "in": "path",
+      "name": "category_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A country: an [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). Provide this parameter to ensure that the category exists for a particular country.",
+      "in": "query",
+      "name": "country",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The desired language, consisting of an [ISO 639-1](http://en.wikipedia.org/wiki/ISO_639-1) language code and an [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), joined by an underscore. For example: `es_MX`, meaning \"Spanish (Mexico)\". Provide this parameter if you want the category strings returned in a particular language. Note that, if `locale` is not supplied, or if the specified language is not available, the category strings returned will be in the Spotify default language (American English).",
+      "in": "query",
+      "name": "locale",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/browse/categories/{category_id}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "externalDocs": {
+              "description": "Find more info on the official Spotify Web API Reference",
+              "url": "https://developer.spotify.com/documentation/web-api/reference/#object-categoryobject"
+            },
+            "properties": {
+              "href": {
+                "description": "A link to the Web API endpoint returning full details of the category.",
+                "type": "string"
+              },
+              "icons": {
+                "description": "The category icon, in various sizes.",
+                "items": {
+                  "$ref": "#/components/schemas/ImageObject"
+                },
+                "type": "array"
+              },
+              "id": {
+                "description": "The [Spotify category ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) of the category.",
+                "type": "string"
+              },
+              "name": {
+                "description": "The name of the category.",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the HTTP status code in the response header is `200` OK and the response body contains a [category object](#categoryobject) in JSON format. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema).\n\nOnce you have retrieved the category, you can use [Get a Category's Playlists](https://developer.spotify.com/web-api/get-categorys-playlists/) to drill down further."
+    }
+  }
+}

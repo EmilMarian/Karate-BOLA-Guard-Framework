@@ -1,0 +1,272 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The client secret of the source. Required if a publishable key is used to retrieve the source.",
+      "in": "query",
+      "name": "client_secret",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "source",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/sources/{source}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "`Source` objects allow you to accept a variety of payment methods. They\nrepresent a customer's payment instrument, and can be used with the Stripe API\njust like a `Card` object: once chargeable, they can be charged, or can be\nattached to customers.\n\nStripe doesn't recommend using the deprecated [Sources API](https://stripe.com/docs/api/sources).\nWe recommend that you adopt the [PaymentMethods API](https://stripe.com/docs/api/payment_methods).\nThis newer API provides access to our latest features and payment method types.\n\nRelated guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).",
+            "properties": {
+              "ach_credit_transfer": {
+                "$ref": "#/components/schemas/source_type_ach_credit_transfer"
+              },
+              "ach_debit": {
+                "$ref": "#/components/schemas/source_type_ach_debit"
+              },
+              "acss_debit": {
+                "$ref": "#/components/schemas/source_type_acss_debit"
+              },
+              "alipay": {
+                "$ref": "#/components/schemas/source_type_alipay"
+              },
+              "allow_redisplay": {
+                "description": "This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to \u201cunspecified\u201d.",
+                "enum": [
+                  "always",
+                  "limited",
+                  "unspecified"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "amount": {
+                "description": "A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for \u00a51, Japanese Yen being a zero-decimal currency) representing the total amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources.",
+                "nullable": true,
+                "type": "integer"
+              },
+              "au_becs_debit": {
+                "$ref": "#/components/schemas/source_type_au_becs_debit"
+              },
+              "bancontact": {
+                "$ref": "#/components/schemas/source_type_bancontact"
+              },
+              "card": {
+                "$ref": "#/components/schemas/source_type_card"
+              },
+              "card_present": {
+                "$ref": "#/components/schemas/source_type_card_present"
+              },
+              "client_secret": {
+                "description": "The client secret of the source. Used for client-side retrieval using a publishable key.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "code_verification": {
+                "$ref": "#/components/schemas/source_code_verification_flow"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready. Required for `single_use` sources.",
+                "format": "currency",
+                "nullable": true,
+                "type": "string"
+              },
+              "customer": {
+                "description": "The ID of the customer to which this source is attached. This will not be present when the source has not been attached to a customer.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "eps": {
+                "$ref": "#/components/schemas/source_type_eps"
+              },
+              "flow": {
+                "description": "The authentication `flow` of the source. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "giropay": {
+                "$ref": "#/components/schemas/source_type_giropay"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "ideal": {
+                "$ref": "#/components/schemas/source_type_ideal"
+              },
+              "klarna": {
+                "$ref": "#/components/schemas/source_type_klarna"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "nullable": true,
+                "type": "object"
+              },
+              "multibanco": {
+                "$ref": "#/components/schemas/source_type_multibanco"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "source"
+                ],
+                "type": "string"
+              },
+              "owner": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/source_owner"
+                  }
+                ],
+                "description": "Information about the owner of the payment instrument that may be used or required by particular source types.",
+                "nullable": true
+              },
+              "p24": {
+                "$ref": "#/components/schemas/source_type_p24"
+              },
+              "receiver": {
+                "$ref": "#/components/schemas/source_receiver_flow"
+              },
+              "redirect": {
+                "$ref": "#/components/schemas/source_redirect_flow"
+              },
+              "sepa_debit": {
+                "$ref": "#/components/schemas/source_type_sepa_debit"
+              },
+              "sofort": {
+                "$ref": "#/components/schemas/source_type_sofort"
+              },
+              "source_order": {
+                "$ref": "#/components/schemas/source_order"
+              },
+              "statement_descriptor": {
+                "description": "Extra information about a source. This will appear on your customer's statement every time you charge the source.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "status": {
+                "description": "The status of the source, one of `canceled`, `chargeable`, `consumed`, `failed`, or `pending`. Only `chargeable` sources can be used to create a charge.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "three_d_secure": {
+                "$ref": "#/components/schemas/source_type_three_d_secure"
+              },
+              "type": {
+                "description": "The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://stripe.com/docs/sources) used.",
+                "enum": [
+                  "ach_credit_transfer",
+                  "ach_debit",
+                  "acss_debit",
+                  "alipay",
+                  "au_becs_debit",
+                  "bancontact",
+                  "card",
+                  "card_present",
+                  "eps",
+                  "giropay",
+                  "ideal",
+                  "klarna",
+                  "multibanco",
+                  "p24",
+                  "sepa_debit",
+                  "sofort",
+                  "three_d_secure",
+                  "wechat"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "usage": {
+                "description": "Either `reusable` or `single_use`. Whether this source should be reusable or not. Some source types may or may not be reusable by construction, while others may leave the option at creation. If an incompatible value is passed, an error will be returned.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "wechat": {
+                "$ref": "#/components/schemas/source_type_wechat"
+              }
+            },
+            "required": [
+              "client_secret",
+              "created",
+              "flow",
+              "id",
+              "livemode",
+              "object",
+              "status",
+              "type"
+            ],
+            "title": "Source",
+            "type": "object",
+            "x-expandableFields": [
+              "code_verification",
+              "owner",
+              "receiver",
+              "redirect",
+              "source_order"
+            ],
+            "x-resourceId": "source"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

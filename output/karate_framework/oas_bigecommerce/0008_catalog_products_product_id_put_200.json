@@ -1,0 +1,63 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the resource belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Product"
+            },
+            {
+              "properties": {
+                "variants": {
+                  "items": {
+                    "$ref": "#/components/schemas/Variant"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    "description": "A BigCommerce `Product` object.\n",
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Product"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/Meta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "A product.\n"
+    }
+  }
+}

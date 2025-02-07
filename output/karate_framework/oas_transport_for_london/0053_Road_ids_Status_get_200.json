@@ -1,0 +1,252 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Comma-separated list of road identifiers e.g. \"A406, A2\" or use \"all\" to ignore id filter (a full list of supported road identifiers can be found at the /Road/ endpoint)",
+      "explode": false,
+      "in": "path",
+      "name": "ids",
+      "required": true,
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "simple"
+    },
+    {
+      "in": "query",
+      "name": "dateRangeNullable.startDate",
+      "schema": {
+        "format": "date-time",
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "dateRangeNullable.endDate",
+      "schema": {
+        "format": "date-time",
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/Road/{ids}/Status",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "bounds": {
+                  "description": "The Bounds of the Corridor, given by the south-east followed by the north-west co-ordinate\r\n            pair in geoJSON format e.g. \"[[-1.241531,51.242151],[1.641223,53.765721]]\"",
+                  "type": "string"
+                },
+                "displayName": {
+                  "description": "The display name of the Corridor e.g. \"North Circular (A406)\". This\r\n            may be identical to the Id.",
+                  "type": "string"
+                },
+                "envelope": {
+                  "description": "The Envelope of the Corridor, given by the corner co-ordinates of a rectangular (four-point) polygon\r\n            in geoJSON format e.g. \"[[-1.241531,51.242151],[-1.241531,53.765721],[1.641223,53.765721],[1.641223,51.242151]]\"",
+                  "type": "string"
+                },
+                "group": {
+                  "description": "The group name of the Corridor e.g. \"Central London\". Most corridors are not grouped, in which case this field can be null.",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "The Id of the Corridor e.g. \"A406\"",
+                  "type": "string"
+                },
+                "statusAggregationEndDate": {
+                  "description": "The end of the period over which status has been aggregated, or null if this is the current corridor status.",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "statusAggregationStartDate": {
+                  "description": "The start of the period over which status has been aggregated, or null if this is the current corridor status.",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "statusSeverity": {
+                  "description": "Standard multi-mode status severity code",
+                  "type": "string"
+                },
+                "statusSeverityDescription": {
+                  "description": "Description of the status severity as applied to RoadCorridors",
+                  "type": "string"
+                },
+                "url": {
+                  "description": "URL to retrieve this Corridor.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "items": {
+              "properties": {
+                "bounds": {
+                  "description": "The Bounds of the Corridor, given by the south-east followed by the north-west co-ordinate\r\n            pair in geoJSON format e.g. \"[[-1.241531,51.242151],[1.641223,53.765721]]\"",
+                  "type": "string"
+                },
+                "displayName": {
+                  "description": "The display name of the Corridor e.g. \"North Circular (A406)\". This\r\n            may be identical to the Id.",
+                  "type": "string"
+                },
+                "envelope": {
+                  "description": "The Envelope of the Corridor, given by the corner co-ordinates of a rectangular (four-point) polygon\r\n            in geoJSON format e.g. \"[[-1.241531,51.242151],[-1.241531,53.765721],[1.641223,53.765721],[1.641223,51.242151]]\"",
+                  "type": "string"
+                },
+                "group": {
+                  "description": "The group name of the Corridor e.g. \"Central London\". Most corridors are not grouped, in which case this field can be null.",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "The Id of the Corridor e.g. \"A406\"",
+                  "type": "string"
+                },
+                "statusAggregationEndDate": {
+                  "description": "The end of the period over which status has been aggregated, or null if this is the current corridor status.",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "statusAggregationStartDate": {
+                  "description": "The start of the period over which status has been aggregated, or null if this is the current corridor status.",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "statusSeverity": {
+                  "description": "Standard multi-mode status severity code",
+                  "type": "string"
+                },
+                "statusSeverityDescription": {
+                  "description": "Description of the status severity as applied to RoadCorridors",
+                  "type": "string"
+                },
+                "url": {
+                  "description": "URL to retrieve this Corridor.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "bounds": {
+                  "description": "The Bounds of the Corridor, given by the south-east followed by the north-west co-ordinate\r\n            pair in geoJSON format e.g. \"[[-1.241531,51.242151],[1.641223,53.765721]]\"",
+                  "type": "string"
+                },
+                "displayName": {
+                  "description": "The display name of the Corridor e.g. \"North Circular (A406)\". This\r\n            may be identical to the Id.",
+                  "type": "string"
+                },
+                "envelope": {
+                  "description": "The Envelope of the Corridor, given by the corner co-ordinates of a rectangular (four-point) polygon\r\n            in geoJSON format e.g. \"[[-1.241531,51.242151],[-1.241531,53.765721],[1.641223,53.765721],[1.641223,51.242151]]\"",
+                  "type": "string"
+                },
+                "group": {
+                  "description": "The group name of the Corridor e.g. \"Central London\". Most corridors are not grouped, in which case this field can be null.",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "The Id of the Corridor e.g. \"A406\"",
+                  "type": "string"
+                },
+                "statusAggregationEndDate": {
+                  "description": "The end of the period over which status has been aggregated, or null if this is the current corridor status.",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "statusAggregationStartDate": {
+                  "description": "The start of the period over which status has been aggregated, or null if this is the current corridor status.",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "statusSeverity": {
+                  "description": "Standard multi-mode status severity code",
+                  "type": "string"
+                },
+                "statusSeverityDescription": {
+                  "description": "Description of the status severity as applied to RoadCorridors",
+                  "type": "string"
+                },
+                "url": {
+                  "description": "URL to retrieve this Corridor.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "items": {
+              "properties": {
+                "bounds": {
+                  "description": "The Bounds of the Corridor, given by the south-east followed by the north-west co-ordinate\r\n            pair in geoJSON format e.g. \"[[-1.241531,51.242151],[1.641223,53.765721]]\"",
+                  "type": "string"
+                },
+                "displayName": {
+                  "description": "The display name of the Corridor e.g. \"North Circular (A406)\". This\r\n            may be identical to the Id.",
+                  "type": "string"
+                },
+                "envelope": {
+                  "description": "The Envelope of the Corridor, given by the corner co-ordinates of a rectangular (four-point) polygon\r\n            in geoJSON format e.g. \"[[-1.241531,51.242151],[-1.241531,53.765721],[1.641223,53.765721],[1.641223,51.242151]]\"",
+                  "type": "string"
+                },
+                "group": {
+                  "description": "The group name of the Corridor e.g. \"Central London\". Most corridors are not grouped, in which case this field can be null.",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "The Id of the Corridor e.g. \"A406\"",
+                  "type": "string"
+                },
+                "statusAggregationEndDate": {
+                  "description": "The end of the period over which status has been aggregated, or null if this is the current corridor status.",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "statusAggregationStartDate": {
+                  "description": "The start of the period over which status has been aggregated, or null if this is the current corridor status.",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "statusSeverity": {
+                  "description": "Standard multi-mode status severity code",
+                  "type": "string"
+                },
+                "statusSeverityDescription": {
+                  "description": "Description of the status severity as applied to RoadCorridors",
+                  "type": "string"
+                },
+                "url": {
+                  "description": "URL to retrieve this Corridor.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

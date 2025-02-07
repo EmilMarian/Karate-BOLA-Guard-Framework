@@ -1,0 +1,155 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The zoom level.",
+      "in": "path",
+      "name": "z",
+      "required": true,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The latitude of the pin.",
+      "in": "path",
+      "name": "pinLat",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The longitude of the pin.",
+      "in": "path",
+      "name": "pinLon",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The map center latitude.",
+      "in": "path",
+      "name": "mapCenterLat",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The map center longitude.",
+      "in": "path",
+      "name": "mapCenterLon",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The title of the scenario.",
+      "in": "query",
+      "name": "scenarioTitle",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The id for the time of day (AM/INTER/PM)",
+      "in": "query",
+      "name": "timeOfDayId",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The id of the mode.",
+      "in": "query",
+      "name": "modeId",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The width of the requested overlay.",
+      "in": "path",
+      "name": "width",
+      "required": true,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The height of the requested overlay.",
+      "in": "path",
+      "name": "height",
+      "required": true,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The direction of travel.",
+      "in": "query",
+      "name": "direction",
+      "required": true,
+      "schema": {
+        "enum": [
+          "Average",
+          "From",
+          "To"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "The total minutes between the travel time bands",
+      "in": "query",
+      "name": "travelTimeInterval",
+      "required": true,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/TravelTimes/overlay/{z}/mapcenter/{mapCenterLat}/{mapCenterLon}/pinlocation/{pinLat}/{pinLon}/dimensions/{width}/{height}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "type": "object"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "type": "object"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

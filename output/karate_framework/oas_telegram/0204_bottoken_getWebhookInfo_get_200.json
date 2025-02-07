@@ -1,0 +1,45 @@
+{
+  "method": "GET",
+  "parameters": [],
+  "path": "/bot{token}/getWebhookInfo",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "description": "Response Body",
+      "schema": {
+        "properties": {
+          "allowed_updates": {
+            "items": {
+              "$ref": "#/definitions/AllowedUpdate"
+            },
+            "type": "array"
+          },
+          "has_custom_certificate": {
+            "type": "boolean"
+          },
+          "last_error_date": {
+            "type": "integer"
+          },
+          "last_error_message": {
+            "type": "string"
+          },
+          "max_connections": {
+            "type": "integer"
+          },
+          "pending_update_count": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "has_custom_certificate",
+          "pending_update_count"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

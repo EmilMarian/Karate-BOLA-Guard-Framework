@@ -1,0 +1,87 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.conversations.invite",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel_id": {
+              "description": "The channel that the users will be invited to.",
+              "type": "string"
+            },
+            "user_ids": {
+              "description": "The users to invite.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "user_ids",
+            "channel_id"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "Schema for error response from admin.conversations.invite",
+            "properties": {
+              "error": {
+                "enum": [
+                  "feature_not_enabled",
+                  "channel_not_found",
+                  "channel_type_not_supported",
+                  "default_org_wide_channel",
+                  "restricted_action",
+                  "user_must_be_admin",
+                  "failed_for_some_users"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "admin.conversations.invite error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

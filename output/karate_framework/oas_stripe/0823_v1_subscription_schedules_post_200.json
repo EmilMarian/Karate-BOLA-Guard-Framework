@@ -1,0 +1,983 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/subscription_schedules",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "default_settings": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "phases": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "start_date": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "customer": {
+              "description": "The identifier of the customer to create the subscription schedule for.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "default_settings": {
+              "description": "Object representing the subscription schedule's default settings.",
+              "properties": {
+                "application_fee_percent": {
+                  "type": "number"
+                },
+                "automatic_tax": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "liability": {
+                      "properties": {
+                        "account": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "enum": [
+                            "account",
+                            "self"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "title": "param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "automatic_tax_config",
+                  "type": "object"
+                },
+                "billing_cycle_anchor": {
+                  "enum": [
+                    "automatic",
+                    "phase_start"
+                  ],
+                  "type": "string"
+                },
+                "billing_thresholds": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "amount_gte": {
+                          "type": "integer"
+                        },
+                        "reset_billing_cycle_anchor": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "billing_thresholds_param",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "collection_method": {
+                  "enum": [
+                    "charge_automatically",
+                    "send_invoice"
+                  ],
+                  "type": "string"
+                },
+                "default_payment_method": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "description": {
+                  "anyOf": [
+                    {
+                      "maxLength": 500,
+                      "type": "string"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "invoice_settings": {
+                  "properties": {
+                    "account_tax_ids": {
+                      "anyOf": [
+                        {
+                          "items": {
+                            "maxLength": 5000,
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "days_until_due": {
+                      "type": "integer"
+                    },
+                    "issuer": {
+                      "properties": {
+                        "account": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "enum": [
+                            "account",
+                            "self"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "title": "param",
+                      "type": "object"
+                    }
+                  },
+                  "title": "subscription_schedule_default_settings_param",
+                  "type": "object"
+                },
+                "on_behalf_of": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "transfer_data": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "amount_percent": {
+                          "type": "number"
+                        },
+                        "destination": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "destination"
+                      ],
+                      "title": "transfer_data_specs",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "title": "default_settings_params",
+              "type": "object"
+            },
+            "end_behavior": {
+              "description": "Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.",
+              "enum": [
+                "cancel",
+                "none",
+                "release",
+                "renew"
+              ],
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "from_subscription": {
+              "description": "Migrate an existing subscription to be managed by a subscription schedule. If this parameter is set, a subscription schedule will be created using the subscription's item(s), set to auto-renew using the subscription's interval. When using this parameter, other parameters (such as phase values) cannot be set. To create a subscription schedule with other modifications, we recommend making two separate API calls.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`."
+            },
+            "phases": {
+              "description": "List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.",
+              "items": {
+                "properties": {
+                  "add_invoice_items": {
+                    "items": {
+                      "properties": {
+                        "discounts": {
+                          "items": {
+                            "properties": {
+                              "coupon": {
+                                "maxLength": 5000,
+                                "type": "string"
+                              },
+                              "discount": {
+                                "maxLength": 5000,
+                                "type": "string"
+                              },
+                              "promotion_code": {
+                                "maxLength": 5000,
+                                "type": "string"
+                              }
+                            },
+                            "title": "discounts_data_param",
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "price": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "price_data": {
+                          "properties": {
+                            "currency": {
+                              "format": "currency",
+                              "type": "string"
+                            },
+                            "product": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "tax_behavior": {
+                              "enum": [
+                                "exclusive",
+                                "inclusive",
+                                "unspecified"
+                              ],
+                              "type": "string"
+                            },
+                            "unit_amount": {
+                              "type": "integer"
+                            },
+                            "unit_amount_decimal": {
+                              "format": "decimal",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "currency",
+                            "product"
+                          ],
+                          "title": "one_time_price_data_with_negative_amounts",
+                          "type": "object"
+                        },
+                        "quantity": {
+                          "type": "integer"
+                        },
+                        "tax_rates": {
+                          "anyOf": [
+                            {
+                              "items": {
+                                "maxLength": 5000,
+                                "type": "string"
+                              },
+                              "type": "array"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "title": "add_invoice_item_entry",
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "application_fee_percent": {
+                    "type": "number"
+                  },
+                  "automatic_tax": {
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean"
+                      },
+                      "liability": {
+                        "properties": {
+                          "account": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "enum": [
+                              "account",
+                              "self"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type"
+                        ],
+                        "title": "param",
+                        "type": "object"
+                      }
+                    },
+                    "required": [
+                      "enabled"
+                    ],
+                    "title": "automatic_tax_config",
+                    "type": "object"
+                  },
+                  "billing_cycle_anchor": {
+                    "enum": [
+                      "automatic",
+                      "phase_start"
+                    ],
+                    "type": "string"
+                  },
+                  "billing_thresholds": {
+                    "anyOf": [
+                      {
+                        "properties": {
+                          "amount_gte": {
+                            "type": "integer"
+                          },
+                          "reset_billing_cycle_anchor": {
+                            "type": "boolean"
+                          }
+                        },
+                        "title": "billing_thresholds_param",
+                        "type": "object"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "collection_method": {
+                    "enum": [
+                      "charge_automatically",
+                      "send_invoice"
+                    ],
+                    "type": "string"
+                  },
+                  "coupon": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "currency": {
+                    "format": "currency",
+                    "type": "string"
+                  },
+                  "default_payment_method": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "default_tax_rates": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "description": {
+                    "anyOf": [
+                      {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "discounts": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "properties": {
+                            "coupon": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "discount": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "promotion_code": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            }
+                          },
+                          "title": "discounts_data_param",
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "end_date": {
+                    "format": "unix-time",
+                    "type": "integer"
+                  },
+                  "invoice_settings": {
+                    "properties": {
+                      "account_tax_ids": {
+                        "anyOf": [
+                          {
+                            "items": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          {
+                            "enum": [
+                              ""
+                            ],
+                            "type": "string"
+                          }
+                        ]
+                      },
+                      "days_until_due": {
+                        "type": "integer"
+                      },
+                      "issuer": {
+                        "properties": {
+                          "account": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "enum": [
+                              "account",
+                              "self"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type"
+                        ],
+                        "title": "param",
+                        "type": "object"
+                      }
+                    },
+                    "title": "invoice_settings",
+                    "type": "object"
+                  },
+                  "items": {
+                    "items": {
+                      "properties": {
+                        "billing_thresholds": {
+                          "anyOf": [
+                            {
+                              "properties": {
+                                "usage_gte": {
+                                  "type": "integer"
+                                }
+                              },
+                              "required": [
+                                "usage_gte"
+                              ],
+                              "title": "item_billing_thresholds_param",
+                              "type": "object"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "discounts": {
+                          "anyOf": [
+                            {
+                              "items": {
+                                "properties": {
+                                  "coupon": {
+                                    "maxLength": 5000,
+                                    "type": "string"
+                                  },
+                                  "discount": {
+                                    "maxLength": 5000,
+                                    "type": "string"
+                                  },
+                                  "promotion_code": {
+                                    "maxLength": 5000,
+                                    "type": "string"
+                                  }
+                                },
+                                "title": "discounts_data_param",
+                                "type": "object"
+                              },
+                              "type": "array"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "metadata": {
+                          "additionalProperties": {
+                            "type": "string"
+                          },
+                          "type": "object"
+                        },
+                        "price": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "price_data": {
+                          "properties": {
+                            "currency": {
+                              "format": "currency",
+                              "type": "string"
+                            },
+                            "product": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "recurring": {
+                              "properties": {
+                                "interval": {
+                                  "enum": [
+                                    "day",
+                                    "month",
+                                    "week",
+                                    "year"
+                                  ],
+                                  "type": "string"
+                                },
+                                "interval_count": {
+                                  "type": "integer"
+                                }
+                              },
+                              "required": [
+                                "interval"
+                              ],
+                              "title": "recurring_adhoc",
+                              "type": "object"
+                            },
+                            "tax_behavior": {
+                              "enum": [
+                                "exclusive",
+                                "inclusive",
+                                "unspecified"
+                              ],
+                              "type": "string"
+                            },
+                            "unit_amount": {
+                              "type": "integer"
+                            },
+                            "unit_amount_decimal": {
+                              "format": "decimal",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "currency",
+                            "product",
+                            "recurring"
+                          ],
+                          "title": "recurring_price_data",
+                          "type": "object"
+                        },
+                        "quantity": {
+                          "type": "integer"
+                        },
+                        "tax_rates": {
+                          "anyOf": [
+                            {
+                              "items": {
+                                "maxLength": 5000,
+                                "type": "string"
+                              },
+                              "type": "array"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "title": "configuration_item_params",
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "iterations": {
+                    "type": "integer"
+                  },
+                  "metadata": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "on_behalf_of": {
+                    "type": "string"
+                  },
+                  "proration_behavior": {
+                    "enum": [
+                      "always_invoice",
+                      "create_prorations",
+                      "none"
+                    ],
+                    "type": "string"
+                  },
+                  "transfer_data": {
+                    "properties": {
+                      "amount_percent": {
+                        "type": "number"
+                      },
+                      "destination": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "destination"
+                    ],
+                    "title": "transfer_data_specs",
+                    "type": "object"
+                  },
+                  "trial": {
+                    "type": "boolean"
+                  },
+                  "trial_end": {
+                    "format": "unix-time",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "items"
+                ],
+                "title": "phase_configuration_params",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "format": "unix-time",
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    "now"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              ],
+              "description": "When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on."
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A subscription schedule allows you to create and manage the lifecycle of a subscription by predefining expected changes.\n\nRelated guide: [Subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)",
+            "properties": {
+              "application": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/application"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_application"
+                  }
+                ],
+                "description": "ID of the Connect Application that created the schedule.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/application"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_application"
+                    }
+                  ]
+                }
+              },
+              "canceled_at": {
+                "description": "Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "completed_at": {
+                "description": "Time at which the subscription schedule was completed. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "current_phase": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/subscription_schedule_current_phase"
+                  }
+                ],
+                "description": "Object representing the start and end dates for the current phase of the subscription schedule, if it is `active`.",
+                "nullable": true
+              },
+              "customer": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/customer"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_customer"
+                  }
+                ],
+                "description": "ID of the customer who owns the subscription schedule.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/customer"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_customer"
+                    }
+                  ]
+                }
+              },
+              "default_settings": {
+                "$ref": "#/components/schemas/subscription_schedules_resource_default_settings"
+              },
+              "end_behavior": {
+                "description": "Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.",
+                "enum": [
+                  "cancel",
+                  "none",
+                  "release",
+                  "renew"
+                ],
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "nullable": true,
+                "type": "object"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "subscription_schedule"
+                ],
+                "type": "string"
+              },
+              "phases": {
+                "description": "Configuration for the subscription schedule's phases.",
+                "items": {
+                  "$ref": "#/components/schemas/subscription_schedule_phase_configuration"
+                },
+                "type": "array"
+              },
+              "released_at": {
+                "description": "Time at which the subscription schedule was released. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "released_subscription": {
+                "description": "ID of the subscription once managed by the subscription schedule (if it is released).",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "status": {
+                "description": "The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules).",
+                "enum": [
+                  "active",
+                  "canceled",
+                  "completed",
+                  "not_started",
+                  "released"
+                ],
+                "type": "string"
+              },
+              "subscription": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/subscription"
+                  }
+                ],
+                "description": "ID of the subscription managed by the subscription schedule.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/subscription"
+                    }
+                  ]
+                }
+              },
+              "test_clock": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/test_helpers.test_clock"
+                  }
+                ],
+                "description": "ID of the test clock this subscription schedule belongs to.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/test_helpers.test_clock"
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "created",
+              "customer",
+              "default_settings",
+              "end_behavior",
+              "id",
+              "livemode",
+              "object",
+              "phases",
+              "status"
+            ],
+            "title": "SubscriptionSchedule",
+            "type": "object",
+            "x-expandableFields": [
+              "application",
+              "current_phase",
+              "customer",
+              "default_settings",
+              "phases",
+              "subscription",
+              "test_clock"
+            ],
+            "x-resourceId": "subscription_schedule"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

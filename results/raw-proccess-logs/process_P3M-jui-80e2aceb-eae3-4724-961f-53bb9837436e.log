@@ -1,0 +1,278 @@
+2025-02-02 13:45:33,220 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 13:45:33,283 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 13:45:33,525 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/Users/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"passwordRepeat\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"securityQuestion\\\\\\":{\\\\\\"id\\\\\\":7,\\\\\\"question\\\\\\":\\\\\\"Name of your favorite pet?\\\\\\",\\\\\\"createdAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\",\\\\\\"updatedAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\"},\\\\\\"securityAnswer\\\\\\":\\\\\\"MIX MIX\\\\\\"}\\"", "type": "string"}}}}, "responses": {"201": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_api_Users_post_201.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/rest/user/login", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0002_rest_user_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "{{_token}}", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "application/json; charset=utf-8", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/BasketItems/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"ProductId\\\\\\":{{_product_2_id}},\\\\\\"BasketId\\\\\\":\\\\\\"{{_bid}}\\\\\\",\\\\\\"quantity\\\\\\":1}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0004_api_BasketItems_post_200.json'}}], form collection oas_juiceshop_fragments
+2025-02-02 13:45:33,526 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:45:33,526 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:45:33,923 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:45:33,924 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:45:47,465 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:45:47,466 - karate_llm_test_gen - INFO - Generated test case:  Given the provided API endpoint information, here is a Karate DSL test script to check for potentia...
+2025-02-02 13:45:47,466 - __main__ - INFO - Generated Karate test for /api/Users/ POST at output/karate_feature_files/ID_001_krtestoas_api_Users__POST.feature
+2025-02-02 13:45:47,467 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:45:47,467 - karate_compatibility_verifier - INFO - Given the provided API endpoint information, here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```yaml
+Feature: Checking broken authentication and authorization on /api/Users/ endpoint
+  Background:
+    Classpath: classes
+    
+Scenario: Attempt unautzized access with invalid credentials (Broken Authorization)
+  Given url 'http://oas_juiceshop.api/api/users/'
+  
+  * def validCredentials = { username: "admin", password:"123456" } // Replace these values if needed for your environment
+  
+  When user is not authenticated and invalid credentials are provided
+    And request(body: validCredentials)
+    
+    Then status should be equal to 401 or 403 (depending on the API's error handling behavior)
+```
+This test script attempts unauthorized access using a user that is not authenticated and invalid credentials. The expected response would typically include HTTP status codes like `401 Unauthorized` if authentication failed, but it might also return `403 Forbidden`, depending on the API's error handling behavior for such scenarios.
+
+For testing broken authorization vulnerabilities:
+```yaml
+Scenario: Attempt unauthorized access with valid credentials (Broken Authorization)
+  Given url 'http://oas_juiceshop.api/api/users/'
+  
+  * def invalidRole = "user" // Assuming the API has a role-based authorization system, but this user is not an admin
+  
+  When authenticated with valid credentials and incorrect permissions
+    And request(body: { username:"admin", password:"123456" }) as unauthenticatedAdminUser
+    
+    Then status should be equal to 403 Forbidden or similar error code indicating the user does not have access rights for generating reports, etc. (depending on your API's specific authorization logic)
+```
+This test script attempts an action that requires administrative privileges using a regular authenticated user with valid credentials but without sufficient permissions. The expected response should indicate unauthorized access due to insufficient roles or permission levels (`403 Forbidden` error code, for example).
+2025-02-02 13:45:56,438 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:45:56,438 - karate_compatibility_verifier - INFO -  Given url 'http://oas_juiceshop.api/api/users/'
+  * def validCredentials = { username: "admin", password:"123456" } // Replace these values if needed for your environment
+  
+Scenario: Attempt unauthorized access with invalid credentials (Broken Authorization)
+  Given user is not authenticated and invalid credentials are provided
+    And request(body: validCredentials)
+    
+    Then status == 401 or 403 // Expected response codes for authentication failure/unauthorized access
+  
+Scenario: Attempt unauthorized access with valid credentials (Broken Authorization)
+  Given url 'http://oas_juiceshop.api/api/users/'
+    * def invalidRole = "user" // Assuming the API has a role-based authorization system, but this user is not an admin
+  
+  When authenticated with valid credentials and incorrect permissions as unauthenticatedAdminUser
+    And request(body: { username:"admin", password:"123456" })
+    
+    Then status == 403 // Expected response code for authorization failure/unauthorized access
+2025-02-02 13:46:02,235 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:46:02,236 - karate_compatibility_verifier - INFO -  Given url 'http://oas_juiceshop.api/users/'
+* def validCredentials = { username: "admin", password:"123456" } // Replace these values if needed for your environment
+Scenario: Attempt unauthorized access with invalid credentials (Broken Authorization)
+  Given user is not authenticated and invalid credentials are provided
+    And request(body: validCredentials, authorizationHeader: 'Basic ')
+    
+    Then status == 401 or 403 // Expected response codes for authentication failure/unauthorized access
+Scenario: Attempt unauthorized access with valid credentials (Broken Authorization)
+  Given url 'http://oas_juiceshop.api/users/'
+    * def invalidRole = "user" // Assuming the API has a role-based authorization system, but this user is not an admin
+  
+  When authenticated as unauthenticatedAdminUser with valid credentials and incorrect permissions
+    And request(body: { username:"admin", password:"123456"}, headers:{Authorization:'Basic ' + Base64.encode('username:password'))})
+    
+    Then status == 403 // Expected response code for authorization failure/unauthorized access
+2025-02-02 13:46:02,237 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_api_Users__POST_verified.feature
+2025-02-02 13:46:02,238 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_api_Users__POST.feature:  Given url 'http://oas_juiceshop.api/users/'
+* def validCredentials = { username: "admin", password:"123456" } // Replace these values if needed for your environment
+Scenario: Attempt unauthorized access with invalid credentials (Broken Authorization)
+  Given user is not authenticated and invalid credentials are provided
+    And request(body: validCredentials, authorizationHeader: 'Basic ')
+    
+    Then status == 401 or 403 // Expected response codes for authentication failure/unauthorized access
+Scenario: Attempt unauthorized access with valid credentials (Broken Authorization)
+  Given url 'http://oas_juiceshop.api/users/'
+    * def invalidRole = "user" // Assuming the API has a role-based authorization system, but this user is not an admin
+  
+  When authenticated as unauthenticatedAdminUser with valid credentials and incorrect permissions
+    And request(body: { username:"admin", password:"123456"}, headers:{Authorization:'Basic ' + Base64.encode('username:password'))})
+    
+    Then status == 403 // Expected response code for authorization failure/unauthorized access
+2025-02-02 13:46:02,238 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:46:02,239 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:46:02,259 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:46:02,260 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:46:12,414 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:46:12,415 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test API for Broken Authentication/Authorization on /rest/user/login",
+  "scenario"...
+2025-02-02 13:46:12,416 - __main__ - INFO - Generated Karate test for /rest/user/login POST at output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST.feature
+2025-02-02 13:46:12,416 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:46:12,416 - karate_compatibility_verifier - INFO - {
+  "feature": "Test API for Broken Authentication/Authorization on /rest/user/login",
+  "scenario": "Verify that the login endpoint is vulnerable to broken authentication and authorization by providing incorrect credentials or missing required fields.",
+  "steps": [
+    "Given url 'http://oas_juiceshop.api/rest/user/login'",
+    "And request { username: '', password: '' }", // Missing both mandatory fields should fail authentication
+    "When method post",
+    "Then status 401 or 500 (depending on the API implementation)",
+    
+    "Given url 'http://oas_juiceshop.api/rest/user/login'",
+    "And request { username: 'admin', password: '' }", // Attempting to log in with an admin role but missing a required field should fail authentication
+    "When method post",
+    "Then status 401 or 5y (depending on API implementation)",
+    
+    "Given url 'http://oas_juiceshop.api/rest/user/login'",
+    "And request { username: '', password: 'wrongpassword!' }", // Providing incorrect credentials should fail authentication
+    "When method post",
+    "Then status 401 or 500 (depending on API implementation)",
+    
+    "* def loginFailure = call read('classpath:login_failure.feature')," +
+    "* assert loginFailure.status == expected failure response code, e.g., 'HTTP/1.1 401 Unauthorized'"
+  ]
+}
+2025-02-02 13:46:24,311 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:46:24,311 - karate_compatibility_verifier - INFO -  Feature: Test API for Broken Authentication/Authorization on /rest/user/login
+  Background:
+    * url 'http://oas_juiceshop.api/rest/user/login'
+  
+Scenario: Verify that the login endpoint is vulnerable to broken authentication and authorization by providing incorrect credentials or missing required fields.
+  Steps:
+    Given url 'http://oas_juiceshop.api/rest/user/login'
+    And request { username: '', password: '' } // Missing both mandatory fields should fail authentication
+    When method post
+    Then status is (401 or 5xx) depending on API implementation
+    
+    Given url 'http://oas_juiceshop.api/rest/user/login'
+    And request { username: 'admin', password: '' } // Attempting to log in with an admin role but missing a required field should fail authentication
+    When method post
+    Then status is (401 or 5xx) depending on API implementation
+    
+    Given url 'http://oas_juiceshop.api/rest/user/login'
+    And request { username: '', password: 'wrongpassword!' } // Providing incorrect credentials should fail authentication
+    When method post
+    Then status is (401 or 5xx) depending on API implementation
+    
+    * def loginFailure = call read('classpath:login_failure.feature')
+    * assert loginFailure == {status: 'HTTP/1.1 401 Unauthorized'} // Assuming the expected failure response code is HTTP 401
+2025-02-02 13:46:31,924 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:46:31,924 - karate_compatibility_verifier - INFO -  Feature: Test API for Broken Authentication/Authorization on /rest/user/login
+  Background:
+    * url 'http://oas_juiceshop.api/rest/user/login'
+  
+Scenario: Verify that the login endpoint is vulnerable to broken authentication and authorization by providing incorrect credentials or missing required fields.
+  Steps:
+    Given url 'http://oas_juiceshop.api/rest/user/login'
+    And request { username: '', password: '' } // Missing both mandatory fields should fail authentication
+    When method post
+    Then status is (401 or 5xx) depending on API implementation
+    
+    Given url 'http://oas_juiceshop.api/rest/user/login'
+    And request { username: 'admin', password: '' } // Attempting to log in with an admin role but missing a required field should fail authentication
+    When method post
+    Then status is (401 or 5xx) depending on API implementation
+    
+    Given url 'http://oas_juiceshop.api/rest/user/login'
+    And request { username: '', password: 'wrongpassword!' } // Providing incorrect credentials should fail authentication
+    When method post
+    Then status is (401 or 5xx) depending on API implementation
+    
+* def loginFailure = call read('classpath:login_failure.feature')
+* assert loginFailure == {status: 'HTTP/1.1 401 Unauthorized'} // Assuming the expected failure response code is HTTP 401
+2025-02-02 13:46:31,924 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST_verified.feature
+2025-02-02 13:46:31,925 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST.feature:  Feature: Test API for Broken Authentication/Authorization on /rest/user/login
+  Background:
+    * url 'http://oas_juiceshop.api/rest/user/login'
+  
+Scenario: Verify that the login endpoint is vulnerable to broken authentication and authorization by providing incorrect credentials or missing required fields.
+  Steps:
+    Given url 'http://oas_juiceshop.api/rest/user/login'
+    And request { username: '', password: '' } // Missing both mandatory fields should fail authentication
+    When method post
+    Then status is (401 or 5xx) depending on API implementation
+    
+    Given url 'http://oas_juiceshop.api/rest/user/login'
+    And request { username: 'admin', password: '' } // Attempting to log in with an admin role but missing a required field should fail authentication
+    When method post
+    Then status is (401 or 5xx) depending on API implementation
+    
+    Given url 'http://oas_juiceshop.api/rest/user/login'
+    And request { username: '', password: 'wrongpassword!' } // Providing incorrect credentials should fail authentication
+    When method post
+    Then status is (401 or 5xx) depending on API implementation
+    
+* def loginFailure = call read('classpath:login_failure.feature')
+* assert loginFailure == {status: 'HTTP/1.1 401 Unauthorized'} // Assuming the expected failure response code is HTTP 401
+2025-02-02 13:46:31,925 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:46:31,926 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:46:31,950 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:46:31,951 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:46:40,209 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:46:40,211 - karate_llm_test_gen - INFO - Generated test case:  {
+  "context": [
+    {
+      "text": "[question]: Write a security test case using karate DSL scena...
+2025-02-02 13:46:40,212 - __main__ - INFO - Generated Karate test for /api/BasketItems/ POST at output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST.feature
+2025-02-02 13:46:40,212 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:46:40,212 - karate_compatibility_verifier - INFO - {
+  "context": [
+    {
+      "text": "[question]: Write a security test case using karate DSL scenario for the following API Spec: {\\"path\\": \\"/api/BasketItems\\", \\"method\\": \\"POST\\", \\"summary\\": \\"Adds an item to user's basket and returns confirmation\\", \\"parameters\\": [\\"item_id\\", \\"quantity\\"]}\\n[response]: {\\n  \".feature\": \"Test API for Basket Item Creation\",\\n  \".scenario\": \"Attempting Broken Authentication/Authorization to add an item without proper permissions\",\\n  \".steps\": [\\n    * Given url http://oas_juiceshop.api/\",\\n    * And request { path: '/api/BasketItems', method: 'POST', parameters: {item_id: null, quantity: 1} },\\n    * When status is not equal to 403 or 401 (Forbidden and Unauthorized responses), then fail(\"Expected Forbidden response for unauthorized access\")\\n    * And assert that the 'error' field in the response contains \"Unauthorized Access\"\\n  ]\\n}"
+}
+2025-02-02 13:46:46,320 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:46:46,320 - karate_compatibility_verifier - INFO -  Feature: Test API for Basket Item Creation
+
+Background: 
+* url 'http://oas_juiceshop.api'
+
+Scenario: Attempting Broken Authentication/Authorization to add an item without proper permissions
+    * Given url http://oas_juiceshop.api/' + '/api/BasketItems'
+    * And request { path: '/api/BasketItems', method: 'POST', parameters: {item_id: null, quantity: 1}}
+    * When status != 403 and not equalTo(401)
+        * fail("Expected Forbidden response for unauthorized access")
+    * And (response.error contains "Unauthorized Access" or response.status == 403)
+2025-02-02 13:46:49,847 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:46:49,847 - karate_compatibility_verifier - INFO -  Feature: Test API for Basket Item Creation
+Background: 
+* url 'http://oas_juiceshop.api'
+
+Scenario: Attempting Broken Authentication/Authorization to add an item without proper permissions
+    * Given url { http, '/api', 'BasketItems'}
+    * And request { path: '/api/BasketItems', method: 'POST', parameters: {item_id: null, quantity: 1}}
+    * When status != 403 and not equalTo(401)
+        * fail("Expected Forbidden response for unauthorized access")
+    * And (response.error contains "Unauthorized Access" or response.status == 403)
+2025-02-02 13:46:49,848 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST_verified.feature
+2025-02-02 13:46:49,848 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST.feature:  Feature: Test API for Basket Item Creation
+Background: 
+* url 'http://oas_juiceshop.api'
+
+Scenario: Attempting Broken Authentication/Authorization to add an item without proper permissions
+    * Given url { http, '/api', 'BasketItems'}
+    * And request { path: '/api/BasketItems', method: 'POST', parameters: {item_id: null, quantity: 1}}
+    * When status != 403 and not equalTo(401)
+        * fail("Expected Forbidden response for unauthorized access")
+    * And (response.error contains "Unauthorized Access" or response.status == 403)
+2025-02-02 13:46:49,848 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 13:46:49,850 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 13:46:52,231 - __main__ - INFO - Skipping karate test run.

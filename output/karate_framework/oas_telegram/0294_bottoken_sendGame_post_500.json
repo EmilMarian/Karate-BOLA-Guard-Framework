@@ -1,0 +1,63 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "chat_id": {
+            "type": "integer"
+          },
+          "disable_notification": {
+            "type": "boolean"
+          },
+          "game_short_name": {
+            "type": "string"
+          },
+          "reply_markup": {
+            "$ref": "#/definitions/InlineKeyboardMarkup"
+          },
+          "reply_to_message_id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "chat_id",
+          "game_short_name"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/sendGame",
+  "requestBody": {},
+  "responses": {
+    "500": {
+      "description": "Internal",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

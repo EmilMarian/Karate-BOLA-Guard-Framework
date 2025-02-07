@@ -1,0 +1,98 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "subscription_item",
+      "required": true,
+      "schema": {
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/subscription_items/{subscription_item}/usage_records",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "timestamp": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "description": "Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.",
+              "enum": [
+                "increment",
+                "set"
+              ],
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "quantity": {
+              "description": "The usage quantity for the specified timestamp.",
+              "type": "integer"
+            },
+            "timestamp": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "now"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                {
+                  "format": "unix-time",
+                  "type": "integer"
+                }
+              ],
+              "description": "The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided `subscription_item`, and must not be in the future. When passing `\"now\"`, Stripe records usage for the current time. Default is `\"now\"` if a value is not provided."
+            }
+          },
+          "required": [
+            "quantity"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

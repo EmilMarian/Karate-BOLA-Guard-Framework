@@ -1,0 +1,36 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of a user to get information about, or **self** to retrieve information about authenticated user.",
+      "in": "path",
+      "name": "user-id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users/{user-id}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/UserInfo"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "User basic information."
+    }
+  }
+}

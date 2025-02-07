@@ -1,0 +1,336 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/subscription_items",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "billing_thresholds": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "discounts": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "price_data": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "tax_rates": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "billing_thresholds": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "usage_gte": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "usage_gte"
+                  ],
+                  "title": "item_billing_thresholds_param",
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds."
+            },
+            "discounts": {
+              "anyOf": [
+                {
+                  "items": {
+                    "properties": {
+                      "coupon": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "discount": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "promotion_code": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      }
+                    },
+                    "title": "discounts_data_param",
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The coupons to redeem into discounts for the subscription item."
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "payment_behavior": {
+              "description": "Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.\n\nUse `default_incomplete` to transition the subscription to `status=past_due` when payment is required and await explicit confirmation of the invoice's payment intent. This allows simpler management of scenarios where additional user actions are needed to pay a subscription\u2019s invoice. Such as failed payments, [SCA regulation](https://stripe.com/docs/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method.\n\nUse `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).\n\nUse `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.",
+              "enum": [
+                "allow_incomplete",
+                "default_incomplete",
+                "error_if_incomplete",
+                "pending_if_incomplete"
+              ],
+              "type": "string"
+            },
+            "price": {
+              "description": "The ID of the price object.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "price_data": {
+              "description": "Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.",
+              "properties": {
+                "currency": {
+                  "format": "currency",
+                  "type": "string"
+                },
+                "product": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "recurring": {
+                  "properties": {
+                    "interval": {
+                      "enum": [
+                        "day",
+                        "month",
+                        "week",
+                        "year"
+                      ],
+                      "type": "string"
+                    },
+                    "interval_count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "interval"
+                  ],
+                  "title": "recurring_adhoc",
+                  "type": "object"
+                },
+                "tax_behavior": {
+                  "enum": [
+                    "exclusive",
+                    "inclusive",
+                    "unspecified"
+                  ],
+                  "type": "string"
+                },
+                "unit_amount": {
+                  "type": "integer"
+                },
+                "unit_amount_decimal": {
+                  "format": "decimal",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "currency",
+                "product",
+                "recurring"
+              ],
+              "title": "recurring_price_data",
+              "type": "object"
+            },
+            "proration_behavior": {
+              "description": "Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.",
+              "enum": [
+                "always_invoice",
+                "create_prorations",
+                "none"
+              ],
+              "type": "string"
+            },
+            "proration_date": {
+              "description": "If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.",
+              "format": "unix-time",
+              "type": "integer"
+            },
+            "quantity": {
+              "description": "The quantity you'd like to apply to the subscription item you're creating.",
+              "type": "integer"
+            },
+            "subscription": {
+              "description": "The identifier of the subscription to modify.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "tax_rates": {
+              "anyOf": [
+                {
+                  "items": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates."
+            }
+          },
+          "required": [
+            "subscription"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Subscription items allow you to create customer subscriptions with more than\none plan, making it easy to represent complex billing relationships.",
+            "properties": {
+              "billing_thresholds": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/subscription_item_billing_thresholds"
+                  }
+                ],
+                "description": "Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period",
+                "nullable": true
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "type": "integer"
+              },
+              "discounts": {
+                "description": "The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.",
+                "items": {
+                  "anyOf": [
+                    {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "#/components/schemas/discount"
+                    }
+                  ],
+                  "x-expansionResources": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/discount"
+                      }
+                    ]
+                  }
+                },
+                "type": "array"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "subscription_item"
+                ],
+                "type": "string"
+              },
+              "price": {
+                "$ref": "#/components/schemas/price"
+              },
+              "quantity": {
+                "description": "The [quantity](https://stripe.com/docs/subscriptions/quantities) of the plan to which the customer should be subscribed.",
+                "type": "integer"
+              },
+              "subscription": {
+                "description": "The `subscription` this `subscription_item` belongs to.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "tax_rates": {
+                "description": "The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.",
+                "items": {
+                  "$ref": "#/components/schemas/tax_rate"
+                },
+                "nullable": true,
+                "type": "array"
+              }
+            },
+            "required": [
+              "created",
+              "discounts",
+              "id",
+              "metadata",
+              "object",
+              "price",
+              "subscription"
+            ],
+            "title": "SubscriptionItem",
+            "type": "object",
+            "x-expandableFields": [
+              "billing_thresholds",
+              "discounts",
+              "price",
+              "tax_rates"
+            ],
+            "x-resourceId": "subscription_item"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Error response to return",
+      "in": "query",
+      "name": "error",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "example property to return",
+      "in": "query",
+      "name": "foo",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/api.test",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "args": {
+                  "error": "my_error"
+                },
+                "error": "my_error",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Schema for error response api.test method",
+            "properties": {
+              "error": {
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "api.test error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Artificial error response"
+    }
+  }
+}

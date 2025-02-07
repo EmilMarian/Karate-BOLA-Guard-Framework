@@ -1,0 +1,123 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:read`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Comma separated string of team IDs, signifying the workspaces to search through.",
+      "in": "query",
+      "name": "team_ids",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Name of the the channel to query by.",
+      "in": "query",
+      "name": "query",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Maximum number of items to be returned. Must be between 1 - 20 both inclusive. Default is 10.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page.",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The type of channel to include or exclude in the search. For example `private` will search private channels, while `private_exclude` will exclude them. For a full list of types, check the [Types section](#types).",
+      "in": "query",
+      "name": "search_channel_types",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Possible values are `relevant` (search ranking based on what we think is closest), `name` (alphabetical), `member_count` (number of users in the channel), and `created` (date channel was created). You can optionally pair this with the `sort_dir` arg to change how it is sorted ",
+      "in": "query",
+      "name": "sort",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Sort direction. Possible values are `asc` for ascending order like (1, 2, 3) or (a, b, c), and `desc` for descending order like (3, 2, 1) or (c, b, a)",
+      "in": "query",
+      "name": "sort_dir",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.conversations.search",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "not_an_enterprise",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from admin.conversations.search",
+            "properties": {
+              "error": {
+                "enum": [
+                  "feature_not_enabled",
+                  "not_an_admin",
+                  "not_an_enterprise",
+                  "team_not_found",
+                  "not_allowed",
+                  "invalid_auth",
+                  "invalid_cursor",
+                  "invalid_search_channel_type",
+                  "invalid_sort",
+                  "invalid_sort_dir"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "admin.conversations.search error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

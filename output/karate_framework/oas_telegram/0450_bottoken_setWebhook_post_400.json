@@ -1,0 +1,72 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "in": "formData",
+      "name": "url",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "in": "formData",
+      "name": "certificate",
+      "required": false,
+      "type": "file"
+    },
+    {
+      "in": "formData",
+      "name": "max_connections",
+      "required": false,
+      "type": "integer"
+    },
+    {
+      "collectionFormat": "multi",
+      "in": "formData",
+      "items": {
+        "enum": [
+          "message",
+          "edited_message",
+          "channel_post",
+          "edited_channel_post",
+          "inline_query",
+          "chosen_inline_result",
+          "callback_query",
+          "shipping_query",
+          "pre_checkout_query"
+        ],
+        "type": "string"
+      },
+      "name": "allowed_updates",
+      "required": false,
+      "type": "array"
+    }
+  ],
+  "path": "/bot{token}/setWebhook",
+  "requestBody": {},
+  "responses": {
+    "400": {
+      "description": "Bad Request",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Include the list of users for each User Group.",
+      "in": "query",
+      "name": "include_users",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "Authentication token. Requires scope: `usergroups:read`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Include the number of users in each User Group.",
+      "in": "query",
+      "name": "include_count",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "Include disabled User Groups.",
+      "in": "query",
+      "name": "include_disabled",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "path": "/usergroups.list",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true,
+                "usergroups": [
+                  {
+                    "auto_type": "admin",
+                    "created_by": "USLACKBOT",
+                    "date_create": 1446598059,
+                    "date_delete": 0,
+                    "date_update": 1446670362,
+                    "deleted_by": null,
+                    "description": "A group of all Administrators on your team.",
+                    "handle": "admins",
+                    "id": "S0614TZR7",
+                    "is_external": false,
+                    "is_usergroup": true,
+                    "name": "Team Admins",
+                    "prefs": {
+                      "channels": [],
+                      "groups": []
+                    },
+                    "team_id": "T060RNRCH",
+                    "updated_by": "U060RNRCZ",
+                    "user_count": "2"
+                  },
+                  {
+                    "auto_type": "owner",
+                    "created_by": "USLACKBOT",
+                    "date_create": 1446678371,
+                    "date_delete": 0,
+                    "date_update": 1446678371,
+                    "deleted_by": null,
+                    "description": "A group of all Owners on your team.",
+                    "handle": "owners",
+                    "id": "S06158AV7",
+                    "is_external": false,
+                    "is_usergroup": true,
+                    "name": "Team Owners",
+                    "prefs": {
+                      "channels": [],
+                      "groups": []
+                    },
+                    "team_id": "T060RNRCH",
+                    "updated_by": "USLACKBOT",
+                    "user_count": "1"
+                  },
+                  {
+                    "auto_type": null,
+                    "created_by": "U060RNRCZ",
+                    "date_create": 1446746793,
+                    "date_delete": 1446748865,
+                    "date_update": 1446747767,
+                    "deleted_by": null,
+                    "description": "Marketing gurus, PR experts and product advocates.",
+                    "handle": "marketing-team",
+                    "id": "S0615G0KT",
+                    "is_external": false,
+                    "is_usergroup": true,
+                    "name": "Marketing Team",
+                    "prefs": {
+                      "channels": [],
+                      "groups": []
+                    },
+                    "team_id": "T060RNRCH",
+                    "updated_by": "U060RNRCZ",
+                    "user_count": "0"
+                  }
+                ]
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from usergroups.list method",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "usergroups": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "auto_provision": {
+                      "type": "boolean"
+                    },
+                    "auto_type": {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "nullable": true
+                          },
+                          {
+                            "enum": [
+                              "owner",
+                              "admin"
+                            ],
+                            "type": "string"
+                          }
+                        ]
+                      }
+                    },
+                    "channel_count": {
+                      "type": "integer"
+                    },
+                    "created_by": {
+                      "$ref": "#/components/schemas/defs_user_id"
+                    },
+                    "date_create": {
+                      "type": "integer"
+                    },
+                    "date_delete": {
+                      "type": "integer"
+                    },
+                    "date_update": {
+                      "type": "integer"
+                    },
+                    "deleted_by": {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "nullable": true
+                          },
+                          {
+                            "$ref": "#/components/schemas/defs_user_id"
+                          }
+                        ]
+                      }
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "enterprise_subteam_id": {
+                      "type": "string"
+                    },
+                    "handle": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "$ref": "#/components/schemas/defs_subteam_id"
+                    },
+                    "is_external": {
+                      "type": "boolean"
+                    },
+                    "is_subteam": {
+                      "type": "boolean"
+                    },
+                    "is_usergroup": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "prefs": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "channels": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_channel_id"
+                          },
+                          "type": "array"
+                        },
+                        "groups": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_group_id"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "channels",
+                        "groups"
+                      ],
+                      "type": "object"
+                    },
+                    "team_id": {
+                      "$ref": "#/components/schemas/defs_team"
+                    },
+                    "updated_by": {
+                      "$ref": "#/components/schemas/defs_user_id"
+                    },
+                    "user_count": {
+                      "type": "integer"
+                    },
+                    "users": {
+                      "items": {
+                        "$ref": "#/components/schemas/defs_user_id"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "team_id",
+                    "is_usergroup",
+                    "is_subteam",
+                    "name",
+                    "description",
+                    "handle",
+                    "is_external",
+                    "date_create",
+                    "date_update",
+                    "date_delete",
+                    "auto_type",
+                    "auto_provision",
+                    "enterprise_subteam_id",
+                    "created_by",
+                    "updated_by",
+                    "deleted_by",
+                    "prefs"
+                  ],
+                  "title": "Subteam/Usergroup Object",
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "ok",
+              "usergroups"
+            ],
+            "title": "usergroups.list schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

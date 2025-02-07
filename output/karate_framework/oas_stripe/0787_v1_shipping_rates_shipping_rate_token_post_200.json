@@ -1,0 +1,227 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "shipping_rate_token",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/shipping_rates/{shipping_rate_token}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "fixed_amount": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "active": {
+              "description": "Whether the shipping rate can be used for new purchases. Defaults to `true`.",
+              "type": "boolean"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "fixed_amount": {
+              "description": "Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.",
+              "properties": {
+                "currency_options": {
+                  "additionalProperties": {
+                    "properties": {
+                      "amount": {
+                        "type": "integer"
+                      },
+                      "tax_behavior": {
+                        "enum": [
+                          "exclusive",
+                          "inclusive",
+                          "unspecified"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "title": "currency_option_update",
+                    "type": "object"
+                  },
+                  "type": "object"
+                }
+              },
+              "title": "fixed_amount_update",
+              "type": "object"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`."
+            },
+            "tax_behavior": {
+              "description": "Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.",
+              "enum": [
+                "exclusive",
+                "inclusive",
+                "unspecified"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Shipping rates describe the price of shipping presented to your customers and\napplied to a purchase. For more information, see [Charge for shipping](https://stripe.com/docs/payments/during-payment/charge-shipping).",
+            "properties": {
+              "active": {
+                "description": "Whether the shipping rate can be used for new purchases. Defaults to `true`.",
+                "type": "boolean"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "delivery_estimate": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/shipping_rate_delivery_estimate"
+                  }
+                ],
+                "description": "The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.",
+                "nullable": true
+              },
+              "display_name": {
+                "description": "The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "fixed_amount": {
+                "$ref": "#/components/schemas/shipping_rate_fixed_amount"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "shipping_rate"
+                ],
+                "type": "string"
+              },
+              "tax_behavior": {
+                "description": "Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.",
+                "enum": [
+                  "exclusive",
+                  "inclusive",
+                  "unspecified"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "tax_code": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/tax_code"
+                  }
+                ],
+                "description": "A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/tax_code"
+                    }
+                  ]
+                }
+              },
+              "type": {
+                "description": "The type of calculation to use on the shipping rate.",
+                "enum": [
+                  "fixed_amount"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "active",
+              "created",
+              "id",
+              "livemode",
+              "metadata",
+              "object",
+              "type"
+            ],
+            "title": "ShippingRate",
+            "type": "object",
+            "x-expandableFields": [
+              "delivery_estimate",
+              "fixed_amount",
+              "tax_code"
+            ],
+            "x-resourceId": "shipping_rate"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

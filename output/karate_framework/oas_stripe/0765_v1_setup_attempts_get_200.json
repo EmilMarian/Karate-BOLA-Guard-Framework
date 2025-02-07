@@ -1,0 +1,346 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A filter on the list, based on the object `created` field. The value\ncan be a string with an integer Unix timestamp or a\ndictionary with a number of different query options.",
+      "explode": true,
+      "in": "query",
+      "name": "created",
+      "required": false,
+      "schema": {
+        "anyOf": [
+          {
+            "properties": {
+              "gt": {
+                "type": "integer"
+              },
+              "gte": {
+                "type": "integer"
+              },
+              "lt": {
+                "type": "integer"
+              },
+              "lte": {
+                "type": "integer"
+              }
+            },
+            "title": "range_query_specs",
+            "type": "object"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+      "in": "query",
+      "name": "ending_before",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Only return SetupAttempts created by the SetupIntent specified by\nthis ID.",
+      "in": "query",
+      "name": "setup_intent",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+      "in": "query",
+      "name": "starting_after",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/setup_attempts",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "",
+            "properties": {
+              "data": {
+                "items": {
+                  "description": "A SetupAttempt describes one attempted confirmation of a SetupIntent,\nwhether that confirmation is successful or unsuccessful. You can use\nSetupAttempts to inspect details of a specific attempt at setting up a\npayment method using a SetupIntent.",
+                  "properties": {
+                    "application": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/application"
+                        }
+                      ],
+                      "description": "The value of [application](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-application) on the SetupIntent at the time of this confirmation.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/application"
+                          }
+                        ]
+                      }
+                    },
+                    "attach_to_self": {
+                      "description": "If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.\n\nIt can only be used for this Stripe Account\u2019s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.",
+                      "type": "boolean"
+                    },
+                    "created": {
+                      "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "customer": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/customer"
+                        },
+                        {
+                          "$ref": "#/components/schemas/deleted_customer"
+                        }
+                      ],
+                      "description": "The value of [customer](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/customer"
+                          },
+                          {
+                            "$ref": "#/components/schemas/deleted_customer"
+                          }
+                        ]
+                      }
+                    },
+                    "flow_directions": {
+                      "description": "Indicates the directions of money movement for which this payment method is intended to be used.\n\nInclude `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.",
+                      "items": {
+                        "enum": [
+                          "inbound",
+                          "outbound"
+                        ],
+                        "type": "string"
+                      },
+                      "nullable": true,
+                      "type": "array"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the object.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "livemode": {
+                      "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                      "type": "boolean"
+                    },
+                    "object": {
+                      "description": "String representing the object's type. Objects of the same type share the same value.",
+                      "enum": [
+                        "setup_attempt"
+                      ],
+                      "type": "string"
+                    },
+                    "on_behalf_of": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/account"
+                        }
+                      ],
+                      "description": "The value of [on_behalf_of](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-on_behalf_of) on the SetupIntent at the time of this confirmation.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/account"
+                          }
+                        ]
+                      }
+                    },
+                    "payment_method": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/payment_method"
+                        }
+                      ],
+                      "description": "ID of the payment method used with this SetupAttempt.",
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/payment_method"
+                          }
+                        ]
+                      }
+                    },
+                    "payment_method_details": {
+                      "$ref": "#/components/schemas/setup_attempt_payment_method_details"
+                    },
+                    "setup_error": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/api_errors"
+                        }
+                      ],
+                      "description": "The error encountered during this attempt to confirm the SetupIntent, if any.",
+                      "nullable": true
+                    },
+                    "setup_intent": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/setup_intent"
+                        }
+                      ],
+                      "description": "ID of the SetupIntent that this attempt belongs to.",
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/setup_intent"
+                          }
+                        ]
+                      }
+                    },
+                    "status": {
+                      "description": "Status of this SetupAttempt, one of `requires_confirmation`, `requires_action`, `processing`, `succeeded`, `failed`, or `abandoned`.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "usage": {
+                      "description": "The value of [usage](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-usage) on the SetupIntent at the time of this confirmation, one of `off_session` or `on_session`.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "id",
+                    "livemode",
+                    "object",
+                    "payment_method",
+                    "payment_method_details",
+                    "setup_intent",
+                    "status",
+                    "usage"
+                  ],
+                  "title": "PaymentFlowsSetupIntentSetupAttempt",
+                  "type": "object",
+                  "x-expandableFields": [
+                    "application",
+                    "customer",
+                    "on_behalf_of",
+                    "payment_method",
+                    "payment_method_details",
+                    "setup_error",
+                    "setup_intent"
+                  ],
+                  "x-resourceId": "setup_attempt"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "description": "True if this list has another page of items after this one that can be fetched.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                "enum": [
+                  "list"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "The URL where this list can be accessed.",
+                "maxLength": 5000,
+                "pattern": "^/v1/setup_attempts",
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "PaymentFlowsSetupIntentSetupAttemptList",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

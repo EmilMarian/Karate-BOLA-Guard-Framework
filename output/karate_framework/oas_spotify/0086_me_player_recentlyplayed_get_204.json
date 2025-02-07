@@ -1,0 +1,51 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The access token must have been issued on behalf of a user.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "A Unix timestamp in milliseconds. Returns all items after (but not including) this cursor position. If `after` is specified, `before` must not be specified.",
+      "in": "query",
+      "name": "after",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "A Unix timestamp in milliseconds. Returns all items before (but not including) this cursor position. If `before` is specified, `after` must not be specified.",
+      "in": "query",
+      "name": "before",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/me/player/recently-played",
+  "requestBody": {},
+  "responses": {
+    "204": {
+      "description": "On success, the HTTP status code in the response header is `200` OK and the response body contains an array of [play history objects](#play-history-object) (wrapped in a [cursor-based paging object](#cursor-based-paging-object)) in JSON format. The play history items each contain the context the track was played from (e.g. playlist, album), the date and time the track was played, and a [track object (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject). On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema).\n\nIf private session is enabled the response will be a `204 NO CONTENT` with an empty payload."
+    }
+  }
+}

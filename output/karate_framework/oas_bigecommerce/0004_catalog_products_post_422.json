@@ -1,0 +1,55 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/catalog/products",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Product"
+            },
+            {
+              "properties": {
+                "variants": {
+                  "items": {
+                    "$ref": "#/components/schemas/VariantPost"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    "description": "A BigCommerce `Product` object.\n",
+    "required": true
+  },
+  "responses": {
+    "422": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseError"
+              },
+              {
+                "properties": {
+                  "errors": {
+                    "$ref": "#/components/schemas/DetailedErrors"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          }
+        }
+      },
+      "description": "`Product` was not valid. This is the result of missing required fields, or of invalid data. See the response for more details.\n"
+    }
+  }
+}

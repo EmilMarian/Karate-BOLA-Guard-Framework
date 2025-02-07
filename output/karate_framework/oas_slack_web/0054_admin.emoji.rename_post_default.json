@@ -1,0 +1,69 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/admin.emoji.rename",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "name": {
+              "description": "The name of the emoji to be renamed. Colons (`:myemoji:`) around the value are not required, although they may be included.",
+              "type": "string"
+            },
+            "new_name": {
+              "description": "The new name of the emoji.",
+              "type": "string"
+            },
+            "token": {
+              "description": "Authentication token. Requires scope: `admin.teams:write`",
+              "type": "string"
+            }
+          },
+          "required": [
+            "token",
+            "name",
+            "new_name"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.",
+            "properties": {
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "Default error template",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

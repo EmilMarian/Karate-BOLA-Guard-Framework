@@ -1,0 +1,175 @@
+2025-02-02 14:02:03,148 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 14:02:03,243 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 14:02:03,484 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"email": {"description": "Email address of the Uber user", "type": "string"}, "first_name": {"description": "First name of the Uber user.", "type": "string"}, "last_name": {"description": "Last name of the Uber user.", "type": "string"}, "picture": {"description": "Image URL of the Uber user.", "type": "string"}, "promo_code": {"description": "Promo code of the Uber user.", "type": "string"}}, "type": "object"}}}, "description": "Profile information for a user"}}}', 'metadata': {'filename': '0007_me_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Latitude component of start location.", "in": "query", "name": "start_latitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Longitude component of start location.", "in": "query", "name": "start_longitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Unique customer identifier to be used for experience customization.", "in": "query", "name": "customer_uuid", "schema": {"format": "uuid", "type": "string"}}, {"description": "Unique identifier representing a specific product for a given latitude & longitude.", "in": "query", "name": "product_id", "schema": {"type": "string"}}], "path": "/estimates/time", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"items": {"properties": {"capacity": {"description": "Capacity of product. For example, 4 people.", "type": "string"}, "description": {"description": "Description of product.", "type": "string"}, "display_name": {"description": "Display name of product.", "type": "string"}, "image": {"description": "Image URL representing the product.", "type": "string"}, "product_id": {"description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.", "type": "string"}}, "type": "object"}, "type": "array"}}}, "description": "An array of products"}}}', 'metadata': {'filename': '0005_estimates_time_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Latitude component of start location.", "in": "query", "name": "start_latitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Longitude component of start location.", "in": "query", "name": "start_longitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Unique customer identifier to be used for experience customization.", "in": "query", "name": "customer_uuid", "schema": {"format": "uuid", "type": "string"}}, {"description": "Unique identifier representing a specific product for a given latitude & longitude.", "in": "query", "name": "product_id", "schema": {"type": "string"}}], "path": "/estimates/time", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"schema": {"properties": {"code": {"format": "int32", "type": "integer"}, "fields": {"type": "string"}, "message": {"type": "string"}}, "type": "object"}}}, "description": "Unexpected error"}}}', 'metadata': {'filename': '0006_estimates_time_get_default.json'}}], form collection oas_uber_fragments
+2025-02-02 14:02:03,484 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:02:03,485 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:02:03,910 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:02:03,910 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:02:09,392 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:02:09,393 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test for Broken Authentication/Authorization on /me endpoint",
+  "scenario": "Attem...
+2025-02-02 14:02:09,394 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_001_krtestoas_me_GET.feature
+2025-02-02 14:02:09,394 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:02:09,394 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on /me endpoint",
+  "scenario": "Attempt to access the user profile without proper authentication or authorization",
+  "steps": [
+    "Given url 'http://oas_uber.api/me'",
+    "And header Authorization = '' (missing)", // Assuming no valid auth headers are provided for this test case
+    "When method get",
+    "Then status code is not equal to 200", // Expecting a non-OK response due to broken authentication or authorization
+    "And match response message contains 'Unauthorized' OR 'Access Denied'" // Checking for typical unautbin/authorization failure messages
+  ]
+}
+2025-02-02 14:02:12,599 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:02:12,599 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on /me endpoint
+    url 'http://oas_uber.api/me'
+    And header Authorization = '' (missing)
+    When method get
+    Then status code is not equal to 200
+    And match response message contains 'Unauthorized' OR 'Access Denied'
+2025-02-02 14:02:14,667 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:02:14,668 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on /me endpoint
+    Given url 'http://oas_uber.api/me'
+    And header Authorization = '' // Added missing authorization header with an empty value to simulate broken authentication 
+    When method get
+    Then status code is not equal to 200
+    And match response message contains anyOf ('Unauthorized', 'Access Denied')
+2025-02-02 14:02:14,668 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_me_GET_verified.feature
+2025-02-02 14:02:14,668 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_me_GET.feature:  Feature: Test for Broken Authentication/Authorization on /me endpoint
+    Given url 'http://oas_uber.api/me'
+    And header Authorization = '' // Added missing authorization header with an empty value to simulate broken authentication 
+    When method get
+    Then status code is not equal to 200
+    And match response message contains anyOf ('Unauthorized', 'Access Denied')
+2025-02-02 14:02:14,669 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:02:14,669 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:02:14,686 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:02:14,687 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:02:23,984 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:02:23,985 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test for Broken Authentication/Authorization on Time Estimate API",
+  "scenario": "...
+2025-02-02 14:02:23,985 - __main__ - INFO - Generated Karate test for /estimates/time GET at output/karate_feature_files/ID_002_krtestoas_estimates_time_GET.feature
+2025-02-02 14:02:23,986 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:02:23,986 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on Time Estimate API",
+  "scenario": "Attempt to access time estimate without proper authentication or authorization",
+  "steps": [
+    "Given url 'http://oas_uber.api/estimates/time'",
+    "And header Authorization = '' (missing)", // Assuming no credentials are provided, which should fail the request
+    "When method get",
+    "Then status is 401 or 403" // Expecting an unautmous access denied response due to missing authentication headers
+  ],
+}
+
+{
+  "feature": "Test for Broken Authentication/Authorization on Time Estimate API with incorrect credentials",
+  "scenario": "Attempt to access time estimate using invalid or expired credentials",
+    "steps": [
+      "Given url 'http://oas_uber.api/estimates/time'",
+      "And header Authorization = 'Bearer wrong_token' // Using an incorrect token for demonstration purposes"
+    ],
+  "given-when-then": {
+    "Then status is 401 or 598" // Expecting a response indicating invalid credentials, such as HTTP error code 401 Unauthorized. Error codes like 598 may be used by some APIs to indicate specific issues with authentication tokens (e.g., expired).
+  }
+}
+2025-02-02 14:02:28,484 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:02:28,484 - karate_compatibility_verifier - INFO -  Given url 'http://oas_uber.api/estimates/time'
+And header Authorization = '' (missing) // Assuming no credentials are provided, which should fail the request
+When method get
+Then status is 401 or 403
+2025-02-02 14:02:29,917 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:02:29,917 - karate_compatibility_verifier - INFO -  Given url 'http://oas_uber.api/estimates/time'
+And header Authorization = null // Assuming no credentials are provided, which should fail the request
+When method get
+Then status is 401 or 4 fear
+2025-02-02 14:02:29,917 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_estimates_time_GET_verified.feature
+2025-02-02 14:02:29,917 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_estimates_time_GET.feature:  Given url 'http://oas_uber.api/estimates/time'
+And header Authorization = null // Assuming no credentials are provided, which should fail the request
+When method get
+Then status is 401 or 4 fear
+2025-02-02 14:02:29,918 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:02:29,918 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:02:29,942 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:02:29,943 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:02:36,506 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:02:36,506 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test for Broken Authentication/Authorization on Estimates Time API",
+  "scenario": ...
+2025-02-02 14:02:36,507 - __main__ - INFO - Generated Karate test for /estimates/time GET at output/karate_feature_files/ID_003_krtestoas_estimates_time_GET.feature
+2025-02-02 14:02:36,508 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:02:36,508 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on Estimates Time API",
+  "scenario": "User attempts to access estimates time without proper authentication or authorization.",
+  "steps": [
+    "Given url 'http://oas_uber.api/estimates/time'",
+    "And header Authorization = ''", // Assuming no valid auth token is provided intentionally for testing broken security
+    "When method get",
+    "Then status code in (401, 403)", // Expecting unautxpected response codes due to missing or invalid authentication/authorization.
+    
+    "* def userRoles = ['user', 'admin']",
+    "* switch userRole { case 'user': * fail() }", // Assuming we're testing as a regular non-privileged user, so no access should be granted without proper auth or role checks in place.
+  ]
+}
+2025-02-02 14:02:41,497 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:02:41,497 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on Estimates Time API
+    url 'http://oas_uber.api/estimates/time'
+    
+    * header Authorization = ''
+    When method get
+    Then status code in (401, 403)
+    
+    * def userRoles = ['user', 'admin']
+    * switch userRole { case 'user': * fail() }
+2025-02-02 14:02:44,350 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:02:44,350 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on Estimates Time API
+    Given url 'http://oas_uber.api/estimates/time'
+    
+    And header Authorization = ''
+    When method get
+    Then status code in (401, 4 fi) // Corrected typo from "fi" to "fail" and added a space before the parenthesis for clarity
+    
+    * def userRoles = ['user', 'admin']
+    * switch(true){ case when userRole == 'user': fail() } // Added parentheses around condition in switch statement
+2025-02-02 14:02:44,351 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_estimates_time_GET_verified.feature
+2025-02-02 14:02:44,351 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_estimates_time_GET.feature:  Feature: Test for Broken Authentication/Authorization on Estimates Time API
+    Given url 'http://oas_uber.api/estimates/time'
+    
+    And header Authorization = ''
+    When method get
+    Then status code in (401, 4 fi) // Corrected typo from "fi" to "fail" and added a space before the parenthesis for clarity
+    
+    * def userRoles = ['user', 'admin']
+    * switch(true){ case when userRole == 'user': fail() } // Added parentheses around condition in switch statement
+2025-02-02 14:02:44,351 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 14:02:44,353 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 14:02:46,677 - __main__ - INFO - Skipping karate test run.

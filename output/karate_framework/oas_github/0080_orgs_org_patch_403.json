@@ -1,0 +1,94 @@
+{
+  "method": "PATCH",
+  "parameters": [
+    {
+      "description": "Name of organisation.",
+      "in": "path",
+      "name": "org",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/orgs/{org}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "billing_email": {
+              "description": "Billing email address. This address is not publicized.",
+              "type": "string"
+            },
+            "company": {
+              "type": "string"
+            },
+            "email": {
+              "description": "Publicly visible email address.",
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "403": {
+      "content": {},
+      "description": "API rate limit exceeded. See http://developer.github.com/v3/#rate-limiting\nfor details.\n"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Latitude of the center search coordinate. If used, `lng` is required.",
+      "in": "query",
+      "name": "lat",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "Longitude of the center search coordinate. If used, `lat` is required.",
+      "in": "query",
+      "name": "lng",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "A unix timestamp. All media returned will be taken later than this timestamp.",
+      "in": "query",
+      "name": "min_timestamp",
+      "schema": {
+        "format": "int64",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "A unix timestamp. All media returned will be taken earlier than this timestamp.",
+      "in": "query",
+      "name": "max_timestamp",
+      "schema": {
+        "format": "int64",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Default is 1km (distance=1000), max distance is 5km.",
+      "in": "query",
+      "name": "distance",
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/media/search",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "Found media entries; some end-points do not return likes informtaion",
+                "items": {
+                  "$ref": "#/components/schemas/MediaEntry"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Found media resources (without likes information) in a given area."
+    }
+  }
+}

@@ -1,0 +1,345 @@
+2025-01-26 02:30:02,563 - __main__ - INFO - Skipping fragment creation: False
+2025-01-26 02:30:02,640 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-26 02:30:02,893 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The `user-library-read` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) must have been authorized by the user.", "in": "header", "name": "Authorization", "required": true, "schema": {"type": "string"}}, {"description": "An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). If a country code is specified, only episodes that are available in that market will be returned.  \\nIf a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.  \\n*Note: If neither market or user country are provided, the content is considered unavailable for the client.*   \\nUsers can view the country that is associated with their account in the [account settings](https://www.spotify.com/se/account/overview/).", "in": "query", "name": "market", "required": false, "schema": {"type": "string"}}, {"description": "The maximum number of objects to return. Default: 20. Minimum: 1. Maximum: 50.", "in": "query", "name": "limit", "required": false, "schema": {"format": "int32", "type": "integer"}}, {"description": "The index of the first object to return. Default: 0 (i.e., the first object). Use with `limit` to get the next set of objects.", "in": "query", "name": "offset", "required": false, "schema": {"format": "int32", "type": "integer"}}], "path": "/me/episodes", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"externalDocs": {"description": "Find more info on the official Spotify Web API Reference", "url": "https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject"}, "properties": {"href": {"description": "A link to the Web API endpoint returning the full result of the request", "type": "string"}, "items": {"description": "The requested data.", "items": {"externalDocs": {"description": "Find more info on the official Spotify Web API Reference", "url": "https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject"}, "properties": {"added_at": {"description": "The date and time the episode was saved. Timestamps are returned in ISO 8601 format as Coordinated Universal Time (UTC) with a zero offset: YYYY-MM-DDTHH:MM:SSZ.", "format": "date-time", "type": "string"}, "episode": {"$ref": "#/components/schemas/EpisodeObject"}}, "type": "object"}, "type": "array"}, "limit": {"description": "The maximum number of items in the response (as set in the query or by default).", "format": "int32", "type": "integer"}, "next": {"description": "URL to the next page of items. ( `null` if none)", "type": "string"}, "offset": {"description": "The offset of the items returned (as set in the query or by default)", "format": "int32", "type": "integer"}, "previous": {"description": "URL to the previous page of items. ( `null` if none)", "type": "string"}, "total": {"description": "The total number of items available to return.", "format": "int32", "type": "integer"}}, "type": "object"}}}, "description": "- On success, the HTTP status code in the response header is `200` OK and the response body contains an array of [saved episode objects](https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject) (wrapped in a [paging object](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)) in JSON format. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema)."}}}', 'metadata': {'filename': '0051_me_episodes_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The `user-library-read` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) must have been authorized by the user.", "in": "header", "name": "Authorization", "required": true, "schema": {"type": "string"}}, {"description": "An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). If a country code is specified, only episodes that are available in that market will be returned.  \\nIf a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.  \\n*Note: If neither market or user country are provided, the content is considered unavailable for the client.*   \\nUsers can view the country that is associated with their account in the [account settings](https://www.spotify.com/se/account/overview/).", "in": "query", "name": "market", "required": false, "schema": {"type": "string"}}, {"description": "The maximum number of objects to return. Default: 20. Minimum: 1. Maximum: 50.", "in": "query", "name": "limit", "required": false, "schema": {"format": "int32", "type": "integer"}}, {"description": "The index of the first object to return. Default: 0 (i.e., the first object). Use with `limit` to get the next set of objects.", "in": "query", "name": "offset", "required": false, "schema": {"format": "int32", "type": "integer"}}], "path": "/me/episodes", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponseObject"}}}, "description": "Unexpected error"}}}', 'metadata': {'filename': '0052_me_episodes_get_default.json'}}, {'content': '{"method": "PUT", "parameters": [{"description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.  \\nModification of the current user\'s \\"Your Music\\" collection requires authorization of the `user-library-modify` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes).", "in": "header", "name": "Authorization", "required": true, "schema": {"type": "string"}}, {"description": "*Required if the IDs are passed in the request body, otherwise ignored.* The content type of the request body: `application/json`", "in": "header", "name": "Content-Type", "required": false, "schema": {"type": "string"}}, {"description": "A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids). Maximum: 50 IDs.", "in": "query", "name": "ids", "required": true, "schema": {"type": "string"}}], "path": "/me/episodes", "requestBody": {"content": {"application/json": {"schema": {"properties": {"ids": {"description": "A JSON array of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).   \\nA maximum of 50 items can be specified in one request. *Note: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored.*", "items": {"type": "string"}, "type": "array"}}, "type": "object"}}}, "required": false}, "responses": {"200": {"description": "On success, the HTTP status code in the response header is `200` OK. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema). Trying to add an episode when you do not have the user\'s authorization, returns error `403` Forbidden."}}}', 'metadata': {'filename': '0053_me_episodes_put_200.json'}}], form collection oas_spotify_fragments
+2025-01-26 02:30:02,894 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 02:30:02,895 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 02:30:03,312 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 02:30:03,313 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 02:34:15,943 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 02:34:15,944 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 02:34:15,944 - __main__ - INFO - Generated Karate test for /me/episodes GET at output/karate_feature_files/ID_001_krtestoas_me_episodes_GET.feature
+2025-01-26 02:34:15,945 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 02:34:15,945 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <access_token>"
+    }
+    When method get
+    Then status 200
+    And match response contains("Access token refreshed successfully.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <invalid_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is invalid.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <expired_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is expired.")
+```
+This script tests the system's ability to refresh access tokens with valid refresh tokens and reject requests with invalid or expired tokens, ensuring robust security measures are in place. The `<access_token>`, `<invalid_access_token>`, and `<expired_access_token>` should be replaced with actual access tokens obtained through the OAuth2 token generation process.
+2025-01-26 02:38:44,854 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 02:38:44,854 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <access_token>"
+    }
+    When method get
+    Then status 200
+    And match response contains("Access token refreshed successfully.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <invalid_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is invalid.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <expired_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is expired.")
+```
+2025-01-26 02:40:40,560 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 02:40:40,561 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <access_token>"
+    }
+    When method get
+    Then status 200
+    And match response contains("Access token refreshed successfully.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <invalid_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is invalid.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <expired_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is expired.")
+```
+2025-01-26 02:40:40,561 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_me_episodes_GET_verified.feature
+2025-01-26 02:40:40,562 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_me_episodes_GET.feature: The corrected Karate DSL script is:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <access_token>"
+    }
+    When method get
+    Then status 200
+    And match response contains("Access token refreshed successfully.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <invalid_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is invalid.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <expired_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is expired.")
+```
+2025-01-26 02:40:40,562 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 02:40:40,563 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 02:40:40,596 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 02:40:40,596 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 02:44:52,725 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 02:44:52,726 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 02:44:52,726 - __main__ - INFO - Generated Karate test for /me/episodes GET at output/karate_feature_files/ID_002_krtestoas_me_episodes_GET.feature
+2025-01-26 02:44:52,727 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 02:44:52,727 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <access_token>"
+    }
+    When method get
+    Then status 200
+    And match response contains("Access token refreshed successfully.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <invalid_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is invalid.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <expired_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is expired.")
+```
+This script tests the system's ability to refresh access tokens with valid refresh tokens and reject requests with invalid or expired tokens, ensuring robust security measures are in place. The `<access_token>`, `<invalid_access_token>`, and `<expired_access_token>` should be replaced with actual access tokens obtained through the OAuth2 token generation process.
+2025-01-26 02:49:20,052 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 02:49:20,053 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <access_token>"
+    }
+    When method get
+    Then status 200
+    And match response contains("Access token refreshed successfully.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <invalid_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is invalid.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <expired_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is expired.")
+```
+2025-01-26 02:51:15,244 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 02:51:15,244 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <access_token>"
+    }
+    When method get
+    Then status 200
+    And match response contains("Access token refreshed successfully.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <invalid_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is invalid.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <expired_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is expired.")
+```
+2025-01-26 02:51:15,245 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_me_episodes_GET_verified.feature
+2025-01-26 02:51:15,245 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_me_episodes_GET.feature: The corrected Karate DSL script is:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <access_token>"
+    }
+    When method get
+    Then status 200
+    And match response contains("Access token refreshed successfully.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <invalid_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is invalid.")
+    
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      "Authorization": "Bearer <expired_access_token>"
+    }
+    When method get
+    Then status 401
+    And match response contains("Refresh token is expired.")
+```
+2025-01-26 02:51:15,245 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 02:51:15,246 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 02:51:15,278 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 02:51:15,279 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 02:54:37,532 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 02:54:37,533 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 02:54:37,534 - __main__ - INFO - Generated Karate test for /me/episodes PUT at output/karate_feature_files/ID_003_krtestoas_me_episodes_PUT.feature
+2025-01-26 02:54:37,534 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 02:54:37,534 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      method: PUT
+      headers:
+        Authorization: Bearer <access_token>
+    }
+    When status 401
+    Then response contains "Unauthorized"
+```
+This script tests the OAuth2 token refresh mechanism by attempting to access a protected resource (in this case, `/me/episodes`) with an invalid or expired access token. If the request is successful, it means that the system has implemented proper authentication and authorization mechanisms to protect sensitive resources from unauthorized access.
+2025-01-26 02:57:33,573 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 02:57:33,573 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      method: PUT
+      headers:
+        Authorization: Bearer <access_token>
+    }
+    When status 401
+    Then response contains "Unauthorized"
+```
+2025-01-26 02:58:26,778 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 02:58:26,778 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      method: PUT
+      headers:
+        Authorization: Bearer <access_token>
+    }
+    When status 401
+    Then response contains "Unauthorized"
+```
+2025-01-26 02:58:26,778 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_me_episodes_PUT_verified.feature
+2025-01-26 02:58:26,779 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_me_episodes_PUT.feature: Here's the corrected Karate DSL test script:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    And request {
+      method: PUT
+      headers:
+        Authorization: Bearer <access_token>
+    }
+    When status 401
+    Then response contains "Unauthorized"
+```
+2025-01-26 02:58:26,779 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-26 02:58:26,781 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-26 02:58:30,334 - __main__ - INFO - Skipping karate test run.

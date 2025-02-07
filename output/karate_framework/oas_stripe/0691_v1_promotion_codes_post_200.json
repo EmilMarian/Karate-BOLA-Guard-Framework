@@ -1,0 +1,226 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/promotion_codes",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "restrictions": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "active": {
+              "description": "Whether the promotion code is currently active.",
+              "type": "boolean"
+            },
+            "code": {
+              "description": "The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).\n\nIf left blank, we will generate one automatically.",
+              "maxLength": 500,
+              "type": "string"
+            },
+            "coupon": {
+              "description": "The coupon for this promotion code.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "customer": {
+              "description": "The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "expires_at": {
+              "description": "The timestamp at which this promotion code will expire. If the coupon has specified a `redeems_by`, then this value cannot be after the coupon's `redeems_by`.",
+              "format": "unix-time",
+              "type": "integer"
+            },
+            "max_redemptions": {
+              "description": "A positive integer specifying the number of times the promotion code can be redeemed. If the coupon has specified a `max_redemptions`, then this value cannot be greater than the coupon's `max_redemptions`.",
+              "type": "integer"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "restrictions": {
+              "description": "Settings that restrict the redemption of the promotion code.",
+              "properties": {
+                "currency_options": {
+                  "additionalProperties": {
+                    "properties": {
+                      "minimum_amount": {
+                        "type": "integer"
+                      }
+                    },
+                    "title": "currency_option",
+                    "type": "object"
+                  },
+                  "type": "object"
+                },
+                "first_time_transaction": {
+                  "type": "boolean"
+                },
+                "minimum_amount": {
+                  "type": "integer"
+                },
+                "minimum_amount_currency": {
+                  "format": "currency",
+                  "type": "string"
+                }
+              },
+              "title": "restrictions_params",
+              "type": "object"
+            }
+          },
+          "required": [
+            "coupon"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Promotion Code represents a customer-redeemable code for a [coupon](https://stripe.com/docs/api#coupons). It can be used to\ncreate multiple codes for a single coupon.",
+            "properties": {
+              "active": {
+                "description": "Whether the promotion code is currently active. A promotion code is only active if the coupon is also valid.",
+                "type": "boolean"
+              },
+              "code": {
+                "description": "The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "coupon": {
+                "$ref": "#/components/schemas/coupon"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "customer": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/customer"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_customer"
+                  }
+                ],
+                "description": "The customer that this promotion code can be used by.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/customer"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_customer"
+                    }
+                  ]
+                }
+              },
+              "expires_at": {
+                "description": "Date at which the promotion code can no longer be redeemed.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "max_redemptions": {
+                "description": "Maximum number of times this promotion code can be redeemed.",
+                "nullable": true,
+                "type": "integer"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "nullable": true,
+                "type": "object"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "promotion_code"
+                ],
+                "type": "string"
+              },
+              "restrictions": {
+                "$ref": "#/components/schemas/promotion_codes_resource_restrictions"
+              },
+              "times_redeemed": {
+                "description": "Number of times this promotion code has been used.",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "active",
+              "code",
+              "coupon",
+              "created",
+              "id",
+              "livemode",
+              "object",
+              "restrictions",
+              "times_redeemed"
+            ],
+            "title": "PromotionCode",
+            "type": "object",
+            "x-expandableFields": [
+              "coupon",
+              "customer",
+              "restrictions"
+            ],
+            "x-resourceId": "promotion_code"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

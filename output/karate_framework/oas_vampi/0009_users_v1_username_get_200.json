@@ -1,0 +1,42 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "retrieve username data",
+      "in": "path",
+      "name": "username",
+      "required": true,
+      "schema": {
+        "example": "John.Doe",
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users/v1/{username}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "email": {
+                  "example": "user@tempmail.com",
+                  "type": "string"
+                },
+                "username": {
+                  "example": "John.Doe",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "Successfully display user info"
+    }
+  }
+}

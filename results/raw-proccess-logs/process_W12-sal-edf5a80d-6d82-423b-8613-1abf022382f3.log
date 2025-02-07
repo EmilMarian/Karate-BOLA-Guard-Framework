@@ -1,0 +1,434 @@
+2025-01-27 03:48:44,402 - __main__ - INFO - Skipping fragment creation: False
+2025-01-27 03:48:44,495 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-27 03:48:44,728 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/services/oauth/token", "requestBody": {"content": {"application/json": {"schema": {"properties": {"client_id": {"description": "Client ID", "example": "DVG9UP4AwgjJiu.rSYHv2B9H7Cy3l.66JLconxmcjAKRw7jcs4BFloBmK2F.Y6Vbn2RGCFO2STGG8rGf", "type": "string"}, "client_secret": {"description": "Client Secret", "example": "AA0795D9F0A6C823162C6C46B5187476345E4E8C869E1A1dD1C94FFCD7796E33", "type": "string"}, "grant_type": {"description": "Grant Type", "example": "Read", "type": "string"}, "password": {"description": "Password", "example": "password123", "type": "string"}, "username": {"description": "Username", "example": "username@cala.co.uk.uat", "type": "string"}}, "required": ["grant_type", "client_id", "client_secret", "username", "password"], "type": "object"}}}}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"access_token": {"description": "Access Token", "example": "00D3M0000008lFi!AQ0AQEtEJEhlCMVdll3E17UHPIwkDLwzsFpiF6bCfb8XzZqD.HBpAAvVzO2Wh2GiuhjCfMVmLB4bvEZPgw7iNrBjZ_ZEIbnR", "type": "string"}, "id": {"description": "ID", "example": "https://test.salesforce.com/id/00D3M0000008lFiUAI/0053M000000KMCnQAO", "type": "string"}, "instance_url": {"description": "Instance URL", "example": "https://cala--uat.my.salesforce.com", "type": "string"}, "issued_at": {"description": "Issued At", "example": "1591779668437", "type": "string"}, "signature": {"description": "Signature", "example": "OxZbLUn1svgfexVdrTXtsfvfGrIA+S+26hFlFtsOoXY=", "type": "string"}, "token_type": {"description": "Token Type", "example": "Bearer", "type": "string"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0001_services_oauth_token_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/services/oauth/token", "requestBody": {"content": {"application/json": {"schema": {"properties": {"client_id": {"description": "Client ID", "example": "DVG9UP4AwgjJiu.rSYHv2B9H7Cy3l.66JLconxmcjAKRw7jcs4BFloBmK2F.Y6Vbn2RGCFO2STGG8rGf", "type": "string"}, "client_secret": {"description": "Client Secret", "example": "AA0795D9F0A6C823162C6C46B5187476345E4E8C869E1A1dD1C94FFCD7796E33", "type": "string"}, "grant_type": {"description": "Grant Type", "example": "Read", "type": "string"}, "password": {"description": "Password", "example": "password123", "type": "string"}, "username": {"description": "Username", "example": "username@cala.co.uk.uat", "type": "string"}}, "required": ["grant_type", "client_id", "client_secret", "username", "password"], "type": "object"}}}}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"error": {"description": "Error", "example": "invalid_grant", "type": "string"}, "error_description": {"description": "Error Description", "example": "authentication failure", "type": "string"}}}}}, "description": "Bad Request"}}}', 'metadata': {'filename': '0002_services_oauth_token_post_400.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Contact, Lead or Individual ID", "in": "path", "name": "id", "required": true, "schema": {"type": "string"}}], "path": "/services/apexrest/preference/v1/{id}", "requestBody": {}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"errorMessage": {"description": "Error Message", "example": "Bad request, Cannot find a record, Unexpected exception, Required field missing", "type": "string"}, "statusCode": {"description": "Status code", "example": 400, "type": "integer"}, "success": {"description": "Boolean to define whether the call was successfull or not", "example": false, "type": "boolean"}}, "type": "object"}}}, "description": "Bad Request"}}}', 'metadata': {'filename': '0004_services_apexrest_preference_v1_id_get_400.json'}}], form collection oas_salesforce_custom_customer_fragments
+2025-01-27 03:48:44,729 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 03:48:44,730 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 03:48:45,154 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 03:48:45,154 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 03:59:03,451 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 03:59:03,452 - karate_llm_test_gen - INFO - Generated test case: Here are the three test cases for checking potential Broken Authentication/Authorization vulnerabili...
+2025-01-27 03:59:03,452 - __main__ - INFO - Generated Karate test for /services/oauth/token POST at output/karate_feature_files/ID_001_krtestoas_services_oauth_token_POST.feature
+2025-01-27 03:59:03,453 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 03:59:03,453 - karate_compatibility_verifier - INFO - Here are the three test cases for checking potential Broken Authentication/Authorization vulnerabilities in an API using Karate DSL:
+
+1. Test Case 1 - OAuth Token Generation Flaw
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/token'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+2. Test Case 2 - OAuth Authorization Code Grant Fuzz Testing
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/authorize'
+* def clientIds = [ 'knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>', ]
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', '<script>alert(1)</script>']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+3. Test Case 3 - Refresh Token Abuse
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/refresh'
+And request { refresh_token: 'leaked_refresh_token', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-27 04:11:50,384 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 04:11:50,385 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts for your test cases:
+
+1. Test Case 1 - OAuth Token Generation Flaw
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/token'
+And request { grant_type: 'authorization_code', code: '#(stolen_code)', redirect_uri: 'http://evil.example.com', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+2. Test Case 2 - OAuth Authorization Code Grant Fuzz Testing
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/authorize'
+* def clientIds = [ '#(knownClientId)', '', '; DROP TABLE sessions;', '<script>alert(1)</script>', ]
+* def redirectUris = ['#(http://legitimate.example.com)', '#(http://malicious.example.com)', '<script>alert(1)</script>']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: '#(xyz)' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+3. Test Case 3 - Refresh Token Abuse
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/refresh'
+And request { refresh_token: '#(leaked_refresh_token)', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-27 04:20:47,170 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 04:20:47,171 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts for your test cases:
+
+1. Test Case 1 - OAuth Token Generation Flaw
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/token'
+And request { grant_type: 'authorization_code', code: '#(stolen_code)', redirect_uri: 'http://evil.example.com', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+2. Test Case 2 - OAuth Authorization Code Grant Fuzz Testing
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/authorize'
+* def clientIds = [ '#(knownClientId)', '', '; DROP TABLE sessions;', '<script>alert(1)</script>', ]
+* def redirectUris = ['#(http://legitimate.example.com)', '#(http://malicious.example.com)', '<script>alert(1)</script>']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: '#(xyz)' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+3. Test Case 3 - Refresh Token Abuse
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/refresh'
+And request { refresh_token: '#(leaked_refresh_token)', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-27 04:20:47,171 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_services_oauth_token_POST_verified.feature
+2025-01-27 04:20:47,171 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_services_oauth_token_POST.feature: Here are the corrected Karate DSL scripts for your test cases:
+
+1. Test Case 1 - OAuth Token Generation Flaw
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/token'
+And request { grant_type: 'authorization_code', code: '#(stolen_code)', redirect_uri: 'http://evil.example.com', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+2. Test Case 2 - OAuth Authorization Code Grant Fuzz Testing
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/authorize'
+* def clientIds = [ '#(knownClientId)', '', '; DROP TABLE sessions;', '<script>alert(1)</script>', ]
+* def redirectUris = ['#(http://legitimate.example.com)', '#(http://malicious.example.com)', '<script>alert(1)</script>']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: '#(xyz)' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+3. Test Case 3 - Refresh Token Abuse
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/refresh'
+And request { refresh_token: '#(leaked_refresh_token)', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-27 04:20:47,172 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 04:20:47,172 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 04:20:47,203 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 04:20:47,203 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 04:32:29,142 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 04:32:29,143 - karate_llm_test_gen - INFO - Generated test case: Here are the three test cases for checking potential Broken Authentication/Authorization vulnerabili...
+2025-01-27 04:32:29,143 - __main__ - INFO - Generated Karate test for /services/oauth/token POST at output/karate_feature_files/ID_002_krtestoas_services_oauth_token_POST.feature
+2025-01-27 04:32:29,144 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 04:32:29,144 - karate_compatibility_verifier - INFO - Here are the three test cases for checking potential Broken Authentication/Authorization vulnerabilities in an API using Karate DSL:
+
+1. Test Case 1 - OAuth Token Generation Flaw
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/token'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+2. Test Case 2 - OAuth Authorization Code Grant Fuzz Testing
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/authorize'
+* def clientIds = [ 'knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>', ]
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', '<script>alert(1)</script>']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+3. Test Case 3 - Refresh Token Abuse
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/refresh'
+And request { refresh_token: 'leaked_refresh_token', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-27 04:45:20,315 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 04:45:20,315 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts for your test cases:
+
+1. Test Case 1 - OAuth Token Generation Flaw
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/token'
+And request { grant_type: 'authorization_code', code: '#(stolen_code)', redirect_uri: 'http://evil.example.com', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+2. Test Case 2 - OAuth Authorization Code Grant Fuzz Testing
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/authorize'
+* def clientIds = [ '#(knownClientId)', '', '; DROP TABLE sessions;', '<script>alert(1)</script>', ]
+* def redirectUris = ['#(http://legitimate.example.com)', '#(http://malicious.example.com)', '<script>alert(1)</script>']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: '#(xyz)' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+3. Test Case 3 - Refresh Token Abuse
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/refresh'
+And request { refresh_token: '#(leaked_refresh_token)', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-27 04:54:23,018 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 04:54:23,018 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts for your test cases:
+
+1. Test Case 1 - OAuth Token Generation Flaw
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/token'
+And request { grant_type: 'authorization_code', code: '#(stolen_code)', redirect_uri: 'http://evil.example.com', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+2. Test Case 2 - OAuth Authorization Code Grant Fuzz Testing
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/authorize'
+* def clientIds = [ '#(knownClientId)', '', '; DROP TABLE sessions;', '<script>alert(1)</script>', ]
+* def redirectUris = ['#(http://legitimate.example.com)', '#(http://malicious.example.com)', '<script>alert(1)</script>']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: '#(xyz)' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+3. Test Case 3 - Refresh Token Abuse
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/refresh'
+And request { refresh_token: '#(leaked_refresh_token)', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-27 04:54:23,018 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_services_oauth_token_POST_verified.feature
+2025-01-27 04:54:23,019 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_services_oauth_token_POST.feature: Here are the corrected Karate DSL scripts for your test cases:
+
+1. Test Case 1 - OAuth Token Generation Flaw
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/token'
+And request { grant_type: 'authorization_code', code: '#(stolen_code)', redirect_uri: 'http://evil.example.com', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+2. Test Case 2 - OAuth Authorization Code Grant Fuzz Testing
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/authorize'
+* def clientIds = [ '#(knownClientId)', '', '; DROP TABLE sessions;', '<script>alert(1)</script>', ]
+* def redirectUris = ['#(http://legitimate.example.com)', '#(http://malicious.example.com)', '<script>alert(1)</script>']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: '#(xyz)' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+3. Test Case 3 - Refresh Token Abuse
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_salesforce_custom_customer.api/services/oauth/refresh'
+And request { refresh_token: '#(leaked_refresh_token)', client_id: '#(client_id)', client_secret: '#(client_secret)' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-27 04:54:23,019 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 04:54:23,020 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 04:54:23,050 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 04:54:23,052 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 05:03:46,259 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 05:03:46,260 - karate_llm_test_gen - INFO - Generated test case: Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabi...
+2025-01-27 05:03:46,261 - __main__ - INFO - Generated Karate test for /services/apexrest/preference/v1/{id} GET at output/karate_feature_files/ID_003_krtestoas_services_apexrest_preference_v1_id_GET.feature
+2025-01-27 05:03:46,261 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 05:03:46,261 - karate_compatibility_verifier - INFO - Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```karate
+Feature: Checking Broken Authentication and Authorization Vulnerabilities
+  Scenario Outline: <scenario_name>
+    Given url 'http://oas_salesforce_custom_customer.api'
+    When method GET
+    Then status <status>
+    And match response contains '<message>'
+    Examples:
+      | scenario_name   | path                  | status | message                        |
+      | Unauthorized Access | /services/apexrest/preference/v1/{id} | 401 | 'Unauthorized. No valid credentials provided.' |
+      | Broken Authentication | /services/apexrest/preference/v1/{id} | 200 | 'Access granted, but authentication should have failed due to missing or incorrect credentials.' |
+```
+Replace `<scenario_name>`, `path`, and `<message>` with the appropriate values for each scenario. The first scenario checks if unauthorized access is allowed by checking the status code and message in the response. The second scenario simulates a broken authentication flow to check if the API endpoint grants access without proper authentication.
+
+Please replace 'http://oas_salesforce_custom_customer.api' with your actual Salesforce API URL.
+2025-01-27 05:12:14,518 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 05:12:14,518 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```karate
+Feature: Checking Broken Authentication and Authorization Vulnerabilities
+  Scenario Outline: <scenario_name>
+    Given url 'http://oas_salesforce_custom_customer.api'
+    When method GET
+    Then status <status>
+    And match response contains '<message>'
+    Examples:
+      | scenario_name   | path                  | status | message                        |
+      | Unauthorized Access | /services/apexrest/preference/v1/{id} | 401 | 'Unauthorized. No valid credentials provided.' |
+      | Broken Authentication | /services/apexrest/preference/v1/{id} | 200 | 'Access granted, but authentication should have failed due to missing or incorrect credentials.' |
+```
+Replace `<scenario_name>`, `path`, and `<message>` with the appropriate values for each scenario. The first scenario checks if unauthorized access is allowed by checking the status code and message in the response. The second scenario simulates a broken authentication flow to check if the API endpoint grants access without proper authentication.
+
+Please replace 'http://oas_salesforce_custom_customer.api' with your actual Salesforce API URL.
+2025-01-27 05:16:21,759 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 05:16:21,759 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL script:
+```karate
+Feature: Checking Broken Authentication and Authorization Vulnerabilities
+  Scenario Outline: <scenario_name>
+    Given url 'http://oas_salesforce_custom_customer.api'
+    When method GET
+    Then status <status>
+    And match response contains '<message>'
+    Examples:
+      | scenario_name   | path                  | status | message                        |
+      | Unauthorized Access | /services/apexrest/preference/v1/{id} | 401 | 'Unauthorized. No valid credentials provided.' |
+      | Broken Authentication | /services/apexrest/preference/v1/{id} | 200 | 'Access granted, but authentication should have failed due to missing or incorrect credentials.' |
+```
+Replace `<scenario_name>`, `path`, and `<message>` with the appropriate values for each scenario. The first scenario checks if unauthorized access is allowed by checking the status code and message in the response. The second scenario simulates a broken authentication flow to check if the API endpoint grants access without proper authentication.
+
+Please replace 'http://oas_salesforce_custom_customer.api' with your actual Salesforce API URL.
+2025-01-27 05:16:21,759 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_services_apexrest_preference_v1_id_GET_verified.feature
+2025-01-27 05:16:21,759 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_services_apexrest_preference_v1_id_GET.feature: Here's the corrected Karate DSL script:
+```karate
+Feature: Checking Broken Authentication and Authorization Vulnerabilities
+  Scenario Outline: <scenario_name>
+    Given url 'http://oas_salesforce_custom_customer.api'
+    When method GET
+    Then status <status>
+    And match response contains '<message>'
+    Examples:
+      | scenario_name   | path                  | status | message                        |
+      | Unauthorized Access | /services/apexrest/preference/v1/{id} | 401 | 'Unauthorized. No valid credentials provided.' |
+      | Broken Authentication | /services/apexrest/preference/v1/{id} | 200 | 'Access granted, but authentication should have failed due to missing or incorrect credentials.' |
+```
+Replace `<scenario_name>`, `path`, and `<message>` with the appropriate values for each scenario. The first scenario checks if unauthorized access is allowed by checking the status code and message in the response. The second scenario simulates a broken authentication flow to check if the API endpoint grants access without proper authentication.
+
+Please replace 'http://oas_salesforce_custom_customer.api' with your actual Salesforce API URL.
+2025-01-27 05:16:21,759 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-27 05:16:21,761 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-27 05:16:24,057 - __main__ - INFO - Skipping karate test run.

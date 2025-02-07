@@ -1,0 +1,55 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/catalog/products",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/Product"
+            },
+            {
+              "properties": {
+                "variants": {
+                  "items": {
+                    "$ref": "#/components/schemas/VariantPost"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    "description": "A BigCommerce `Product` object.\n",
+    "required": true
+  },
+  "responses": {
+    "409": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseError"
+              },
+              {
+                "properties": {
+                  "errors": {
+                    "$ref": "#/components/schemas/DetailedErrors"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          }
+        }
+      },
+      "description": "`Product` was in conflict with another product. This is the result of duplicate unique values, such as name or SKU; a missing or invalid category id, brand id, or tax_class id; or a conflicting `bulk_pricing_rule`.\n"
+    }
+  }
+}

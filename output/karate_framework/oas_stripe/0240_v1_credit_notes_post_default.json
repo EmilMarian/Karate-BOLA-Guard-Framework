@@ -1,0 +1,231 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/credit_notes",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "lines": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "shipping_cost": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "description": "The integer amount in cents (or local equivalent) representing the total amount of the credit note.",
+              "type": "integer"
+            },
+            "credit_amount": {
+              "description": "The integer amount in cents (or local equivalent) representing the amount to credit the customer's balance, which will be automatically applied to their next invoice.",
+              "type": "integer"
+            },
+            "effective_at": {
+              "description": "The date when this credit note is in effect. Same as `created` unless overwritten. When defined, this value replaces the system-generated 'Date of issue' printed on the credit note PDF.",
+              "format": "unix-time",
+              "type": "integer"
+            },
+            "email_type": {
+              "description": "Type of email to send to the customer, one of `credit_note` or `none` and the default is `credit_note`.",
+              "enum": [
+                "credit_note",
+                "none"
+              ],
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "invoice": {
+              "description": "ID of the invoice.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "lines": {
+              "description": "Line items that make up the credit note.",
+              "items": {
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "description": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "invoice_line_item": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "tax_amounts": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "properties": {
+                            "amount": {
+                              "type": "integer"
+                            },
+                            "tax_rate": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "taxable_amount": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "amount",
+                            "tax_rate",
+                            "taxable_amount"
+                          ],
+                          "title": "tax_amount_with_tax_rate_param",
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "tax_rates": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "type": {
+                    "enum": [
+                      "custom_line_item",
+                      "invoice_line_item"
+                    ],
+                    "type": "string"
+                  },
+                  "unit_amount": {
+                    "type": "integer"
+                  },
+                  "unit_amount_decimal": {
+                    "format": "decimal",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "title": "credit_note_line_item_params",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "memo": {
+              "description": "The credit note's memo appears on the credit note PDF.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "out_of_band_amount": {
+              "description": "The integer amount in cents (or local equivalent) representing the amount that is credited outside of Stripe.",
+              "type": "integer"
+            },
+            "reason": {
+              "description": "Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`",
+              "enum": [
+                "duplicate",
+                "fraudulent",
+                "order_change",
+                "product_unsatisfactory"
+              ],
+              "type": "string"
+            },
+            "refund": {
+              "description": "ID of an existing refund to link this credit note to.",
+              "type": "string"
+            },
+            "refund_amount": {
+              "description": "The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.",
+              "type": "integer"
+            },
+            "shipping_cost": {
+              "description": "When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.",
+              "properties": {
+                "shipping_rate": {
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              },
+              "title": "credit_note_shipping_cost",
+              "type": "object"
+            }
+          },
+          "required": [
+            "invoice"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

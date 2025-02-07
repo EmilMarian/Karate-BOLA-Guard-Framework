@@ -1,0 +1,183 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "personalization_design",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Personalization Design is a logical grouping of a Physical Bundle, card logo, and carrier text that represents a product line.",
+            "properties": {
+              "card_logo": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/file"
+                  }
+                ],
+                "description": "The file for the card logo to use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/file"
+                    }
+                  ]
+                }
+              },
+              "carrier_text": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/issuing_personalization_design_carrier_text"
+                  }
+                ],
+                "description": "Hash containing carrier text, for use with physical bundles that support carrier text.",
+                "nullable": true
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "lookup_key": {
+                "description": "A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "name": {
+                "description": "Friendly display name.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "issuing.personalization_design"
+                ],
+                "type": "string"
+              },
+              "physical_bundle": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/issuing.physical_bundle"
+                  }
+                ],
+                "description": "The physical bundle object belonging to this personalization design.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/issuing.physical_bundle"
+                    }
+                  ]
+                }
+              },
+              "preferences": {
+                "$ref": "#/components/schemas/issuing_personalization_design_preferences"
+              },
+              "rejection_reasons": {
+                "$ref": "#/components/schemas/issuing_personalization_design_rejection_reasons"
+              },
+              "status": {
+                "description": "Whether this personalization design can be used to create cards.",
+                "enum": [
+                  "active",
+                  "inactive",
+                  "rejected",
+                  "review"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "created",
+              "id",
+              "livemode",
+              "metadata",
+              "object",
+              "physical_bundle",
+              "preferences",
+              "rejection_reasons",
+              "status"
+            ],
+            "title": "IssuingPersonalizationDesign",
+            "type": "object",
+            "x-expandableFields": [
+              "card_logo",
+              "carrier_text",
+              "physical_bundle",
+              "preferences",
+              "rejection_reasons"
+            ],
+            "x-resourceId": "issuing.personalization_design"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

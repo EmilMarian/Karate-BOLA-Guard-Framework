@@ -1,0 +1,78 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "chat_id": {
+            "type": "object"
+          },
+          "disable_notification": {
+            "type": "boolean"
+          },
+          "foursquare_id": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "reply_markup": {
+            "type": "object"
+          },
+          "reply_to_message_id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "chat_id",
+          "latitude",
+          "longitude",
+          "title",
+          "address"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/sendVenue",
+  "requestBody": {},
+  "responses": {
+    "404": {
+      "description": "Not Found",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

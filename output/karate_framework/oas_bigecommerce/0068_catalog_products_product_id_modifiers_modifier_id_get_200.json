@@ -1,0 +1,47 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the `Modifier` belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The ID of the `Modifier`.\n",
+      "in": "path",
+      "name": "modifier_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/modifiers/{modifier_id}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Modifier"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/CollectionMeta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "A `Modifier` object.\n"
+    }
+  }
+}

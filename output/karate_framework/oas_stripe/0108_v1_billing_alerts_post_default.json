@@ -1,0 +1,121 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/billing/alerts",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "usage_threshold": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "alert_type": {
+              "description": "The type of alert to create.",
+              "enum": [
+                "usage_threshold"
+              ],
+              "type": "string",
+              "x-stripeBypassValidation": true
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "title": {
+              "description": "The title of the alert.",
+              "maxLength": 256,
+              "type": "string"
+            },
+            "usage_threshold": {
+              "description": "The configuration of the usage threshold.",
+              "properties": {
+                "filters": {
+                  "items": {
+                    "properties": {
+                      "customer": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "type": {
+                        "enum": [
+                          "customer"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "title": "usage_alert_filter",
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "gte": {
+                  "type": "integer"
+                },
+                "meter": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "recurrence": {
+                  "enum": [
+                    "one_time"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                }
+              },
+              "required": [
+                "gte",
+                "recurrence"
+              ],
+              "title": "usage_threshold_config",
+              "type": "object"
+            }
+          },
+          "required": [
+            "alert_type",
+            "title"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

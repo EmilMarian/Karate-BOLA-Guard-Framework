@@ -1,0 +1,127 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/events/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Events are our way of letting you know when something interesting happens in\nyour account. When an interesting event occurs, we create a new `Event`\nobject. For example, when a charge succeeds, we create a `charge.succeeded`\nevent, and when an invoice payment attempt fails, we create an\n`invoice.payment_failed` event. Certain API requests might create multiple\nevents. For example, if you create a new subscription for a\ncustomer, you receive both a `customer.subscription.created` event and a\n`charge.succeeded` event.\n\nEvents occur when the state of another API resource changes. The event's data\nfield embeds the resource's state at the time of the change. For\nexample, a `charge.succeeded` event contains a charge, and an\n`invoice.payment_failed` event contains an invoice.\n\nAs with other API resources, you can use endpoints to retrieve an\n[individual event](https://stripe.com/docs/api#retrieve_event) or a [list of events](https://stripe.com/docs/api#list_events)\nfrom the API. We also have a separate\n[webhooks](http://en.wikipedia.org/wiki/Webhook) system for sending the\n`Event` objects directly to an endpoint on your server. You can manage\nwebhooks in your\n[account settings](https://dashboard.stripe.com/account/webhooks). Learn how\nto [listen for events](https://docs.stripe.com/webhooks)\nso that your integration can automatically trigger reactions.\n\nWhen using [Connect](https://docs.stripe.com/connect), you can also receive event notifications\nthat occur in connected accounts. For these events, there's an\nadditional `account` attribute in the received `Event` object.\n\nWe only guarantee access to events through the [Retrieve Event API](https://stripe.com/docs/api#retrieve_event)\nfor 30 days.",
+            "properties": {
+              "account": {
+                "description": "The connected account that originates the event.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "api_version": {
+                "description": "The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "data": {
+                "$ref": "#/components/schemas/notification_event_data"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "event"
+                ],
+                "type": "string"
+              },
+              "pending_webhooks": {
+                "description": "Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.",
+                "type": "integer"
+              },
+              "request": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/notification_event_request"
+                  }
+                ],
+                "description": "Information on the API request that triggers the event.",
+                "nullable": true
+              },
+              "type": {
+                "description": "Description of the event (for example, `invoice.created` or `charge.refunded`).",
+                "maxLength": 5000,
+                "type": "string"
+              }
+            },
+            "required": [
+              "created",
+              "data",
+              "id",
+              "livemode",
+              "object",
+              "pending_webhooks",
+              "type"
+            ],
+            "title": "NotificationEvent",
+            "type": "object",
+            "x-expandableFields": [
+              "data",
+              "request"
+            ],
+            "x-resourceId": "event"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

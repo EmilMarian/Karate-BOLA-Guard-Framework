@@ -1,0 +1,258 @@
+2025-02-01 12:01:47,611 - __main__ - INFO - Skipping fragment creation: False
+2025-02-01 12:01:47,685 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-01 12:01:47,941 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/Users/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"passwordRepeat\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"securityQuestion\\\\\\":{\\\\\\"id\\\\\\":7,\\\\\\"question\\\\\\":\\\\\\"Name of your favorite pet?\\\\\\",\\\\\\"createdAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\",\\\\\\"updatedAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\"},\\\\\\"securityAnswer\\\\\\":\\\\\\"MIX MIX\\\\\\"}\\"", "type": "string"}}}}, "responses": {"201": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_api_Users_post_201.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/rest/user/login", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0002_rest_user_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "{{_token}}", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "application/json; charset=utf-8", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/BasketItems/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"ProductId\\\\\\":{{_product_2_id}},\\\\\\"BasketId\\\\\\":\\\\\\"{{_bid}}\\\\\\",\\\\\\"quantity\\\\\\":1}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0004_api_BasketItems_post_200.json'}}], form collection oas_juiceshop_fragments
+2025-02-01 12:01:47,942 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:01:47,942 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:01:48,369 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 12:01:48,370 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 12:05:19,854 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 12:05:19,855 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+
+Feature: Checking API Endpoint /api/Users/ for authentication and authorization issues usin...
+2025-02-01 12:05:19,856 - __main__ - INFO - Generated Karate test for /api/Users/ POST at output/karate_feature_files/ID_001_krtestoas_api_Users__POST.feature
+2025-02-01 12:05:19,857 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 12:05:19,857 - karate_compatibility_verifier - INFO - ```yaml
+
+Feature: Checking API Endpoint /api/Users/ for authentication and authorization issues using Karate DSL scenarios
+
+Scenario: Attempt unauthorized user creation with invalid credentials
+
+    * Given url 'http://oas_juiceshop.api/api/users/'
+    
+    * And def invalidCredentials = { username: '', password: '' }
+    
+    * When method post(invalidCredentials)
+    
+    * Then status contains 401 or 429 (Too Many Requests, indicating rate limiting as a security feature against brute force attacks)
+    
+Scenario: Attempt to create user with expired session token
+
+    * Given url 'http://oas_juiceshop.api/api/users/'
+    
+    * And def expiredSessionToken = { "session": "<expired_token>" } // Replace <expired_token> with an actual example of a valid, but already used session token that is known to be invalid for this test case
+    
+    * When method post(expiredSessionToken)
+    
+    * Then status contains 401 or 429 (Too Many Requests as before) and response body may contain an error message indicating "Invalid Session"
+    
+Scenario: Attempt to create a user with insufficient permissions using stolen admin token
+
+    * Given url 'http://oas_juiceshop.api/api/users/'
+    
+    * And header Authorization = { "Authorization": "<stolen_admin_token>" } // Replace <stolen_admin_token> with a valid, but stolen admin token for this test case (if available) or mockup if real data cannot be used due to security concerns.
+    
+    * When method post(invalidCredentials)
+    
+    * Then status contains 401 and response body may contain "Unauthorized: Insufficient permissions" indicating that the token was not accepted as valid for user creation operations, despite being an admin-level token in this scenario.
+```
+2025-02-01 12:09:05,539 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 12:09:05,539 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Checking API Endpoint /api/Users/ for authentication and authorization issues using Karate DSL scenarios
+
+Scenario: Attempt unauthorized user creation with invalid credentials
+  * Given url 'http://oas_juiceshop.api/api/users/'
+  * And def invalidCredentials = { username: '', password: '' }
+  * When method post(invalidCredentials)
+  * Then status contains 401 or 429 (Too Many Requests, indicating rate limiting as a security feature against brute force attacks)
+  
+Scenario: Attempt to create user with expired session token
+  * Given url 'http://oas_juiceshop.api/api/users/'
+  * And def expiredSessionToken = { "session": "<expired_token>" } // Replace <expired_token> with an actual example of a valid, but already used session token that is known to be invalid for this test case
+  * When method post(expiredSessionToken)
+  * Then status contains 401 or 429 (Too Many Requests as before) and response body may contain "Invalid Session" error message
+  
+Scenario: Attempt to create a user with insufficient permissions using stolen admin token
+  * Given url 'http://oas_juiceshop.api/api/users/'
+  * And header Authorization = { "Authorization": "<stolen_admin_token>" } // Replace <stolen_admin_token> with a valid, but stolen admin token for this test case (if available) or mockup if real data cannot be used due to security concerns.
+  * When method post(invalidCredentials)
+  * Then status contains 401 and response body may contain "Unauthorized: Insufficient permissions" indicating that the stolen admin token was not accepted as valid for user creation operations, despite being an admin-level token in this scenario.
+```
+2025-02-01 12:11:23,356 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 12:11:23,356 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Checking API Endpoint /api/Users/ for authentication and authorization issues using Karate DSL scenarios
+
+Scenario: Attempt unauthorized user creation with invalid credentials
+  * Given url 'http://oas_juiceshop.api/api/users/'
+  * And def invalidCredentials = { username: '', password: '' }
+  * When method post(invalidCredentials)
+  * Then status contains 401 or 429 (Too Many Requests, indicating rate limiting as a security feature against brute force attacks)
+  
+Scenario: Attempt to create user with expired session token
+  * Given url 'http://oas_juiceshop.api/api/users/'
+  * And def expiredSessionToken = { "session": "<expired_token>" } // Replace <expired_token> with an actual example of a valid, but already used session token that is known to be invalid for this test case
+  * When method post(expiredSessionToken)
+  * Then status contains 401 or 429 (Too Many Requests as before) and response body may contain "Invalid Session" error message
+  
+Scenario: Attempt to create a user with insufficient permissions using stolen admin token
+  * Given url 'http://oas_juiceshop.api/api/users/'
+  * And header Authorization = { "Authorization": "<stolen_admin_token>" } // Replace <stolen_admin_token> with a valid, but stolen admin token for this test case (if available) or mockup if real data cannot be used due to security concerns.
+  * When method post(invalidCredentials)
+  * Then status contains 401 and response body may contain "Unauthorized: Insufficient permissions" indicating that the stolen admin token was not accepted as valid for user creation operations, despite being an admin-level token in this scenario.
+```
+2025-02-01 12:11:23,357 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_api_Users__POST_verified.feature
+2025-02-01 12:11:23,357 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_api_Users__POST.feature: ```yaml
+Feature: Checking API Endpoint /api/Users/ for authentication and authorization issues using Karate DSL scenarios
+
+Scenario: Attempt unauthorized user creation with invalid credentials
+  * Given url 'http://oas_juiceshop.api/api/users/'
+  * And def invalidCredentials = { username: '', password: '' }
+  * When method post(invalidCredentials)
+  * Then status contains 401 or 429 (Too Many Requests, indicating rate limiting as a security feature against brute force attacks)
+  
+Scenario: Attempt to create user with expired session token
+  * Given url 'http://oas_juiceshop.api/api/users/'
+  * And def expiredSessionToken = { "session": "<expired_token>" } // Replace <expired_token> with an actual example of a valid, but already used session token that is known to be invalid for this test case
+  * When method post(expiredSessionToken)
+  * Then status contains 401 or 429 (Too Many Requests as before) and response body may contain "Invalid Session" error message
+  
+Scenario: Attempt to create a user with insufficient permissions using stolen admin token
+  * Given url 'http://oas_juiceshop.api/api/users/'
+  * And header Authorization = { "Authorization": "<stolen_admin_token>" } // Replace <stolen_admin_token> with a valid, but stolen admin token for this test case (if available) or mockup if real data cannot be used due to security concerns.
+  * When method post(invalidCredentials)
+  * Then status contains 401 and response body may contain "Unauthorized: Insufficient permissions" indicating that the stolen admin token was not accepted as valid for user creation operations, despite being an admin-level token in this scenario.
+```
+2025-02-01 12:11:23,358 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:11:23,358 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:11:23,394 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 12:11:23,395 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 12:14:33,776 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 12:14:33,777 - karate_llm_test_gen - INFO - Generated test case: ```diff
++ Given url http://oas_juiceshop.api/rest/user/login
+++ And body { username: 'testUser', pas...
+2025-02-01 12:14:33,778 - __main__ - INFO - Generated Karate test for /rest/user/login POST at output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST.feature
+2025-02-01 12:14:33,778 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 12:14:33,778 - karate_compatibility_verifier - INFO - ```diff
++ Given url http://oas_juiceshop.api/rest/user/login
+++ And body { username: 'testUser', password: 'password123!' }
+++ When method post
+++ Then status should be within range(400, 599) # Assuming Broken Authentication vulnerabilities result in HTTP error codes between 400 and 599.
++ Scenario: Verify authentication failure for incorrect credentials
+++ Given url http://oas_juiceshop.api/rest/user/login
+++ And body { username: 'wrongUser', password: 'password123!' }
+++ When method post
+++ Then status should be within range(400, 599) # Expecting a Bad Request or similar error for incorrect credentials.
++ Scenario: Verify authentication failure due to missing required fields (e.g., password)
+++ Given url http://oas_juiceshop.api/rest/user/login
+++ And body { username: 'correctUser', password: '' } # Missing the mandatory password field here.
+++ When method post
+++ Then status should be within range(400, 599) # Expecting a Bad Request or similar error for missing required fields.
++ Scenario: Verify authentication failure due to rate limit exceeded (hypothetical scenario assuming the API has such protection in place).
+++ Given url http://oas_juiceshop.api/rest/user/login
+++ And body { username: 'limitedUser', password: 'password123!' } # Assuming this user is already hitting rate limits with previous attempts.
+++ When method post
+++ Then status should be within range(409, 599) # Expecting a Too Many Requests error for exceeded rate limit scenarios.
+```
+2025-02-01 12:17:55,889 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 12:17:55,890 - karate_compatibility_verifier - INFO - ```diff
++ Given url http://oas_juiceshop.api/rest/user/login
+++ And body { username: 'testUser', password: 'password123!' }
+++ When method post
+++ Then status should be within range(400, 599) # Expecting a Bad Request or similar error for incorrect credentials.
++ Scenario: Verify authentication failure due to missing required fields (e.g., password)
++ Given url http://oas_juiceshop.api/rest/user/login
++ And body { username: 'correctUser', password: '' } # Missing the mandatory password field here.
++ When method post
++ Then status should be within range(400, 599) # Expecting a Bad Request or similar error for missing required fields.
++ Scenario: Verify authentication failure due to rate limit exceeded (hypothetical scenario assuming the API has such protection in place).
++ Given url http://oas_juiceshop.api/rest/user/login
++ And body { username: 'limitedUser', password: 'password123!' } # Assuming this user is already hitting rate limits with previous attempts.
++ When method post
++ Then status should be within range(409, 599) # Expecting a Too Many Requests error for exceeded rate limit scenarios.
+```
+2025-02-01 12:19:19,925 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 12:19:19,925 - karate_compatibility_verifier - INFO - ```diff
++ Given url http://oas_juiceshop.api/rest/user/login
+++ And body { username: 'testUser', password: 'password123!' } # Correcting the URL to match Karate DSL format and adding missing fields for clarity in test cases.
++ When method post
++ Then status should be within range(400, 599) # Expecting a Bad Request or similar error due to incorrect credentials provided (e.g., wrong password).
++ Scenario: Verify authentication failure due to missing required fields (e.g., username and/or password)
++ Given url http://oas_juiceshop.api/rest/user/login
++ And body { } # Empty JSON object for demonstrating a scenario where mandatory credentials are not provided, expecting an error response from the API.
++ When method post
++ Then status should be within range(400, 599) # Expecting a Bad Request or similar error due to missing required fields in authentication request.
+```
+2025-02-01 12:19:19,926 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST_verified.feature
+2025-02-01 12:19:19,926 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST.feature: ```diff
++ Given url http://oas_juiceshop.api/rest/user/login
+++ And body { username: 'testUser', password: 'password123!' } # Correcting the URL to match Karate DSL format and adding missing fields for clarity in test cases.
++ When method post
++ Then status should be within range(400, 599) # Expecting a Bad Request or similar error due to incorrect credentials provided (e.g., wrong password).
++ Scenario: Verify authentication failure due to missing required fields (e.g., username and/or password)
++ Given url http://oas_juiceshop.api/rest/user/login
++ And body { } # Empty JSON object for demonstrating a scenario where mandatory credentials are not provided, expecting an error response from the API.
++ When method post
++ Then status should be within range(400, 599) # Expecting a Bad Request or similar error due to missing required fields in authentication request.
+```
+2025-02-01 12:19:19,927 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:19:19,927 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:19:19,964 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 12:19:19,965 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 12:21:15,772 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 12:21:15,773 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+* scenario: 'Test API Security - Unauthorized Access'
+* gorilla.setServerBaseUrl('http://oas...
+2025-02-01 12:21:15,774 - __main__ - INFO - Generated Karate test for /api/BasketItems/ POST at output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST.feature
+2025-02-01 12:21:15,774 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 12:21:15,775 - karate_compatibility_verifier - INFO - ```yaml
+* scenario: 'Test API Security - Unauthorized Access'
+* gorilla.setServerBaseUrl('http://oas_juiceshop.api')
+* def unauthorizedPath = '/api/BasketItems/'
+* Given url *join(gorilla.baseUrl, unauthorizedPath)
+* And request {body: {}} // Attempt to access without proper authentication headers or tokens
+* When method post
+* Then status 401 Unauthorized
+```
+2025-02-01 12:22:46,275 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 12:22:46,275 - karate_compatibility_verifier - INFO - ```yaml
+Scenario: Test API Security - Unauthorized Access
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+And request {body: {}} // Attempt to access without proper authentication headers or tokens
+When method post
+Then status 401 Unauthorized
+```
+2025-02-01 12:23:19,291 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 12:23:19,291 - karate_compatibility_verifier - INFO - ```yaml
+Scenario: Test API Security - Unauthorized Access
+Given url 'http://oas_juiceshop.api/v2/BasketItems/'
+And auth {headers: {'X-Api-Key': ''}} // Attempt to access without proper authentication headers or tokens
+When method post
+Then status 401 Unauthorized
+```
+2025-02-01 12:23:19,291 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST_verified.feature
+2025-02-01 12:23:19,292 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST.feature: ```yaml
+Scenario: Test API Security - Unauthorized Access
+Given url 'http://oas_juiceshop.api/v2/BasketItems/'
+And auth {headers: {'X-Api-Key': ''}} // Attempt to access without proper authentication headers or tokens
+When method post
+Then status 401 Unauthorized
+```
+2025-02-01 12:23:19,292 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-01 12:23:19,293 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-01 12:23:21,929 - __main__ - INFO - Skipping karate test run.

@@ -1,0 +1,97 @@
+{
+  "method": "DELETE",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "customer",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/customers/{customer}/sources/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "anyOf": [
+              {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/account"
+                  },
+                  {
+                    "$ref": "#/components/schemas/bank_account"
+                  },
+                  {
+                    "$ref": "#/components/schemas/card"
+                  },
+                  {
+                    "$ref": "#/components/schemas/source"
+                  }
+                ],
+                "title": "Polymorphic",
+                "x-resourceId": "payment_source",
+                "x-stripeBypassValidation": true
+              },
+              {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/deleted_bank_account"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_card"
+                  }
+                ],
+                "title": "Polymorphic",
+                "x-resourceId": "deleted_payment_source",
+                "x-stripeBypassValidation": true
+              }
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

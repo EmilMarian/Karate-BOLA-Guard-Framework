@@ -1,0 +1,226 @@
+2025-01-27 20:04:18,185 - __main__ - INFO - Skipping fragment creation: False
+2025-01-27 20:04:18,246 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-27 20:04:18,708 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/identity/api/auth/signup", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"name\\\\\\":\\\\\\"{{name}}\\\\\\",\\\\\\"email\\\\\\":\\\\\\"{{email}}\\\\\\",\\\\\\"number\\\\\\":\\\\\\"{{phone}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_identity_api_auth_signup_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtb25zdGVyQGRhcmt3ZWIuY29tIiwiaWF0IjoxNjA4NTQzODI0LCJleHAiOjE2MDg2MzAyMjR9.AAIvhrtstlloPf7-NNCcmhEZm-XkO1aO3x3CLns1em7ft9U77B88LpK9jIrF8C-IH32JPWVazRFo0gBIBZ9FpA", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/workshop/api/merchant/contact_mechanic", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\r\\\\n    \\\\\\"mechanic_code\\\\\\": \\\\\\"TRAC_JHN\\\\\\",\\\\r\\\\n    \\\\\\"problem_details\\\\\\": \\\\\\"Hi Jhon\\\\\\",\\\\r\\\\n    \\\\\\"vin\\\\\\": \\\\\\"{{VIN}}\\\\\\",\\\\r\\\\n    \\\\\\"mechanic_api\\\\\\": \\\\\\"{{url}}/workshop/api/mechanic/receive_report\\\\\\",\\\\r\\\\n    \\\\\\"repeat_request_if_failed\\\\\\": false,\\\\r\\\\n    \\\\\\"number_of_repeats\\\\\\": 1\\\\r\\\\n}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0019_workshop_api_merchant_contact_mechanic_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/identity/api/auth/verify", "requestBody": {"content": {"application/json": {"schema": {"example": {"token": "{{token}}"}, "type": "object"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0003_identity_api_auth_verify_post_200.json'}}], form collection crapi_fragments
+2025-01-27 20:04:18,709 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 20:04:18,710 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 20:04:19,131 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 20:04:19,132 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 20:04:29,757 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 20:04:29,758 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Broken Authentication/Authorization in Signup API",
+  "scenario": "Attempt to bypas...
+2025-01-27 20:04:29,759 - __main__ - INFO - Generated Karate test for /identity/api/auth/signup POST at output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature
+2025-01-27 20:04:29,760 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 20:04:29,760 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization in Signup API",
+  "scenario": "Attempt to bypass authentication during sign up with invalid credentials.",
+    "given url 'http://oas_salesforce_partner_API.api/identity/auth/signup'",
+    "when method post",
+    "with request { username: 'admin', password: 'wrongpassword!', email: 'admin@example.com' }",
+    "then status 401 or error contains 'Unauthenticated'"
+}
+{
+  "feature": "Broken Authentication/Authorization in Signup API",
+  "scenario": "Attempt to bypass authentication during sign up with expired credentials.",
+    "given url 'http://oas_salesforce_partner_API.api/identity/auth/signup'",
+    "when method post",
+    "with request { username: 'admin', password: 'expiredpassword!', email: 'admin@example.com' }",
+    "then status 401 or error contains 'Expired credentials'"
+}
+{
+    "feature": "Broken Authentication/Authorization in Signup API",
+    "scenario": "Attempt to bypass authentication using an invalid redirect URI.",
+        "given url 'http://oas_salesforce_partner_API.api/identity/auth/signup'",
+        "when method post",
+        "with request { username: 'admin', password: 'password!', email: 'admin@example.com', redirect_uri: '/invalid-redirect/' }",
+        "then status 403 or error contains 'Invalid Redirect URI'"
+}
+2025-01-27 20:04:34,326 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 20:04:34,326 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization in Signup API
+    * url 'http://oas_salesforce_partner_API.api/identity/auth/signup'
+    
+    Scenario: Attempt to bypass authentication during sign up with invalid credentials.
+        When method post
+        With request { username: 'admin', password: 'wrongpassword!', email: 'admin@example.com' }
+        Then status 401 or error contains 'Unauthenticated'
+2025-01-27 20:04:36,654 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 20:04:36,654 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization in Signup API
+    Given url 'http://oas_salesforce_partner_API.api/identity/auth/signup'
+    
+    Scenario: Attempt to bypass authentication during sign up with invalid credentials.
+        When method post
+        And request { username: 'admin', password: 'wrongpassword!', email: 'admin@example.com'}
+        Then status 401 or error should contain 'Unauthenticated'
+2025-01-27 20:04:36,654 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature
+2025-01-27 20:04:36,655 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature:  Feature: Broken Authentication/Authorization in Signup API
+    Given url 'http://oas_salesforce_partner_API.api/identity/auth/signup'
+    
+    Scenario: Attempt to bypass authentication during sign up with invalid credentials.
+        When method post
+        And request { username: 'admin', password: 'wrongpassword!', email: 'admin@example.com'}
+        Then status 401 or error should contain 'Unauthenticated'
+2025-01-27 20:04:36,655 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 20:04:36,656 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 20:04:36,681 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 20:04:36,682 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 20:04:43,132 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 20:04:43,133 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test for Broken Authentication/Authorization on Contact Mechanic API",
+  "scenario"...
+2025-01-27 20:04:43,134 - __main__ - INFO - Generated Karate test for /workshop/api/merchant/contact_mechanic POST at output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature
+2025-01-27 20:04:43,135 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 20:04:43,136 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on Contact Mechanic API",
+  "scenario": "Attempt to access the contact mechanic endpoint without proper authentication or authorization",
+  "steps": [
+    {
+      "Given url 'http://oas_salesforce_partner_API.api/workshop/api/merchant/contact_mechanic'",
+      "When method post with empty headers"
+    },
+    "Then status should be 401 or 403 indicating missing authentication credentials",
+    
+    {
+      "Given url 'http://oas_salesforce_partner_API.api/workshop/api/merchant/contact_mechanic'",
+      "And header Authorization = \'\'""Bearer <unauthorizedUserToken>\'"''
+    },
+    {
+  "Then status should be 403 indicating lack of proper authorization for the contact mechanic action"
+    }
+  ]
+}
+2025-01-27 20:04:48,010 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 20:04:48,010 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on Contact Mechanic API
+    Scenario: Attempt to access the contact mechanic endpoint without proper authentication or authorization
+        * url 'http://oas_salesforce_partner_API.api/workshop/api/merchant/contact_mechanic'
+        When method post with empty headers
+        Then status 401 or 4x3 indicating missing authentication credentials
+        
+        Given url 'http://oas_salesforce_partner_API.api/workshop/api/merchant/contact_mechanic'
+        And header Authorization = "Bearer <unauthorizedUserToken>"
+        Then status 403 indicating lack of proper authorization for the contact mechanic action
+2025-01-27 20:04:52,119 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 20:04:52,119 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on Contact Mechanic API
+    Scenario: Attempt to access the contact mechanic endpoint without proper authentication or authorization
+        * url 'http://oas_salesforce_partner_API.api/workshop/api/merchant/contact_mechanic'
+        When method post with empty headers()
+        Then status should be 401 OR status is x in [403, 405] indicating missing authentication credentials
+        
+    Scenario: Attempt to access the contact mechanic endpoint without proper authorization for that action
+        Given url 'http://oas_salesforce_partner_API.api/workshop/api/merchant/contact_mechanic'
+        And header Authorization = "Bearer <unauthorizedUserToken>"
+        Then status should be 403 indicating lack of proper authorization for the contact mechanic action
+2025-01-27 20:04:52,119 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified.feature
+2025-01-27 20:04:52,120 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature:  Feature: Test for Broken Authentication/Authorization on Contact Mechanic API
+    Scenario: Attempt to access the contact mechanic endpoint without proper authentication or authorization
+        * url 'http://oas_salesforce_partner_API.api/workshop/api/merchant/contact_mechanic'
+        When method post with empty headers()
+        Then status should be 401 OR status is x in [403, 405] indicating missing authentication credentials
+        
+    Scenario: Attempt to access the contact mechanic endpoint without proper authorization for that action
+        Given url 'http://oas_salesforce_partner_API.api/workshop/api/merchant/contact_mechanic'
+        And header Authorization = "Bearer <unauthorizedUserToken>"
+        Then status should be 403 indicating lack of proper authorization for the contact mechanic action
+2025-01-27 20:04:52,121 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 20:04:52,122 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 20:04:52,150 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 20:04:52,151 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 20:05:02,702 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 20:05:02,703 - karate_llm_test_gen - INFO - Generated test case:  {
+  "scenarios": [
+    {
+      "name": "Attempt to access with invalid credentials",
+      "path": ...
+2025-01-27 20:05:02,705 - __main__ - INFO - Generated Karate test for /identity/api/auth/verify POST at output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST.feature
+2025-01-27 20:05:02,705 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 20:05:02,705 - karate_compatibility_verifier - INFO - {
+  "scenarios": [
+    {
+      "name": "Attempt to access with invalid credentials",
+      "path": "/identity/api/auth/verify",
+      "url": "http://oas_salesforce_partner_API.api"
+    },
+    {
+      "name": "Attempt to exploit potential vulnerabilities in the authentication process using known bad credentials and check for proper error handling.",
+      "path": "/identity/api/auth/verify",
+      "url": "http://oas_salesforce_partner_API.api"
+    },
+    {
+      "name": "Attempt to exploit potential vulnerabilities by using a null or empty username and password.",
+      "path": "/identity/api/auth/verify",
+      "url": "http://oas_salesforce_partner_API.api"
+    }
+  ],
+  "context": {
+    "scenarioType": "security test case using Karate DSL scenario for the following API Spec: {'path': '/identity/api/auth/verify', 'method': 'POST', 'summary': '', 'parameters': ['username', 'password']}",
+    "response": {
+      "feature": "Broken Authentication and Authorization Vulnerability Testing",
+      "scenario": "Test for potential Broken Authentication or Authorization vulnerabilities in the identity API.",
+      "steps": [
+        "* Given url '${url}'/identity/api/auth/verify",
+        * when method post,
+        * then status should be 401 (Unautxhorized),
+        * and response body should contain an error message indicating authentication failure.
+      ]
+    }
+  }
+}
+2025-01-27 20:05:07,711 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 20:05:07,711 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication and Authorization Vulnerability Testing
+  Background:
+    * url 'http://oas_salesforce_partner_API.api'
+
+Scenario: Attempt to access with invalid credentials
+  Given url '${url}/identity/api/auth/verify'
+  When method post, params {username:'invalid', password:'12345'}
+  Then status should be 401 (Unauthorized)
+  And response body contains "Authentication failed"
+2025-01-27 20:05:10,093 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 20:05:10,093 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication and Authorization Vulnerability Testing
+ Background:
+    * url 'http://oas_salesforce_partner_API.api'
+ 
+ Scenario: Attempt to access with invalid credentials
+   Given url '/identity/api/auth/verify'
+   When method post, params {username:'invalid', password:'12345'}
+   Then status should be 401 (Unauthorized)
+   And response body contains 'Authentication failed'
+2025-01-27 20:05:10,093 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature
+2025-01-27 20:05:10,094 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST.feature:  Feature: Broken Authentication and Authorization Vulnerability Testing
+ Background:
+    * url 'http://oas_salesforce_partner_API.api'
+ 
+ Scenario: Attempt to access with invalid credentials
+   Given url '/identity/api/auth/verify'
+   When method post, params {username:'invalid', password:'12345'}
+   Then status should be 401 (Unauthorized)
+   And response body contains 'Authentication failed'
+2025-01-27 20:05:10,095 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-27 20:05:10,097 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-27 20:05:12,488 - __main__ - INFO - Skipping karate test run.

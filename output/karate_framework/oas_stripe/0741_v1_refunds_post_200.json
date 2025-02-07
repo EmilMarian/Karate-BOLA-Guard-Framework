@@ -1,0 +1,338 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/refunds",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "type": "integer"
+            },
+            "charge": {
+              "description": "The identifier of the charge to refund.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "currency": {
+              "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+              "format": "currency",
+              "type": "string"
+            },
+            "customer": {
+              "description": "Customer whose customer balance to refund from.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "instructions_email": {
+              "description": "For payment methods without native refund support (e.g., Konbini, PromptPay), use this email from the customer to receive refund instructions.",
+              "type": "string"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`."
+            },
+            "origin": {
+              "description": "Origin of the refund",
+              "enum": [
+                "customer_balance"
+              ],
+              "type": "string"
+            },
+            "payment_intent": {
+              "description": "The identifier of the PaymentIntent to refund.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "reason": {
+              "description": "String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://stripe.com/docs/radar/lists), and will also help us improve our fraud detection algorithms.",
+              "enum": [
+                "duplicate",
+                "fraudulent",
+                "requested_by_customer"
+              ],
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "refund_application_fee": {
+              "description": "Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.",
+              "type": "boolean"
+            },
+            "reverse_transfer": {
+              "description": "Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount).<br><br>A transfer can be reversed only by the application that created the charge.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Refund objects allow you to refund a previously created charge that isn't\nrefunded yet. Funds are refunded to the credit or debit card that's\ninitially charged.\n\nRelated guide: [Refunds](https://stripe.com/docs/refunds)",
+            "properties": {
+              "amount": {
+                "description": "Amount, in cents (or local equivalent).",
+                "type": "integer"
+              },
+              "balance_transaction": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/balance_transaction"
+                  }
+                ],
+                "description": "Balance transaction that describes the impact on your account balance.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/balance_transaction"
+                    }
+                  ]
+                }
+              },
+              "charge": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/charge"
+                  }
+                ],
+                "description": "ID of the charge that's refunded.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/charge"
+                    }
+                  ]
+                }
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "format": "currency",
+                "type": "string"
+              },
+              "description": {
+                "description": "An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "destination_details": {
+                "$ref": "#/components/schemas/refund_destination_details"
+              },
+              "failure_balance_transaction": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/balance_transaction"
+                  }
+                ],
+                "description": "After the refund fails, this balance transaction describes the adjustment made on your account balance that reverses the initial balance transaction.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/balance_transaction"
+                    }
+                  ]
+                }
+              },
+              "failure_reason": {
+                "description": "Provides the reason for the refund failure. Possible values are: `lost_or_stolen_card`, `expired_or_canceled_card`, `charge_for_pending_refund_disputed`, `insufficient_funds`, `declined`, `merchant_request`, or `unknown`.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "instructions_email": {
+                "description": "For payment methods without native refund support (for example, Konbini, PromptPay), provide an email address for the customer to receive refund instructions.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "nullable": true,
+                "type": "object"
+              },
+              "next_action": {
+                "$ref": "#/components/schemas/refund_next_action"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "refund"
+                ],
+                "type": "string"
+              },
+              "payment_intent": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/payment_intent"
+                  }
+                ],
+                "description": "ID of the PaymentIntent that's refunded.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/payment_intent"
+                    }
+                  ]
+                }
+              },
+              "reason": {
+                "description": "Reason for the refund, which is either user-provided (`duplicate`, `fraudulent`, or `requested_by_customer`) or generated by Stripe internally (`expired_uncaptured_charge`).",
+                "enum": [
+                  "duplicate",
+                  "expired_uncaptured_charge",
+                  "fraudulent",
+                  "requested_by_customer"
+                ],
+                "nullable": true,
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "receipt_number": {
+                "description": "This is the transaction number that appears on email receipts sent for this refund.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "source_transfer_reversal": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/transfer_reversal"
+                  }
+                ],
+                "description": "The transfer reversal that's associated with the refund. Only present if the charge came from another Stripe account.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/transfer_reversal"
+                    }
+                  ]
+                }
+              },
+              "status": {
+                "description": "Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://stripe.com/docs/refunds#failed-refunds).",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "transfer_reversal": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/transfer_reversal"
+                  }
+                ],
+                "description": "This refers to the transfer reversal object if the accompanying transfer reverses. This is only applicable if the charge was created using the destination parameter.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/transfer_reversal"
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "amount",
+              "created",
+              "currency",
+              "id",
+              "object"
+            ],
+            "title": "Refund",
+            "type": "object",
+            "x-expandableFields": [
+              "balance_transaction",
+              "charge",
+              "destination_details",
+              "failure_balance_transaction",
+              "next_action",
+              "payment_intent",
+              "source_transfer_reversal",
+              "transfer_reversal"
+            ],
+            "x-resourceId": "refund"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

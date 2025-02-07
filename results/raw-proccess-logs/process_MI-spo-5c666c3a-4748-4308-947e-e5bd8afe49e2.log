@@ -1,0 +1,266 @@
+2025-02-02 14:31:31,006 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 14:31:31,069 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 14:31:31,298 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The `user-library-read` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) must have been authorized by the user.", "in": "header", "name": "Authorization", "required": true, "schema": {"type": "string"}}, {"description": "An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). If a country code is specified, only episodes that are available in that market will be returned.  \\nIf a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.  \\n*Note: If neither market or user country are provided, the content is considered unavailable for the client.*   \\nUsers can view the country that is associated with their account in the [account settings](https://www.spotify.com/se/account/overview/).", "in": "query", "name": "market", "required": false, "schema": {"type": "string"}}, {"description": "The maximum number of objects to return. Default: 20. Minimum: 1. Maximum: 50.", "in": "query", "name": "limit", "required": false, "schema": {"format": "int32", "type": "integer"}}, {"description": "The index of the first object to return. Default: 0 (i.e., the first object). Use with `limit` to get the next set of objects.", "in": "query", "name": "offset", "required": false, "schema": {"format": "int32", "type": "integer"}}], "path": "/me/episodes", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponseObject"}}}, "description": "Unexpected error"}}}', 'metadata': {'filename': '0052_me_episodes_get_default.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The `user-library-read` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) must have been authorized by the user.", "in": "header", "name": "Authorization", "required": true, "schema": {"type": "string"}}, {"description": "An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). If a country code is specified, only episodes that are available in that market will be returned.  \\nIf a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.  \\n*Note: If neither market or user country are provided, the content is considered unavailable for the client.*   \\nUsers can view the country that is associated with their account in the [account settings](https://www.spotify.com/se/account/overview/).", "in": "query", "name": "market", "required": false, "schema": {"type": "string"}}, {"description": "The maximum number of objects to return. Default: 20. Minimum: 1. Maximum: 50.", "in": "query", "name": "limit", "required": false, "schema": {"format": "int32", "type": "integer"}}, {"description": "The index of the first object to return. Default: 0 (i.e., the first object). Use with `limit` to get the next set of objects.", "in": "query", "name": "offset", "required": false, "schema": {"format": "int32", "type": "integer"}}], "path": "/me/episodes", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"externalDocs": {"description": "Find more info on the official Spotify Web API Reference", "url": "https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject"}, "properties": {"href": {"description": "A link to the Web API endpoint returning the full result of the request", "type": "string"}, "items": {"description": "The requested data.", "items": {"externalDocs": {"description": "Find more info on the official Spotify Web API Reference", "url": "https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject"}, "properties": {"added_at": {"description": "The date and time the episode was saved. Timestamps are returned in ISO 8601 format as Coordinated Universal Time (UTC) with a zero offset: YYYY-MM-DDTHH:MM:SSZ.", "format": "date-time", "type": "string"}, "episode": {"$ref": "#/components/schemas/EpisodeObject"}}, "type": "object"}, "type": "array"}, "limit": {"description": "The maximum number of items in the response (as set in the query or by default).", "format": "int32", "type": "integer"}, "next": {"description": "URL to the next page of items. ( `null` if none)", "type": "string"}, "offset": {"description": "The offset of the items returned (as set in the query or by default)", "format": "int32", "type": "integer"}, "previous": {"description": "URL to the previous page of items. ( `null` if none)", "type": "string"}, "total": {"description": "The total number of items available to return.", "format": "int32", "type": "integer"}}, "type": "object"}}}, "description": "- On success, the HTTP status code in the response header is `200` OK and the response body contains an array of [saved episode objects](https://developer.spotify.com/documentation/web-api/reference/#object-savedepisodeobject) (wrapped in a [paging object](https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject)) in JSON format. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema)."}}}', 'metadata': {'filename': '0051_me_episodes_get_200.json'}}, {'content': '{"method": "PUT", "parameters": [{"description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.  \\nModification of the current user\'s \\"Your Music\\" collection requires authorization of the `user-library-modify` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes).", "in": "header", "name": "Authorization", "required": true, "schema": {"type": "string"}}, {"description": "*Required if the IDs are passed in the request body, otherwise ignored.* The content type of the request body: `application/json`", "in": "header", "name": "Content-Type", "required": false, "schema": {"type": "string"}}, {"description": "A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids). For example: `ids=4iV5W9uYEdYUVa79Axb7Rh,1301WleyT98MSxVHPZCA6M`. Maximum: 50 IDs.", "in": "query", "name": "ids", "required": true, "schema": {"type": "string"}}], "path": "/me/albums", "requestBody": {"content": {"application/json": {"schema": {"properties": {"ids": {"description": "A JSON array of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids). For example: `[\\"4iV5W9uYEdYUVa79Axb7Rh\\", \\"1301WleyT98MSxVHPZCA6M\\"]`  \\nA maximum of 50 items can be specified in one request. *Note: if the `ids` parameter is present in the query string, any IDs listed here in the body will be ignored.*", "items": {"type": "string"}, "type": "array"}}, "type": "object"}}}, "required": false}, "responses": {"201": {"description": "On success, the HTTP status code in the response header is `201` Created. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema). Trying to add an album when you do not have the user\'s authorization returns error `403` Forbidden."}}}', 'metadata': {'filename': '0045_me_albums_put_201.json'}}], form collection oas_spotify_fragments
+2025-02-02 14:31:31,299 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:31:31,300 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:31:31,727 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:31:31,727 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:31:48,056 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:31:48,058 - karate_llm_test_gen - INFO - Generated test case:  Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization ...
+2025-02-02 14:31:48,059 - __main__ - INFO - Generated Karate test for /me/episodes GET at output/karate_feature_files/ID_001_krtestoas_me_episodes_GET.feature
+2025-02-02 14:31:48,060 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:31:48,060 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    When method get
+    Then status code is 401
+    And match response contains 'Unauthorized'
+```
+This script tests the `/me/episodes` endpoint with a GET request to check if it requires authentication and returns an appropriate error message when unauthenticated. If this endpoint does require authentication, you can modify the script as follows:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    When method get with header 'Authorization' value 'Bearer <access_token>'
+    Then status code is 200
+    And match response contains 'Successfully retrieved episodes'
+```
+This script tests the `/me/episodes` endpoint with a GET request and an access token in the Authorization header to check if it returns a successful response. If this endpoint does not require authentication, you can modify the script as follows:
+```kotlin
+Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    When method get with header 'Authorization' value '<invalid_access_token>'
+    Then status code is 401
+    And match response contains 'Unauthorized'
+```
+This script tests the `/me/episodes` endpoint with a GET request and an invalid access token in the Authorization header to check if it returns an appropriate error message.
+2025-02-02 14:31:54,144 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:31:54,145 - karate_compatibility_verifier - INFO -  Feature: OAuth2 Token Refresh Testing
+  Scenario: Validate OAuth2 token refresh mechanism and its error handling
+    Given url http://oas_spotify.api/me/episodes
+    When method get with header 'Authorization' value '<access_token>'
+    Then status code is 401
+    And match response contains 'Unauthorized'
+2025-02-02 14:31:57,184 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:31:57,184 - karate_compatibility_verifier - INFO -  Feature: OAuth2 Token Refresh Testing
+Scenario: Validate OAuth2 token refresh mechanism and its error handling
+Given url http://oas\_spotify.api/me/episodes
+And path '/users'
+When method GET with header 'Authorization' value '<access_token>'
+Then status code is 401
+And match response contains 'Unauthorized'
+2025-02-02 14:31:57,184 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_me_episodes_GET_verified.feature
+2025-02-02 14:31:57,184 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_me_episodes_GET.feature:  Feature: OAuth2 Token Refresh Testing
+Scenario: Validate OAuth2 token refresh mechanism and its error handling
+Given url http://oas\_spotify.api/me/episodes
+And path '/users'
+When method GET with header 'Authorization' value '<access_token>'
+Then status code is 401
+And match response contains 'Unauthorized'
+2025-02-02 14:31:57,185 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:31:57,186 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:31:57,208 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:31:57,208 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:32:06,932 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:32:06,933 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:32:06,933 - __main__ - INFO - Generated Karate test for /me/episodes GET at output/karate_feature_files/ID_002_krtestoas_me_episodes_GET.feature
+2025-02-02 14:32:06,934 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:32:06,934 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities for the given API endpoint:
+```javascript
+Feature: OAuth2 Token Refresh Vulnerability Testing
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities in /me/episodes endpoint
+    Given url http://oas_spotify.api/me/episodes
+      And request {
+        "Authorization": "Bearer <access_token>"
+      }
+      When method get
+        Then status 200
+        And match response contains "Spotify Web API"
+```
+This script tests the `/me/episodes` endpoint using an access token obtained through OAuth2 authentication. If the endpoint returns a status code of 200 and contains the string "Spotify Web API", then it is likely that the authentication mechanism is working as expected. However, if any other response or error message is returned, it may indicate a Broken Authentication/Authorization vulnerability in the system.
+2025-02-02 14:32:13,451 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:32:13,451 - karate_compatibility_verifier - INFO -  ```javascript
+Feature: OAuth2 Token Refresh Vulnerability Testing
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities in /me/episodes endpoint
+    Given url http://oas_spotify.api/me/episodes
+      And request {
+        "Authorization": "Bearer <access_token>"
+      }
+      When method get
+        Then status 200
+        And match response contains "Spotify Web API"
+```
+2025-02-02 14:32:17,422 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:32:17,422 - karate_compatibility_verifier - INFO -  ```javascript
+Feature: OAuth2 Token Refresh Vulnerability Testing
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities in /me/episodes endpoint
+    Given url http://oas_spotify.api/me/episodes
+      And request {
+        "Authorization": "Bearer <access_token>"
+      }
+      When method get
+        Then status 200
+        And match response contains "Spotify Web API"
+```
+2025-02-02 14:32:17,422 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_me_episodes_GET_verified.feature
+2025-02-02 14:32:17,423 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_me_episodes_GET.feature:  ```javascript
+Feature: OAuth2 Token Refresh Vulnerability Testing
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities in /me/episodes endpoint
+    Given url http://oas_spotify.api/me/episodes
+      And request {
+        "Authorization": "Bearer <access_token>"
+      }
+      When method get
+        Then status 200
+        And match response contains "Spotify Web API"
+```
+2025-02-02 14:32:17,423 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:32:17,424 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:32:17,444 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:32:17,445 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:32:36,715 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:32:36,716 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:32:36,716 - __main__ - INFO - Generated Karate test for /me/albums PUT at output/karate_feature_files/ID_003_krtestoas_me_albums_PUT.feature
+2025-02-02 14:32:36,717 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:32:36,717 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `http://oas_spotify.api/me/albums` using PUT method:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user albums without authentication
+    Given url http://oas_spotify.api/me/albums
+    And request { "method": "PUT" }
+    When method put
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access user albums with invalid authentication token
+    Given url http://oas_spotify.api/me/albums
+    And request { "Authorization": "Bearer <invalid_token>" }
+    When method put
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access user albums with expired authentication token
+    Given url http://oas_spotify.api/me/albums
+    And request { "Authorization": "Bearer <expired_token>" }
+    When method put
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access user albums with invalid client ID
+    Given url http://oas_spotify.api/me/albums
+    And request { "Authorization": "Bearer <valid_token>" }
+    When method put
+    Then status 403
+    And match response contains 'Forbidden'
+    
+  Scenario: Attempt to access user albums with invalid client secret
+    Given url http://oas_spotify.api/me/albums
+    And request { "Authorization": "Bearer <valid_token>" }
+    When method put
+    Then status 403
+    And match response contains 'Forbidden'
+```
+Note: The above test script assumes that the API endpoint `http://oas_spotify.api/me/albums` requires authentication using Bearer token, and that the client ID and secret are included in the request header with the appropriate format. You may need to modify the script based on your specific API requirements and implementation details.
+2025-02-02 14:32:53,550 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:32:53,550 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user albums without authentication
+    Given url http://oas_spotify.api/me/albums
+    And request { "method": "PUT" }
+    When method put
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access user albums with invalid authentication token
+    Given url http://oas_spotify.api/me/albums
+    And request { "Authorization": "Bearer <invalid_token>" }
+    When method put
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access user albums with expired authentication token
+    Given url http://oas_spotify.api/me/albums
+    And request { "Authorization": "Bearer <expired_token>" }
+    When method put
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access user albums with invalid client ID
+    Given url http://oas_spotify.api/me/albums
+    And request { "Authorization": "Bearer <valid_token>" }
+    When method put
+    Then status 403
+    And match response contains 'Forbidden'
+    
+  Scenario: Attempt to access user albums with invalid client secret
+    Given url http://oas_spotify.api/me/albums
+    And request { "Authorization": "Bearer <valid_token>" }
+    When method put
+    Then status 403
+    And match response contains 'Forbidden'
+2025-02-02 14:32:59,494 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:32:59,494 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to access user albums without authentication
+Given url http://oas_spotify.api/me/albums
+And request { "method": "PUT" }
+When method put
+Then status 401
+And match response contains 'Unauthorized'
+```
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to access user albums without authentication
+Given url http://oas_spotify.api/me/albums
+And request { "method": "PUT" }
+When method put
+Then status 401
+And match response contains 'Unauthorized'
+```
+2025-02-02 14:32:59,495 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_me_albums_PUT_verified.feature
+2025-02-02 14:32:59,495 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_me_albums_PUT.feature:  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to access user albums without authentication
+Given url http://oas_spotify.api/me/albums
+And request { "method": "PUT" }
+When method put
+Then status 401
+And match response contains 'Unauthorized'
+```
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to access user albums without authentication
+Given url http://oas_spotify.api/me/albums
+And request { "method": "PUT" }
+When method put
+Then status 401
+And match response contains 'Unauthorized'
+```
+2025-02-02 14:32:59,495 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 14:32:59,498 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 14:33:02,118 - __main__ - INFO - Skipping karate test run.

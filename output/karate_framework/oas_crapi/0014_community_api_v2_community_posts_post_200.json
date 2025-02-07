@@ -1,0 +1,48 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36",
+      "in": "header",
+      "name": "User-Agent",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "example": "application/json",
+      "in": "header",
+      "name": "Content-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "example": "*/*",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/community/api/v2/community/posts",
+  "requestBody": {
+    "content": {
+      "*/*": {
+        "schema": {
+          "example": "\"{\\\"title\\\":\\\"{{$randomLoremSentence}}\\\",\\\"content\\\":\\\"{{$randomLoremParagraph}}\\\"}\"",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {}
+      },
+      "description": "Successful response"
+    }
+  }
+}

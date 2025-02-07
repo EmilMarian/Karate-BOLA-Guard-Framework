@@ -1,0 +1,97 @@
+2025-01-27 13:28:54,139 - __main__ - INFO - Skipping fragment creation: False
+2025-01-27 13:28:54,334 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-27 13:29:06,257 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"in": "query", "name": "formatted", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "region", "schema": {"enum": ["US"], "type": "string"}}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "fields", "schema": {"type": "string"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": "symbols", "required": true, "schema": {"type": "string"}}], "path": "/v7/finance/quote", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"quoteResponse": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"$ref": "#/components/schemas/QuoteResult"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0002_v7_finance_quote_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"in": "query", "name": "interval", "required": true, "schema": {"enum": ["1m", "5m", "15m", "30m", "1h", "6h", "1d"], "type": "string"}}, {"in": "query", "name": "range", "required": true, "schema": {"enum": ["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"], "type": "string"}}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "includeTimestamps", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "indicators", "schema": {"type": "string"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": "symbols", "required": true, "schema": {"type": "string"}}], "path": "/v7/finance/spark", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"quoteResponse": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"$ref": "#/components/schemas/QuoteResult"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0003_v7_finance_spark_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"in": "path", "name": "symbol", "required": true, "schema": {"type": "string"}}, {"in": "query", "name": "region", "schema": {"enum": ["US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"explode": false, "in": "query", "name": "events", "schema": {"items": {"enum": ["div", "split"], "type": "string"}, "type": "array"}, "style": "pipeDelimited"}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "interval", "required": true, "schema": {"enum": ["1m", "5m", "15m", "30m", "1h", "6h", "1d"], "type": "string"}}, {"in": "query", "name": "useYfid", "schema": {"default": true, "type": "boolean"}}, {"in": "query", "name": "period1", "required": true, "schema": {"format": "int64", "type": "integer"}}, {"in": "query", "name": "period2", "required": true, "schema": {"format": "int64", "type": "integer"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": ".tsrc", "schema": {"enum": ["finance"], "type": "string"}}], "path": "/v8/finance/chart/{symbol}", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"chart": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"properties": {"indicators": {"properties": {"quote": {"items": {"properties": {"close": {"items": {"example": 1.1782727241516113, "type": "number"}, "type": "array"}, "high": {"items": {"example": 1.1784114837646484, "type": "number"}, "type": "array"}, "low": {"items": {"example": 1.1782727241516113, "type": "number"}, "type": "array"}, "open": {"items": {"example": 1.1784114837646484, "type": "number"}, "type": "array"}, "volume": {"items": {"example": 0, "format": "int32", "type": "integer"}, "type": "array"}}, "type": "object"}, "type": "array"}}, "type": "object"}, "meta": {"properties": {"chartPreviousClose": {"example": 1.178, "type": "number"}, "currency": {"example": "USD", "type": "string"}, "currentTradingPeriod": {"properties": {"post": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617404340, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "pre": {"properties": {"end": {"example": 1617318000, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "regular": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}}, "type": "object"}, "dataGranularity": {"example": "2m", "type": "string"}, "exchangeName": {"example": "CCY", "type": "string"}, "exchangeTimezoneName": {"example": "Europe/London", "type": "string"}, "firstTradeDate": {"example": 1070236800, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "instrumentType": {"example": "CURRENCY", "type": "string"}, "previousClose": {"example": 1.178, "type": "number"}, "priceHint": {"example": 4, "format": "int32", "type": "integer"}, "range": {"example": "1d", "type": "string"}, "regularMarketPrice": {"example": 1.1769, "type": "number"}, "regularMarketTime": {"example": 1617398979, "format": "int32", "type": "integer"}, "scale": {"example": 4, "format": "int32", "type": "integer"}, "symbol": {"example": "EURUSD=X", "type": "string"}, "timezone": {"example": "BST", "type": "string"}, "tradingPeriods": {"items": {"items": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "type": "array"}, "type": "array"}, "validRanges": {"items": {"example": "1d", "type": "string"}, "type": "array"}}, "type": "object"}, "timestamp": {"items": {"example": 1617318000, "format": "int32", "type": "integer"}, "type": "array"}}, "type": "object"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0001_v8_finance_chart_symbol_get_200.json'}}], form collection oas_yahoo_finance_fragments
+2025-01-27 13:29:06,260 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 13:29:06,264 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 13:29:10,362 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 13:29:10,363 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 13:31:57,492 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 13:31:57,493 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-01-27 13:31:57,494 - __main__ - INFO - Generated Karate test for /v7/finance/quote GET at output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET.feature
+2025-01-27 13:31:57,494 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 13:31:57,494 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `http://oas_salesforce_partner_API.api/v7/finance/quote` using GET method:
+
+```karate
+Feature: Test for Broken Authentication/Authorization on Finance Quote API
+  Scenario: Attempt to access finance quote without proper authentication
+    Given url http://oas_salesforce_partner_API.api/v7/finance/quote
+    When method get
+      Then status code is not 401 or 403
+```
+
+This test script will check if the API endpoint returns a proper error message when an unauthorized user attempts to access it without proper authentication. The `Then` statement checks for a specific HTTP status code (either 401 or 403) that indicates unauthorized access, and fails the test case if the response does not contain such a message.
+
+Note: This is just one example of how to check for Broken Authentication/Authorization vulnerabilities. Depending on the specific requirements of your API endpoint, you may need to modify this script or add additional scenarios to cover other types of authentication and authorization checks.
+2025-01-27 13:33:39,823 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 13:33:39,824 - karate_compatibility_verifier - INFO -  ```karate
+Feature: Test for Broken Authentication/Authorization on Finance Quote API
+  Scenario: Attempt to access finance quote without proper authentication
+    Given url http://oas_salesforce_partner_API.api/v7/finance/quote
+    When method get
+      Then status code is not 401 or 403
+```
+2025-01-27 13:34:14,522 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 13:34:14,522 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on Finance Quote API
+Scenario: Attempt to access finance quote without proper authentication
+Given url http://oas\_salesforce\_partner\_API.api/v7/finance/quote
+When method get
+Then status code is 401 or 403
+2025-01-27 13:34:14,523 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET_verified.feature
+2025-01-27 13:34:14,523 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET.feature:  Feature: Test for Broken Authentication/Authorization on Finance Quote API
+Scenario: Attempt to access finance quote without proper authentication
+Given url http://oas\_salesforce\_partner\_API.api/v7/finance/quote
+When method get
+Then status code is 401 or 403
+2025-01-27 13:34:14,523 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 13:34:14,524 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 13:34:14,555 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 13:34:14,556 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 13:38:26,443 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 13:38:26,443 - karate_llm_test_gen - INFO - Generated test case:  Here is a sample Karate DSL test script to check for Broken Authentication/Authorization vulnerabil...
+2025-01-27 13:38:26,444 - __main__ - INFO - Generated Karate test for /v7/finance/spark GET at output/karate_feature_files/ID_002_krtestoas_v7_finance_spark_GET.feature
+2025-01-27 13:38:26,445 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 13:38:26,445 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for Broken Authentication/Authorization vulnerabilities on the API endpoint `/v7/finance/spark`:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access Spark data without authentication
+    Given url http://oas_salesforce_partner_API.api/v7/finance/spark
+    And request method GET
+    When status code is not 401 or 403
+      Then fail "Authentication required for Spark data access"
+```
+This test script checks if the API endpoint `/v7/finance/spark` requires authentication by sending a GET request and checking if the response status code is either 401 (Unauthorized) or 403 (Forbidden). If the response status code is not one of these, then it means that authentication is not required for accessing Spark data.
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access Spark data with invalid credentials
+    Given url http://oas_salesforce_partner_API.api/v7/finance/spark
+    And request method GET
+    And header Authorization = 'Basic YWRtaW46cGFzc3dvcmQ='
+    When status code is not 401 or 403
+      Then fail "Invalid credentials for Spark data access"
+```
+This test script checks if the API endpoint `/v7/finance/spark` requires authentication by sending a GET request with an invalid Basic Authentication token and checking if the response status code is either 401 (Unauthorized) or 403 (Forbidden). If the response status code is not one of these, then it means that authentication is required for accessing Spark data.
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access Spark data with missing or expired token
+    Given url http://oas_salesforce_partner_API.api/v7/finance/spark
+    And request method GET
+    And header Authorization = 'Bearer <missing-or-expired-token>'
+    When status code is not 401 or 403
+      Then fail "Missing or expired token for Spark data access"
+```
+This test script checks if the API endpoint `/v7/finance/spark` requires authentication by sending a GET request with an invalid Basic Authentication token and checking if the response status code is either 401 (Unauthorized) or 403 (Forbidden). If the response status code is not one of these, then it means that authentication is required for accessing Spark data.

@@ -1,0 +1,440 @@
+2025-01-25 20:15:20,100 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 20:15:20,164 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 20:15:20,405 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `calls:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/calls.participants.add", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"id": {"description": "`id` returned by the [`calls.add`](/methods/calls.add) method.", "type": "string"}, "users": {"description": "The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).", "type": "string"}}, "required": ["id", "users"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0143_calls.participants.add_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `users:read`", "in": "query", "name": "token", "required": true, "schema": {"type": "string"}}, {"description": "User to get presence info on. Defaults to the authed user.", "in": "query", "name": "user", "schema": {"type": "string"}}], "path": "/users.getPresence", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": {"type": "object"}, "description": "Schema for error response users.getPresence method", "properties": {"error": {"type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.counts error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0316_users.getPresence_get_default.json'}}], form collection oas_slack_web_fragments
+2025-01-25 20:15:20,406 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:15:20,407 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:15:20,805 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:15:20,805 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:15:41,490 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:15:41,491 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Test for Broken Authentication/Authorization on Admin User Invitation",
+  "scenario"...
+2025-01-25 20:15:41,491 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature
+2025-01-25 20:15:41,492 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:15:41,492 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on Admin User Invitation",
+  "scenario": "User without admin role attempts to invite another user using an invalid token or missing credentials.",
+  "given_url": "/admin.users.invite",
+  "steps": [
+    {
+      "step": "Given url http://oas-stripe.api/admin.users.invite"
+    },
+    {
+      "step": "And header Authorization = 'Bearer invalid_token'"
+    },
+    {
+      "step": "When method post"
+    },
+    {
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    },
+    {
+      "step": "Given url http://oas-stripe.api/admin.users.invite"
+    },
+    {
+      "step": "And header Authorization = 'Bearer <missing_credentials>'",
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "User without admin role invites another user with invalid token",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        },
+        {
+          "step": "And header Authorization = 'Bearer <invalid_token>'",
+          "then": [
+            {"statusCode": 401},
+            {"responseBody": ["Unauthorized"]}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with missing credentials",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        },
+        {
+          "step": "And header Authorization = 'Bearer <missing_credentials>'",
+          "then": [
+            {"statusCode": 401},
+            {"responseBody": ["Unauthorized"]}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with correct credentials but wrong token",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        },
+        {
+          "step": "And header Authorization = 'Bearer <correct_token>'", // Replace with a token that should be invalid for this test case
+          "then": [
+            {"statusCode": 401},
+            {"responseBody": ["Unauthorized"]}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with correct credentials and valid token",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        },
+        // Assuming there is a way to simulate the 'correct_token' for this test case, otherwise it should be excluded or marked as an error in your testing environment setup.
+      ],
+    }
+  ]
+}
+2025-01-25 20:17:29,635 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:17:29,635 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on Admin User Invitation",
+  "scenario": "User without admin role attempts to invite another user using an invalid token or missing credentials.",
+  "given_url": "/admin.users.invite",
+  "steps": [
+    {
+      "step": "Given url http://oas-stripe.api/admin.users.invite"
+    },
+    {
+      "step": "And header Authorization = 'Bearer invalid_token'"
+    },
+    {
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    },
+    {
+      "step": "Given url http://oas-stripe.api/admin.users.invite"
+    },
+    {
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "User without admin role invites another user with invalid token",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        },
+        {
+          "step": "And header Authorization = 'Bearer invalid_token'"
+        }
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with missing credentials",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        },
+        {
+          "then": [
+            {"statusCode": 401},
+            {"responseBody": ["Unauthorized"]}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with correct credentials but wrong token",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        },
+        {
+          "then": [
+            {"statusCode": 401},
+            {"responseBody": ["Unauthorized"]}
+          ]
+        }
+      ],
+    },
+    {
+      "name": "User without admin role invites another user with correct credentials and valid token",
+      // This scenario should be excluded or marked as an error in your testing environment setup, since it's not a broken authentication/authorization case.
+    }
+  ]
+}
+2025-01-25 20:18:34,077 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:18:34,077 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on Admin User Invitation",
+  "scenario": "User without admin role attempts to invite another user using an invalid token or missing credentials.",
+  "given_url": "/admin.users.invite",
+  "steps": [
+    {
+      "step": "Given url http://oas-stripe.api/admin.users.invite"
+    },
+    {
+      "step": "And header Authorization = 'Bearer invalid_token'"
+    },
+    {
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    },
+    {
+      "step": "Given url http://oas-stripe.api/admin.users.invite"
+    },
+    {
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "User without admin role invites another user with invalid token",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        },
+        {
+          "step": "And header Authorization = 'Bearer invalid_token'"
+        }
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with missing credentials",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        }
+      ],
+      // Assuming the scenario requires a header for username and password, which are omitted here:
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with correct credentials but wrong token",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        }
+      ],
+      // Assuming the scenario requires a header for username and password, which are omitted here:
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with correct credentials and valid token",
+      // This scenario should be excluded or marked as an error in your testing environment setup, since it's not a broken authentication/authorization case.
+    }
+  ]
+}
+2025-01-25 20:18:34,078 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST_verified.feature
+2025-01-25 20:18:34,078 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature: {
+  "feature": "Test for Broken Authentication/Authorization on Admin User Invitation",
+  "scenario": "User without admin role attempts to invite another user using an invalid token or missing credentials.",
+  "given_url": "/admin.users.invite",
+  "steps": [
+    {
+      "step": "Given url http://oas-stripe.api/admin.users.invite"
+    },
+    {
+      "step": "And header Authorization = 'Bearer invalid_token'"
+    },
+    {
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    },
+    {
+      "step": "Given url http://oas-stripe.api/admin.users.invite"
+    },
+    {
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "User without admin role invites another user with invalid token",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        },
+        {
+          "step": "And header Authorization = 'Bearer invalid_token'"
+        }
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with missing credentials",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        }
+      ],
+      // Assuming the scenario requires a header for username and password, which are omitted here:
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with correct credentials but wrong token",
+      "steps": [
+        {
+          "step": "Given url http://oas-stripe.api/admin.users.invite"
+        }
+      ],
+      // Assuming the scenario requires a header for username and password, which are omitted here:
+      "then": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]}
+      ]
+    },
+    {
+      "name": "User without admin role invites another user with correct credentials and valid token",
+      // This scenario should be excluded or marked as an error in your testing environment setup, since it's not a broken authentication/authorization case.
+    }
+  ]
+}
+2025-01-25 20:18:34,078 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:18:34,079 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:18:34,106 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:18:34,107 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:19:39,370 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:19:39,370 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: Broken Authentication/Authorization on Calls Participants Addition API Endpoint
+sce...
+2025-01-25 20:19:39,371 - __main__ - INFO - Generated Karate test for /calls.participants.add POST at output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature
+2025-01-25 20:19:39,371 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:19:39,371 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization on Calls Participants Addition API Endpoint
+scenario: Attempt to add a participant without proper authentication or authorization
+given url http://oas_stripe.api/calls/participants/add
+and header Authorization = 'Bearer <unauthorized_token>' // Replace with an actual unauthorized token if available for testing purposes, otherwise use a placeholder like '<unauthorized_token>'
+when method post
+then status 401 or 403
+and body contains { "error": "Unauthorized to add participants" }
+```
+2025-01-25 20:19:46,293 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:19:46,293 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization on Calls Participants Addition API Endpoint
+scenario: Attempt to add a participant without proper authentication or authorization
+given url 'http://oas_stripe.api/calls/participants/add'
+and header Authorization = '<unauthorized_token>' // Replace with an actual unauthorized token if available for testing purposes, otherwise use a placeholder like '<unauthorized_token>'
+when method post
+then status 401 or 403
+and body contains { "error": "Unauthorized to add participants" }
+```
+2025-01-25 20:19:51,110 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:19:51,110 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization on Calls Participants Addition API Endpoint
+scenario: Attempt to add a participant without proper authentication or authorization
+given url 'http://oas_stripe.api/calls/participants/add'
+and header Authorization = '<unauthorized_token>' // Replace with an actual unauthorized token if available for testing purposes, otherwise use placeholder like '<unauthorizedzored_token>'
+when method post
+then status is 401 or 403
+and body contains { "error": "Unauthorized to add participants" }
+```
+2025-01-25 20:19:51,110 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST_verified.feature
+2025-01-25 20:19:51,110 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature: ```yaml
+feature: Broken Authentication/Authorization on Calls Participants Addition API Endpoint
+scenario: Attempt to add a participant without proper authentication or authorization
+given url 'http://oas_stripe.api/calls/participants/add'
+and header Authorization = '<unauthorized_token>' // Replace with an actual unauthorized token if available for testing purposes, otherwise use placeholder like '<unauthorizedzored_token>'
+when method post
+then status is 401 or 403
+and body contains { "error": "Unauthorized to add participants" }
+```
+2025-01-25 20:19:51,111 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:19:51,111 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:19:51,131 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:19:51,132 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:20:01,536 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:20:01,537 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Test for Broken Authentication/Authorization on Users Presence Retrieval",
+  "scenar...
+2025-01-25 20:20:01,538 - __main__ - INFO - Generated Karate test for /users.getPresence GET at output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature
+2025-01-25 20:20:01,538 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:20:01,538 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on Users Presence Retrieval",
+  "scenario": "User attempts to retrieve presence without proper authentication or authorization.",
+  "steps": [
+    // Base URL and path setup. Replace 'http://oas_stripe.api' with the actual API endpoint if needed.
+    "Given url http://oas_stripe.api/users.getPresence",
+    
+    "* def unautmousAccess = {auth: null}", // Simulating an anonymous user attempt without credentials
+    
+    "When method get request headers @unauthorizedAccess", // Attempting to access the endpoint with no authentication provided
+    
+    "Then status 401 or 403", // Expect a Forbidden (403) response due to lack of proper authorization, as there's no specified auth mechanism.
+    
+    "* def presence = read('classpath:helpers/presenceResponse')", // Assuming we have predefined expected responses for testing purposes
+    
+    "And match presence contains 'User not authenticated or authorized'" // Verifying the response indicates a lack of proper authentication and authorization
+  ]
+}
+2025-01-25 20:20:16,095 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:20:16,095 - karate_compatibility_verifier - INFO - Given url 'http://oas_stripe.api/users'
+* def unautmousAccess = {auth: null}
+When method get request headers @unauthorizedAccess
+Then status 401 or 403
+And match response contains 'User not authenticated or authorized'
+2025-01-25 20:20:17,056 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:20:17,056 - karate_compatibility_verifier - INFO - Given url 'http://oas_stripe.api/users'
+And when method get request headers {Authorization: null}
+Then status 401 or 4 fears of unauthorized access
+2025-01-25 20:20:17,057 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET_verified.feature
+2025-01-25 20:20:17,057 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature: Given url 'http://oas_stripe.api/users'
+And when method get request headers {Authorization: null}
+Then status 401 or 4 fears of unauthorized access
+2025-01-25 20:20:17,057 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 20:20:17,060 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 20:20:19,645 - __main__ - INFO - Skipping karate test run.

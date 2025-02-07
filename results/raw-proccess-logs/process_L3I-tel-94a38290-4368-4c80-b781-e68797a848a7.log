@@ -1,0 +1,468 @@
+2025-01-31 19:39:28,574 - __main__ - INFO - Skipping fragment creation: False
+2025-01-31 19:39:28,667 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-31 19:39:28,898 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}, {"description": "", "in": "query", "name": "user_id", "required": true, "type": "string"}], "path": "/bot{token}/unbanChatMember", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0465_bottoken_unbanChatMember_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}, {"description": "", "in": "query", "name": "user_id", "required": true, "type": "string"}], "path": "/bot{token}/getChatMember", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0150_bottoken_getChatMember_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}], "path": "/bot{token}/getChatMembersCount", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0157_bottoken_getChatMembersCount_get_401.json'}}], form collection oas_telegram_fragments
+2025-01-31 19:39:28,899 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 19:39:28,900 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 19:39:29,301 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 19:39:29,301 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 19:44:36,921 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 19:44:36,922 - karate_llm_test_gen - INFO - Generated test case: Here are three separate security test cases using Karate DSL scenarios:
+
+**Test Case 1: Unauthorized...
+2025-01-31 19:44:36,922 - __main__ - INFO - Generated Karate test for /bot{token}/unbanChatMember GET at output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature
+2025-01-31 19:44:36,923 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 19:44:36,923 - karate_compatibility_verifier - INFO - Here are three separate security test cases using Karate DSL scenarios:
+
+**Test Case 1: Unauthorized Access to User Documents**
+```karate
+Feature: Test API for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an 'admin' or 'editor'
+Given url http://oas_telegram.api/bot{token}/documents/12345
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this document."
+```
+
+**Test Case 2: Exploiting OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url http://oas_telegram.api/bot{token}/oauth/token
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+
+**Test Case 3: Broken Object Level Authorization on Private Messages**
+```karate
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url http://oas_telegram.api/bot{token}/messages/private
+And request { senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!' }
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains "Unauthorized to send messages as another user."
+```
+
+Note that I've used placeholders for tokens and IDs, which should be replaced with actual values specific to your API.
+2025-01-31 19:49:54,451 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 19:49:54,451 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+**Test Case 1: Unauthorized Access to User Documents**
+```
+Feature: Test API for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an 'admin' or 'editor'
+Given url http://oas_telegram.api/bot/{token}/documents/12345
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this document."
+```
+
+**Test Case 2: Exploiting OAuth Token Generation Flaw**
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url http://oas_telegram.api/bot/{token}/oauth/token
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+
+**Test Case 3: Broken Object Level Authorization on Private Messages**
+```
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url http://oas_telegram.api/bot/{token}/messages/private
+And request { senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!' }
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains "Unauthorized to send messages as another user."
+```
+2025-01-31 19:53:36,923 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 19:53:36,923 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+**Test Case 1: Unauthorized Access to User Documents**
+```
+Feature: Test API for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an 'admin' or 'editor'
+Given url http://oas_telegram.api/bot/{token}/documents/12345
+And header Authorization = 'Bearer <regular_user_token>'
+When method GET
+Then status 403
+And match response contains "You do not have permission to access this document."
+```
+
+**Test Case 2: Exploiting OAuth Token Generation Flaw**
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url http://oas_telegram.api/bot/{token}/oauth/token
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method POST
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+
+**Test Case 3: Broken Object Level Authorization on Private Messages**
+```
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url http://oas_telegram.api/bot/{token}/messages/private
+And request { senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!' }
+And header Authorization = 'Bearer <user7_token>'
+When method POST
+Then status 403
+And match response contains "Unauthorized to send messages as another user."
+```
+2025-01-31 19:53:36,924 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET_verified.feature
+2025-01-31 19:53:36,924 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature: Here are the corrected Karate DSL test scripts:
+
+**Test Case 1: Unauthorized Access to User Documents**
+```
+Feature: Test API for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an 'admin' or 'editor'
+Given url http://oas_telegram.api/bot/{token}/documents/12345
+And header Authorization = 'Bearer <regular_user_token>'
+When method GET
+Then status 403
+And match response contains "You do not have permission to access this document."
+```
+
+**Test Case 2: Exploiting OAuth Token Generation Flaw**
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url http://oas_telegram.api/bot/{token}/oauth/token
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method POST
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+```
+
+**Test Case 3: Broken Object Level Authorization on Private Messages**
+```
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url http://oas_telegram.api/bot/{token}/messages/private
+And request { senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!' }
+And header Authorization = 'Bearer <user7_token>'
+When method POST
+Then status 403
+And match response contains "Unauthorized to send messages as another user."
+```
+2025-01-31 19:53:36,924 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 19:53:36,925 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 19:53:36,960 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 19:53:36,960 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 19:58:57,201 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 19:58:57,202 - karate_llm_test_gen - INFO - Generated test case: Here are three security test cases using Karate DSL scenarios:
+
+**Test API for OAuth Token Generatio...
+2025-01-31 19:58:57,203 - __main__ - INFO - Generated Karate test for /bot{token}/getChatMember GET at output/karate_feature_files/ID_002_krtestoas_bottoken_getChatMember_GET.feature
+2025-01-31 19:58:57,203 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 19:58:57,203 - karate_compatibility_verifier - INFO - Here are three security test cases using Karate DSL scenarios:
+
+**Test API for OAuth Token Generation Flaw**
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_telegram.api/bot{token}/getChatMember'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Test for Improper Authorization on User Documents Access**
+```
+Feature: Test for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_telegram.api/bot{token}/getChatMember'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Document details'
+case 403:
+    * fail 'Admin should have access'
+```
+
+**Test API for Broken Object Level Authorization on Private Messages**
+```
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://oas_telegram.api/bot{token}/getChatMember'
+And request { senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!' }
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains 'Unauthorized to send messages as another user.'
+```
+
+Note that these test cases are designed to check for potential Broken Authentication/Authorization vulnerabilities in the API endpoint.
+2025-01-31 20:04:16,623 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 20:04:16,623 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_telegram.api/bot/{token}/getChatMember'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method POST
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Test for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_telegram.api/bot/{token}/getChatMember'
+And header Authorization = 'Bearer <regular_user_token>'
+When method GET
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://oas_telegram.api/bot/{token}/getChatMember'
+And request { senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!' }
+And header Authorization = 'Bearer <user7_token>'
+When method POST
+Then status 403
+And match response contains 'Unauthorized to send messages as another user.'
+```
+2025-01-31 20:07:31,955 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 20:07:31,955 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_telegram.api/bot/{token}/getChatMember'
+And request { grant_type: "authorization_code", code: "stolen_code", redirect_uri: "http://evil.example.com", client_id: "client_id", client_secret: "client_secret" }
+When method POST
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Test for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_telegram.api/bot/{token}/getChatMember'
+And header Authorization = 'Bearer <regular_user_token>'
+When method GET
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://oas_telegram.api/bot/{token}/getChatMember'
+And request { senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!' }
+And header Authorization = 'Bearer <user7_token>'
+When method POST
+Then status 403
+And match response contains 'Unauthorized to send messages as another user.'
+```
+2025-01-31 20:07:31,957 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_bottoken_getChatMember_GET_verified.feature
+2025-01-31 20:07:31,957 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_bottoken_getChatMember_GET.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_telegram.api/bot/{token}/getChatMember'
+And request { grant_type: "authorization_code", code: "stolen_code", redirect_uri: "http://evil.example.com", client_id: "client_id", client_secret: "client_secret" }
+When method POST
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Test for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_telegram.api/bot/{token}/getChatMember'
+And header Authorization = 'Bearer <regular_user_token>'
+When method GET
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://oas_telegram.api/bot/{token}/getChatMember'
+And request { senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!' }
+And header Authorization = 'Bearer <user7_token>'
+When method POST
+Then status 403
+And match response contains 'Unauthorized to send messages as another user.'
+```
+2025-01-31 20:07:31,958 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 20:07:31,958 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 20:07:31,992 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 20:07:31,993 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 20:12:54,640 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 20:12:54,641 - karate_llm_test_gen - INFO - Generated test case: Here are three security test cases using Karate DSL scenarios:
+
+**Test API for OAuth Token Generatio...
+2025-01-31 20:12:54,644 - __main__ - INFO - Generated Karate test for /bot{token}/getChatMembersCount GET at output/karate_feature_files/ID_003_krtestoas_bottoken_getChatMembersCount_GET.feature
+2025-01-31 20:12:54,644 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 20:12:54,644 - karate_compatibility_verifier - INFO - Here are three security test cases using Karate DSL scenarios:
+
+**Test API for OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_telegram.api/bot{token}/getChatMembersCount'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil. example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Test for Improper Authorization on User Documents Access**
+```karate
+Feature: Test for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_telegram.api/bot{token}/getChatMembersCount'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this document."
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Document details'
+case 403:
+    * fail 'Admin should have access'
+```
+
+**Test API for Broken Object Level Authorization on Private Messages**
+```karate
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://oas_telegram.api/bot{token}/getChatMembersCount'
+And request { senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!' }
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains "Unauthorized to send messages as another user."
+```
+
+Note that these test cases are designed to check for potential Broken Authentication/Authorization vulnerabilities in the API endpoint.
+2025-01-31 20:18:31,535 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 20:18:31,535 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_telegram.api/bot/{token}/getChatMembersCount'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+
+Feature: Test for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_telegram.api/bot/{token}/getChatMembersCount'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this document."
+
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://oas_telegram.api/bot/{token}/getChatMembersCount'
+And request { senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!' }
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains "Unauthorized to send messages as another user."
+```
+2025-01-31 20:21:46,470 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 20:21:46,470 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_telegram.api/bot/{token}/getChatMembersCount'
+And request {grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret'}
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+
+Feature: Test for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_telegram.api/bot/{token}/getChatMembersCount'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this document."
+
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://oas_telegram.api/bot/{token}/getChatMembersCount'
+And request {senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!'}
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains "Unauthorized to send messages as another user."
+```
+2025-01-31 20:21:46,471 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_bottoken_getChatMembersCount_GET_verified.feature
+2025-01-31 20:21:46,471 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_bottoken_getChatMembersCount_GET.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_telegram.api/bot/{token}/getChatMembersCount'
+And request {grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret'}
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+
+Feature: Test for Improper Authorization on User Documents Access
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_telegram.api/bot/{token}/getChatMembersCount'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this document."
+
+Feature: Test API for Broken Object Level Authorization on Private Messages
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://oas_telegram.api/bot/{token}/getChatMembersCount'
+And request {senderId: 'user7', receiverId: 'user8', messageContent: 'Hello from the other side!'}
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains "Unauthorized to send messages as another user."
+```
+2025-01-31 20:21:46,472 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-31 20:21:46,475 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-31 20:21:49,274 - __main__ - INFO - Skipping karate test run.

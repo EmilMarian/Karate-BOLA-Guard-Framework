@@ -1,0 +1,320 @@
+2025-01-25 21:01:40,800 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 21:01:40,862 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 21:01:41,091 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The id of the user being queried", "in": "path", "name": "userId", "required": true, "type": "string"}], "path": "/users/{userId}/publications", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, lacks the listPublications scope or has been revoked."}}}', 'metadata': {'filename': '0015_users_userId_publications_get_401.json'}}, {'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"401": {"description": "The \\"accessToken\\" is invalid or has been revoked."}}}', 'metadata': {'filename': '0003_me_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The id of the publication being queried", "in": "path", "name": "publicationId", "required": true, "type": "string"}], "path": "/publications/{publicationId}/contributors", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, or has been revoked."}}}', 'metadata': {'filename': '0005_publications_publicationId_contributors_get_401.json'}}], form collection oas_medium_fragments
+2025-01-25 21:01:41,092 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:01:41,093 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:01:41,530 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:01:41,530 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:01:53,552 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:01:53,553 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Broken Authentication/Authorization on User Publications Access",
+  "scenari...
+2025-01-25 21:01:53,554 - __main__ - INFO - Generated Karate test for /users/{userId}/publications GET at output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature
+2025-01-25 21:01:53,554 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:01:53,554 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Broken Authentication/Authorization on User Publications Access",
+  "scenario": "User without proper authorization attempts to access another user's publications.",
+  "steps": [
+    {
+      "Given url http://oas_medium.api/users/{userId}/publications"
+    },
+    {
+mg-then:
+      * def unauthorizedToken = 'invalidAuthToken', // Simulate an invalid token for demonstration purposes
+      * And header Authorization = "Bearer " + unauthorizedToken,
+      When method get,
+      Then status 401 or 403,
+      And match response contains 'Unauthorized' or 'Forbidden', // Expecting an error message indicating lack of authorization.
+    },
+    {
+      "Given url http://oas_medium.api/users/{userId}/publications"
+    },
+    {
+      * def userId = 12345, // Example User ID for testing purposes
+      And header Authorization = 'Bearer <admin_role_token>', // Assuming admin token is valid but not intended to access this specific publication.
+      When method get,
+      Then status 403 or 401,
+      And match response contains "You do not have permission to view these publications." // Expecting an error message indicating insufficient permissions for the user role trying to access another's data.
+    },
+    {
+      * def adminId = 67890, // Example Admin User ID for testing purposes
+      And header Authorization = 'Bearer <admin_role_token>',
+      When method get,
+      Then status should be 200 or 405 (if the API is not supposed to allow GET requests on this endpoint),
+      // Assuming admin has access but we're checking for potential misconfigurations.
+    }
+  ]
+}
+```
+2025-01-25 21:02:55,522 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:02:55,522 - karate_compatibility_verifier - INFO - Your message was too long and could not be processed. Please try again with something shorter.
+2025-01-25 21:03:00,715 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:03:00,715 - karate_compatibility_verifier - INFO - As there's no specific Karate DSL script provided, I will create a simple example of what such a corrected version might look like. Assuming the original intention was to define some karate moves using a domain-specific language (DSL) for clarity and precision:
+
+```karateDsl
+// Corrected Karate Domain Specific Language Script Example
+
+define Moves {
+    punch = "strike hand forward"
+    kick  = "kick foot backward"
+}
+
+test karateMoves() {
+    // Performing a series of moves using the defined DSL
+    repeat(5) {
+        move: punch
+        assertEqual("Striking with right fist", getMove())
+        
+        wait(1 second)
+        
+        if (randomNumber(0, 2) == 0) { // Randomly decide to perform a kick instead of another punch
+            move: kick
+            assertEqual("Executing front kick", getMove())
+        } else {
+            move: punch
+            assertEqual("Striking with left fist", getMove())
+        }
+    }
+}
+```
+This script defines a simple DSL for karate moves and demonstrates how to use it in testing. It's concise, focusing on the core functionality of defining movements (punches or kicks) and asserting their execution within tests.
+2025-01-25 21:03:00,716 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET_verified.feature
+2025-01-25 21:03:00,716 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature: As there's no specific Karate DSL script provided, I will create a simple example of what such a corrected version might look like. Assuming the original intention was to define some karate moves using a domain-specific language (DSL) for clarity and precision:
+
+```karateDsl
+// Corrected Karate Domain Specific Language Script Example
+
+define Moves {
+    punch = "strike hand forward"
+    kick  = "kick foot backward"
+}
+
+test karateMoves() {
+    // Performing a series of moves using the defined DSL
+    repeat(5) {
+        move: punch
+        assertEqual("Striking with right fist", getMove())
+        
+        wait(1 second)
+        
+        if (randomNumber(0, 2) == 0) { // Randomly decide to perform a kick instead of another punch
+            move: kick
+            assertEqual("Executing front kick", getMove())
+        } else {
+            move: punch
+            assertEqual("Striking with left fist", getMove())
+        }
+    }
+}
+```
+This script defines a simple DSL for karate moves and demonstrates how to use it in testing. It's concise, focusing on the core functionality of defining movements (punches or kicks) and asserting their execution within tests.
+2025-01-25 21:03:00,717 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:03:00,717 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:03:00,737 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:03:00,737 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:03:38,556 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:03:38,557 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on /me endpoint",
+  "scenario":...
+2025-01-25 21:03:38,558 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_002_krtestoas_me_GET.feature
+2025-01-25 21:03:38,559 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:03:38,559 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on /me endpoint",
+  "scenario": "User attempts to access the personal information without proper authentication or authorization.",
+  "given http://oas_medium.api/me" : "",
+  "when method get" ,
+  "then status 401 or 403",
+  "and response contains 'Unauthorized' or 'Forbidden'"
+}
+```
+2025-01-25 21:03:44,688 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:03:44,688 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+    http://oas_medium.api/me
+    
+Scenario: User attempts to access the personal information without proper authentication or authorization
+  Given http://oas_medium.api/me
+  When method get
+  Then status is one of (401, 403)
+  And response contains 'Unauthorized' and 'Forbidden'
+```
+2025-01-25 21:03:49,618 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:03:49,618 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  http://oas_medium.api/v1/me
+  
+Scenario: User attempts to access the personal information without proper authentication or authorization
+  Given user is not authenticated and unauthorized
+  And requesting path '/me' via HTTP GET method
+  Then status code should be one of (401, 403)
+  And response body contains 'Unauthorized', 'Forbidden' or similar error message indicating lack of proper authentication/authorization.
+```
+2025-01-25 21:03:49,619 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_me_GET_verified.feature
+2025-01-25 21:03:49,619 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_me_GET.feature: ```yaml
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  http://oas_medium.api/v1/me
+  
+Scenario: User attempts to access the personal information without proper authentication or authorization
+  Given user is not authenticated and unauthorized
+  And requesting path '/me' via HTTP GET method
+  Then status code should be one of (401, 403)
+  And response body contains 'Unauthorized', 'Forbidden' or similar error message indicating lack of proper authentication/authorization.
+```
+2025-01-25 21:03:49,619 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:03:49,620 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:03:49,639 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:03:49,640 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:04:10,278 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:04:10,278 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Broken Authentication/Authorization Checks on Publications Contributors Access",
+  "...
+2025-01-25 21:04:10,279 - __main__ - INFO - Generated Karate test for /publications/{publicationId}/contributors GET at output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature
+2025-01-25 21:04:10,280 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:04:10,280 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Checks on Publications Contributors Access",
+  "scenario": "Attempt to access contributor information without proper authentication or authorization",
+  
+  "steps": [
+    "Given url http://oas_medium.api/publications/{publicationId}/contributors",
+    
+    // Scenarios for unautbinished users and incorrect roles (e.g., 'user' instead of an authorized role)
+    {
+      "And header Authorization = \'Bearer <unauthorized_token>\'",
+      
+      "When method get",
+      
+      "Then status 401 or 403" // Expecting a Forbidden/Unauthorized response due to broken authentication.
+    },
+    
+    {
+      "And header Authorization = \'Bearer <user_role_token>\'",
+      
+      "When method get",
+      
+      "Then status 401 or 403" // Expecting a Forbidden/Unauthorized response if the user role is not properly authenticated.
+    },
+    
+    {
+      "And header Authorization = \'Bearer <admin_role_token>\'",
+      
+      "When method get",
+      
+      // Assuming 'guest' or non-existent roles should also be tested for unauthorized access.
+      "Then status 401 or 403" // Expecting a Forbidden/Unauthorized response if the admin role is not properly authenticated either.
+    },
+    
+    {
+      "And header Authorization = \'Bearer <admin_role_token>\'",
+      
+      "When method get",
+      
+      // Testing for proper access as an 'admin'. Expect a 200 status code if the admin role is authenticated.
+      "Then status should be equal to 200"
+    },
+    
+    {
+      "And header Authorization = \'Bearer <guest_role_token>\'", // Testing for 'guest'-like access, which shouldn't exist but is included as a test case.
+      
+      "When method get",
+      
+      "Then status 401 or 403" // Expecting Forbidden/Unauthorized response if the non-existent 'guest' role tries to access data meant for admins only.
+    }
+    
+  ]
+}
+2025-01-25 21:05:56,542 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:05:56,542 - karate_compatibility_verifier - INFO - Your message was too long and could not be processed. Please try again with something shorter.
+2025-01-25 21:06:01,845 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:06:01,845 - karate_compatibility_verifier - INFO - As there's no specific Karate DSL script provided, I will create a simple example of what such a corrected version might look like. Assuming the original intention was to define some karate moves using a domain-specific language (DSL) for clarity and precision:
+
+```karateDsl
+// Corrected Karate Domain Specific Language Script Example
+
+define Moves {
+    punch = "strike hand forward"
+    kick  = "kick foot backward"
+}
+
+test karateMoves() {
+    // Performing a series of moves using the defined DSL
+    repeat(5) {
+        move: punch
+        assertEqual("Striking with right fist", getMove())
+        
+        wait(1 second)
+        
+        if (randomNumber(0, 2) == 0) { // Randomly decide to perform a kick instead of another punch
+            move: kick
+            assertEqual("Executing front kick", getMove())
+        } else {
+            move: punch
+            assertEqual("Striking with left fist", getMove())
+        }
+    }
+}
+```
+This script defines a simple DSL for karate moves and demonstrates how to use it in testing. It's concise, focusing on the core functionality of defining movements (punches or kicks) and asserting their execution within tests.
+2025-01-25 21:06:01,845 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET_verified.feature
+2025-01-25 21:06:01,845 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature: As there's no specific Karate DSL script provided, I will create a simple example of what such a corrected version might look like. Assuming the original intention was to define some karate moves using a domain-specific language (DSL) for clarity and precision:
+
+```karateDsl
+// Corrected Karate Domain Specific Language Script Example
+
+define Moves {
+    punch = "strike hand forward"
+    kick  = "kick foot backward"
+}
+
+test karateMoves() {
+    // Performing a series of moves using the defined DSL
+    repeat(5) {
+        move: punch
+        assertEqual("Striking with right fist", getMove())
+        
+        wait(1 second)
+        
+        if (randomNumber(0, 2) == 0) { // Randomly decide to perform a kick instead of another punch
+            move: kick
+            assertEqual("Executing front kick", getMove())
+        } else {
+            move: punch
+            assertEqual("Striking with left fist", getMove())
+        }
+    }
+}
+```
+This script defines a simple DSL for karate moves and demonstrates how to use it in testing. It's concise, focusing on the core functionality of defining movements (punches or kicks) and asserting their execution within tests.
+2025-01-25 21:06:01,846 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 21:06:01,848 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 21:06:04,746 - __main__ - INFO - Skipping karate test run.

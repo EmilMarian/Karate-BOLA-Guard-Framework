@@ -1,0 +1,192 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "cardholder",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    }
+  ],
+  "path": "/v1/issuing/cardholders/{cardholder}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.\n\nRelated guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)",
+            "properties": {
+              "billing": {
+                "$ref": "#/components/schemas/issuing_cardholder_address"
+              },
+              "company": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/issuing_cardholder_company"
+                  }
+                ],
+                "description": "Additional information about a `company` cardholder.",
+                "nullable": true
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "email": {
+                "description": "The cardholder's email address.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "individual": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/issuing_cardholder_individual"
+                  }
+                ],
+                "description": "Additional information about an `individual` cardholder.",
+                "nullable": true
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "name": {
+                "description": "The cardholder's name. This will be printed on cards issued to them.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "issuing.cardholder"
+                ],
+                "type": "string"
+              },
+              "phone_number": {
+                "description": "The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://stripe.com/docs/issuing/3d-secure#when-is-3d-secure-applied) for more details.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "preferred_locales": {
+                "description": "The cardholder\u2019s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.\n This changes the language of the [3D Secure flow](https://stripe.com/docs/issuing/3d-secure) and one-time password messages sent to the cardholder.",
+                "items": {
+                  "enum": [
+                    "de",
+                    "en",
+                    "es",
+                    "fr",
+                    "it"
+                  ],
+                  "type": "string"
+                },
+                "nullable": true,
+                "type": "array"
+              },
+              "requirements": {
+                "$ref": "#/components/schemas/issuing_cardholder_requirements"
+              },
+              "spending_controls": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/issuing_cardholder_authorization_controls"
+                  }
+                ],
+                "description": "Rules that control spending across this cardholder's cards. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.",
+                "nullable": true
+              },
+              "status": {
+                "description": "Specifies whether to permit authorizations on this cardholder's cards.",
+                "enum": [
+                  "active",
+                  "blocked",
+                  "inactive"
+                ],
+                "type": "string"
+              },
+              "type": {
+                "description": "One of `individual` or `company`. See [Choose a cardholder type](https://stripe.com/docs/issuing/other/choose-cardholder) for more details.",
+                "enum": [
+                  "company",
+                  "individual"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              }
+            },
+            "required": [
+              "billing",
+              "created",
+              "id",
+              "livemode",
+              "metadata",
+              "name",
+              "object",
+              "requirements",
+              "status",
+              "type"
+            ],
+            "title": "IssuingCardholder",
+            "type": "object",
+            "x-expandableFields": [
+              "billing",
+              "company",
+              "individual",
+              "requirements",
+              "spending_controls"
+            ],
+            "x-resourceId": "issuing.cardholder"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

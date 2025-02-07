@@ -1,0 +1,172 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/issuing/tokens/{token}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "Specifies which status the token should be updated to.",
+              "enum": [
+                "active",
+                "deleted",
+                "suspended"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An issuing token object is created when an issued card is added to a digital wallet. As a [card issuer](https://stripe.com/docs/issuing), you can [view and manage these tokens](https://stripe.com/docs/issuing/controls/token-management) through Stripe.",
+            "properties": {
+              "card": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/issuing.card"
+                  }
+                ],
+                "description": "Card associated with this token.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/issuing.card"
+                    }
+                  ]
+                }
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "device_fingerprint": {
+                "description": "The hashed ID derived from the device ID from the card network associated with the token.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "last4": {
+                "description": "The last four digits of the token.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "network": {
+                "description": "The token service provider / card network associated with the token.",
+                "enum": [
+                  "mastercard",
+                  "visa"
+                ],
+                "type": "string"
+              },
+              "network_data": {
+                "$ref": "#/components/schemas/issuing_network_token_network_data"
+              },
+              "network_updated_at": {
+                "description": "Time at which the token was last updated by the card network. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "issuing.token"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "The usage state of the token.",
+                "enum": [
+                  "active",
+                  "deleted",
+                  "requested",
+                  "suspended"
+                ],
+                "type": "string"
+              },
+              "wallet_provider": {
+                "description": "The digital wallet for this token, if one was used.",
+                "enum": [
+                  "apple_pay",
+                  "google_pay",
+                  "samsung_pay"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "card",
+              "created",
+              "id",
+              "livemode",
+              "network",
+              "network_updated_at",
+              "object",
+              "status"
+            ],
+            "title": "IssuingNetworkToken",
+            "type": "object",
+            "x-expandableFields": [
+              "card",
+              "network_data"
+            ],
+            "x-resourceId": "issuing.token"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

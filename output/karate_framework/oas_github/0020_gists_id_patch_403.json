@@ -1,0 +1,115 @@
+{
+  "method": "PATCH",
+  "parameters": [
+    {
+      "description": "Id of gist.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/gists/{id}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "files": {
+              "properties": {
+                "delete_this_file.txt": {
+                  "type": "string"
+                },
+                "file1.txt": {
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "new_file.txt": {
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "old_name.txt": {
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "403": {
+      "content": {},
+      "description": "API rate limit exceeded. See http://developer.github.com/v3/#rate-limiting\nfor details.\n"
+    }
+  }
+}

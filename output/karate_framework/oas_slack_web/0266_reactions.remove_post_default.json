@@ -1,0 +1,118 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `reactions:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/reactions.remove",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel": {
+              "description": "Channel where the message to remove reaction from was posted.",
+              "type": "string"
+            },
+            "file": {
+              "description": "File to remove reaction from.",
+              "type": "string"
+            },
+            "file_comment": {
+              "description": "File comment to remove reaction from.",
+              "type": "string"
+            },
+            "name": {
+              "description": "Reaction (emoji) name.",
+              "type": "string"
+            },
+            "timestamp": {
+              "description": "Timestamp of the message to remove reaction from.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "no_reaction",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from reactions.remove method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "bad_timestamp",
+                  "file_not_found",
+                  "file_comment_not_found",
+                  "message_not_found",
+                  "no_item_specified",
+                  "invalid_name",
+                  "no_reaction",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "no_permission",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required",
+                  "fatal_error"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "reactions.remove error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "The ID of the target user.",
+      "in": "path",
+      "name": "user-id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Type of action to apply for relationship with the user.",
+      "in": "query",
+      "name": "action",
+      "required": true,
+      "schema": {
+        "enum": [
+          "follow",
+          "unfollow",
+          "block",
+          "unblock",
+          "approve",
+          "ignore"
+        ],
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users/{user-id}/relationship",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/RelationshipStatus"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Relationship information."
+    }
+  }
+}

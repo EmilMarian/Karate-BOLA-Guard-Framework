@@ -1,0 +1,59 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "The ID of the `Brand` to which the image is being attached.\n",
+      "in": "path",
+      "name": "brand_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/brands/{brand_id}/image",
+  "requestBody": {
+    "content": {
+      "multipart/form-data": {
+        "schema": {
+          "properties": {
+            "image_file": {
+              "description": "An image file. Supported MIME types include GIF, JPEG, and PNG.\n",
+              "format": "binary",
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_file"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "422": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseError"
+              },
+              {
+                "properties": {
+                  "errors": {
+                    "$ref": "#/components/schemas/DetailedErrors"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          }
+        }
+      },
+      "description": "Image was not valid. This is the result of a missing `image_file` field or an incorrect file type. See the response for more details.\n"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/billing/meter_event_adjustments",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "cancel": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "cancel": {
+              "description": "Specifies which event to cancel.",
+              "properties": {
+                "identifier": {
+                  "maxLength": 100,
+                  "type": "string"
+                }
+              },
+              "title": "event_adjustment_cancel_settings_param",
+              "type": "object"
+            },
+            "event_name": {
+              "description": "The name of the meter event. Corresponds with the `event_name` field on a meter.",
+              "maxLength": 100,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": {
+              "description": "Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.",
+              "enum": [
+                "cancel"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "event_name",
+            "type"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

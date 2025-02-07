@@ -1,0 +1,305 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/tax/transactions/create_reversal",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "line_items": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "shipping_cost": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "flat_amount": {
+              "description": "A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.",
+              "type": "integer"
+            },
+            "line_items": {
+              "description": "The line item amounts to reverse.",
+              "items": {
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "amount_tax": {
+                    "type": "integer"
+                  },
+                  "metadata": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  },
+                  "original_line_item": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "reference": {
+                    "maxLength": 500,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "amount",
+                  "amount_tax",
+                  "original_line_item",
+                  "reference"
+                ],
+                "title": "transaction_line_item_reversal",
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "mode": {
+              "description": "If `partial`, the provided line item or shipping cost amounts are reversed. If `full`, the original transaction is fully reversed.",
+              "enum": [
+                "full",
+                "partial"
+              ],
+              "type": "string"
+            },
+            "original_transaction": {
+              "description": "The ID of the Transaction to partially or fully reverse.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "reference": {
+              "description": "A custom identifier for this reversal, such as `myOrder_123-refund_1`, which must be unique across all transactions. The reference helps identify this reversal transaction in exported [tax reports](https://stripe.com/docs/tax/reports).",
+              "maxLength": 500,
+              "type": "string"
+            },
+            "shipping_cost": {
+              "description": "The shipping cost to reverse.",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "amount_tax": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "amount",
+                "amount_tax"
+              ],
+              "title": "transaction_shipping_cost_reversal",
+              "type": "object"
+            }
+          },
+          "required": [
+            "mode",
+            "original_transaction",
+            "reference"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Tax Transaction records the tax collected from or refunded to your customer.\n\nRelated guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction)",
+            "properties": {
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "customer": {
+                "description": "The ID of an existing [Customer](https://stripe.com/docs/api/customers/object) used for the resource.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "customer_details": {
+                "$ref": "#/components/schemas/tax_product_resource_customer_details"
+              },
+              "id": {
+                "description": "Unique identifier for the transaction.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "line_items": {
+                "description": "The tax collected or refunded, by line item.",
+                "nullable": true,
+                "properties": {
+                  "data": {
+                    "description": "Details about each object.",
+                    "items": {
+                      "$ref": "#/components/schemas/tax.transaction_line_item"
+                    },
+                    "type": "array"
+                  },
+                  "has_more": {
+                    "description": "True if this list has another page of items after this one that can be fetched.",
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                    "enum": [
+                      "list"
+                    ],
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "The URL where this list can be accessed.",
+                    "maxLength": 5000,
+                    "pattern": "^/v1/tax/transactions/[^/]+/line_items",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "has_more",
+                  "object",
+                  "url"
+                ],
+                "title": "TaxProductResourceTaxTransactionLineItemList",
+                "type": "object",
+                "x-expandableFields": [
+                  "data"
+                ]
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "nullable": true,
+                "type": "object"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "tax.transaction"
+                ],
+                "type": "string"
+              },
+              "posted_at": {
+                "description": "The Unix timestamp representing when the tax liability is assumed or reduced.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "reference": {
+                "description": "A custom unique identifier, such as 'myOrder_123'.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "reversal": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/tax_product_resource_tax_transaction_resource_reversal"
+                  }
+                ],
+                "description": "If `type=reversal`, contains information about what was reversed.",
+                "nullable": true
+              },
+              "ship_from_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/tax_product_resource_ship_from_details"
+                  }
+                ],
+                "description": "The details of the ship from location, such as the address.",
+                "nullable": true
+              },
+              "shipping_cost": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/tax_product_resource_tax_transaction_shipping_cost"
+                  }
+                ],
+                "description": "The shipping cost details for the transaction.",
+                "nullable": true
+              },
+              "tax_date": {
+                "description": "Timestamp of date at which the tax rules and rates in effect applies for the calculation.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "type": {
+                "description": "If `reversal`, this transaction reverses an earlier transaction.",
+                "enum": [
+                  "reversal",
+                  "transaction"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "created",
+              "currency",
+              "customer_details",
+              "id",
+              "livemode",
+              "object",
+              "posted_at",
+              "reference",
+              "tax_date",
+              "type"
+            ],
+            "title": "TaxProductResourceTaxTransaction",
+            "type": "object",
+            "x-expandableFields": [
+              "customer_details",
+              "line_items",
+              "reversal",
+              "ship_from_details",
+              "shipping_cost"
+            ],
+            "x-resourceId": "tax.transaction"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

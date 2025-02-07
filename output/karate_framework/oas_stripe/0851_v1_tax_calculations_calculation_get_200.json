@@ -1,0 +1,199 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "calculation",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    }
+  ],
+  "path": "/v1/tax/calculations/{calculation}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Tax Calculation allows you to calculate the tax to collect from your customer.\n\nRelated guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom)",
+            "properties": {
+              "amount_total": {
+                "description": "Total amount after taxes in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "customer": {
+                "description": "The ID of an existing [Customer](https://stripe.com/docs/api/customers/object) used for the resource.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "customer_details": {
+                "$ref": "#/components/schemas/tax_product_resource_customer_details"
+              },
+              "expires_at": {
+                "description": "Timestamp of date at which the tax calculation will expire.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the calculation.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "line_items": {
+                "description": "The list of items the customer is purchasing.",
+                "nullable": true,
+                "properties": {
+                  "data": {
+                    "description": "Details about each object.",
+                    "items": {
+                      "$ref": "#/components/schemas/tax.calculation_line_item"
+                    },
+                    "type": "array"
+                  },
+                  "has_more": {
+                    "description": "True if this list has another page of items after this one that can be fetched.",
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                    "enum": [
+                      "list"
+                    ],
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "The URL where this list can be accessed.",
+                    "maxLength": 5000,
+                    "pattern": "^/v1/tax/calculations/[^/]+/line_items",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "has_more",
+                  "object",
+                  "url"
+                ],
+                "title": "TaxProductResourceTaxCalculationLineItemList",
+                "type": "object",
+                "x-expandableFields": [
+                  "data"
+                ]
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "tax.calculation"
+                ],
+                "type": "string"
+              },
+              "ship_from_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/tax_product_resource_ship_from_details"
+                  }
+                ],
+                "description": "The details of the ship from location, such as the address.",
+                "nullable": true
+              },
+              "shipping_cost": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/tax_product_resource_tax_calculation_shipping_cost"
+                  }
+                ],
+                "description": "The shipping cost details for the calculation.",
+                "nullable": true
+              },
+              "tax_amount_exclusive": {
+                "description": "The amount of tax to be collected on top of the line item prices.",
+                "type": "integer"
+              },
+              "tax_amount_inclusive": {
+                "description": "The amount of tax already included in the line item prices.",
+                "type": "integer"
+              },
+              "tax_breakdown": {
+                "description": "Breakdown of individual tax amounts that add up to the total.",
+                "items": {
+                  "$ref": "#/components/schemas/tax_product_resource_tax_breakdown"
+                },
+                "type": "array"
+              },
+              "tax_date": {
+                "description": "Timestamp of date at which the tax rules and rates in effect applies for the calculation.",
+                "format": "unix-time",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "amount_total",
+              "currency",
+              "customer_details",
+              "livemode",
+              "object",
+              "tax_amount_exclusive",
+              "tax_amount_inclusive",
+              "tax_breakdown",
+              "tax_date"
+            ],
+            "title": "TaxProductResourceTaxCalculation",
+            "type": "object",
+            "x-expandableFields": [
+              "customer_details",
+              "line_items",
+              "ship_from_details",
+              "shipping_cost",
+              "tax_breakdown"
+            ],
+            "x-resourceId": "tax.calculation"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

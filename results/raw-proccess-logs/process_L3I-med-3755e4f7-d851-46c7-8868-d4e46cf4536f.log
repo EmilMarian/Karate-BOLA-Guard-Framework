@@ -1,0 +1,532 @@
+2025-02-02 13:04:59,516 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 13:04:59,577 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 13:04:59,958 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The id of the user being queried", "in": "path", "name": "userId", "required": true, "type": "string"}], "path": "/users/{userId}/publications", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, lacks the listPublications scope or has been revoked."}}}', 'metadata': {'filename': '0015_users_userId_publications_get_401.json'}}, {'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"401": {"description": "The \\"accessToken\\" is invalid or has been revoked."}}}', 'metadata': {'filename': '0003_me_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The id of the publication being queried", "in": "path", "name": "publicationId", "required": true, "type": "string"}], "path": "/publications/{publicationId}/contributors", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, or has been revoked."}}}', 'metadata': {'filename': '0005_publications_publicationId_contributors_get_401.json'}}], form collection oas_medium_fragments
+2025-02-02 13:04:59,959 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:04:59,959 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:05:00,380 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:05:00,380 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:05:23,570 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:05:23,571 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-02-02 13:05:23,572 - __main__ - INFO - Generated Karate test for /users/{userId}/publications GET at output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature
+2025-02-02 13:05:23,572 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:05:23,572 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```
+Feature: Test for Broken Authentication and Authorization on User Publications Access
+
+Scenario: Attempt to access user publications without being authenticated
+Given url 'http://oas_medium.api'
+And path '/users/{userId}/publications'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Authenticate as a regular user and attempt to access another user's publications
+* def userId = '12345'
+Given url 'http://oas_medium.api'
+And path '/users/' + userId + '/publications'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this publication."
+
+Scenario: Authenticate as an admin and attempt to access another user's publications
+* def adminUserId = '67890'
+Given url 'http://oas_medium.api'
+And path '/users/' + adminUserId + '/publications'
+And header Authorization = 'Bearer <admin_user_token>'
+When method get
+Then status 200
+And match response contains "Publication details"
+
+Scenario: Authenticate as an editor and attempt to access another user's publications
+* def editorUserId = '90123'
+Given url 'http://oas_medium.api'
+And path '/users/' + editorUserId + '/publications'
+And header Authorization = 'Bearer <editor_user_token>'
+When method get
+Then status 200
+And match response contains "Publication details"
+
+Scenario: Authenticate as a regular user and attempt to access their own publications
+* def myUserId = '12345'
+Given url 'http://oas_medium.api'
+And path '/users/' + myUserId + '/publications'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 200
+And match response contains "Publication details"
+```
+
+This test script covers the following scenarios:
+
+1. Attempting to access user publications without being authenticated (should return a 401 Unauthorized error).
+2. Authenticating as a regular user and attempting to access another user's publications (should return a 403 Forbidden error).
+3. Authenticating as an admin and accessing their own or other users' publications (should return a 200 OK response with publication details).
+4. Authenticating as an editor and accessing their own or other users' publications (should return a 200 OK response with publication details).
+
+Note that the `<regular_user_token>`, `<admin_user_token>`, and `<editor_user_token>` placeholders should be replaced with actual API tokens for regular, admin, and editor roles respectively.
+2025-02-02 13:05:42,203 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:05:42,203 - karate_compatibility_verifier - INFO - Feature: Test for Broken Authentication and Authorization on User Publications Access
+
+Scenario: Attempt to access user publications without being authenticated
+Given url 'http://oas_medium.api'
+And path '/users/{userId}/publications'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Authenticate as a regular user and attempt to access another user's publications
+* def userId = '12345'
+Given url 'http://oas_medium.api'
+And path '/users/' + userId + '/publications'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this publication."
+
+Scenario: Authenticate as an admin and attempt to access another user's publications
+* def adminUserId = '67890'
+Given url 'http://oas_medium.api'
+And path '/users/' + adminUserId + '/publications'
+And header Authorization = 'Bearer <admin_user_token>'
+When method get
+Then status 200
+And match response contains "Publication details"
+
+Scenario: Authenticate as an editor and attempt to access another user's publications
+* def editorUserId = '90123'
+Given url 'http://oas_medium.api'
+And path '/users/' + editorUserId + '/publications'
+And header Authorization = 'Bearer <editor_user_token>'
+When method get
+Then status 200
+And match response contains "Publication details"
+
+Scenario: Authenticate as a regular user and attempt to access their own publications
+* def myUserId = '12345'
+Given url 'http://oas_medium.api'
+And path '/users/' + myUserId + '/publications'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 200
+And match response contains "Publication details"
+2025-02-02 13:05:56,360 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:05:56,361 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+Feature: Test for Broken Authentication and Authorization on User Publications Access
+
+Scenario: Attempt to access user publications without being authenticated
+Given url 'http://oas_medium.api'
+And path '/users/{userId}/publications'
+When method GET
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Authenticate as a regular user and attempt to access another user's publications
+* def userId = '12345'
+Given url 'http://oas_medium.api'
+And path '/users/' + userId + '/publications'
+And header Authorization = 'Bearer <regular_user_token>'
+When method GET
+Then status 403
+And match response contains "You do not have permission to access this publication."
+
+Scenario: Authenticate as an admin and attempt to access another user's publications
+* def adminUserId = '67890'
+Given url 'http://oas_medium.api'
+And path '/users/' + adminUserId + '/publications'
+And header Authorization = 'Bearer <admin_user_token>'
+When method GET
+Then status 200
+And match response contains "Publication details"
+
+Scenario: Authenticate as an editor and attempt to access another user's publications
+* def editorUserId = '90123'
+Given url 'http://oas_medium.api'
+And path '/users/' + editorUserId + '/publications'
+And header Authorization = 'Bearer <editor_user_token>'
+When method GET
+Then status 200
+And match response contains "Publication details"
+
+Scenario: Authenticate as a regular user and attempt to access their own publications
+* def myUserId = '12345'
+Given url 'http://oas_medium.api'
+And path '/users/' + myUserId + '/publications'
+And header Authorization = 'Bearer <regular_user_token>'
+When method GET
+Then status 200
+And match response contains "Publication details"
+2025-02-02 13:05:56,361 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET_verified.feature
+2025-02-02 13:05:56,362 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature: Here is the corrected Karate DSL script:
+
+Feature: Test for Broken Authentication and Authorization on User Publications Access
+
+Scenario: Attempt to access user publications without being authenticated
+Given url 'http://oas_medium.api'
+And path '/users/{userId}/publications'
+When method GET
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Authenticate as a regular user and attempt to access another user's publications
+* def userId = '12345'
+Given url 'http://oas_medium.api'
+And path '/users/' + userId + '/publications'
+And header Authorization = 'Bearer <regular_user_token>'
+When method GET
+Then status 403
+And match response contains "You do not have permission to access this publication."
+
+Scenario: Authenticate as an admin and attempt to access another user's publications
+* def adminUserId = '67890'
+Given url 'http://oas_medium.api'
+And path '/users/' + adminUserId + '/publications'
+And header Authorization = 'Bearer <admin_user_token>'
+When method GET
+Then status 200
+And match response contains "Publication details"
+
+Scenario: Authenticate as an editor and attempt to access another user's publications
+* def editorUserId = '90123'
+Given url 'http://oas_medium.api'
+And path '/users/' + editorUserId + '/publications'
+And header Authorization = 'Bearer <editor_user_token>'
+When method GET
+Then status 200
+And match response contains "Publication details"
+
+Scenario: Authenticate as a regular user and attempt to access their own publications
+* def myUserId = '12345'
+Given url 'http://oas_medium.api'
+And path '/users/' + myUserId + '/publications'
+And header Authorization = 'Bearer <regular_user_token>'
+When method GET
+Then status 200
+And match response contains "Publication details"
+2025-02-02 13:05:56,363 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:05:56,363 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:05:56,388 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:05:56,389 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:06:14,336 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:06:14,337 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-02-02 13:06:14,338 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_002_krtestoas_me_GET.feature
+2025-02-02 13:06:14,339 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:06:14,339 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```
+Feature: Test API for Unauthorized Access
+Scenario: Attempt to access user information without authentication
+Given url 'http://oas_medium.api/me'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+Feature: Test API for Authorized Access with valid credentials
+Scenario: Log in as an admin and attempt to access user information
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer ' + adminAccess.token
+When method get
+Then status 200
+And match response contains "User Information"
+
+Feature: Test API for Unauthorized Access with invalid credentials
+Scenario: Log in as a regular user and attempt to access user information
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this resource"
+
+Feature: Test API for Authorized Access with valid credentials (admin)
+Scenario: Log in as an admin and attempt to access user information (admin)
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer ' + adminAccess.token
+When method get
+Then status 200
+And match response contains "User Information"
+
+Feature: Test API for Unauthorized Access with invalid credentials (admin)
+Scenario: Log in as an editor and attempt to access user information (admin)
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer <editor_user_token>'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this resource"
+```
+
+This test script checks for potential Broken Authentication/Authorization vulnerabilities by attempting to access user information without authentication, with valid and invalid credentials as an admin or editor.
+2025-02-02 13:06:30,045 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:06:30,045 - karate_compatibility_verifier - INFO - ```
+Feature: Test API for Unauthorized Access
+Scenario: Attempt to access user information without authentication
+Given url 'http://oas_medium.api/me'
+When method get
+Then status 401
+
+Feature: Test API for Authorized Access with valid credentials
+Scenario: Log in as an admin and attempt to access user information
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer ' + adminAccess.token
+When method get
+Then status 200
+
+Feature: Test API for Unauthorized Access with invalid credentials
+Scenario: Log in as a regular user and attempt to access user information
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+
+Feature: Test API for Authorized Access with valid credentials (admin)
+Scenario: Log in as an admin and attempt to access user information (admin)
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer ' + adminAccess.token
+When method get
+Then status 200
+
+Feature: Test API for Unauthorized Access with invalid credentials (admin)
+Scenario: Log in as an editor and attempt to access user information (admin)
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer <editor_user_token>'
+When method get
+Then status 403
+2025-02-02 13:06:41,703 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:06:41,703 - karate_compatibility_verifier - INFO - ````
+Feature: Test API for Unauthorized Access
+Scenario: Attempt to access user information without authentication
+  Given url 'http://oas_medium.api/me'
+  When method get
+  Then status 401
+
+Feature: Test API for Authorized Access with valid credentials
+Scenario: Log in as an admin and attempt to access user information
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer ' + adminAccess.token
+When method get
+Then status 200
+
+Feature: Test API for Unauthorized Access with invalid credentials
+Scenario: Log in as a regular user and attempt to access user information
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+
+Feature: Test API for Authorized Access with valid credentials (admin)
+Scenario: Log in as an admin and attempt to access user information (admin)
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer ' + adminAccess.token
+When method get
+Then status 200
+
+Feature: Test API for Unauthorized Access with invalid credentials (admin)
+Scenario: Log in as an editor and attempt to access user information (admin)
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer <editor_user_token>'
+When method get
+Then status 403
+2025-02-02 13:06:41,704 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_me_GET_verified.feature
+2025-02-02 13:06:41,704 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_me_GET.feature: ````
+Feature: Test API for Unauthorized Access
+Scenario: Attempt to access user information without authentication
+  Given url 'http://oas_medium.api/me'
+  When method get
+  Then status 401
+
+Feature: Test API for Authorized Access with valid credentials
+Scenario: Log in as an admin and attempt to access user information
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer ' + adminAccess.token
+When method get
+Then status 200
+
+Feature: Test API for Unauthorized Access with invalid credentials
+Scenario: Log in as a regular user and attempt to access user information
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+
+Feature: Test API for Authorized Access with valid credentials (admin)
+Scenario: Log in as an admin and attempt to access user information (admin)
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer ' + adminAccess.token
+When method get
+Then status 200
+
+Feature: Test API for Unauthorized Access with invalid credentials (admin)
+Scenario: Log in as an editor and attempt to access user information (admin)
+Given url 'http://oas_medium.api/me'
+And header Authorization = 'Bearer <editor_user_token>'
+When method get
+Then status 403
+2025-02-02 13:06:41,704 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:06:41,705 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:06:41,728 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:06:41,729 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:06:55,509 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:06:55,510 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script for the given API endpoint:
+
+```
+Feature: Broken Authentication/A...
+2025-02-02 13:06:55,511 - __main__ - INFO - Generated Karate test for /publications/{publicationId}/contributors GET at output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature
+2025-02-02 13:06:55,512 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:06:55,512 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script for the given API endpoint:
+
+```
+Feature: Broken Authentication/Authorization Vulnerability Test
+Scenario: Unauthorized Access to Publication Contributors
+Given url 'http://oas_medium.api'
+And path '/publications/{publicationId}/contributors'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this resource.'
+
+* def guestAttempt = call read('classpath:guestAccess.feature')
+* assert guestAttempt.response == 'Unauthorized Access'
+
+Scenario Outline: Unauthorized Access with Different Roles
+Given url 'http://oas_medium.api'
+And path '/publications/{publicationId}/contributors'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this resource.'
+
+Examples:
+| role |
+| user |
+| guest |
+
+* def adminAccess = karate.callSingle({method: 'get', path: '/publications/{publicationId}/contributors'}, 'adminAccess')
+* assert adminAccess.status == 200
+And match response contains 'Contributors list'
+```
+
+This test script checks for potential Broken Authentication/Authorization vulnerabilities by attempting to access the publication contributors endpoint with different roles (user, guest) and verifying that an unauthorized user receives a 403 status code. The `adminAccess` scenario is used to verify that an authorized admin can successfully retrieve the contributors list.
+
+Note: You may need to adjust the API URL or path depending on your specific environment.
+2025-02-02 13:07:06,345 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:07:06,345 - karate_compatibility_verifier - INFO - Feature: Broken Authentication/Authorization Vulnerability Test
+
+Scenario: Unauthorized Access to Publication Contributors
+Given url 'http://oas_medium.api'
+And path '/publications/{publicationId}/contributors'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this resource."
+
+* def guestAttempt = call read('classpath:guestAccess.feature')
+* assert guestAttempt.response == 'Unauthorized Access'
+
+Scenario Outline: Unauthorized Access with Different Roles
+Given url 'http://oas_medium.api'
+And path '/publications/{publicationId}/contributors'
+When method get
+Then status 403
+And match response contains "You do not have permission to access this resource."
+Examples:
+| role |
+| user |
+| guest |
+
+* def adminAccess = karate.callSingle({method: 'get', path: '/publications/{publicationId}/contributors'}, 'adminAccess')
+* assert adminAccess.status == 200
+And match response contains "Contributors list"
+2025-02-02 13:07:14,377 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:07:14,377 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+Feature: Broken Authentication/Authorization Vulnerability Test
+
+Scenario: Unauthorized Access to Publication Contributors
+  Given url 'http://oas_medium.api'
+  And path '/publications/{publicationId}/contributors'
+  When method GET
+  Then status 403
+  And match response contains "You do not have permission to access this resource"
+
+* def guestAttempt = call read('classpath:guestAccess.feature')
+* assert guestAttempt.response == 'Unauthorized Access'
+
+Scenario Outline: Unauthorized Access with Different Roles
+  Given url 'http://oas_medium.api'
+  And path '/publications/{publicationId}/contributors'
+  When method GET
+  Then status 403
+  And match response contains "You do not have permission to access this resource"
+Examples:
+| role |
+| user |
+| guest |
+
+* def adminAccess = karate.callSingle({method: 'GET', path: '/publications/{publicationId}/contributors'}, 'adminAccess')
+* assert adminAccess.status == 200
+And match response contains "Contributors list"
+2025-02-02 13:07:14,378 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET_verified.feature
+2025-02-02 13:07:14,379 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature: Here is the corrected Karate DSL script:
+
+Feature: Broken Authentication/Authorization Vulnerability Test
+
+Scenario: Unauthorized Access to Publication Contributors
+  Given url 'http://oas_medium.api'
+  And path '/publications/{publicationId}/contributors'
+  When method GET
+  Then status 403
+  And match response contains "You do not have permission to access this resource"
+
+* def guestAttempt = call read('classpath:guestAccess.feature')
+* assert guestAttempt.response == 'Unauthorized Access'
+
+Scenario Outline: Unauthorized Access with Different Roles
+  Given url 'http://oas_medium.api'
+  And path '/publications/{publicationId}/contributors'
+  When method GET
+  Then status 403
+  And match response contains "You do not have permission to access this resource"
+Examples:
+| role |
+| user |
+| guest |
+
+* def adminAccess = karate.callSingle({method: 'GET', path: '/publications/{publicationId}/contributors'}, 'adminAccess')
+* assert adminAccess.status == 200
+And match response contains "Contributors list"
+2025-02-02 13:07:14,380 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 13:07:14,383 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 13:07:16,832 - __main__ - INFO - Skipping karate test run.

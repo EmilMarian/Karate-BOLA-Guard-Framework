@@ -1,0 +1,201 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The originating station's stop point id (station naptan code e.g. 940GZZLUASL, you can use /StopPoint/Search/{query} endpoint to find a stop point id from a station name)",
+      "in": "path",
+      "name": "fromStopPointId",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A single line id e.g. victoria",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The destination stations's Naptan code",
+      "in": "path",
+      "name": "toStopPointId",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/Line/{id}/Timetable/{fromStopPointId}/to/{toStopPointId}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "direction": {
+                "type": "string"
+              },
+              "disambiguation": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Timetables.Disambiguation"
+              },
+              "lineId": {
+                "type": "string"
+              },
+              "lineName": {
+                "type": "string"
+              },
+              "pdfUrl": {
+                "type": "string"
+              },
+              "stations": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "statusErrorMessage": {
+                "type": "string"
+              },
+              "stops": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "timetable": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Timetable"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "properties": {
+              "direction": {
+                "type": "string"
+              },
+              "disambiguation": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Timetables.Disambiguation"
+              },
+              "lineId": {
+                "type": "string"
+              },
+              "lineName": {
+                "type": "string"
+              },
+              "pdfUrl": {
+                "type": "string"
+              },
+              "stations": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "statusErrorMessage": {
+                "type": "string"
+              },
+              "stops": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "timetable": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Timetable"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "properties": {
+              "direction": {
+                "type": "string"
+              },
+              "disambiguation": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Timetables.Disambiguation"
+              },
+              "lineId": {
+                "type": "string"
+              },
+              "lineName": {
+                "type": "string"
+              },
+              "pdfUrl": {
+                "type": "string"
+              },
+              "stations": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "statusErrorMessage": {
+                "type": "string"
+              },
+              "stops": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "timetable": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Timetable"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "properties": {
+              "direction": {
+                "type": "string"
+              },
+              "disambiguation": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Timetables.Disambiguation"
+              },
+              "lineId": {
+                "type": "string"
+              },
+              "lineName": {
+                "type": "string"
+              },
+              "pdfUrl": {
+                "type": "string"
+              },
+              "stations": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "statusErrorMessage": {
+                "type": "string"
+              },
+              "stops": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "timetable": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Timetable"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

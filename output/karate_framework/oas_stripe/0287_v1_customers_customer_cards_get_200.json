@@ -1,0 +1,370 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "customer",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+      "in": "query",
+      "name": "ending_before",
+      "required": false,
+      "schema": {
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+      "in": "query",
+      "name": "starting_after",
+      "required": false,
+      "schema": {
+        "type": "string"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/customers/{customer}/cards",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "",
+            "properties": {
+              "data": {
+                "items": {
+                  "description": "You can store multiple cards on a customer in order to charge the customer\nlater. You can also store multiple debit cards on a recipient in order to\ntransfer to those cards later.\n\nRelated guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)",
+                  "properties": {
+                    "account": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/account"
+                        }
+                      ],
+                      "description": "The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/account"
+                          }
+                        ]
+                      }
+                    },
+                    "address_city": {
+                      "description": "City/District/Suburb/Town/Village.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "address_country": {
+                      "description": "Billing address country, if provided when creating card.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "address_line1": {
+                      "description": "Address line 1 (Street address/PO Box/Company name).",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "address_line1_check": {
+                      "description": "If `address_line1` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "address_line2": {
+                      "description": "Address line 2 (Apartment/Suite/Unit/Building).",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "address_state": {
+                      "description": "State/County/Province/Region.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "address_zip": {
+                      "description": "ZIP or postal code.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "address_zip_check": {
+                      "description": "If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "allow_redisplay": {
+                      "description": "This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to \u201cunspecified\u201d.",
+                      "enum": [
+                        "always",
+                        "limited",
+                        "unspecified"
+                      ],
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "available_payout_methods": {
+                      "description": "A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.",
+                      "items": {
+                        "enum": [
+                          "instant",
+                          "standard"
+                        ],
+                        "type": "string"
+                      },
+                      "nullable": true,
+                      "type": "array"
+                    },
+                    "brand": {
+                      "description": "Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "country": {
+                      "description": "Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "currency": {
+                      "description": "Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.",
+                      "format": "currency",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "customer": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/customer"
+                        },
+                        {
+                          "$ref": "#/components/schemas/deleted_customer"
+                        }
+                      ],
+                      "description": "The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/customer"
+                          },
+                          {
+                            "$ref": "#/components/schemas/deleted_customer"
+                          }
+                        ]
+                      }
+                    },
+                    "cvc_check": {
+                      "description": "If a CVC was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`. A result of unchecked indicates that CVC was provided but hasn't been checked yet. Checks are typically performed when attaching a card to a Customer object, or when creating a charge. For more details, see [Check if a card is valid without a charge](https://support.stripe.com/questions/check-if-a-card-is-valid-without-a-charge).",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "default_for_currency": {
+                      "description": "Whether this card is the default external account for its currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.",
+                      "nullable": true,
+                      "type": "boolean"
+                    },
+                    "dynamic_last4": {
+                      "description": "(For tokenized numbers only.) The last four digits of the device account number.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "exp_month": {
+                      "description": "Two-digit number representing the card's expiration month.",
+                      "type": "integer"
+                    },
+                    "exp_year": {
+                      "description": "Four-digit number representing the card's expiration year.",
+                      "type": "integer"
+                    },
+                    "fingerprint": {
+                      "description": "Uniquely identifies this particular card number. You can use this attribute to check whether two customers who\u2019ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.\n\n*As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "funding": {
+                      "description": "Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the object.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "iin": {
+                      "description": "Issuer identification number of the card.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "last4": {
+                      "description": "The last four digits of the card.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "metadata": {
+                      "additionalProperties": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                      "nullable": true,
+                      "type": "object"
+                    },
+                    "name": {
+                      "description": "Cardholder name.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "networks": {
+                      "$ref": "#/components/schemas/token_card_networks"
+                    },
+                    "object": {
+                      "description": "String representing the object's type. Objects of the same type share the same value.",
+                      "enum": [
+                        "card"
+                      ],
+                      "type": "string"
+                    },
+                    "regulated_status": {
+                      "description": "Status of a card based on the card issuer.",
+                      "enum": [
+                        "regulated",
+                        "unregulated"
+                      ],
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "For external accounts that are cards, possible values are `new` and `errored`. If a payout fails, the status is set to `errored` and [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) are stopped until account details are updated.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "tokenization_method": {
+                      "description": "If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "brand",
+                    "exp_month",
+                    "exp_year",
+                    "funding",
+                    "id",
+                    "last4",
+                    "object"
+                  ],
+                  "title": "Card",
+                  "type": "object",
+                  "x-expandableFields": [
+                    "account",
+                    "customer",
+                    "networks"
+                  ],
+                  "x-resourceId": "card"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "description": "True if this list has another page of items after this one that can be fetched.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                "enum": [
+                  "list"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "The URL where this list can be accessed.",
+                "maxLength": 5000,
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "CardList",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

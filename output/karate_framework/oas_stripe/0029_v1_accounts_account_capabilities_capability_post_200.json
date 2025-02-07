@@ -1,0 +1,143 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "account",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "in": "path",
+      "name": "capability",
+      "required": true,
+      "schema": {
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/accounts/{account}/capabilities/{capability}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "requested": {
+              "description": "To request a new capability for an account, pass true. There can be a delay before the requested capability becomes active. If the capability has any activation requirements, the response includes them in the `requirements` arrays.\n\nIf a capability isn't permanent, you can remove it from the account by passing false. Some capabilities are permanent after they've been requested. Attempting to remove a permanent capability returns an error.",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "This is an object representing a capability for a Stripe account.\n\nRelated guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities)",
+            "properties": {
+              "account": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/account"
+                  }
+                ],
+                "description": "The account for which the capability enables functionality.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/account"
+                    }
+                  ]
+                }
+              },
+              "future_requirements": {
+                "$ref": "#/components/schemas/account_capability_future_requirements"
+              },
+              "id": {
+                "description": "The identifier for the capability.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "capability"
+                ],
+                "type": "string"
+              },
+              "requested": {
+                "description": "Whether the capability has been requested.",
+                "type": "boolean"
+              },
+              "requested_at": {
+                "description": "Time at which the capability was requested. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "requirements": {
+                "$ref": "#/components/schemas/account_capability_requirements"
+              },
+              "status": {
+                "description": "The status of the capability.",
+                "enum": [
+                  "active",
+                  "disabled",
+                  "inactive",
+                  "pending",
+                  "unrequested"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "account",
+              "id",
+              "object",
+              "requested",
+              "status"
+            ],
+            "title": "AccountCapability",
+            "type": "object",
+            "x-expandableFields": [
+              "account",
+              "future_requirements",
+              "requirements"
+            ],
+            "x-resourceId": "capability"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

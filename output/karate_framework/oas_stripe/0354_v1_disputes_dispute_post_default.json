@@ -1,0 +1,607 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "dispute",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/disputes/{dispute}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "evidence": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "evidence": {
+              "description": "Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.",
+              "properties": {
+                "access_activity_log": {
+                  "maxLength": 20000,
+                  "type": "string"
+                },
+                "billing_address": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "cancellation_policy": {
+                  "type": "string"
+                },
+                "cancellation_policy_disclosure": {
+                  "maxLength": 20000,
+                  "type": "string"
+                },
+                "cancellation_rebuttal": {
+                  "maxLength": 20000,
+                  "type": "string"
+                },
+                "customer_communication": {
+                  "type": "string"
+                },
+                "customer_email_address": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "customer_name": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "customer_purchase_ip": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "customer_signature": {
+                  "type": "string"
+                },
+                "duplicate_charge_documentation": {
+                  "type": "string"
+                },
+                "duplicate_charge_explanation": {
+                  "maxLength": 20000,
+                  "type": "string"
+                },
+                "duplicate_charge_id": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "enhanced_evidence": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "visa_compelling_evidence_3": {
+                          "properties": {
+                            "disputed_transaction": {
+                              "properties": {
+                                "customer_account_id": {
+                                  "anyOf": [
+                                    {
+                                      "maxLength": 5000,
+                                      "type": "string"
+                                    },
+                                    {
+                                      "enum": [
+                                        ""
+                                      ],
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "customer_device_fingerprint": {
+                                  "anyOf": [
+                                    {
+                                      "maxLength": 5000,
+                                      "type": "string"
+                                    },
+                                    {
+                                      "enum": [
+                                        ""
+                                      ],
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "customer_device_id": {
+                                  "anyOf": [
+                                    {
+                                      "maxLength": 5000,
+                                      "type": "string"
+                                    },
+                                    {
+                                      "enum": [
+                                        ""
+                                      ],
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "customer_email_address": {
+                                  "anyOf": [
+                                    {
+                                      "maxLength": 5000,
+                                      "type": "string"
+                                    },
+                                    {
+                                      "enum": [
+                                        ""
+                                      ],
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "customer_purchase_ip": {
+                                  "anyOf": [
+                                    {
+                                      "maxLength": 5000,
+                                      "type": "string"
+                                    },
+                                    {
+                                      "enum": [
+                                        ""
+                                      ],
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "merchandise_or_services": {
+                                  "enum": [
+                                    "merchandise",
+                                    "services"
+                                  ],
+                                  "type": "string"
+                                },
+                                "product_description": {
+                                  "anyOf": [
+                                    {
+                                      "maxLength": 5000,
+                                      "type": "string"
+                                    },
+                                    {
+                                      "enum": [
+                                        ""
+                                      ],
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "shipping_address": {
+                                  "properties": {
+                                    "city": {
+                                      "anyOf": [
+                                        {
+                                          "maxLength": 5000,
+                                          "type": "string"
+                                        },
+                                        {
+                                          "enum": [
+                                            ""
+                                          ],
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "country": {
+                                      "anyOf": [
+                                        {
+                                          "maxLength": 5000,
+                                          "type": "string"
+                                        },
+                                        {
+                                          "enum": [
+                                            ""
+                                          ],
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "line1": {
+                                      "anyOf": [
+                                        {
+                                          "maxLength": 5000,
+                                          "type": "string"
+                                        },
+                                        {
+                                          "enum": [
+                                            ""
+                                          ],
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "line2": {
+                                      "anyOf": [
+                                        {
+                                          "maxLength": 5000,
+                                          "type": "string"
+                                        },
+                                        {
+                                          "enum": [
+                                            ""
+                                          ],
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "postal_code": {
+                                      "anyOf": [
+                                        {
+                                          "maxLength": 5000,
+                                          "type": "string"
+                                        },
+                                        {
+                                          "enum": [
+                                            ""
+                                          ],
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "state": {
+                                      "anyOf": [
+                                        {
+                                          "maxLength": 5000,
+                                          "type": "string"
+                                        },
+                                        {
+                                          "enum": [
+                                            ""
+                                          ],
+                                          "type": "string"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "title": "shipping_address",
+                                  "type": "object"
+                                }
+                              },
+                              "title": "visa_compelling_evidence3_disputed_transaction",
+                              "type": "object"
+                            },
+                            "prior_undisputed_transactions": {
+                              "items": {
+                                "properties": {
+                                  "charge": {
+                                    "maxLength": 5000,
+                                    "type": "string"
+                                  },
+                                  "customer_account_id": {
+                                    "anyOf": [
+                                      {
+                                        "maxLength": 5000,
+                                        "type": "string"
+                                      },
+                                      {
+                                        "enum": [
+                                          ""
+                                        ],
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  "customer_device_fingerprint": {
+                                    "anyOf": [
+                                      {
+                                        "maxLength": 5000,
+                                        "type": "string"
+                                      },
+                                      {
+                                        "enum": [
+                                          ""
+                                        ],
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  "customer_device_id": {
+                                    "anyOf": [
+                                      {
+                                        "maxLength": 5000,
+                                        "type": "string"
+                                      },
+                                      {
+                                        "enum": [
+                                          ""
+                                        ],
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  "customer_email_address": {
+                                    "anyOf": [
+                                      {
+                                        "maxLength": 5000,
+                                        "type": "string"
+                                      },
+                                      {
+                                        "enum": [
+                                          ""
+                                        ],
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  "customer_purchase_ip": {
+                                    "anyOf": [
+                                      {
+                                        "maxLength": 5000,
+                                        "type": "string"
+                                      },
+                                      {
+                                        "enum": [
+                                          ""
+                                        ],
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  "product_description": {
+                                    "anyOf": [
+                                      {
+                                        "maxLength": 5000,
+                                        "type": "string"
+                                      },
+                                      {
+                                        "enum": [
+                                          ""
+                                        ],
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  "shipping_address": {
+                                    "properties": {
+                                      "city": {
+                                        "anyOf": [
+                                          {
+                                            "maxLength": 5000,
+                                            "type": "string"
+                                          },
+                                          {
+                                            "enum": [
+                                              ""
+                                            ],
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      "country": {
+                                        "anyOf": [
+                                          {
+                                            "maxLength": 5000,
+                                            "type": "string"
+                                          },
+                                          {
+                                            "enum": [
+                                              ""
+                                            ],
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      "line1": {
+                                        "anyOf": [
+                                          {
+                                            "maxLength": 5000,
+                                            "type": "string"
+                                          },
+                                          {
+                                            "enum": [
+                                              ""
+                                            ],
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      "line2": {
+                                        "anyOf": [
+                                          {
+                                            "maxLength": 5000,
+                                            "type": "string"
+                                          },
+                                          {
+                                            "enum": [
+                                              ""
+                                            ],
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      "postal_code": {
+                                        "anyOf": [
+                                          {
+                                            "maxLength": 5000,
+                                            "type": "string"
+                                          },
+                                          {
+                                            "enum": [
+                                              ""
+                                            ],
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      "state": {
+                                        "anyOf": [
+                                          {
+                                            "maxLength": 5000,
+                                            "type": "string"
+                                          },
+                                          {
+                                            "enum": [
+                                              ""
+                                            ],
+                                            "type": "string"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "title": "shipping_address",
+                                    "type": "object"
+                                  }
+                                },
+                                "required": [
+                                  "charge"
+                                ],
+                                "title": "visa_compelling_evidence3_prior_undisputed_transaction",
+                                "type": "object"
+                              },
+                              "type": "array"
+                            }
+                          },
+                          "title": "visa_compelling_evidence3",
+                          "type": "object"
+                        },
+                        "visa_compliance": {
+                          "properties": {
+                            "fee_acknowledged": {
+                              "type": "boolean"
+                            }
+                          },
+                          "title": "visa_compliance",
+                          "type": "object"
+                        }
+                      },
+                      "title": "enhanced_evidence",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "product_description": {
+                  "maxLength": 20000,
+                  "type": "string"
+                },
+                "receipt": {
+                  "type": "string"
+                },
+                "refund_policy": {
+                  "type": "string"
+                },
+                "refund_policy_disclosure": {
+                  "maxLength": 20000,
+                  "type": "string"
+                },
+                "refund_refusal_explanation": {
+                  "maxLength": 20000,
+                  "type": "string"
+                },
+                "service_date": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "service_documentation": {
+                  "type": "string"
+                },
+                "shipping_address": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "shipping_carrier": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "shipping_date": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "shipping_documentation": {
+                  "type": "string"
+                },
+                "shipping_tracking_number": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "uncategorized_file": {
+                  "type": "string"
+                },
+                "uncategorized_text": {
+                  "maxLength": 20000,
+                  "type": "string"
+                }
+              },
+              "title": "dispute_evidence_params",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`."
+            },
+            "submit": {
+              "description": "Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

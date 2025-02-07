@@ -1,0 +1,439 @@
+2025-02-02 13:42:01,483 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 13:42:01,543 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 13:42:01,788 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "PUT", "parameters": [{"description": "The ID of a project", "in": "path", "name": "id", "required": true, "schema": {"pattern": "^(\\\\d+|[^/]+(%2[fF])[^/]+)$", "type": "string"}}, {"description": "ID of MR", "in": "path", "name": "merge_request_id", "required": true, "schema": {"type": "integer"}}, {"description": "The target branch", "in": "query", "name": "target_branch", "schema": {"type": "string"}}, {"description": "Assignee user ID", "in": "query", "name": "assignee_id", "schema": {"type": "integer"}}, {"description": "Title of MR", "in": "query", "name": "title", "required": true, "schema": {"type": "string"}}, {"description": "Description of MR", "in": "query", "name": "description", "schema": {"type": "string"}}, {"description": "New state (close|reopen|merge)", "in": "query", "name": "state_event", "schema": {"enum": ["close", "reopen", "merge"], "type": "string"}}, {"description": "Labels for MR as a comma-separated list", "explode": false, "in": "query", "name": "labels", "schema": {"items": {"type": "string"}, "type": "array"}, "style": "form"}, {"description": "Milestone ID", "in": "query", "name": "milestone_id", "schema": {"type": "integer"}}], "path": "/projects/{id}/merge_requests/{merge_request_id}", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"example": {"assignee": {"created_at": "2012-04-29T08:46:00Z", "email": "admin@example.com", "id": 1, "name": "Administrator", "state": "active", "username": "admin"}, "author": {"created_at": "2012-04-29T08:46:00Z", "email": "admin@example.com", "id": 1, "name": "Administrator", "state": "active", "username": "admin"}, "description": "description1", "downvotes": 0, "id": 1, "labels": [], "merge_status": "can_be_merged", "merge_when_build_succeeds": true, "milestone": {"created_at": "2015-02-02T19:49:26.013Z", "description": "Assumenda aut placeat expedita exercitationem labore sunt enim earum.", "due_date": null, "id": 5, "iid": 1, "project_id": 4, "state": "closed", "title": "v2.0", "updated_at": "2015-02-02T19:49:26.013Z"}, "project_id": 3, "source_project_id": 4, "state": "opened", "subscribed": true, "target_branch": "master", "target_project_id": 4, "title": "test1", "upvotes": 0, "user_notes_count": 1, "work_in_progress": false}, "schema": {"properties": {"assignee": {"properties": {"created_at": {"type": "string"}, "email": {"type": "string"}, "id": {"type": "integer"}, "name": {"type": "string"}, "state": {"type": "string"}, "username": {"type": "string"}}, "type": "object"}, "author": {"properties": {"created_at": {"type": "string"}, "email": {"type": "string"}, "id": {"type": "integer"}, "name": {"type": "string"}, "state": {"type": "string"}, "username": {"type": "string"}}, "type": "object"}, "description": {"type": "string"}, "downvotes": {"type": "integer"}, "id": {"type": "integer"}, "iid": {"type": "integer"}, "labels": {"items": {"type": "string"}, "type": "array"}, "merge_status": {"type": "string"}, "merge_when_build_succeeds": {"type": "boolean"}, "milestone": {"properties": {"created_at": {"type": "string"}, "description": {"type": "string"}, "due_date": {"type": "string"}, "id": {"type": "integer"}, "iid": {"type": "integer"}, "project_id": {"type": "integer"}, "state": {"type": "string"}, "title": {"type": "string"}, "updated_at": {"type": "string"}}, "type": "object"}, "project_id": {"type": "integer"}, "source_branch": {"type": "string"}, "source_project_id": {"type": "integer"}, "state": {"type": "string"}, "subscribed": {"type": "boolean"}, "target_branch": {"type": "string"}, "target_project_id": {"type": "integer"}, "title": {"type": "string"}, "upvotes": {"type": "integer"}, "user_notes_count": {"type": "integer"}, "work_in_progress": {"type": "boolean"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0009_projects_id_merge_requests_merge_request_id_put_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "The ID of a project", "in": "path", "name": "id", "required": true, "schema": {"pattern": "^(\\\\d+|[^/]+(%2[fF])[^/]+)$", "type": "string"}}, {"description": "The source branch", "in": "query", "name": "source_branch", "required": true, "schema": {"type": "string"}}, {"description": "The target branch", "in": "query", "name": "target_branch", "required": true, "schema": {"type": "string"}}, {"description": "Assignee user ID", "in": "query", "name": "assignee_id", "schema": {"type": "integer"}}, {"description": "Title of MR", "in": "query", "name": "title", "required": true, "schema": {"type": "string"}}, {"description": "Description of MR", "in": "query", "name": "description", "schema": {"type": "string"}}, {"description": "The target project (numeric id)", "in": "query", "name": "target_project_id", "schema": {"type": "integer"}}, {"description": "Labels for MR as a comma-separated list", "explode": false, "in": "query", "name": "labels", "schema": {"items": {"type": "string"}, "type": "array"}, "style": "form"}, {"description": "Milestone ID", "in": "query", "name": "milestone_id", "schema": {"type": "integer"}}], "path": "/projects/{id}/merge_requests", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"example": {"assignee": {"created_at": "2012-04-29T08:46:00Z", "email": "admin@example.com", "id": 1, "name": "Administrator", "state": "active", "username": "admin"}, "author": {"created_at": "2012-04-29T08:46:00Z", "email": "admin@example.com", "id": 1, "name": "Administrator", "state": "active", "username": "admin"}, "description": "fixed login page css paddings", "downvotes": 0, "id": 1, "labels": [], "merge_status": "can_be_merged", "merge_when_build_succeeds": true, "milestone": {"created_at": "2015-02-02T19:49:26.013Z", "description": "Assumenda aut placeat expedita exercitationem labore sunt enim earum.", "due_date": null, "id": 5, "iid": 1, "project_id": 4, "state": "closed", "title": "v2.0", "updated_at": "2015-02-02T19:49:26.013Z"}, "project_id": 3, "source_branch": "test1", "source_project_id": 4, "state": "opened", "subscribed": true, "target_branch": "master", "target_project_id": 4, "title": "test1", "upvotes": 0, "user_notes_count": 0, "work_in_progress": false}, "schema": {"properties": {"assignee": {"properties": {"created_at": {"type": "string"}, "email": {"type": "string"}, "id": {"type": "integer"}, "name": {"type": "string"}, "state": {"type": "string"}, "username": {"type": "string"}}, "type": "object"}, "author": {"properties": {"created_at": {"type": "string"}, "email": {"type": "string"}, "id": {"type": "integer"}, "name": {"type": "string"}, "state": {"type": "string"}, "username": {"type": "string"}}, "type": "object"}, "description": {"type": "string"}, "downvotes": {"type": "integer"}, "id": {"type": "integer"}, "iid": {"type": "integer"}, "labels": {"items": {"type": "string"}, "type": "array"}, "merge_status": {"type": "string"}, "merge_when_build_succeeds": {"type": "boolean"}, "milestone": {"properties": {"created_at": {"type": "string"}, "description": {"type": "string"}, "due_date": {"type": "string"}, "id": {"type": "integer"}, "iid": {"type": "integer"}, "project_id": {"type": "integer"}, "state": {"type": "string"}, "title": {"type": "string"}, "updated_at": {"type": "string"}}, "type": "object"}, "project_id": {"type": "integer"}, "source_branch": {"type": "string"}, "source_project_id": {"type": "integer"}, "state": {"type": "string"}, "subscribed": {"type": "boolean"}, "target_branch": {"type": "string"}, "target_project_id": {"type": "integer"}, "title": {"type": "string"}, "upvotes": {"type": "integer"}, "user_notes_count": {"type": "integer"}, "work_in_progress": {"type": "boolean"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0008_projects_id_merge_requests_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The ID of a project", "in": "path", "name": "id", "required": true, "schema": {"pattern": "^(\\\\d+|[^/]+(%2[fF])[^/])$", "type": "string"}}], "path": "/projects/{id}/snippets", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"example": [{"author": {"created_at": "2012-05-23T08:00:58Z", "email": "john@example.com", "id": 1, "name": "John Smith", "state": "active", "username": "john_smith"}, "created_at": "2012-06-28T10:52:04Z", "expires_at": null, "file_name": "add.rb", "id": 1, "title": "test", "updated_at": "2012-06-28T10:52:04Z", "web_url": "http://example.com/example/example/snippets/1"}], "schema": {"items": {"properties": {"author": {"properties": {"avatar_url": {"type": "string"}, "id": {"type": "integer"}, "name": {"type": "string"}, "username": {"type": "string"}, "web_url": {"type": "string"}}, "required": ["id"], "type": "object"}, "created_at": {"type": "string"}, "expires_at": {"type": "string"}, "file_name": {"type": "string"}, "id": {"type": "integer"}, "title": {"type": "string"}, "updated_at": {"type": "string"}, "web_url": {"type": "string"}}, "required": ["author", "created_at", "file_name", "id", "title", "updated_at", "web_url"], "type": "object"}, "type": "array"}}}, "description": "OK"}}}', 'metadata': {'filename': '0014_projects_id_snippets_get_200.json'}}], form collection oas_gitlab_fragments
+2025-02-02 13:42:01,788 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:42:01,789 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:42:02,216 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:42:02,216 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:42:20,742 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:42:20,743 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test API for Broken Authentication/Authorization on Merge Requests",
+  "scenario": ...
+2025-02-02 13:42:20,744 - __main__ - INFO - Generated Karate test for /projects/{id}/merge_requests/{merge_request_id} PUT at output/karate_feature_files/ID_001_krtestoas_projects_id_merge_requests_merge_request_id_PUT.feature
+2025-02-02 13:42:20,744 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:42:20,745 - karate_compatibility_verifier - INFO - {
+  "feature": "Test API for Broken Authentication/Authorization on Merge Requests",
+  "scenario": "Attempt to access merge request without proper authentication or authorization.",
+  "given": [
+    "url('http://oas_gitlab.api')"
+  ],
+  "when": [
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: '123', merge_request_id: '456' }", // Replace with a valid project and merge request ID for actual testing.
+      "when method put"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: '', merge_request_id: '456' }", // Attempt with invalid project ID to test authorization.
+      "when method put"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '', }", // Attempt with invalid merge request ID to test authorization.
+      "when method put"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', state: 'closed' }", // Attempt to access a closed merge request.
+      "when method put"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', base: null }", // Attempt to access a merge request without specifying the base branch.
+      "when method put"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', description: '<script>alert(\'XSS\')</script>' }", // Attempt to perform XSS attack by including a script tag in the description.
+      "when method put"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', title: '<script>alert(\'XSS\')</script>' }", // Attempt to perform XSS attack by including a script tag in the title.
+      "when method put"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', description: null }", // Attempt to perform a Null Poisoning attack by sending NULL as the description.
+      "when method put"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{mergem
+2025-02-02 13:42:49,451 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:42:49,451 - karate_compatibility_verifier - INFO -  {
+  "feature": "Test API for Broken Authentication/Authorization on Merge Requests",
+  "background": [
+    "* url 'http://oas_gitlab.api'"
+  ],
+  "scenario": "Attempt to access merge request without proper authentication or authorization.",
+  "given": [
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: '123', merge_request_id: '456' }" // Replace with a valid project and merge request ID for actual testing.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: '', merge_request_id: '456' }"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '' }"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', state: 'closed' }"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', base: null }"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', description: '<script>alert(\'XSS\')</script>' }" // Attempt to perform XSS attack by including a script tag in the description. (Note: This is for testing purposes only and should not be used on real systems.)
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', title: '<script>alert(\'XSS\')</script>' }" // Attempt to perform XSS attack by including a script tag in the title. (Note: This is for testing purposes only and should not be used on real systems.)
+    },
+    {
+      "path(/projects/{id}/merge_requests/{mergem",
+      "and request { id: 123, merge_request_id: '456', description: null }" // Attempt to perform a Null Poisoning attack by sending NULL as the description. (Note: This is for testing purposes only and should not be used on real systems.)
+    },
+    {
+      "path(/projects/{id}/merge_requests/{mergem_request_id}:",
+      "and request { id: 123, merge_request_id: '456' }" // Replace with a valid project and merge request ID for actual testing. (Note: This is incorrect syntax; it should be path(/projects/{id}/merge_requests/{merge_request_id}):)
+    },
+    {
+      "path('/api/v3/merges'):",
+      // Incorrect URL endpoint, replace with the correct one if necessary. (Note: This is incorrect syntax; it should be path(/projects/{id}/merge_requests/{merge_request_id}):)
+      "and request { id: 123, merge_request_id: '456' }" // Replace with a valid project and merge request ID for actual testing. (Note: This is incorrect syntax; it should be path(/projects/{id}/merge_requests/{merge_request_id}):)
+    },
+    {
+      "path('/api/v3/merges'):",
+      // Incorrect URL endpoint, replace with the correct one if necessary. (Note: This is incorrect syntax; it should be path(/projects/{id}/merge_requests/{merge_request_id}):)
+      "and request { id: 123 }" // Invalid merge request ID without a specified merge request to test authorization failure.
+    },
+    {
+      "path('/api/v3/merges'):",
+      "and request { id: '456', state: '
+2025-02-02 13:43:15,389 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:43:15,389 - karate_compatibility_verifier - INFO -  {
+  "feature": "Test API for Broken Authentication/Authorization on Merge Requests",
+  "background": [
+    "* url 'http://oas_gitlab.api'" // Assuming the correct URL is provided in this context, no changes needed here unless it's incorrect.
+  ],
+  "scenario": "Attempt to access merge request without proper authentication or authorization.",
+  "given": [
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: '123', merge_request_id: '456' }" // Replace with a valid project and merge request ID for actual testing.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: '', merge_request_id: '456' }"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '' }" // Invalid merge request ID without a specified merge request to test authorization failure. Replace with valid values for testing purposes.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', state: 'closed' }" // Assuming this is a valid test case.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', base: null }" // Assuming this is a valid test case.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', description: '<script>alert(\'XSS\')</script>' }" // Attempt to perform XSS attack by including a script tag in the description. (Note: This is for testing purposes only and should not be used on real systems.)
+    },
+    {
+      "path(/projects/{id}/merge_requests/{mergem",
+      "and request { id: 123, merge_request_id: '456', description: null }" // Attempt to perform a Null Poisoning attack by sending NULL as the description. (Note: This is for testing purposes only and should not be used on real systems.)
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      // Corrected syntax, assuming a valid project ID '123' and merge request ID '456'.
+      "and request { id: 123, merge_request_id: '456' }"
+    },
+    {
+      "path('/api/v3/merges'):", // Incorrect URL endpoint. Assuming the correct one is path(/projects/{id}/merge_requests/{merge_request_id}):
+      "and request { id: 123, merge_request_id: '456' }" // Replace with a valid project and merge request ID for actual testing if needed.
+    },
+    {
+      "path('/api/v3/merges'):", // Incorrect URL endpoint; corrected to path(/projects/{id}/merge_requests/{merge_request_id}):
+      "and request { id: 123 }" // Invalid merge request ID without a specified merge request. Replace with valid values for testing purposes, e.g., and request { id: '456', state: '' } to test authorization failure.
+    },
+    {
+      "path('/api/v3/merges'):", // Incorrect URL endpoint; corrected as above if needed.
+      "and request { id: '456', state: 'closed' }" // Assuming this is a valid test case after correction of the path and missing merge_request_id in previous scenario.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', base: null }
+2025-02-02 13:43:15,390 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_projects_id_merge_requests_merge_request_id_PUT_verified.feature
+2025-02-02 13:43:15,391 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_projects_id_merge_requests_merge_request_id_PUT.feature:  {
+  "feature": "Test API for Broken Authentication/Authorization on Merge Requests",
+  "background": [
+    "* url 'http://oas_gitlab.api'" // Assuming the correct URL is provided in this context, no changes needed here unless it's incorrect.
+  ],
+  "scenario": "Attempt to access merge request without proper authentication or authorization.",
+  "given": [
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: '123', merge_request_id: '456' }" // Replace with a valid project and merge request ID for actual testing.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: '', merge_request_id: '456' }"
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '' }" // Invalid merge request ID without a specified merge request to test authorization failure. Replace with valid values for testing purposes.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', state: 'closed' }" // Assuming this is a valid test case.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', base: null }" // Assuming this is a valid test case.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', description: '<script>alert(\'XSS\')</script>' }" // Attempt to perform XSS attack by including a script tag in the description. (Note: This is for testing purposes only and should not be used on real systems.)
+    },
+    {
+      "path(/projects/{id}/merge_requests/{mergem",
+      "and request { id: 123, merge_request_id: '456', description: null }" // Attempt to perform a Null Poisoning attack by sending NULL as the description. (Note: This is for testing purposes only and should not be used on real systems.)
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      // Corrected syntax, assuming a valid project ID '123' and merge request ID '456'.
+      "and request { id: 123, merge_request_id: '456' }"
+    },
+    {
+      "path('/api/v3/merges'):", // Incorrect URL endpoint. Assuming the correct one is path(/projects/{id}/merge_requests/{merge_request_id}):
+      "and request { id: 123, merge_request_id: '456' }" // Replace with a valid project and merge request ID for actual testing if needed.
+    },
+    {
+      "path('/api/v3/merges'):", // Incorrect URL endpoint; corrected to path(/projects/{id}/merge_requests/{merge_request_id}):
+      "and request { id: 123 }" // Invalid merge request ID without a specified merge request. Replace with valid values for testing purposes, e.g., and request { id: '456', state: '' } to test authorization failure.
+    },
+    {
+      "path('/api/v3/merges'):", // Incorrect URL endpoint; corrected as above if needed.
+      "and request { id: '456', state: 'closed' }" // Assuming this is a valid test case after correction of the path and missing merge_request_id in previous scenario.
+    },
+    {
+      "path(/projects/{id}/merge_requests/{merge_request_id}):",
+      "and request { id: 123, merge_request_id: '456', base: null }
+2025-02-02 13:43:15,393 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:43:15,394 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:43:15,412 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:43:15,416 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:43:21,665 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:43:21,666 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test API for Broken Authentication/Authorization on Merge Requests",
+  "scenario": ...
+2025-02-02 13:43:21,666 - __main__ - INFO - Generated Karate test for /projects/{id}/merge_requests POST at output/karate_feature_files/ID_002_krtestoas_projects_id_merge_requests_POST.feature
+2025-02-02 13:43:21,667 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:43:21,667 - karate_compatibility_verifier - INFO - {
+  "feature": "Test API for Broken Authentication/Authorization on Merge Requests",
+  "scenario": "Verify that unauthorized access attempts are handled securely and appropriately.",
+  "given_url": "http://oas-gitlab.api/projects/{id}/merge_requests" // Replace {id} with actual project ID for testing, if needed
+}, [
+  ".params(projectId: '123')",  
+  "* def unauthorizedCases = ['', {'Authorization': ''}]",
+  "And request params.each([unauthorizedCase]){",
+    "  * do authWithCredentials('user_id', '') // Replace with actual user credentials for authorized test cases"
+    "}",  
+  ".test(status, function() {"),
+  "* Then status == 401 or contains 'Unauthorized'"
+]
+2025-02-02 13:43:27,202 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:43:27,202 - karate_compatibility_verifier - INFO -  Feature: Test API for Broken Authentication/Authorization on Merge Requests
+Background:
+* url 'http://oas-gitlab.api/projects/{id}/merge_requests' // Replace {id} with actual project ID for testing, if needed
+
+Scenario: Verify that unautzhorized access attempts are handled securely and appropriately.
+    * def unauthorizedCases = ['', {'Authorization': ''}]
+    
+    And request params.each([unauthorizedCase]){
+        Given 'no credentials' // Replace with actual user credentials for authorized test cases
+        Then status == 401 or contains 'Unauthorized'
+}
+2025-02-02 13:43:30,430 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:43:30,430 - karate_compatibility_verifier - INFO -  Feature: Test API for Broken Authentication/Authorization on Merge Requests
+Background:
+* url 'http://oas-gitlab.api/projects/{id}/merge_requests' // Replace {id} with actual project ID for testing, if needed
+
+Scenario: Verify that unauthorized access attempts are handled securely and appropriately.
+    * def unauthorizedCases = ['', {'Authorization': ''}]
+    
+    And request params in unauthorizedCases {
+        Given 'no credentials' // Replace with actual user credentials for authorized test cases, if needed
+        Then status should be equalTo(401) or contain('Unauthorized')
+2025-02-02 13:43:30,431 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_projects_id_merge_requests_POST_verified.feature
+2025-02-02 13:43:30,431 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_projects_id_merge_requests_POST.feature:  Feature: Test API for Broken Authentication/Authorization on Merge Requests
+Background:
+* url 'http://oas-gitlab.api/projects/{id}/merge_requests' // Replace {id} with actual project ID for testing, if needed
+
+Scenario: Verify that unauthorized access attempts are handled securely and appropriately.
+    * def unauthorizedCases = ['', {'Authorization': ''}]
+    
+    And request params in unauthorizedCases {
+        Given 'no credentials' // Replace with actual user credentials for authorized test cases, if needed
+        Then status should be equalTo(401) or contain('Unauthorized')
+2025-02-02 13:43:30,431 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:43:30,432 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:43:30,471 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:43:30,473 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:43:44,282 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:43:44,284 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Broken Authentication/Authorization Test for Project Snippets",
+  "scenario": "Veri...
+2025-02-02 13:43:44,285 - __main__ - INFO - Generated Karate test for /projects/{id}/snippets GET at output/karate_feature_files/ID_003_krtestoas_projects_id_snippets_GET.feature
+2025-02-02 13:43:44,285 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:43:44,286 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Test for Project Snippets",
+  "scenario": "Verify that unauthorized access attempts are rejected when no authentication is provided or with invalid credentials.",
+  "steps": [
+    {
+      "Given url": "http://oas_gitlab.api/projects/{id}/snippets" // Replace '{id}' with a valid project ID for testing purposes, e.g., '123'
+    },
+    {
+      "* def unauthenticatedRequest = function() {\",
+      "\t* httpClient.get('http://oas_gitlab.api/projects/{id}/snippets', {}, (response) => {\n"\
+        "  * When response does not contain '401 Unauthorized' or '403 Forbidden'\n",
+      "\t* Then fail(\"Expected an authentication error, but received: \" + JSON.stringify(response))\n\t}\n\t}",
+    },
+    {
+      "* def invalidCredentialsRequest = function() {\",
+      "\t* httpClient.get('http://oas_gitlab.api/projects/{id}/snippets', {'Authorization': 'Bearer INVALID-TOKEN'})\n\t*\n  * When method get with headers { Authorization: 'Bearer invalidToken' }\",
+      "\t* Then status should be equal to 401 or 403\n",
+    },
+    {
+      "* def validCredentialsRequest = function() {\",
+      "\t* httpClient.get('http://oas_gitlab.api/projects/{id}/snippets', {'Authorization': 'Bearer VALID-TOKEN'})\n\t*\n  * When method get with headers { Authorization: 'Bearer validToken' }\",
+      "\t* Then status should be equal to 200 (OK)\n",
+    },
+    {
+vegetable_id": "456" // Replace '{id}' with a specific project ID for testing purposes, e.g., '123', and ensure the valid token is replaced by 'VALID-TOKEN' or an actual bearer token if available in your environment.
+  }]
+}
+2025-02-02 13:43:56,540 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:43:56,540 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization Test for Project Snippets
+    Background:
+        * url 'http://oas_gitlab.api/projects/{id}/snippets' // Replace '{id}' with a valid project ID, e.g., 123
+    
+    Scenario: Verify that unauthorized access attempts are rejected when no authentication is provided or with invalid credentials.
+        * Given url 'http://oas_gitlab.api/projects/{id}/snippets' // Replace '{id}' with a valid project ID, e.g., 123
+        
+        * def unauthenticatedRequest = function() {
+            httpClient.get('{url}', {}, (response) => {
+                When response does not contain '401 Unauthorized' or '403 Forbidden'
+                    Then fail("Expected an authentication error, but received: " + JSON.stringify(response))
+            })
+        }
+        
+        * def invalidCredentialsRequest = function() {
+            httpClient.get('{url}', {'Authorization': 'Bearer INVALID-TOKEN'}, (response) => {
+                When method get with headers { Authorization: 'Bearer INVALID-TOKEN' }
+                    Then status should be equal to 401 or 403
+            })
+        }
+        
+        * def validCredentialsRequest = function() {
+            httpClient.get('{url}', {'Authorization': 'Bearer VALID-TOKEN'}, (response) => {
+                When method get with headers { Authorization: 'Bearer VALID-TOKEN' }
+                    Then status should be equal to 200 (OK)
+            })
+        }
+2025-02-02 13:44:05,127 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:44:05,127 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization Test for Project Snippets
+    Background:
+        * url 'http://oas_gitlab.api/projects/{id}/snippets' // Replace '{id}' with a valid project ID, e.g., 123
+    
+    Scenario: Verify that unauthorized access attempts are rejected when no authentication is provided or with invalid credentials.
+        * Given url 'http://oas_gitlab.api/projects/{id}/snippets' // Replace '{id}' with a valid project ID, e.g., 123
+        
+        * def unauthenticatedRequest = function() {
+            httpClient.get('{url}', {}, (response) => {
+                When response does not contain '401 Unauthorized' and it is not equal to '403 Forbidden'
+                    Then fail("Expected an authentication error, but received: " + JSON.stringify(response))
+            })
+        }
+        
+        * def invalidCredentialsRequest = function() {
+            httpClient.get('{url}', {'Authorization': 'Bearer INVALID-TOKEN'}, (response) => {
+                When method get with headers { Authorization: 'Bearer INVALID-TOKEN' }
+                    Then status should be equal to 401 or 403
+            })
+        }
+        
+        * def validCredentialsRequest = function() {
+            httpClient.get('{url}', {'Authorization': 'Bearer VALID-TOKEN'}, (response) => {
+                When method get with headers { Authorization: 'Bearer VALID-TOKEN' }
+                    Then status should be equal to 200 (OK)
+            })
+        }
+2025-02-02 13:44:05,128 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_projects_id_snippets_GET_verified.feature
+2025-02-02 13:44:05,129 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_projects_id_snippets_GET.feature:  Feature: Broken Authentication/Authorization Test for Project Snippets
+    Background:
+        * url 'http://oas_gitlab.api/projects/{id}/snippets' // Replace '{id}' with a valid project ID, e.g., 123
+    
+    Scenario: Verify that unauthorized access attempts are rejected when no authentication is provided or with invalid credentials.
+        * Given url 'http://oas_gitlab.api/projects/{id}/snippets' // Replace '{id}' with a valid project ID, e.g., 123
+        
+        * def unauthenticatedRequest = function() {
+            httpClient.get('{url}', {}, (response) => {
+                When response does not contain '401 Unauthorized' and it is not equal to '403 Forbidden'
+                    Then fail("Expected an authentication error, but received: " + JSON.stringify(response))
+            })
+        }
+        
+        * def invalidCredentialsRequest = function() {
+            httpClient.get('{url}', {'Authorization': 'Bearer INVALID-TOKEN'}, (response) => {
+                When method get with headers { Authorization: 'Bearer INVALID-TOKEN' }
+                    Then status should be equal to 401 or 403
+            })
+        }
+        
+        * def validCredentialsRequest = function() {
+            httpClient.get('{url}', {'Authorization': 'Bearer VALID-TOKEN'}, (response) => {
+                When method get with headers { Authorization: 'Bearer VALID-TOKEN' }
+                    Then status should be equal to 200 (OK)
+            })
+        }
+2025-02-02 13:44:05,130 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 13:44:05,132 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 13:44:07,398 - __main__ - INFO - Skipping karate test run.

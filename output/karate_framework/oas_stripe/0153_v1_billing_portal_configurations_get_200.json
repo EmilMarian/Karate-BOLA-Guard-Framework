@@ -1,0 +1,241 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Only return configurations that are active or inactive (e.g., pass `true` to only list active configurations).",
+      "in": "query",
+      "name": "active",
+      "required": false,
+      "schema": {
+        "type": "boolean"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+      "in": "query",
+      "name": "ending_before",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "Only return the default or non-default configurations (e.g., pass `true` to only list the default configuration).",
+      "in": "query",
+      "name": "is_default",
+      "required": false,
+      "schema": {
+        "type": "boolean"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+      "in": "query",
+      "name": "starting_after",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/billing_portal/configurations",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "",
+            "properties": {
+              "data": {
+                "items": {
+                  "description": "A portal configuration describes the functionality and behavior of a portal session.",
+                  "properties": {
+                    "active": {
+                      "description": "Whether the configuration is active and can be used to create portal sessions.",
+                      "type": "boolean"
+                    },
+                    "application": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/application"
+                        },
+                        {
+                          "$ref": "#/components/schemas/deleted_application"
+                        }
+                      ],
+                      "description": "ID of the Connect Application that created the configuration.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/application"
+                          },
+                          {
+                            "$ref": "#/components/schemas/deleted_application"
+                          }
+                        ]
+                      }
+                    },
+                    "business_profile": {
+                      "$ref": "#/components/schemas/portal_business_profile"
+                    },
+                    "created": {
+                      "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "default_return_url": {
+                      "description": "The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "features": {
+                      "$ref": "#/components/schemas/portal_features"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the object.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "is_default": {
+                      "description": "Whether the configuration is the default. If `true`, this configuration can be managed in the Dashboard and portal sessions will use this configuration unless it is overriden when creating the session.",
+                      "type": "boolean"
+                    },
+                    "livemode": {
+                      "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                      "type": "boolean"
+                    },
+                    "login_page": {
+                      "$ref": "#/components/schemas/portal_login_page"
+                    },
+                    "metadata": {
+                      "additionalProperties": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                      "nullable": true,
+                      "type": "object"
+                    },
+                    "object": {
+                      "description": "String representing the object's type. Objects of the same type share the same value.",
+                      "enum": [
+                        "billing_portal.configuration"
+                      ],
+                      "type": "string"
+                    },
+                    "updated": {
+                      "description": "Time at which the object was last updated. Measured in seconds since the Unix epoch.",
+                      "format": "unix-time",
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "active",
+                    "business_profile",
+                    "created",
+                    "features",
+                    "id",
+                    "is_default",
+                    "livemode",
+                    "login_page",
+                    "object",
+                    "updated"
+                  ],
+                  "title": "PortalConfiguration",
+                  "type": "object",
+                  "x-expandableFields": [
+                    "application",
+                    "business_profile",
+                    "features",
+                    "login_page"
+                  ],
+                  "x-resourceId": "billing_portal.configuration"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "description": "True if this list has another page of items after this one that can be fetched.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                "enum": [
+                  "list"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "The URL where this list can be accessed.",
+                "maxLength": 5000,
+                "pattern": "^/v1/billing_portal/configurations",
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "PortalPublicResourceConfigurationList",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

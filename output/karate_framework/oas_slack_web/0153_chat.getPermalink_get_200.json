@@ -1,0 +1,81 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `none`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The ID of the conversation or channel containing the message",
+      "in": "query",
+      "name": "channel",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A message's `ts` value, uniquely identifying it within a channel",
+      "in": "query",
+      "name": "message_ts",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/chat.getPermalink",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "channel": "C1H9RESGA",
+                "ok": true,
+                "permalink": "https://ghostbusters.slack.com/archives/C1H9RESGA/p135854651500008"
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response chat.getPermalink",
+            "properties": {
+              "channel": {
+                "pattern": "^[CGD][A-Z0-9]{8,}$",
+                "title": "Channel-like conversation ID",
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "permalink": {
+                "format": "uri",
+                "type": "string"
+              }
+            },
+            "required": [
+              "ok",
+              "channel",
+              "permalink"
+            ],
+            "title": "chat.getPermalink success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Standard success response"
+    }
+  }
+}

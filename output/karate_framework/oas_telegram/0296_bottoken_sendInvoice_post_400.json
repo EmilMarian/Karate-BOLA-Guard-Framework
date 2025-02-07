@@ -1,0 +1,119 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "chat_id": {
+            "type": "integer"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "disable_notification": {
+            "type": "boolean"
+          },
+          "is_flexible": {
+            "type": "boolean"
+          },
+          "need_email": {
+            "type": "boolean"
+          },
+          "need_name": {
+            "type": "boolean"
+          },
+          "need_phone_number": {
+            "type": "boolean"
+          },
+          "need_shipping_address": {
+            "type": "boolean"
+          },
+          "payload": {
+            "type": "string"
+          },
+          "photo_height": {
+            "type": "integer"
+          },
+          "photo_size": {
+            "type": "integer"
+          },
+          "photo_url": {
+            "type": "string"
+          },
+          "photo_width": {
+            "type": "integer"
+          },
+          "prices": {
+            "items": {
+              "$ref": "#/definitions/LabeledPrice"
+            },
+            "type": "array"
+          },
+          "provider_data": {
+            "type": "string"
+          },
+          "provider_token": {
+            "type": "string"
+          },
+          "reply_markup": {
+            "type": "object"
+          },
+          "reply_to_message_id": {
+            "type": "integer"
+          },
+          "start_parameter": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "chat_id",
+          "title",
+          "description",
+          "payload",
+          "provider_token",
+          "start_parameter",
+          "currency",
+          "prices"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/sendInvoice",
+  "requestBody": {},
+  "responses": {
+    "400": {
+      "description": "Bad Request",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

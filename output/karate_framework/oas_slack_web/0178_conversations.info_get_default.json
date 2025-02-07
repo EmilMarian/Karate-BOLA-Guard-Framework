@@ -1,0 +1,106 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `conversations:read`",
+      "in": "query",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Conversation ID to learn more about",
+      "in": "query",
+      "name": "channel",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Set this to `true` to receive the locale for this conversation. Defaults to `false`",
+      "in": "query",
+      "name": "include_locale",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "Set to `true` to include the member count for the specified conversation. Defaults to `false`",
+      "in": "query",
+      "name": "include_num_members",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "path": "/conversations.info",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "channel_not_found",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from conversations.info method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "missing_scope",
+                  "channel_not_found",
+                  "team_added_to_org",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required"
+                ],
+                "type": "string"
+              },
+              "needed": {
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              },
+              "provided": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "conversations.info error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response when a channel cannot be found"
+    }
+  }
+}

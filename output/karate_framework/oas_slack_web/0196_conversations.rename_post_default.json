@@ -1,0 +1,109 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `conversations:write`",
+      "in": "header",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/conversations.rename",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel": {
+              "description": "ID of conversation to rename",
+              "type": "string"
+            },
+            "name": {
+              "description": "New name for conversation.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "not_in_channel",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from conversations.rename method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "user_is_restricted",
+                  "method_not_supported_for_channel_type",
+                  "missing_scope",
+                  "channel_not_found",
+                  "not_in_channel",
+                  "not_authorized",
+                  "invalid_name",
+                  "name_taken",
+                  "invalid_name_required",
+                  "invalid_name_punctuation",
+                  "invalid_name_maxlength",
+                  "invalid_name_specials",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required"
+                ],
+                "type": "string"
+              },
+              "needed": {
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              },
+              "provided": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "conversations.rename error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response when the calling user is not a member of the conversation"
+    }
+  }
+}

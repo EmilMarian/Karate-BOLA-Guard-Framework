@@ -1,0 +1,275 @@
+2025-01-27 01:53:35,918 - __main__ - INFO - Skipping fragment creation: False
+2025-01-27 01:53:35,988 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-27 01:53:36,234 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The id of the user being queried", "in": "path", "name": "userId", "required": true, "type": "string"}], "path": "/users/{userId}/publications", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, lacks the listPublications scope or has been revoked."}}}', 'metadata': {'filename': '0015_users_userId_publications_get_401.json'}}, {'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"401": {"description": "The \\"accessToken\\" is invalid or has been revoked."}}}', 'metadata': {'filename': '0003_me_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The id of the publication being queried", "in": "path", "name": "publicationId", "required": true, "type": "string"}], "path": "/publications/{publicationId}/contributors", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, or has been revoked."}}}', 'metadata': {'filename': '0005_publications_publicationId_contributors_get_401.json'}}], form collection oas_medium_fragments
+2025-01-27 01:53:36,235 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 01:53:36,236 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 01:53:36,650 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 01:53:36,650 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 02:01:23,322 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 02:01:23,322 - karate_llm_test_gen - INFO - Generated test case: Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabi...
+2025-01-27 02:01:23,323 - __main__ - INFO - Generated Karate test for /users/{userId}/publications GET at output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature
+2025-01-27 02:01:23,323 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 02:01:23,324 - karate_compatibility_verifier - INFO - Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```karate
+Feature: Testing User Publication Access with Unauthorized Users
+
+Scenario Outline: Attempt to access user publications without proper authorization
+
+Given url 'http://oas_medium.api'
+And header Authorization = ''Bearer <regular_user_token>'
+When method get
+Then status 401
+And match response contains 'Unauthorized'
+
+Examples:
+| userId |
+| --- |
+| 12345 |
+| 67890 |
+```
+This test script checks for potential Broken Authentication vulnerabilities by attempting to access the `/users/{userId}/publications` endpoint without proper authorization. It uses a regular user token and expects a status code of 401 (Unauthorized) in response, which indicates that an authentication error has occurred.
+
+Please replace `'http://oas_medium.api'` with your actual API URL. Also, you can add more examples to the `Examples` section if needed.
+2025-01-27 02:09:18,665 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 02:09:18,665 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```karate
+Feature: Testing User Publication Access with Unauthorized Users
+
+Scenario Outline: Attempt to access user publications without proper authorization
+
+Given url 'http://oas_medium.api'
+And header Authorization = ''Bearer <regular_user_token>''
+When method get
+Then status 401
+And match response contains 'Unauthorized'
+
+Examples:
+| userId |
+| --- |
+| 12345 |
+| 67890 |
+```
+This test script checks for potential Broken Authentication vulnerabilities by attempting to access the `/users/{userId}/publications` endpoint without proper authorization. It uses a regular user token and expects a status code of 401 (Unauthorized) in response, which indicates that an authentication error has occurred.
+
+Please replace `'http://oas_medium.api'` with your actual API URL. Also, you can add more examples to the `Examples` section if needed.
+2025-01-27 02:12:28,949 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 02:12:28,949 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```karate
+Feature: Testing User Publication Access with Unauthorized Users
+
+Scenario Outline: Attempt to access user publications without proper authorization
+
+Given url 'http://oas_medium.api'
+And header Authorization = ''Bearer <regular_user_token>''
+When method get
+Then status 401
+And match response contains 'Unauthorized'
+
+Examples:
+| userId |
+| --- |
+| 12345 |
+| 67890 |
+```
+This test script checks for potential Broken Authentication vulnerabilities by attempting to access the `/users/{userId}/publications` endpoint without proper authorization. It uses a regular user token and expects a status code of 401 (Unauthorized) in response, which indicates that an authentication error has occurred.
+
+Please replace `'http://oas_medium.api'` with your actual API URL. Also, you can add more examples to the `Examples` section if needed.
+2025-01-27 02:12:28,949 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET_verified.feature
+2025-01-27 02:12:28,949 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature: Here's the corrected Karate DSL test script:
+```karate
+Feature: Testing User Publication Access with Unauthorized Users
+
+Scenario Outline: Attempt to access user publications without proper authorization
+
+Given url 'http://oas_medium.api'
+And header Authorization = ''Bearer <regular_user_token>''
+When method get
+Then status 401
+And match response contains 'Unauthorized'
+
+Examples:
+| userId |
+| --- |
+| 12345 |
+| 67890 |
+```
+This test script checks for potential Broken Authentication vulnerabilities by attempting to access the `/users/{userId}/publications` endpoint without proper authorization. It uses a regular user token and expects a status code of 401 (Unauthorized) in response, which indicates that an authentication error has occurred.
+
+Please replace `'http://oas_medium.api'` with your actual API URL. Also, you can add more examples to the `Examples` section if needed.
+2025-01-27 02:12:28,950 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 02:12:28,950 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 02:12:28,981 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 02:12:28,981 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 02:20:30,669 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 02:20:30,669 - karate_llm_test_gen - INFO - Generated test case: Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabi...
+2025-01-27 02:20:30,670 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_002_krtestoas_me_GET.feature
+2025-01-27 02:20:30,670 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 02:20:30,670 - karate_compatibility_verifier - INFO - Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```karate
+Feature: Test API Endpoint with Unspecified Authentication and Authorization
+
+Scenario Outline: Checking authentication and authorization on GET /me endpoint
+  Given url 'http://oas_medium.api'
+  When method get path '/me'
+  Then status == 200
+  And match response contains 'User details'
+
+Examples:
+  | User Role    | Authorization Token |
+  |--------------|---------------------|
+  | Regular user | <regular_user_token> |
+  | Admin        | <admin_access_token> |
+```
+In this script, we first define the API URL and then use a scenario outline to check for potential Broken Authentication/Authorization vulnerabilities. The `Given` step sets up the initial context by providing the API endpoint URL. In the `When` step, we perform a GET request on the `/me` path without any specific authentication or authorization information provided in the question. We then use an `And` clause to check if the response contains 'User details', which is a generic way of checking for successful retrieval of user data.
+
+The script also includes two examples, one with a regular user token and another with an admin access token. This allows you to test both scenarios separately or together in the same run.
+2025-01-27 02:28:49,565 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 02:28:49,565 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL script based on your guidelines:
+```karate
+Feature: Test API Endpoint with Unspecified Authentication and Authorization
+
+Background:
+  * url 'http://oas_medium.api'
+
+@name=pass
+Scenario Outline: Checking authentication and authorization on GET /me endpoint
+  Given path '/me'
+  When method get
+  Then status == 200
+  And match response contains 'User details'
+
+Examples:
+  | User Role    | Authorization Token |
+  |--------------|---------------------|
+  | Regular user | <regular_user_token> |
+  | Admin        | <admin_access_token> |
+```
+In this corrected script, I have removed the unnecessary 'status' keyword and replaced it with a more concise way of checking the response status code. The `Then` step now checks if the HTTP status is 200 instead of using the 'status == 200' syntax. Additionally, I have used single quotes for strings where appropriate.
+2025-01-27 02:32:03,390 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 02:32:03,390 - karate_compatibility_verifier - INFO - Your corrected Karate DSL script is now more concise and easier to read. Here's the updated version:
+```karate
+Feature: Test API Endpoint with Unspecified Authentication and Authorization
+
+Background:
+  * url 'http://oas_medium.api'
+
+@name=pass
+Scenario Outline: Checking authentication and authorization on GET /me endpoint
+  Given path '/me'
+  When method get
+  Then response status == 200
+  And match response contains 'User details'
+
+Examples:
+  | User Role    | Authorization Token |
+  |--------------|---------------------|
+  | Regular user | <regular_user_token> |
+  | Admin        | <admin_access_token> |
+```
+In this updated script, I have removed the unnecessary 'status' keyword and replaced it with a more concise way of checking the response status code. The `Then` step now checks if the HTTP status is 200 instead of using the 'status == 200' syntax. Additionally, I have used single quotes for strings where appropriate.
+2025-01-27 02:32:03,390 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_me_GET_verified.feature
+2025-01-27 02:32:03,390 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_me_GET.feature: Your corrected Karate DSL script is now more concise and easier to read. Here's the updated version:
+```karate
+Feature: Test API Endpoint with Unspecified Authentication and Authorization
+
+Background:
+  * url 'http://oas_medium.api'
+
+@name=pass
+Scenario Outline: Checking authentication and authorization on GET /me endpoint
+  Given path '/me'
+  When method get
+  Then response status == 200
+  And match response contains 'User details'
+
+Examples:
+  | User Role    | Authorization Token |
+  |--------------|---------------------|
+  | Regular user | <regular_user_token> |
+  | Admin        | <admin_access_token> |
+```
+In this updated script, I have removed the unnecessary 'status' keyword and replaced it with a more concise way of checking the response status code. The `Then` step now checks if the HTTP status is 200 instead of using the 'status == 200' syntax. Additionally, I have used single quotes for strings where appropriate.
+2025-01-27 02:32:03,391 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 02:32:03,392 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-27 02:32:03,424 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-27 02:32:03,425 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-27 02:39:38,200 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-27 02:39:38,200 - karate_llm_test_gen - INFO - Generated test case: Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabi...
+2025-01-27 02:39:38,201 - __main__ - INFO - Generated Karate test for /publications/{publicationId}/contributors GET at output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature
+2025-01-27 02:39:38,201 - karate_compatibility_verifier - INFO - Original content:
+2025-01-27 02:39:38,201 - karate_compatibility_verifier - INFO - Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```karate
+Feature: Checking Broken Authentication and Authorization Vulnerabilities on Publication Contributors Endpoint
+
+Scenario: Attempt to access publication contributors without proper authentication
+Given url 'http://oas_medium.api/publications/{publicationId}/contributors'
+When method get
+Then status 401
+And match response contains 'Unauthorized'
+```
+This test script checks if an unauthenticated user can access the publication contributors endpoint, which should return a 401 Unauthorized status code. If it returns any other status or does not contain the word "Unauthorized" in the response, there might be potential Broken Authentication vulnerabilities.
+
+Please replace `{publicationId}` with the actual publication ID you want to test. The API URL provided is `http://oas_medium.api/publications/{publicationId}/contributors`.
+2025-01-27 02:44:29,882 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-27 02:44:29,883 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```karate
+Feature: Checking Broken Authentication and Authorization Vulnerabilities on Publication Contributors Endpoint
+
+Scenario: Attempt to access publication contributors without proper authentication
+Given url 'http://oas_medium.api/publications/{publicationId}/contributors'
+When method get
+Then status 401
+And match response contains 'Unauthorized'
+```
+2025-01-27 02:45:55,513 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-27 02:45:55,514 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```karate
+Feature: Checking Broken Authentication and Authorization Vulnerabilities on Publication Contributors Endpoint
+
+Scenario: Attempt to access publication contributors without proper authentication
+Given url 'http://oas_medium.api/publications/{publicationId}/contributors'
+When method get
+Then status 401
+And match response contains 'Unauthorized'
+```
+2025-01-27 02:45:55,515 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET_verified.feature
+2025-01-27 02:45:55,516 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature: Here's the corrected Karate DSL test script:
+```karate
+Feature: Checking Broken Authentication and Authorization Vulnerabilities on Publication Contributors Endpoint
+
+Scenario: Attempt to access publication contributors without proper authentication
+Given url 'http://oas_medium.api/publications/{publicationId}/contributors'
+When method get
+Then status 401
+And match response contains 'Unauthorized'
+```
+2025-01-27 02:45:55,516 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-27 02:45:55,519 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-27 02:45:59,215 - __main__ - INFO - Skipping karate test run.

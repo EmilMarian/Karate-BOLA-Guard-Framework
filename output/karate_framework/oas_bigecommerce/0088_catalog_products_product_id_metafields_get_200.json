@@ -1,0 +1,73 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the resource belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    },
+    {
+      "description": "Control the page in a limited list of products.\n",
+      "in": "query",
+      "name": "page",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Control the items per page.\n",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter based on a metafield's key.\n",
+      "in": "query",
+      "name": "key",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter based on a metafield's key.\n",
+      "in": "query",
+      "name": "namespace",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/metafields",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "items": {
+                  "$ref": "#/components/schemas/Metafield"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/CollectionMeta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "An array of metafields and metadata.\n"
+    }
+  }
+}

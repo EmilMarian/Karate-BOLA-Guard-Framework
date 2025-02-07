@@ -1,0 +1,169 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Name of repository owner.",
+      "in": "path",
+      "name": "owner",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Name of repository.",
+      "in": "path",
+      "name": "repo",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "String to filter by state.",
+      "in": "query",
+      "name": "state",
+      "schema": {
+        "default": "open",
+        "enum": [
+          "open",
+          "closed"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "Ignored without 'sort' parameter.",
+      "in": "query",
+      "name": "direction",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "sort",
+      "schema": {
+        "default": "due_date",
+        "enum": [
+          "due_date",
+          "completeness"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/repos/{owner}/{repo}/milestones",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "closed_issues": {
+                "type": "integer"
+              },
+              "created_at": {
+                "description": "ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ",
+                "type": "string"
+              },
+              "creator": {
+                "properties": {
+                  "avatar_url": {
+                    "type": "string"
+                  },
+                  "gravatar_id": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "login": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "description": {
+                "type": "string"
+              },
+              "due_on": {
+                "description": "ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ",
+                "type": "string"
+              },
+              "number": {
+                "type": "integer"
+              },
+              "open_issues": {
+                "type": "integer"
+              },
+              "state": {
+                "enum": [
+                  "open",
+                  "closed"
+                ],
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

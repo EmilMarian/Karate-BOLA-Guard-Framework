@@ -1,0 +1,343 @@
+2025-01-25 21:09:20,650 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 21:09:20,709 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 21:09:20,958 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/services/oauth/token", "requestBody": {"content": {"application/json": {"schema": {"properties": {"client_id": {"description": "Client ID", "example": "DVG9UP4AwgjJiu.rSYHv2B9H7Cy3l.66JLconxmcjAKRw7jcs4BFloBmK2F.Y6Vbn2RGCFO2STGG8rGf", "type": "string"}, "client_secret": {"description": "Client Secret", "example": "AA0795D9F0A6C823162C6C46B5187476345E4E8C869E1A1dD1C94FFCD7796E33", "type": "string"}, "grant_type": {"description": "Grant Type", "example": "Read", "type": "string"}, "password": {"description": "Password", "example": "password123", "type": "string"}, "username": {"description": "Username", "example": "username@cala.co.uk.uat", "type": "string"}}, "required": ["grant_type", "client_id", "client_secret", "username", "password"], "type": "object"}}}}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"access_token": {"description": "Access Token", "example": "00D3M0000008lFi!AQ0AQEtEJEhlCMVdll3E17UHPIwkDLwzsFpiF6bCfb8XzZqD.HBpAAvVzO2Wh2GiuhjCfMVmLB4bvEZPgw7iNrBjZ_ZEIbnR", "type": "string"}, "id": {"description": "ID", "example": "https://test.salesforce.com/id/00D3M0000008lFiUAI/0053M000000KMCnQAO", "type": "string"}, "instance_url": {"description": "Instance URL", "example": "https://cala--uat.my.salesforce.com", "type": "string"}, "issued_at": {"description": "Issued At", "example": "1591779668437", "type": "string"}, "signature": {"description": "Signature", "example": "OxZbLUn1svgfexVdrTXtsfvfGrIA+S+26hFlFtsOoXY=", "type": "string"}, "token_type": {"description": "Token Type", "example": "Bearer", "type": "string"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0001_services_oauth_token_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/services/oauth/token", "requestBody": {"content": {"application/json": {"schema": {"properties": {"client_id": {"description": "Client ID", "example": "DVG9UP4AwgjJiu.rSYHv2B9H7Cy3l.66JLconxmcjAKRw7jcs4BFloBmK2F.Y6Vbn2RGCFO2STGG8rGf", "type": "string"}, "client_secret": {"description": "Client Secret", "example": "AA0795D9F0A6C823162C6C46B5187476345E4E8C869E1A1dD1C94FFCD7796E33", "type": "string"}, "grant_type": {"description": "Grant Type", "example": "Read", "type": "string"}, "password": {"description": "Password", "example": "password123", "type": "string"}, "username": {"description": "Username", "example": "username@cala.co.uk.uat", "type": "string"}}, "required": ["grant_type", "client_id", "client_secret", "username", "password"], "type": "object"}}}}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"error": {"description": "Error", "example": "invalid_grant", "type": "string"}, "error_description": {"description": "Error Description", "example": "authentication failure", "type": "string"}}}}}, "description": "Bad Request"}}}', 'metadata': {'filename': '0002_services_oauth_token_post_400.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Contact, Lead or Individual ID", "in": "path", "name": "id", "required": true, "schema": {"type": "string"}}], "path": "/services/apexrest/preference/v1/{id}", "requestBody": {}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"errorMessage": {"description": "Error Message", "example": "Bad request, Cannot find a record, Unexpected exception, Required field missing", "type": "string"}, "statusCode": {"description": "Status code", "example": 400, "type": "integer"}, "success": {"description": "Boolean to define whether the call was successfull or not", "example": false, "type": "boolean"}}, "type": "object"}}}, "description": "Bad Request"}}}', 'metadata': {'filename': '0004_services_apexrest_preference_v1_id_get_400.json'}}], form collection oas_salesforce_custom_customer_fragments
+2025-01-25 21:09:20,958 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:09:20,959 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:09:21,408 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:09:21,409 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:09:34,440 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:09:34,441 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+* scenario: Broken Authentication/Authorization Test for OAuth Token Generation API
+  * def ...
+2025-01-25 21:09:34,441 - __main__ - INFO - Generated Karate test for /services/oauth/token POST at output/karate_feature_files/ID_001_krtestoas_services_oauth_token_POST.feature
+2025-01-25 21:09:34,442 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:09:34,442 - karate_compatibility_verifier - INFO - ```yaml
+* scenario: Broken Authentication/Authorization Test for OAuth Token Generation API
+  * def oauthTokenUrl = 'http://oas_salesforce_custom_customer.api/services/oauth/token'
+  
+  * Given url # The base URL of the authentication service where we will be testing vulnerabilities related to token generation endpoint
+    and request { path: '/oauth/token', method: 'POST', parameters: ['grant_type', 'password', 'username', 'client_id', 'client_secret'] }
+  
+  * When method post # Attempting a basic authentication with incorrect credentials, which should fail due to broken authorization or missing validation of the provided username and password.
+    And status matches('401 Unauthorized') # Expect an unauthorized response for invalid credentials
+    
+* scenario: Broken Authorization Test for OAuth Token Generation API
+  * Given url oauthTokenUrl
+    def grantTypes = ['password', 'client_credentials'] // Assuming password and client credential grants are supported, but not necessarily secure against brute force attacks.
+  
+  * When method post { parameters: [grantType, null, null, 'invalidClientId', 'invalidSecretKey'] } # Attempting to use invalid credentials for a specific grant type which should fail due to broken authorization or missing validation of the provided client ID and secret key.
+    And status matches('401 Unauthorized') # Expect an unauthorized response when using incorrect client_id/secret pair
+    
+* scenario: Broken Authorization Test for OAuth Token Generation API with Expired Credentials
+  * Given url oauthTokenUrl
+    def grantTypes = ['password', 'client_credentials'] // Assuming password and client credential grants are supported, but not necessarily secure against brute force attacks.
+  
+  * When method post { parameters: [grantType, null, null, 'expiredClientId', 'invalidSecretKey'] } # Attempting to use expired credentials for a specific grant type which should fail due to broken authorization or missing validation of the provided client ID and secret key.
+    And status matches('401 Unauthorized') # Expect an unauthorized response when using incorrect/expired client_id/secret pair
+```
+2025-01-25 21:09:55,529 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:09:55,530 - karate_compatibility_verifier - INFO - Your message was too long and could not be processed. Please try again with something shorter.
+2025-01-25 21:10:00,708 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:10:00,708 - karate_compatibility_verifier - INFO - As there's no specific Karate DSL script provided, I will create a simple example of what such a corrected version might look like. Assuming the original intention was to define some karate moves using a domain-specific language (DSL) for clarity and precision:
+
+```karateDsl
+// Corrected Karate Domain Specific Language Script Example
+
+define Moves {
+    punch = "strike hand forward"
+    kick  = "kick foot backward"
+}
+
+test karateMoves() {
+    // Performing a series of moves using the defined DSL
+    repeat(5) {
+        move: punch
+        assertEqual("Striking with right fist", getMove())
+        
+        wait(1 second)
+        
+        if (randomNumber(0, 2) == 0) { // Randomly decide to perform a kick instead of another punch
+            move: kick
+            assertEqual("Executing front kick", getMove())
+        } else {
+            move: punch
+            assertEqual("Striking with left fist", getMove())
+        }
+    }
+}
+```
+This script defines a simple DSL for karate moves and demonstrates how to use it in testing. It's concise, focusing on the core functionality of defining movements (punches or kicks) and asserting their execution within tests.
+2025-01-25 21:10:00,708 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_services_oauth_token_POST_verified.feature
+2025-01-25 21:10:00,708 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_services_oauth_token_POST.feature: As there's no specific Karate DSL script provided, I will create a simple example of what such a corrected version might look like. Assuming the original intention was to define some karate moves using a domain-specific language (DSL) for clarity and precision:
+
+```karateDsl
+// Corrected Karate Domain Specific Language Script Example
+
+define Moves {
+    punch = "strike hand forward"
+    kick  = "kick foot backward"
+}
+
+test karateMoves() {
+    // Performing a series of moves using the defined DSL
+    repeat(5) {
+        move: punch
+        assertEqual("Striking with right fist", getMove())
+        
+        wait(1 second)
+        
+        if (randomNumber(0, 2) == 0) { // Randomly decide to perform a kick instead of another punch
+            move: kick
+            assertEqual("Executing front kick", getMove())
+        } else {
+            move: punch
+            assertEqual("Striking with left fist", getMove())
+        }
+    }
+}
+```
+This script defines a simple DSL for karate moves and demonstrates how to use it in testing. It's concise, focusing on the core functionality of defining movements (punches or kicks) and asserting their execution within tests.
+2025-01-25 21:10:00,709 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:10:00,709 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:10:00,732 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:10:00,733 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:10:19,433 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:10:19,433 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+* scenario: Broken Authentication/Authorization Test for OAuth Token Generation API
+  * def ...
+2025-01-25 21:10:19,434 - __main__ - INFO - Generated Karate test for /services/oauth/token POST at output/karate_feature_files/ID_002_krtestoas_services_oauth_token_POST.feature
+2025-01-25 21:10:19,435 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:10:19,435 - karate_compatibility_verifier - INFO - ```yaml
+* scenario: Broken Authentication/Authorization Test for OAuth Token Generation API
+  * def oauthTokenUrl = 'http://oas_salesforce_custom_customer.api/services/oauth/token'
+  
+  * Given url # The base URL of the authentication service where we will be testing vulnerabilities related to token generation endpoint
+    and request { path: '/oauth/token', method: 'POST', parameters: ['grant_type', 'password', 'username', 'client_id', 'client_secret'] }
+  
+  * When method post # Attempting a basic authentication with incorrect credentials, which should fail due to broken authorization or missing validation of the provided username and password.
+    And status matches('401 Unauthorized') # Expect an unauthorized response for invalid credentials
+    
+* scenario: Broken Authorization Test for OAuth Token Generation API
+  * Given url oauthTokenUrl
+    def grantTypes = ['password', 'client_credentials'] // Assuming password and client credential grants are supported, but not necessarily secure against brute force attacks.
+  
+  * When method post { parameters: [grantType, null, null, 'invalidClientId', 'invalidSecretKey'] } # Attempting to use invalid credentials for a specific grant type which should fail due to broken authorization or missing validation of the provided client ID and secret key.
+    And status matches('401 Unauthorized') # Expect an unauthorized response when using incorrect client_id/secret pair
+    
+* scenario: Broken Authorization Test for OAuth Token Generation API with Expired Credentials
+  * Given url oauthTokenUrl
+    def grantTypes = ['password', 'client_credentials'] // Assuming password and client credential grants are supported, but not necessarily secure against brute force attacks.
+  
+  * When method post { parameters: [grantType, null, null, 'expiredClientId', 'invalidSecretKey'] } # Attempting to use expired credentials for a specific grant type which should fail due to broken authorization or missing validation of the provided client ID and secret key.
+    And status matches('401 Unauthorized') # Expect an unauthorized response when using incorrect/expired client_id/secret pair
+```
+2025-01-25 21:10:36,948 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:10:36,948 - karate_compatibility_verifier - INFO - Your message was too long and could not be processed. Please try again with something shorter.
+2025-01-25 21:10:42,137 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:10:42,137 - karate_compatibility_verifier - INFO - As there's no specific Karate DSL script provided, I will create a simple example of what such a corrected version might look like. Assuming the original intention was to define some karate moves using a domain-specific language (DSL) for clarity and precision:
+
+```karateDsl
+// Corrected Karate Domain Specific Language Script Example
+
+define Moves {
+    punch = "strike hand forward"
+    kick  = "kick foot backward"
+}
+
+test karateMoves() {
+    // Performing a series of moves using the defined DSL
+    repeat(5) {
+        move: punch
+        assertEqual("Striking with right fist", getMove())
+        
+        wait(1 second)
+        
+        if (randomNumber(0, 2) == 0) { // Randomly decide to perform a kick instead of another punch
+            move: kick
+            assertEqual("Executing front kick", getMove())
+        } else {
+            move: punch
+            assertEqual("Striking with left fist", getMove())
+        }
+    }
+}
+```
+This script defines a simple DSL for karate moves and demonstrates how to use it in testing. It's concise, focusing on the core functionality of defining movements (punches or kicks) and asserting their execution within tests.
+2025-01-25 21:10:42,138 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_services_oauth_token_POST_verified.feature
+2025-01-25 21:10:42,138 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_services_oauth_token_POST.feature: As there's no specific Karate DSL script provided, I will create a simple example of what such a corrected version might look like. Assuming the original intention was to define some karate moves using a domain-specific language (DSL) for clarity and precision:
+
+```karateDsl
+// Corrected Karate Domain Specific Language Script Example
+
+define Moves {
+    punch = "strike hand forward"
+    kick  = "kick foot backward"
+}
+
+test karateMoves() {
+    // Performing a series of moves using the defined DSL
+    repeat(5) {
+        move: punch
+        assertEqual("Striking with right fist", getMove())
+        
+        wait(1 second)
+        
+        if (randomNumber(0, 2) == 0) { // Randomly decide to perform a kick instead of another punch
+            move: kick
+            assertEqual("Executing front kick", getMove())
+        } else {
+            move: punch
+            assertEqual("Striking with left fist", getMove())
+        }
+    }
+}
+```
+This script defines a simple DSL for karate moves and demonstrates how to use it in testing. It's concise, focusing on the core functionality of defining movements (punches or kicks) and asserting their execution within tests.
+2025-01-25 21:10:42,138 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:10:42,139 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:10:42,175 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:10:42,176 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:10:58,130 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:10:58,131 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: "Broken Authentication/Authorization Vulnerabilities on Preference Service"
+scenari...
+2025-01-25 21:10:58,132 - __main__ - INFO - Generated Karate test for /services/apexrest/preference/v1/{id} GET at output/karate_feature_files/ID_003_krtestoas_services_apexrest_preference_v1_id_GET.feature
+2025-01-25 21:10:58,132 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:10:58,132 - karate_compatibility_verifier - INFO - ```yaml
+feature: "Broken Authentication/Authorization Vulnerabilities on Preference Service"
+scenario: "Unauthorized access to preference service endpoint using incorrect authentication details"
+steps:
+  - Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}
+    # Assuming the ID for this test case is 'invalidId' which should not be accessible without proper credentials or roles
+    And header Authorization = "Bearer invalidToken" 
+    When method get
+    Then status 403
+    And match response contains 'Unauthorized access.'
+    
+scenario: "Attempt to bypass authentication using a null/empty token on preference service endpoint"
+steps:
+  - Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}
+    And header Authorization = "" # or simulate the absence of an authorization header, depending on your test framework's capabilities
+    When method get
+    Then status 403
+    And match response contains 'Missing authentication token.'
+    
+scenario: "Unauthorized access to preference service endpoint using a non-existent user role"
+steps:
+  - Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}
+    And header Authorization = 'Bearer someValidToken' # Assuming this token belongs to a non-existent user role that should not have access
+    When method get
+    Then status 403
+    And match response contains 'Access denied due to insufficient permissions.'
+```
+2025-01-25 21:11:15,558 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:11:15,558 - karate_compatibility_verifier - INFO - ```yaml
+feature: "Broken Authentication/Authorization Vulnerabilities on Preference Service"
+scenario: "Unauthorized access to preference service endpoint using incorrect authentication details"
+steps:
+  - Given url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}'
+    And header Authorization = "Bearer invalidToken"
+    When method get
+    Then status 403
+    And match response =~ 'Unauthorized access.'
+    
+scenario: "Attempt to bypass authentication using a null/empty token on preference service endpoint"
+steps:
+  - Given url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}'
+    And header Authorization = "" # or simulate the absence of an authorization header, depending on your test framework's capabilities
+    When method get
+    Then status 403
+    And match response =~ 'Missing authentication token.'
+    
+scenario: "Unauthorized access to preference service endpoint using a non-existent user role"
+steps:
+  - Given url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}'
+    And header Authorization = "Bearer someValidToken" # Assuming this token belongs to a non-existent user role that should not have access
+    When method get
+    Then status 403
+    And match response =~ 'Access denied due to insufficient permissions.'
+```
+2025-01-25 21:11:29,139 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:11:29,139 - karate_compatibility_verifier - INFO - ```yaml
+feature: "Broken Authentication/Authorization Vulnerabilities on Preference Service"
+scenario: "Unauthorized access to preference service endpoint using incorrect authentication details"
+steps:
+  - Given url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}'
+    And header Authorization = "Bearer invalidToken"
+    When method get
+    Then status should be equal to 403
+    And response body should match '^Unauthorized access\\.'
+    
+scenario: "Attempt to bypass authentication using a null/empty token on preference service endpoint"
+steps:
+  - Given url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}'
+    And header Authorization = "" # or simulate the absence of an authorization header, depending on your test framework's capabilities
+    When method get
+    Then status should be equal to 403
+    And response body should match '^Missing authentication token\\.'
+    
+scenario: "Unauthorized access to preference service endpoint using a non-existent user role"
+steps:
+  - Given url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}'
+    And header Authorization = "Bearer someValidTokenAsUserRoleDoesNotExist" # Assuming this token belongs to a non-existent user role that should not have access
+    When method get
+    Then status should be equal to 403
+    And response body should match '^Access denied due to insufficient permissions\\.'
+```
+2025-01-25 21:11:29,139 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_services_apexrest_preference_v1_id_GET_verified.feature
+2025-01-25 21:11:29,140 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_services_apexrest_preference_v1_id_GET.feature: ```yaml
+feature: "Broken Authentication/Authorization Vulnerabilities on Preference Service"
+scenario: "Unauthorized access to preference service endpoint using incorrect authentication details"
+steps:
+  - Given url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}'
+    And header Authorization = "Bearer invalidToken"
+    When method get
+    Then status should be equal to 403
+    And response body should match '^Unauthorized access\\.'
+    
+scenario: "Attempt to bypass authentication using a null/empty token on preference service endpoint"
+steps:
+  - Given url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}'
+    And header Authorization = "" # or simulate the absence of an authorization header, depending on your test framework's capabilities
+    When method get
+    Then status should be equal to 403
+    And response body should match '^Missing authentication token\\.'
+    
+scenario: "Unauthorized access to preference service endpoint using a non-existent user role"
+steps:
+  - Given url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}'
+    And header Authorization = "Bearer someValidTokenAsUserRoleDoesNotExist" # Assuming this token belongs to a non-existent user role that should not have access
+    When method get
+    Then status should be equal to 403
+    And response body should match '^Access denied due to insufficient permissions\\.'
+```
+2025-01-25 21:11:29,140 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 21:11:29,142 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 21:11:31,519 - __main__ - INFO - Skipping karate test run.

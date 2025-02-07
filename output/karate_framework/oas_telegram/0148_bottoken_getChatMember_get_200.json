@@ -1,0 +1,112 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "query",
+      "name": "chat_id",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "query",
+      "name": "user_id",
+      "required": true,
+      "type": "string"
+    }
+  ],
+  "path": "/bot{token}/getChatMember",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "description": "",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          },
+          "result": {
+            "properties": {
+              "can_add_web_page_previews": {
+                "type": "boolean"
+              },
+              "can_be_edited": {
+                "type": "boolean"
+              },
+              "can_change_info": {
+                "type": "boolean"
+              },
+              "can_delete_messages": {
+                "type": "boolean"
+              },
+              "can_edit_messages": {
+                "type": "boolean"
+              },
+              "can_invite_users": {
+                "type": "boolean"
+              },
+              "can_pin_messages": {
+                "type": "boolean"
+              },
+              "can_post_messages": {
+                "type": "boolean"
+              },
+              "can_promote_members": {
+                "type": "boolean"
+              },
+              "can_restrict_members": {
+                "type": "boolean"
+              },
+              "can_send_media_messages": {
+                "type": "boolean"
+              },
+              "can_send_messages": {
+                "type": "boolean"
+              },
+              "can_send_other_messages": {
+                "type": "boolean"
+              },
+              "status": {
+                "enum": [
+                  "creator",
+                  "administrator",
+                  "member",
+                  "restricted",
+                  "left",
+                  "kicked"
+                ],
+                "type": "string"
+              },
+              "until_date": {
+                "type": "integer"
+              },
+              "user": {
+                "$ref": "#/definitions/User"
+              }
+            },
+            "required": [
+              "user",
+              "status"
+            ],
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

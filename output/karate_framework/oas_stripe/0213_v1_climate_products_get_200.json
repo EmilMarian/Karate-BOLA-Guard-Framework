@@ -1,0 +1,183 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+      "in": "query",
+      "name": "ending_before",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+      "in": "query",
+      "name": "starting_after",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/climate/products",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "",
+            "properties": {
+              "data": {
+                "items": {
+                  "description": "A Climate product represents a type of carbon removal unit available for reservation.\nYou can retrieve it to see the current price and availability.",
+                  "properties": {
+                    "created": {
+                      "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "current_prices_per_metric_ton": {
+                      "additionalProperties": {
+                        "$ref": "#/components/schemas/climate_removals_products_price"
+                      },
+                      "description": "Current prices for a metric ton of carbon removal in a currency's smallest unit.",
+                      "type": "object"
+                    },
+                    "delivery_year": {
+                      "description": "The year in which the carbon removal is expected to be delivered.",
+                      "nullable": true,
+                      "type": "integer"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the object. For convenience, Climate product IDs are human-readable strings\nthat start with `climsku_`. See [carbon removal inventory](https://stripe.com/docs/climate/orders/carbon-removal-inventory)\nfor a list of available carbon removal products.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "livemode": {
+                      "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                      "type": "boolean"
+                    },
+                    "metric_tons_available": {
+                      "description": "The quantity of metric tons available for reservation.",
+                      "format": "decimal",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "The Climate product's name.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "object": {
+                      "description": "String representing the object's type. Objects of the same type share the same value.",
+                      "enum": [
+                        "climate.product"
+                      ],
+                      "type": "string"
+                    },
+                    "suppliers": {
+                      "description": "The carbon removal suppliers that fulfill orders for this Climate product.",
+                      "items": {
+                        "$ref": "#/components/schemas/climate.supplier"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "created",
+                    "current_prices_per_metric_ton",
+                    "id",
+                    "livemode",
+                    "metric_tons_available",
+                    "name",
+                    "object",
+                    "suppliers"
+                  ],
+                  "title": "ClimateRemovalsProducts",
+                  "type": "object",
+                  "x-expandableFields": [
+                    "current_prices_per_metric_ton",
+                    "suppliers"
+                  ],
+                  "x-resourceId": "climate.product"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "description": "True if this list has another page of items after this one that can be fetched.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                "enum": [
+                  "list"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "The URL where this list can be accessed.",
+                "maxLength": 5000,
+                "pattern": "^/v1/climate/products",
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "ClimateRemovalsProductsList",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

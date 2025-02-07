@@ -1,0 +1,96 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "product",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/products/{product}/features",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "entitlement_feature": {
+              "description": "The ID of the [Feature](https://stripe.com/docs/api/entitlements/feature) object attached to this product.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "entitlement_feature"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A product_feature represents an attachment between a feature and a product.\nWhen a product is purchased that has a feature attached, Stripe will create an entitlement to the feature for the purchasing customer.",
+            "properties": {
+              "entitlement_feature": {
+                "$ref": "#/components/schemas/entitlements.feature"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "product_feature"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "entitlement_feature",
+              "id",
+              "livemode",
+              "object"
+            ],
+            "title": "ProductFeature",
+            "type": "object",
+            "x-expandableFields": [
+              "entitlement_feature"
+            ],
+            "x-resourceId": "product_feature"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "a list of stopTypes that should be returned (a list of valid stop types can be obtained from the StopPoint/meta/stoptypes endpoint)",
+      "explode": true,
+      "in": "query",
+      "name": "stopTypes",
+      "required": true,
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "the radius of the bounding circle in metres (default : 200)",
+      "in": "query",
+      "name": "radius",
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Re-arrange the output into a parent/child hierarchy",
+      "in": "query",
+      "name": "useStopPointHierarchy",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "the list of modes to search (comma separated mode names e.g. tube,dlr)",
+      "explode": true,
+      "in": "query",
+      "name": "modes",
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "an optional list of comma separated property categories to return in the StopPoint's property bag. If null or empty, all categories of property are returned. Pass the keyword \"none\" to return no properties (a valid list of categories can be obtained from the /StopPoint/Meta/categories endpoint)",
+      "explode": true,
+      "in": "query",
+      "name": "categories",
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "true to return the lines that each stop point serves as a nested resource",
+      "in": "query",
+      "name": "returnLines",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "in": "query",
+      "name": "location.lat",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "in": "query",
+      "name": "location.lon",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    }
+  ],
+  "path": "/StopPoint",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A paged response containing StopPoints",
+            "properties": {
+              "centrePoint": {
+                "description": "The centre latitude/longitude of this list of StopPoints",
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "page": {
+                "description": "The index of this page",
+                "format": "int32",
+                "type": "integer"
+              },
+              "pageSize": {
+                "description": "The maximum size of the page in this response i.e. the maximum number of StopPoints",
+                "format": "int32",
+                "type": "integer"
+              },
+              "stopPoints": {
+                "description": "Collection of stop points",
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.StopPoint"
+                },
+                "type": "array"
+              },
+              "total": {
+                "description": "The total number of StopPoints available across all pages",
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "description": "A paged response containing StopPoints",
+            "properties": {
+              "centrePoint": {
+                "description": "The centre latitude/longitude of this list of StopPoints",
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "page": {
+                "description": "The index of this page",
+                "format": "int32",
+                "type": "integer"
+              },
+              "pageSize": {
+                "description": "The maximum size of the page in this response i.e. the maximum number of StopPoints",
+                "format": "int32",
+                "type": "integer"
+              },
+              "stopPoints": {
+                "description": "Collection of stop points",
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.StopPoint"
+                },
+                "type": "array"
+              },
+              "total": {
+                "description": "The total number of StopPoints available across all pages",
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "description": "A paged response containing StopPoints",
+            "properties": {
+              "centrePoint": {
+                "description": "The centre latitude/longitude of this list of StopPoints",
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "page": {
+                "description": "The index of this page",
+                "format": "int32",
+                "type": "integer"
+              },
+              "pageSize": {
+                "description": "The maximum size of the page in this response i.e. the maximum number of StopPoints",
+                "format": "int32",
+                "type": "integer"
+              },
+              "stopPoints": {
+                "description": "Collection of stop points",
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.StopPoint"
+                },
+                "type": "array"
+              },
+              "total": {
+                "description": "The total number of StopPoints available across all pages",
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "description": "A paged response containing StopPoints",
+            "properties": {
+              "centrePoint": {
+                "description": "The centre latitude/longitude of this list of StopPoints",
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "type": "array"
+              },
+              "page": {
+                "description": "The index of this page",
+                "format": "int32",
+                "type": "integer"
+              },
+              "pageSize": {
+                "description": "The maximum size of the page in this response i.e. the maximum number of StopPoints",
+                "format": "int32",
+                "type": "integer"
+              },
+              "stopPoints": {
+                "description": "Collection of stop points",
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.StopPoint"
+                },
+                "type": "array"
+              },
+              "total": {
+                "description": "The total number of StopPoints available across all pages",
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

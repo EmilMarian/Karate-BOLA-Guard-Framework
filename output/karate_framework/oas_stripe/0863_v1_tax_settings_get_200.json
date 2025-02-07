@@ -1,0 +1,97 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    }
+  ],
+  "path": "/v1/tax/settings",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "You can use Tax `Settings` to manage configurations used by Stripe Tax calculations.\n\nRelated guide: [Using the Settings API](https://stripe.com/docs/tax/settings-api)",
+            "properties": {
+              "defaults": {
+                "$ref": "#/components/schemas/tax_product_resource_tax_settings_defaults"
+              },
+              "head_office": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/tax_product_resource_tax_settings_head_office"
+                  }
+                ],
+                "description": "The place where your business is located.",
+                "nullable": true
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "tax.settings"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "The status of the Tax `Settings`.",
+                "enum": [
+                  "active",
+                  "pending"
+                ],
+                "type": "string"
+              },
+              "status_details": {
+                "$ref": "#/components/schemas/tax_product_resource_tax_settings_status_details"
+              }
+            },
+            "required": [
+              "defaults",
+              "livemode",
+              "object",
+              "status",
+              "status_details"
+            ],
+            "title": "TaxProductResourceTaxSettings",
+            "type": "object",
+            "x-expandableFields": [
+              "defaults",
+              "head_office",
+              "status_details"
+            ],
+            "x-resourceId": "tax.settings"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

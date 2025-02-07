@@ -1,0 +1,50 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the `ComplexRule` belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The ID of the `ComplexRule`.\n",
+      "in": "path",
+      "name": "complex_rule_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/complex-rules/{complex_rule_id}",
+  "requestBody": {},
+  "responses": {
+    "422": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseError"
+              },
+              {
+                "properties": {
+                  "errors": {
+                    "$ref": "#/components/schemas/DetailedErrors"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          }
+        }
+      },
+      "description": "The `ComplexRule` was not valid. This is the result of missing required fields, or of invalid data. See the response for more details.\n"
+    }
+  }
+}

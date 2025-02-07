@@ -1,0 +1,82 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "customer",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 500,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/customers/{customer}/sources/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/account"
+              },
+              {
+                "$ref": "#/components/schemas/bank_account"
+              },
+              {
+                "$ref": "#/components/schemas/card"
+              },
+              {
+                "$ref": "#/components/schemas/source"
+              }
+            ],
+            "title": "Polymorphic",
+            "x-resourceId": "payment_source",
+            "x-stripeBypassValidation": true
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

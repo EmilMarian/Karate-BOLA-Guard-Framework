@@ -1,0 +1,253 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Filter items by id.\n",
+      "in": "query",
+      "name": "id",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by name.\n",
+      "in": "query",
+      "name": "name",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by sku.\n",
+      "in": "query",
+      "name": "sku",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by upc.\n",
+      "in": "query",
+      "name": "upc",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by price.\n",
+      "in": "query",
+      "name": "price",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "Filter items by weight.\n",
+      "in": "query",
+      "name": "weight",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "Filter items by condition.\n",
+      "in": "query",
+      "name": "condition",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by brand_id.\n",
+      "in": "query",
+      "name": "brand_id",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by date_modified.\n",
+      "in": "query",
+      "name": "date_modified",
+      "schema": {
+        "format": "data-time",
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by date_last_imported.\n",
+      "in": "query",
+      "name": "date_last_imported",
+      "schema": {
+        "format": "data-time",
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by is_visible.\n",
+      "in": "query",
+      "name": "is_visible",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by is_featured.\n",
+      "in": "query",
+      "name": "is_featured",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by is_free_shipping.\n",
+      "in": "query",
+      "name": "is_free_shipping",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by inventory_level.\n",
+      "in": "query",
+      "name": "inventory_level",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by inventory_low; values: 1, 0.\n",
+      "in": "query",
+      "name": "inventory_low",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by out_of_stock. To enable the filter, pass `out_of_stock`=`1`.\n",
+      "in": "query",
+      "name": "out_of_stock",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by total_sold.\n",
+      "in": "query",
+      "name": "total_sold",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by type: `physical` or `digital`.\n",
+      "in": "query",
+      "name": "type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by categories.\n",
+      "in": "query",
+      "name": "categories",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by keywords found in the name, description, sku, keywords, or brand name.\n",
+      "in": "query",
+      "name": "keyword",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Set context for a product search.\n",
+      "in": "query",
+      "name": "keyword_context",
+      "schema": {
+        "enum": [
+          "shopper",
+          "merchant"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "Include sub-resources on a product, with a comma-separated list. Valid expansions currently include `variants`, `images`, `custom_fields`, and `bulk_pricing_rules`.\n",
+      "in": "query",
+      "name": "include",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter items by availability. Values are: available, disabled, preorder.\n",
+      "in": "query",
+      "name": "availability",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Control the page in a limited list of products.\n",
+      "in": "query",
+      "name": "page",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Control the items per page.\n",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Sort direction. Values are: asc, desc.\n",
+      "in": "query",
+      "name": "direction",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Field name to sort by.\nValues: id, name, sku, price, date_modified, date_last_imported, inventory_level, is_visible.\n",
+      "in": "query",
+      "name": "sort",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/catalog/products",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "items": {
+                  "$ref": "#/components/schemas/Product"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/CollectionMeta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "An array of products and metadata.\n"
+    }
+  }
+}

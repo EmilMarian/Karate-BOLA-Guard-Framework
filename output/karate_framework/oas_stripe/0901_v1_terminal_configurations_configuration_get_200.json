@@ -1,0 +1,156 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "configuration",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    }
+  ],
+  "path": "/v1/terminal/configurations/{configuration}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "anyOf": [
+              {
+                "description": "A Configurations object represents how features should be configured for terminal readers.",
+                "properties": {
+                  "bbpos_wisepos_e": {
+                    "$ref": "#/components/schemas/terminal_configuration_configuration_resource_device_type_specific_config"
+                  },
+                  "id": {
+                    "description": "Unique identifier for the object.",
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "is_account_default": {
+                    "description": "Whether this Configuration is the default for your account",
+                    "nullable": true,
+                    "type": "boolean"
+                  },
+                  "livemode": {
+                    "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                    "type": "boolean"
+                  },
+                  "name": {
+                    "description": "String indicating the name of the Configuration object, set by the user",
+                    "maxLength": 5000,
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value.",
+                    "enum": [
+                      "terminal.configuration"
+                    ],
+                    "type": "string"
+                  },
+                  "offline": {
+                    "$ref": "#/components/schemas/terminal_configuration_configuration_resource_offline_config"
+                  },
+                  "reboot_window": {
+                    "$ref": "#/components/schemas/terminal_configuration_configuration_resource_reboot_window"
+                  },
+                  "stripe_s700": {
+                    "$ref": "#/components/schemas/terminal_configuration_configuration_resource_device_type_specific_config"
+                  },
+                  "tipping": {
+                    "$ref": "#/components/schemas/terminal_configuration_configuration_resource_tipping"
+                  },
+                  "verifone_p400": {
+                    "$ref": "#/components/schemas/terminal_configuration_configuration_resource_device_type_specific_config"
+                  }
+                },
+                "required": [
+                  "id",
+                  "livemode",
+                  "object"
+                ],
+                "title": "TerminalConfigurationConfiguration",
+                "type": "object",
+                "x-expandableFields": [
+                  "bbpos_wisepos_e",
+                  "offline",
+                  "reboot_window",
+                  "stripe_s700",
+                  "tipping",
+                  "verifone_p400"
+                ],
+                "x-resourceId": "terminal.configuration"
+              },
+              {
+                "description": "",
+                "properties": {
+                  "deleted": {
+                    "description": "Always true for a deleted object",
+                    "enum": [
+                      true
+                    ],
+                    "type": "boolean"
+                  },
+                  "id": {
+                    "description": "Unique identifier for the object.",
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value.",
+                    "enum": [
+                      "terminal.configuration"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "deleted",
+                  "id",
+                  "object"
+                ],
+                "title": "TerminalConfigurationDeletedConfiguration",
+                "type": "object",
+                "x-expandableFields": [],
+                "x-resourceId": "deleted_terminal.configuration"
+              }
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of the media resource.",
+      "in": "path",
+      "name": "media-id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/media/{media-id}/comments",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "Collection of comments",
+                "items": {
+                  "$ref": "#/components/schemas/CommentEntry"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "List of comments of the media resource."
+    }
+  }
+}

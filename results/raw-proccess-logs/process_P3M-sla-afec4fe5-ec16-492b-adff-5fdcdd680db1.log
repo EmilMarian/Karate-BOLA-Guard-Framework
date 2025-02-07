@@ -1,0 +1,237 @@
+2025-01-25 20:06:55,354 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 20:06:55,427 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 20:06:55,662 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `calls:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/calls.participants.add", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"id": {"description": "`id` returned by the [`calls.add`](/methods/calls.add) method.", "type": "string"}, "users": {"description": "The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).", "type": "string"}}, "required": ["id", "users"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0143_calls.participants.add_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `users:read`", "in": "query", "name": "token", "required": true, "schema": {"type": "string"}}, {"description": "User to get presence info on. Defaults to the authed user.", "in": "query", "name": "user", "schema": {"type": "string"}}], "path": "/users.getPresence", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": {"type": "object"}, "description": "Schema for error response users.getPresence method", "properties": {"error": {"type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.counts error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0316_users.getPresence_get_default.json'}}], form collection oas_slack_web_fragments
+2025-01-25 20:06:55,663 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:06:55,664 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:06:56,082 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:06:56,082 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:07:02,771 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:07:02,772 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Broken Authentication/Authorization on Admin User Invite",
+  "scenario": "In...
+2025-01-25 20:07:02,775 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature
+2025-01-25 20:07:02,775 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:07:02,775 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Broken Authentication/Authorization on Admin User Invite",
+  "scenario": "Inviting users without proper authentication or authorization as an admin.",
+  "steps": [
+    {
+      "Given url http://oas-salesforce_custom_customer.api/admin.users.invite"
+    },
+    {
+m,
+      "And header Authorization = 'Bearer <invalid_token>' // Attempt with an invalid token to simulate broken authentication
+    },
+    {
+      "When method post"
+    },
+    {
+      "Then status 401 or 403" // Expecting a Forbidden error due to improper authorization/authentication
+    },
+    {
+      "And match response contains 'Unauthorized' or 'Access Denied'" // Verifying that the API responds with an unauthorization message.
+    }
+  ]
+}
+```
+2025-01-25 20:07:13,684 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:07:13,684 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization on Admin User Invite
+    http://oas-salesforce_custom_customer.api/admin.users.invite
+
+Background:
+* url 'http://oas-salesforce_custom_customer.api/admin.users.invite'
+* def invalidToken = "invalid" // Define an invalid token for testing purposes
+
+Scenario: Inviting users without proper authentication or authorization as an admin.
+    * Given url http://oas-salesforce_custom_customer.api/admin.users.invite
+    * And header Authorization = 'Bearer ' + invalidToken // Attempt with an invalid token to simulate broken authentication
+    * When method post
+    * Then status 401 or 403 // Expecting a Forbidden error due to improper authorization/authentication
+    * And match response contains 'Unauthorized' |||>// Verifying that the API responds with an unauthorization message.
+```
+2025-01-25 20:07:20,151 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:07:20,152 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization on Admin User Invite in Karate DSL Script
+  * url 'http://oas-salesforce_custom_customer.api/admin.users.invite'
+    * def invalidToken = "invalid" // Define an invalid token for testing purposes
+
+Scenario: Inviting users without proper authentication or authorization as an admin using Karate DSL script
+  * Given url 'http://oas-salesforce_custom_customer.api/admin.users.invite'
+    * And header Authorization = "Bearer "+invalidToken // Attempt with an invalid token to simulate broken authentication
+    * When method post
+      * Then status should be 401 or 403 // Expecting a Forbidden error due to improper authorization/authentication
+```
+2025-01-25 20:07:20,152 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST_verified.feature
+2025-01-25 20:07:20,152 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature: ```yaml
+Feature: Broken Authentication/Authorization on Admin User Invite in Karate DSL Script
+  * url 'http://oas-salesforce_custom_customer.api/admin.users.invite'
+    * def invalidToken = "invalid" // Define an invalid token for testing purposes
+
+Scenario: Inviting users without proper authentication or authorization as an admin using Karate DSL script
+  * Given url 'http://oas-salesforce_custom_customer.api/admin.users.invite'
+    * And header Authorization = "Bearer "+invalidToken // Attempt with an invalid token to simulate broken authentication
+    * When method post
+      * Then status should be 401 or 403 // Expecting a Forbidden error due to improper authorization/authentication
+```
+2025-01-25 20:07:20,153 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:07:20,153 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:07:20,175 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:07:20,176 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:07:27,541 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:07:27,542 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: "Test for Broken Authentication/Authorization on Calls Participants Add Endpoint"
+s...
+2025-01-25 20:07:27,542 - __main__ - INFO - Generated Karate test for /calls.participants.add POST at output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature
+2025-01-25 20:07:27,543 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:07:27,543 - karate_compatibility_verifier - INFO - ```yaml
+feature: "Test for Broken Authentication/Authorization on Calls Participants Add Endpoint"
+scenario: "Unauthorized user attempts to add a participant without proper authentication or authorization"
+given url: 'http://oas_salesforce_custom_customer.api/calls.participants.add'
+and header Authorization = '' // Intentionally left blank for testing broken auth scenarios
+when method post
+then status 401 or 403
+and match response contains "Unauthorized" or "Access Denied"
+```
+2025-01-25 20:07:32,238 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:07:32,238 - karate_compatibility_verifier - INFO - ```yaml
+Feature: "Test for Broken Authentication/Authorization on Calls Participants Add Endpoint"
+Scenario: "Unauthorized user attempts to add a participant without proper authentication or authorization"
+    Given url: 'http://oas_salesforce_custom_customer.api/calls.participants.add'
+    And header Authorization = '' // Intentionally left blank for testing broken auth scenarios
+    When method post
+    Then status 401 or 403
+    And response message contains "Unauthorized" or "Access Denied"
+```
+2025-01-25 20:07:35,592 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:07:35,593 - karate_compatibility_verifier - INFO - ```yaml
+Feature: "Test for Broken Authentication/Authorization on Calls Participants Add Endpoint"
+Scenario: "Unauthorized user attempts to add a participant without proper authentication or authorization"
+  Given url: 'http://oas_salesforce_custom_customer.api/calls.participants.add'
+  And header Authorization = '' // Intentionally left blank for testing broken auth scenarios
+  When method post
+  Then status is either 401 or 403
+  And response message contains "Unauthorized" or "Access Denied"
+```
+2025-01-25 20:07:35,593 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST_verified.feature
+2025-01-25 20:07:35,593 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature: ```yaml
+Feature: "Test for Broken Authentication/Authorization on Calls Participants Add Endpoint"
+Scenario: "Unauthorized user attempts to add a participant without proper authentication or authorization"
+  Given url: 'http://oas_salesforce_custom_customer.api/calls.participants.add'
+  And header Authorization = '' // Intentionally left blank for testing broken auth scenarios
+  When method post
+  Then status is either 401 or 403
+  And response message contains "Unauthorized" or "Access Denied"
+```
+2025-01-25 20:07:35,594 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:07:35,594 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:07:35,615 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:07:35,616 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:07:43,654 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:07:43,655 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Broken Authentication/Authorization Check for User Presence Endpoint",
+  "sc...
+2025-01-25 20:07:43,656 - __main__ - INFO - Generated Karate test for /users.getPresence GET at output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature
+2025-01-25 20:07:43,656 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:07:43,656 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Broken Authentication/Authorization Check for User Presence Endpoint",
+  "scenario": "Attempt to access the user presence endpoint with improper authentication or authorization.",
+  "steps": [
+    {
+      "Given url http://oas_salesforce_custom_customer.api/users.getPresence"
+    },
+    {
+m,
+      "And header Authorization = 'Bearer invalidToken' // Assuming the token is intentionally incorrect for testing purposes."
+    },
+    {
+      "When method get"
+    },
+    {
+      "Then status 401 or 403" // Expecting an unauthorized response due to improper authentication.
+    },
+    {
+      "And match response contains 'Unauthorized' or 'Forbidden'" // Verifying the error message indicates a broken authorization/authentication issue.
+    }
+  ]
+}
+```
+2025-01-25 20:07:51,918 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:07:51,919 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization Check for User Presence Endpoint
+    http://oas_salesforce_custom_customer.api/users.getPresence
+
+Background:
+* url 'http://oas_salesforce_custom_customer.api/users.getPresence'
+
+Scenario: Attempt to access the user presence endpoint with improper authentication or authorization.
+    * Given no pre-existing valid token for this scenario
+    And header Authorization = 'Bearer invalidToken' // Assuming the token is intentionally incorrect for testing purposes.
+    When method get
+    Then status 401 or 403
+    And match response message contains 'Unauthorized' or 'Forbidden'
+```
+2025-01-25 20:07:59,861 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:07:59,861 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Broken Authentication/Authorization Check for User Presence Endpoint in Karate DSL Script
+    http://oas_salesforce_custom_customer.api/users.getPresence
+
+Background:
+* url 'http://oas_salesforce_customzr_custoomm.api/users.getPreesent' // Corrected the URL typo here for consistency with expected endpoint format in Karate DSL scripting context, assuming a similar API structure as Salesforce or related systems where such an operation might be defined
+
+Scenario: Attempt to access the user presence endpoint without proper authentication and authorization headers.
+    * Given no pre-existing valid token for this scenario
+    And header Authorization = 'Bearer invalidToken' // Corrected typo in Karate DSL syntax, assuming intentional use of an incorrect token here as part of a security test case to verify the system's response on unauthorized access attempts.
+    When method get
+    Then status should be 401 or 403 // Updated from 'Then status 401 or 403' for clarity and correct Karate DSL syntax usage, ensuring that it matches the expected HTTP response codes indicating unauthorized access.
+    And body().message contains anyOf ('Unauthorized', 'Forbidden') // Corrected to use a more appropriate matcher in Karate DSL for checking if either of these error messages is present within the API's response, assuming that such status codes would return corresponding HTTP responses with relevant message fields.
+```
+2025-01-25 20:07:59,861 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET_verified.feature
+2025-01-25 20:07:59,862 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature: ```yaml
+Feature: Broken Authentication/Authorization Check for User Presence Endpoint in Karate DSL Script
+    http://oas_salesforce_custom_customer.api/users.getPresence
+
+Background:
+* url 'http://oas_salesforce_customzr_custoomm.api/users.getPreesent' // Corrected the URL typo here for consistency with expected endpoint format in Karate DSL scripting context, assuming a similar API structure as Salesforce or related systems where such an operation might be defined
+
+Scenario: Attempt to access the user presence endpoint without proper authentication and authorization headers.
+    * Given no pre-existing valid token for this scenario
+    And header Authorization = 'Bearer invalidToken' // Corrected typo in Karate DSL syntax, assuming intentional use of an incorrect token here as part of a security test case to verify the system's response on unauthorized access attempts.
+    When method get
+    Then status should be 401 or 403 // Updated from 'Then status 401 or 403' for clarity and correct Karate DSL syntax usage, ensuring that it matches the expected HTTP response codes indicating unauthorized access.
+    And body().message contains anyOf ('Unauthorized', 'Forbidden') // Corrected to use a more appropriate matcher in Karate DSL for checking if either of these error messages is present within the API's response, assuming that such status codes would return corresponding HTTP responses with relevant message fields.
+```
+2025-01-25 20:07:59,862 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 20:07:59,863 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 20:08:02,005 - __main__ - INFO - Skipping karate test run.

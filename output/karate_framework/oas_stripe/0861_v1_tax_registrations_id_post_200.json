@@ -1,0 +1,168 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/tax/registrations/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "active_from": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expires_at": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "active_from": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "now"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                {
+                  "format": "unix-time",
+                  "type": "integer"
+                }
+              ],
+              "description": "Time at which the registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch."
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "expires_at": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "now"
+                  ],
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                {
+                  "format": "unix-time",
+                  "type": "integer"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch."
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Tax `Registration` lets us know that your business is registered to collect tax on payments within a region, enabling you to [automatically collect tax](https://stripe.com/docs/tax).\n\nStripe doesn't register on your behalf with the relevant authorities when you create a Tax `Registration` object. For more information on how to register to collect tax, see [our guide](https://stripe.com/docs/tax/registering).\n\nRelated guide: [Using the Registrations API](https://stripe.com/docs/tax/registrations-api)",
+            "properties": {
+              "active_from": {
+                "description": "Time at which the registration becomes active. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "country": {
+                "description": "Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "country_options": {
+                "$ref": "#/components/schemas/tax_product_registrations_resource_country_options"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "expires_at": {
+                "description": "If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "tax.registration"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "The status of the registration. This field is present for convenience and can be deduced from `active_from` and `expires_at`.",
+                "enum": [
+                  "active",
+                  "expired",
+                  "scheduled"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "active_from",
+              "country",
+              "country_options",
+              "created",
+              "id",
+              "livemode",
+              "object",
+              "status"
+            ],
+            "title": "TaxProductRegistrationsResourceTaxRegistration",
+            "type": "object",
+            "x-expandableFields": [
+              "country_options"
+            ],
+            "x-resourceId": "tax.registration"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

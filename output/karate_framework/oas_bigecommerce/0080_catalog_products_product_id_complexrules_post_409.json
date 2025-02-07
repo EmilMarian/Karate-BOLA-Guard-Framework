@@ -1,0 +1,102 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the `ComplexRule` belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/complex-rules",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Apply price, weight, image, or availabilty adjustments to product, based on a set of conditions. A complex rule's condition must either contain more than one modifier value, or else contain a modifier value and a variant id.\n",
+          "properties": {
+            "conditions": {
+              "items": {
+                "$ref": "#/components/schemas/ComplexRuleCondition"
+              },
+              "type": "array"
+            },
+            "enabled": {
+              "description": "Flag for determining whether the rule is to be used when adjusting a product's price, weight, image, or availabilty.\n",
+              "type": "boolean"
+            },
+            "id": {
+              "description": "The unique numeric ID of the rule; increments sequentially.\n",
+              "type": "integer"
+            },
+            "image_url": {
+              "description": "The URL for an image displayed on the storefront when the conditions are applied.\n",
+              "type": "string"
+            },
+            "price_adjuster": {
+              "$ref": "#/components/schemas/Adjuster"
+            },
+            "product_id": {
+              "description": "The unique numeric ID of the product with which the rule is associated; increments sequentially.\n",
+              "type": "integer"
+            },
+            "purchasing_disabled": {
+              "description": "Flag for determining whether the rule should disable purchasing of a product when the conditions are applied.\n",
+              "type": "boolean"
+            },
+            "purchasing_disabled_message": {
+              "description": "Message displayed on the storefront when a rule disables the purchasing of a product.\n",
+              "type": "string"
+            },
+            "purchasing_hidden": {
+              "description": "Flag for determining whether the rule should hide purchasing of a product when the conditions are applied.\n",
+              "type": "boolean"
+            },
+            "sort_order": {
+              "description": "Priority this rule will be given, when making adjustments to the product properties.\n",
+              "type": "integer"
+            },
+            "stop": {
+              "description": "Flag for determining whether other rules should not be applied after this rule has been applied.\n",
+              "type": "boolean"
+            },
+            "weight_adjuster": {
+              "$ref": "#/components/schemas/Adjuster"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "`ComplexRule` object\n",
+    "required": true
+  },
+  "responses": {
+    "409": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseError"
+              },
+              {
+                "properties": {
+                  "errors": {
+                    "$ref": "#/components/schemas/DetailedErrors"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          }
+        }
+      },
+      "description": "The `ComplexRule` was in conflict with another `ComplexRule`. This is the result of duplicate conditions.\n"
+    }
+  }
+}

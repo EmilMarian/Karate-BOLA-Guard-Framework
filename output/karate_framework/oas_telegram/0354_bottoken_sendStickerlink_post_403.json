@@ -1,0 +1,63 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "chat_id": {
+            "type": "object"
+          },
+          "disable_notification": {
+            "type": "boolean"
+          },
+          "reply_markup": {
+            "type": "object"
+          },
+          "reply_to_message_id": {
+            "type": "integer"
+          },
+          "sticker": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "chat_id",
+          "sticker"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/sendSticker#link",
+  "requestBody": {},
+  "responses": {
+    "403": {
+      "description": "Forbidden",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

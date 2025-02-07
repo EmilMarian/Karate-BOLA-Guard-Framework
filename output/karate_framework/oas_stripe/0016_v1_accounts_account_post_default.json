@@ -1,0 +1,1730 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "account",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/accounts/{account}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "business_profile": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "capabilities": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "company": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "documents": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "groups": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "individual": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "settings": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "tos_acceptance": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "account_token": {
+              "description": "An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "business_profile": {
+              "description": "Business information about the account.",
+              "properties": {
+                "annual_revenue": {
+                  "properties": {
+                    "amount": {
+                      "type": "integer"
+                    },
+                    "currency": {
+                      "format": "currency",
+                      "type": "string"
+                    },
+                    "fiscal_year_end": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "amount",
+                    "currency",
+                    "fiscal_year_end"
+                  ],
+                  "title": "annual_revenue_specs",
+                  "type": "object"
+                },
+                "estimated_worker_count": {
+                  "type": "integer"
+                },
+                "mcc": {
+                  "maxLength": 4,
+                  "type": "string"
+                },
+                "monthly_estimated_revenue": {
+                  "properties": {
+                    "amount": {
+                      "type": "integer"
+                    },
+                    "currency": {
+                      "format": "currency",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "amount",
+                    "currency"
+                  ],
+                  "title": "monthly_estimated_revenue_specs",
+                  "type": "object"
+                },
+                "name": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "product_description": {
+                  "maxLength": 40000,
+                  "type": "string"
+                },
+                "support_address": {
+                  "properties": {
+                    "city": {
+                      "maxLength": 100,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "maxLength": 200,
+                      "type": "string"
+                    },
+                    "line2": {
+                      "maxLength": 200,
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "address_specs",
+                  "type": "object"
+                },
+                "support_email": {
+                  "type": "string"
+                },
+                "support_phone": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "support_url": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "title": "business_profile_update_specs",
+              "type": "object"
+            },
+            "business_type": {
+              "description": "The business type. Once you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.",
+              "enum": [
+                "company",
+                "government_entity",
+                "individual",
+                "non_profit"
+              ],
+              "type": "string",
+              "x-stripeBypassValidation": true
+            },
+            "capabilities": {
+              "description": "Each key of the dictionary represents a capability, and each capability\nmaps to its settings (for example, whether it has been requested or not). Each\ncapability is inactive until you have provided its specific\nrequirements and Stripe has verified them. An account might have some\nof its requested capabilities be active and some be inactive.\n\nRequired when [account.controller.stripe_dashboard.type](/api/accounts/create#create_account-controller-dashboard-type)\nis `none`, which includes Custom accounts.",
+              "properties": {
+                "acss_debit_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "affirm_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "afterpay_clearpay_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "alma_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "amazon_pay_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "au_becs_debit_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "bacs_debit_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "bancontact_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "bank_transfer_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "blik_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "boleto_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "card_issuing": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "card_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "cartes_bancaires_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "cashapp_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "eps_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "fpx_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "gb_bank_transfer_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "giropay_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "grabpay_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "ideal_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "india_international_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "jcb_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "jp_bank_transfer_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "kakao_pay_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "klarna_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "konbini_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "kr_card_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "legacy_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "link_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "mobilepay_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "multibanco_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "mx_bank_transfer_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "naver_pay_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "oxxo_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "p24_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "pay_by_bank_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "payco_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "paynow_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "promptpay_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "revolut_pay_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "samsung_pay_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "sepa_bank_transfer_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "sepa_debit_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "sofort_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "swish_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "tax_reporting_us_1099_k": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "tax_reporting_us_1099_misc": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "transfers": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "treasury": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "twint_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "us_bank_account_ach_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "us_bank_transfer_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                },
+                "zip_payments": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "title": "capability_param",
+                  "type": "object"
+                }
+              },
+              "title": "capabilities_param",
+              "type": "object"
+            },
+            "company": {
+              "description": "Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.",
+              "properties": {
+                "address": {
+                  "properties": {
+                    "city": {
+                      "maxLength": 100,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "maxLength": 200,
+                      "type": "string"
+                    },
+                    "line2": {
+                      "maxLength": 200,
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "legal_entity_and_kyc_address_specs",
+                  "type": "object"
+                },
+                "address_kana": {
+                  "properties": {
+                    "city": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line2": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "town": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "japan_address_kana_specs",
+                  "type": "object"
+                },
+                "address_kanji": {
+                  "properties": {
+                    "city": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line2": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "town": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "japan_address_kanji_specs",
+                  "type": "object"
+                },
+                "directors_provided": {
+                  "type": "boolean"
+                },
+                "directorship_declaration": {
+                  "properties": {
+                    "date": {
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "ip": {
+                      "type": "string"
+                    },
+                    "user_agent": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "company_directorship_declaration",
+                  "type": "object"
+                },
+                "executives_provided": {
+                  "type": "boolean"
+                },
+                "export_license_id": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "export_purpose_code": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "name": {
+                  "maxLength": 100,
+                  "type": "string"
+                },
+                "name_kana": {
+                  "maxLength": 100,
+                  "type": "string"
+                },
+                "name_kanji": {
+                  "maxLength": 100,
+                  "type": "string"
+                },
+                "owners_provided": {
+                  "type": "boolean"
+                },
+                "ownership_declaration": {
+                  "properties": {
+                    "date": {
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "ip": {
+                      "type": "string"
+                    },
+                    "user_agent": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "company_ownership_declaration",
+                  "type": "object"
+                },
+                "ownership_exemption_reason": {
+                  "enum": [
+                    "",
+                    "qualified_entity_exceeds_ownership_threshold",
+                    "qualifies_as_financial_institution"
+                  ],
+                  "type": "string"
+                },
+                "phone": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "registration_number": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "structure": {
+                  "enum": [
+                    "",
+                    "free_zone_establishment",
+                    "free_zone_llc",
+                    "government_instrumentality",
+                    "governmental_unit",
+                    "incorporated_non_profit",
+                    "incorporated_partnership",
+                    "limited_liability_partnership",
+                    "llc",
+                    "multi_member_llc",
+                    "private_company",
+                    "private_corporation",
+                    "private_partnership",
+                    "public_company",
+                    "public_corporation",
+                    "public_partnership",
+                    "registered_charity",
+                    "single_member_llc",
+                    "sole_establishment",
+                    "sole_proprietorship",
+                    "tax_exempt_government_instrumentality",
+                    "unincorporated_association",
+                    "unincorporated_non_profit",
+                    "unincorporated_partnership"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                },
+                "tax_id": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "tax_id_registrar": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "vat_id": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "verification": {
+                  "properties": {
+                    "document": {
+                      "properties": {
+                        "back": {
+                          "maxLength": 500,
+                          "type": "string"
+                        },
+                        "front": {
+                          "maxLength": 500,
+                          "type": "string"
+                        }
+                      },
+                      "title": "verification_document_specs",
+                      "type": "object"
+                    }
+                  },
+                  "title": "verification_specs",
+                  "type": "object"
+                }
+              },
+              "title": "company_update_specs",
+              "type": "object"
+            },
+            "default_currency": {
+              "description": "Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://docs.stripe.com/payouts).",
+              "format": "currency",
+              "type": "string"
+            },
+            "documents": {
+              "description": "Documents that may be submitted to satisfy various informational requests.",
+              "properties": {
+                "bank_account_ownership_verification": {
+                  "properties": {
+                    "files": {
+                      "items": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "documents_param",
+                  "type": "object"
+                },
+                "company_license": {
+                  "properties": {
+                    "files": {
+                      "items": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "documents_param",
+                  "type": "object"
+                },
+                "company_memorandum_of_association": {
+                  "properties": {
+                    "files": {
+                      "items": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "documents_param",
+                  "type": "object"
+                },
+                "company_ministerial_decree": {
+                  "properties": {
+                    "files": {
+                      "items": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "documents_param",
+                  "type": "object"
+                },
+                "company_registration_verification": {
+                  "properties": {
+                    "files": {
+                      "items": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "documents_param",
+                  "type": "object"
+                },
+                "company_tax_id_verification": {
+                  "properties": {
+                    "files": {
+                      "items": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "documents_param",
+                  "type": "object"
+                },
+                "proof_of_registration": {
+                  "properties": {
+                    "files": {
+                      "items": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "documents_param",
+                  "type": "object"
+                },
+                "proof_of_ultimate_beneficial_ownership": {
+                  "properties": {
+                    "files": {
+                      "items": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "title": "documents_param",
+                  "type": "object"
+                }
+              },
+              "title": "documents_specs",
+              "type": "object"
+            },
+            "email": {
+              "description": "The email address of the account holder. This is only to make the account easier to identify to you. If [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, Stripe doesn't email the account without your consent.",
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "external_account": {
+              "description": "A card or bank account to attach to the account for receiving [payouts](/connect/bank-debit-card-payouts) (you won\u2019t be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](/js), or a dictionary, as documented in the `external_account` parameter for [bank account](/api#account_create_bank_account) creation. <br><br>By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](/api#account_create_bank_account) or [card creation](/api#account_create_card) APIs. After you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.",
+              "maxLength": 5000,
+              "type": "string",
+              "x-stripeBypassValidation": true
+            },
+            "groups": {
+              "description": "A hash of account group type to tokens. These are account groups this account should be added to.",
+              "properties": {
+                "payments_pricing": {
+                  "anyOf": [
+                    {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "title": "account_groups_specs",
+              "type": "object"
+            },
+            "individual": {
+              "description": "Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](/api/account_links) or [Account Session](/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.",
+              "properties": {
+                "address": {
+                  "properties": {
+                    "city": {
+                      "maxLength": 100,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "maxLength": 200,
+                      "type": "string"
+                    },
+                    "line2": {
+                      "maxLength": 200,
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "address_specs",
+                  "type": "object"
+                },
+                "address_kana": {
+                  "properties": {
+                    "city": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line2": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "town": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "japan_address_kana_specs",
+                  "type": "object"
+                },
+                "address_kanji": {
+                  "properties": {
+                    "city": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line2": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "town": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "japan_address_kanji_specs",
+                  "type": "object"
+                },
+                "dob": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "day": {
+                          "type": "integer"
+                        },
+                        "month": {
+                          "type": "integer"
+                        },
+                        "year": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "day",
+                        "month",
+                        "year"
+                      ],
+                      "title": "date_of_birth_specs",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "email": {
+                  "type": "string"
+                },
+                "first_name": {
+                  "maxLength": 100,
+                  "type": "string"
+                },
+                "first_name_kana": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "first_name_kanji": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "full_name_aliases": {
+                  "anyOf": [
+                    {
+                      "items": {
+                        "maxLength": 300,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "id_number": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "id_number_secondary": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "last_name": {
+                  "maxLength": 100,
+                  "type": "string"
+                },
+                "last_name_kana": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "last_name_kanji": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "maiden_name": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "metadata": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "political_exposure": {
+                  "enum": [
+                    "existing",
+                    "none"
+                  ],
+                  "type": "string"
+                },
+                "registered_address": {
+                  "properties": {
+                    "city": {
+                      "maxLength": 100,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "line1": {
+                      "maxLength": 200,
+                      "type": "string"
+                    },
+                    "line2": {
+                      "maxLength": 200,
+                      "type": "string"
+                    },
+                    "postal_code": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "address_specs",
+                  "type": "object"
+                },
+                "relationship": {
+                  "properties": {
+                    "director": {
+                      "type": "boolean"
+                    },
+                    "executive": {
+                      "type": "boolean"
+                    },
+                    "owner": {
+                      "type": "boolean"
+                    },
+                    "percent_ownership": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "title": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "individual_relationship_specs",
+                  "type": "object"
+                },
+                "ssn_last_4": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "verification": {
+                  "properties": {
+                    "additional_document": {
+                      "properties": {
+                        "back": {
+                          "maxLength": 500,
+                          "type": "string"
+                        },
+                        "front": {
+                          "maxLength": 500,
+                          "type": "string"
+                        }
+                      },
+                      "title": "person_verification_document_specs",
+                      "type": "object"
+                    },
+                    "document": {
+                      "properties": {
+                        "back": {
+                          "maxLength": 500,
+                          "type": "string"
+                        },
+                        "front": {
+                          "maxLength": 500,
+                          "type": "string"
+                        }
+                      },
+                      "title": "person_verification_document_specs",
+                      "type": "object"
+                    }
+                  },
+                  "title": "person_verification_specs",
+                  "type": "object"
+                }
+              },
+              "title": "individual_update_specs",
+              "type": "object"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`."
+            },
+            "settings": {
+              "description": "Options for customizing how the account functions within Stripe.",
+              "properties": {
+                "bacs_debit_payments": {
+                  "properties": {
+                    "display_name": {
+                      "type": "string"
+                    }
+                  },
+                  "title": "bacs_debit_payments_specs",
+                  "type": "object"
+                },
+                "branding": {
+                  "properties": {
+                    "icon": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "logo": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "primary_color": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "secondary_color": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "branding_settings_specs",
+                  "type": "object"
+                },
+                "card_issuing": {
+                  "properties": {
+                    "tos_acceptance": {
+                      "properties": {
+                        "date": {
+                          "format": "unix-time",
+                          "type": "integer"
+                        },
+                        "ip": {
+                          "type": "string"
+                        },
+                        "user_agent": {
+                          "anyOf": [
+                            {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "title": "settings_terms_of_service_specs",
+                      "type": "object"
+                    }
+                  },
+                  "title": "card_issuing_settings_specs",
+                  "type": "object"
+                },
+                "card_payments": {
+                  "properties": {
+                    "decline_on": {
+                      "properties": {
+                        "avs_failure": {
+                          "type": "boolean"
+                        },
+                        "cvc_failure": {
+                          "type": "boolean"
+                        }
+                      },
+                      "title": "decline_charge_on_specs",
+                      "type": "object"
+                    },
+                    "statement_descriptor_prefix": {
+                      "maxLength": 10,
+                      "type": "string"
+                    },
+                    "statement_descriptor_prefix_kana": {
+                      "anyOf": [
+                        {
+                          "maxLength": 10,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "statement_descriptor_prefix_kanji": {
+                      "anyOf": [
+                        {
+                          "maxLength": 10,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "title": "card_payments_settings_specs",
+                  "type": "object"
+                },
+                "invoices": {
+                  "properties": {
+                    "default_account_tax_ids": {
+                      "anyOf": [
+                        {
+                          "items": {
+                            "maxLength": 5000,
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "title": "invoices_settings_specs",
+                  "type": "object"
+                },
+                "payments": {
+                  "properties": {
+                    "statement_descriptor": {
+                      "maxLength": 22,
+                      "type": "string"
+                    },
+                    "statement_descriptor_kana": {
+                      "maxLength": 22,
+                      "type": "string"
+                    },
+                    "statement_descriptor_kanji": {
+                      "maxLength": 22,
+                      "type": "string"
+                    }
+                  },
+                  "title": "payments_settings_specs",
+                  "type": "object"
+                },
+                "payouts": {
+                  "properties": {
+                    "debit_negative_balances": {
+                      "type": "boolean"
+                    },
+                    "schedule": {
+                      "properties": {
+                        "delay_days": {
+                          "anyOf": [
+                            {
+                              "enum": [
+                                "minimum"
+                              ],
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            {
+                              "type": "integer"
+                            }
+                          ]
+                        },
+                        "interval": {
+                          "enum": [
+                            "daily",
+                            "manual",
+                            "monthly",
+                            "weekly"
+                          ],
+                          "maxLength": 5000,
+                          "type": "string",
+                          "x-stripeBypassValidation": true
+                        },
+                        "monthly_anchor": {
+                          "type": "integer"
+                        },
+                        "weekly_anchor": {
+                          "enum": [
+                            "friday",
+                            "monday",
+                            "saturday",
+                            "sunday",
+                            "thursday",
+                            "tuesday",
+                            "wednesday"
+                          ],
+                          "maxLength": 5000,
+                          "type": "string"
+                        }
+                      },
+                      "title": "transfer_schedule_specs",
+                      "type": "object"
+                    },
+                    "statement_descriptor": {
+                      "maxLength": 22,
+                      "type": "string"
+                    }
+                  },
+                  "title": "payout_settings_specs",
+                  "type": "object"
+                },
+                "treasury": {
+                  "properties": {
+                    "tos_acceptance": {
+                      "properties": {
+                        "date": {
+                          "format": "unix-time",
+                          "type": "integer"
+                        },
+                        "ip": {
+                          "type": "string"
+                        },
+                        "user_agent": {
+                          "anyOf": [
+                            {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "title": "settings_terms_of_service_specs",
+                      "type": "object"
+                    }
+                  },
+                  "title": "treasury_settings_specs",
+                  "type": "object"
+                }
+              },
+              "title": "settings_specs_update",
+              "type": "object"
+            },
+            "tos_acceptance": {
+              "description": "Details on the account's acceptance of the [Stripe Services Agreement](/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. This property defaults to a `full` service agreement when empty.",
+              "properties": {
+                "date": {
+                  "format": "unix-time",
+                  "type": "integer"
+                },
+                "ip": {
+                  "type": "string"
+                },
+                "service_agreement": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "user_agent": {
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              },
+              "title": "tos_acceptance_specs",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

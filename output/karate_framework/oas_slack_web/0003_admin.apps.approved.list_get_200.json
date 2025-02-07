@@ -1,0 +1,125 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.apps:read`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Must be between 1 - 1000 both inclusive.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Set `cursor` to `next_cursor` returned by the previous call to list items in the next page",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "team_id",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "enterprise_id",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.apps.approved.list",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "approved_apps": [
+                  {
+                    "app": {
+                      "additional_info": "",
+                      "app_directory_url": "https://myteam.enterprise.slack.com/apps/A0W7UKG8E-my-test-app",
+                      "app_homepage_url": "https://www.slack.com",
+                      "description": "test app",
+                      "help_url": "https://www.slack.com",
+                      "icons": {
+                        "image_1024": "https://3026743124446w96_2bd4ea1ad1f89a23c242_1024.png",
+                        "image_128": "https://30267341249446w6_2bd4ea1ad1f89a23c242_128.png",
+                        "image_192": "https://30267431249446w6_2bd4ea1ad1f89a23c242_192.png",
+                        "image_32": "https://302674312496446w_2bd4ea1ad1f89a23c242_32.png",
+                        "image_36": "https://302674312496446w_2bd4ea1ad1f89a23c242_36.png",
+                        "image_48": "https://302674312496446w_2bd4ea1ad1f89a23c242_48.png",
+                        "image_512": "https://30267431249446w6_2bd4ea1ad1f89a23c242_512.png",
+                        "image_64": "https://302674312496446w_2bd4ea1ad1f89a23c242_64.png",
+                        "image_72": "https://302674312496446w_2bd4ea1ad1f89a23c242_72.png",
+                        "image_96": "https://302674312496446w_2bd4ea1ad1f89a23c242_96.png",
+                        "image_original": "https://302674446w12496_2bd4ea1ad1f89a23c242_original.png"
+                      },
+                      "id": "A0W7UKG8E",
+                      "is_app_directory_approved": false,
+                      "is_internal": false,
+                      "name": "My Test App",
+                      "privacy_policy_url": "https://www.slack.com"
+                    },
+                    "date_updated": 1574296707,
+                    "last_resolved_by": {
+                      "actor_id": "W0G82F4FD",
+                      "actor_type": "user"
+                    },
+                    "scopes": [
+                      {
+                        "description": "Add the ability for people to direct message or mention @my_test_app",
+                        "is_sensitive": true,
+                        "name": "bot",
+                        "token_type": "bot"
+                      }
+                    ]
+                  }
+                ],
+                "ok": true,
+                "response_metadata": {
+                  "next_cursor": ""
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "Default success template",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

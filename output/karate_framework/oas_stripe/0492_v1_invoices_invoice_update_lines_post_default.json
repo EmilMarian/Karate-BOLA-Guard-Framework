@@ -1,0 +1,360 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "invoice",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/invoices/{invoice}/update_lines",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "invoice_metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "lines": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "invoice_metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data."
+            },
+            "lines": {
+              "description": "The line items to update.",
+              "items": {
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "description": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "discountable": {
+                    "type": "boolean"
+                  },
+                  "discounts": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "properties": {
+                            "coupon": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "discount": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "promotion_code": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            }
+                          },
+                          "title": "discounts_data_param",
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "id": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": {
+                          "type": "string"
+                        },
+                        "type": "object"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "period": {
+                    "properties": {
+                      "end": {
+                        "format": "unix-time",
+                        "type": "integer"
+                      },
+                      "start": {
+                        "format": "unix-time",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "end",
+                      "start"
+                    ],
+                    "title": "period",
+                    "type": "object"
+                  },
+                  "price": {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  "price_data": {
+                    "properties": {
+                      "currency": {
+                        "format": "currency",
+                        "type": "string"
+                      },
+                      "product": {
+                        "maxLength": 5000,
+                        "type": "string"
+                      },
+                      "product_data": {
+                        "properties": {
+                          "description": {
+                            "maxLength": 40000,
+                            "type": "string"
+                          },
+                          "images": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "metadata": {
+                            "additionalProperties": {
+                              "type": "string"
+                            },
+                            "type": "object"
+                          },
+                          "name": {
+                            "maxLength": 5000,
+                            "type": "string"
+                          },
+                          "tax_code": {
+                            "maxLength": 5000,
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "name"
+                        ],
+                        "title": "product_data",
+                        "type": "object"
+                      },
+                      "tax_behavior": {
+                        "enum": [
+                          "exclusive",
+                          "inclusive",
+                          "unspecified"
+                        ],
+                        "type": "string"
+                      },
+                      "unit_amount": {
+                        "type": "integer"
+                      },
+                      "unit_amount_decimal": {
+                        "format": "decimal",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "currency"
+                    ],
+                    "title": "one_time_price_data_with_product_data",
+                    "type": "object"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "tax_amounts": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "properties": {
+                            "amount": {
+                              "type": "integer"
+                            },
+                            "tax_rate_data": {
+                              "properties": {
+                                "country": {
+                                  "maxLength": 5000,
+                                  "type": "string"
+                                },
+                                "description": {
+                                  "maxLength": 5000,
+                                  "type": "string"
+                                },
+                                "display_name": {
+                                  "maxLength": 100,
+                                  "type": "string"
+                                },
+                                "inclusive": {
+                                  "type": "boolean"
+                                },
+                                "jurisdiction": {
+                                  "maxLength": 200,
+                                  "type": "string"
+                                },
+                                "percentage": {
+                                  "type": "number"
+                                },
+                                "state": {
+                                  "maxLength": 2,
+                                  "type": "string"
+                                },
+                                "tax_type": {
+                                  "enum": [
+                                    "amusement_tax",
+                                    "communications_tax",
+                                    "gst",
+                                    "hst",
+                                    "igst",
+                                    "jct",
+                                    "lease_tax",
+                                    "pst",
+                                    "qst",
+                                    "retail_delivery_fee",
+                                    "rst",
+                                    "sales_tax",
+                                    "service_tax",
+                                    "vat"
+                                  ],
+                                  "type": "string",
+                                  "x-stripeBypassValidation": true
+                                }
+                              },
+                              "required": [
+                                "display_name",
+                                "inclusive",
+                                "percentage"
+                              ],
+                              "title": "tax_rate_data_param",
+                              "type": "object"
+                            },
+                            "taxable_amount": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "amount",
+                            "tax_rate_data",
+                            "taxable_amount"
+                          ],
+                          "title": "tax_amount_param",
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "tax_rates": {
+                    "anyOf": [
+                      {
+                        "items": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      {
+                        "enum": [
+                          ""
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "title": "lines_data_param",
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "lines"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

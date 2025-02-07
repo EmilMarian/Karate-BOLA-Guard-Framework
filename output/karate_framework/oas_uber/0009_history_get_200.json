@@ -1,0 +1,60 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Offset the list of returned results by this amount. Default is zero.",
+      "in": "query",
+      "name": "offset",
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Number of items to retrieve. Default is 5, maximum is 100.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/history",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "count": {
+                "description": "Total number of items available.",
+                "format": "int32",
+                "type": "integer"
+              },
+              "history": {
+                "items": {
+                  "$ref": "#/components/schemas/Activity"
+                },
+                "type": "array"
+              },
+              "limit": {
+                "description": "Number of items to retrieve (100 max).",
+                "format": "int32",
+                "type": "integer"
+              },
+              "offset": {
+                "description": "Position in pagination.",
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "History information for the given user"
+    }
+  }
+}

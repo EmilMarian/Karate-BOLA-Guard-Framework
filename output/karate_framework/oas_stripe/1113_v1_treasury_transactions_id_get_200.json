@@ -1,0 +1,207 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/treasury/transactions/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Transactions represent changes to a [FinancialAccount's](https://stripe.com/docs/api#financial_accounts) balance.",
+            "properties": {
+              "amount": {
+                "description": "Amount (in cents) transferred.",
+                "type": "integer"
+              },
+              "balance_impact": {
+                "$ref": "#/components/schemas/treasury_transactions_resource_balance_impact"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "format": "currency",
+                "type": "string"
+              },
+              "description": {
+                "description": "An arbitrary string attached to the object. Often useful for displaying to users.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "entries": {
+                "description": "A list of TransactionEntries that are part of this Transaction. This cannot be expanded in any list endpoints.",
+                "nullable": true,
+                "properties": {
+                  "data": {
+                    "description": "Details about each object.",
+                    "items": {
+                      "$ref": "#/components/schemas/treasury.transaction_entry"
+                    },
+                    "type": "array"
+                  },
+                  "has_more": {
+                    "description": "True if this list has another page of items after this one that can be fetched.",
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                    "enum": [
+                      "list"
+                    ],
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "The URL where this list can be accessed.",
+                    "maxLength": 5000,
+                    "pattern": "^/v1/treasury/transaction_entries",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "has_more",
+                  "object",
+                  "url"
+                ],
+                "title": "TreasuryTransactionsResourceTransactionEntryList",
+                "type": "object",
+                "x-expandableFields": [
+                  "data"
+                ]
+              },
+              "financial_account": {
+                "description": "The FinancialAccount associated with this object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "flow": {
+                "description": "ID of the flow that created the Transaction.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "flow_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/treasury_transactions_resource_flow_details"
+                  }
+                ],
+                "description": "Details of the flow that created the Transaction.",
+                "nullable": true
+              },
+              "flow_type": {
+                "description": "Type of the flow that created the Transaction.",
+                "enum": [
+                  "credit_reversal",
+                  "debit_reversal",
+                  "inbound_transfer",
+                  "issuing_authorization",
+                  "other",
+                  "outbound_payment",
+                  "outbound_transfer",
+                  "received_credit",
+                  "received_debit"
+                ],
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "treasury.transaction"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "Status of the Transaction.",
+                "enum": [
+                  "open",
+                  "posted",
+                  "void"
+                ],
+                "type": "string"
+              },
+              "status_transitions": {
+                "$ref": "#/components/schemas/treasury_transactions_resource_abstract_transaction_resource_status_transitions"
+              }
+            },
+            "required": [
+              "amount",
+              "balance_impact",
+              "created",
+              "currency",
+              "description",
+              "financial_account",
+              "flow_type",
+              "id",
+              "livemode",
+              "object",
+              "status",
+              "status_transitions"
+            ],
+            "title": "TreasuryTransactionsResourceTransaction",
+            "type": "object",
+            "x-expandableFields": [
+              "balance_impact",
+              "entries",
+              "flow_details",
+              "status_transitions"
+            ],
+            "x-resourceId": "treasury.transaction"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "caption": {
+            "type": "string"
+          },
+          "chat_id": {
+            "type": "object"
+          },
+          "disable_notification": {
+            "type": "boolean"
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "height": {
+            "type": "integer"
+          },
+          "reply_markup": {
+            "type": "object"
+          },
+          "reply_to_message_id": {
+            "type": "integer"
+          },
+          "video": {
+            "type": "string"
+          },
+          "width": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "chat_id",
+          "video"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/sendVideo#link",
+  "requestBody": {},
+  "responses": {
+    "420": {
+      "description": "Flood",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

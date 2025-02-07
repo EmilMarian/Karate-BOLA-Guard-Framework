@@ -1,0 +1,97 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "customer",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    }
+  ],
+  "path": "/v1/customers/{customer}/cash_balance",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A customer's `Cash balance` represents real funds. Customers can add funds to their cash balance by sending a bank transfer. These funds can be used for payment and can eventually be paid out to your bank account.",
+            "properties": {
+              "available": {
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "description": "A hash of all cash balances available to this customer. You cannot delete a customer with any cash balances, even if the balance is 0. Amounts are represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).",
+                "nullable": true,
+                "type": "object"
+              },
+              "customer": {
+                "description": "The ID of the customer whose cash balance this object represents.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "cash_balance"
+                ],
+                "type": "string"
+              },
+              "settings": {
+                "$ref": "#/components/schemas/customer_balance_customer_balance_settings"
+              }
+            },
+            "required": [
+              "customer",
+              "livemode",
+              "object",
+              "settings"
+            ],
+            "title": "cash_balance",
+            "type": "object",
+            "x-expandableFields": [
+              "settings"
+            ],
+            "x-resourceId": "cash_balance"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

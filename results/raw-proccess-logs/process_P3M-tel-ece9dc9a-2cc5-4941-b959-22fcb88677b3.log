@@ -1,0 +1,237 @@
+2025-02-01 15:20:11,166 - __main__ - INFO - Skipping fragment creation: False
+2025-02-01 15:20:11,269 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-01 15:20:11,607 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}, {"description": "", "in": "query", "name": "user_id", "required": true, "type": "string"}], "path": "/bot{token}/unbanChatMember", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0465_bottoken_unbanChatMember_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}, {"description": "", "in": "query", "name": "user_id", "required": true, "type": "string"}], "path": "/bot{token}/getChatMember", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0150_bottoken_getChatMember_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}], "path": "/bot{token}/getChatMembersCount", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0157_bottoken_getChatMembersCount_get_401.json'}}], form collection oas_telegram_fragments
+2025-02-01 15:20:11,608 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 15:20:11,609 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 15:20:12,045 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 15:20:12,045 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 15:22:10,670 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 15:22:10,672 - karate_llm_test_gen - INFO - Generated test case: {
+    "feature": "Test API Endpoint /bot{token}/unbanChatMember for Broken Authorization",
+    "scen...
+2025-02-01 15:22:10,672 - __main__ - INFO - Generated Karate test for /bot{token}/unbanChatMember GET at output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature
+2025-02-01 15:22:10,673 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 15:22:10,673 - karate_compatibility_verifier - INFO - {
+    "feature": "Test API Endpoint /bot{token}/unbanChatMember for Broken Authorization",
+    "scenario": "Attempting unauthorized access using a non-existent bot token or an invalid one",
+    "given": [
+        "url http://oas_telegram.api/bot/{botToken}/unbanChatMember"
+    ],
+    "when": {
+        "method": "GET"
+    },
+    "then": {
+        "status": 403,
+        "responseMessage": "Unauthorized to unban chat members."
+    }
+}
+2025-02-01 15:23:40,756 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 15:23:40,756 - karate_compatibility_verifier - INFO - Scenario: Attempting unauthorized access using a non-existent bot token or an invalid one
+* url 'http://oas_telegram.api/bot/{token}/unbanChatMember'
+* method get
+* status 403
+* responseMessage "Unauthorized to unban chat members."
+2025-02-01 15:24:13,119 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 15:24:13,119 - karate_compatibility_verifier - INFO - Scenario: Attempting unauthorized access using a non-existent bot token or an invalid one
+    Given url 'http://oas_telegram.api/bot/{token}/unbanChatMember'
+    When method get
+    Then status 403
+    And responseMessage should contain "Unauthorized to unban chat members."
+2025-02-01 15:24:13,120 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET_verified.feature
+2025-02-01 15:24:13,120 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature: Scenario: Attempting unauthorized access using a non-existent bot token or an invalid one
+    Given url 'http://oas_telegram.api/bot/{token}/unbanChatMember'
+    When method get
+    Then status 403
+    And responseMessage should contain "Unauthorized to unban chat members."
+2025-02-01 15:24:13,121 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 15:24:13,121 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 15:24:13,155 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 15:24:13,156 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 15:26:39,019 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 15:26:39,019 - karate_llm_test_gen - INFO - Generated test case: ```diff
++++ file:/path/to/karate-scripts/broken_auth_botmember.feature
+@@ -1,6 +1,8 @@ features:
+   ...
+2025-02-01 15:26:39,020 - __main__ - INFO - Generated Karate test for /bot{token}/getChatMember GET at output/karate_feature_files/ID_002_krtestoas_bottoken_getChatMember_GET.feature
+2025-02-01 15:26:39,020 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 15:26:39,020 - karate_compatibility_verifier - INFO - ```diff
++++ file:/path/to/karate-scripts/broken_auth_botmember.feature
+@@ -1,6 +1,8 @@ features:
+   scenario: Checking broken authentication and authorization for /bot{token}/getChatMember endpoint
+     * def botToken = 'your_telegram_bot_token' // replace with actual token from telegram API documentation
+-  http://mockup.api/bot/{botToken}/getChatMember
++  http://oas-telegram.api/bot/${botToken}/getChatMember
+     * Given url 'http://oas-telegram.api/bot/${botToken}/getChatMember'
+     * And header Authorization = "Bearer ${user_token}" // replace with actual user token for testing unauthorized access
++  * And header Authorization = ""                        // No authorization, to test broken authentication
+     When method get
+-    Then status 200
++    Then status 401 or 403 depending on the scenario (e.g., checking for missing token)
+     And match response contains 'Unauthorized'
+```
+2025-02-01 15:29:13,934 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 15:29:13,934 - karate_compatibility_verifier - INFO - ```diff
++++ file:/path/to/karate-scripts/broken_auth_botmember.feature
+@@ -1,6 +1,8 @@ features:
+   scenario: Checking broken authentication and authorization for /bot{token}/getChatMember endpoint
+     * def botToken = 'your_telegram_bot_token' // replace with actual token from telegram API documentation
++  * Given url 'http://oas-telegram.api/bot/${botToken}/getChatMember'
+     * And header Authorization = ""                        // No authorization, to test broken authentication
+     When method get
++    Then status 401 or 403 depending on the scenario (e.g., checking for missing token)
+-    Then status 200
+     And match response contains 'Unauthorized'
+```
+2025-02-01 15:30:20,457 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 15:30:20,457 - karate_compatibility_verifier - INFO - ```diff
++++ file:/path/to/karate-scripts/broken_auth_botmember.feature
+@@ -1,6 +1,8 @@ features:
+   scenario: Checking broken authentication and authorization for /bot{token}/getChatMember endpoint
+     * def botToken = 'your_telegram_bot_token' // replace with actual token from telegram API documentation
++  * Given url 'http://oas-telegram.api/bot/${botToken}/getChatMember'
+     * And header Authorization = ""                        // No authorization, to test broken authentication
++    Then status is either 401 or 403 depending on the scenario (e.g., checking for missing token)
+-   When method get
++   When method 'GET /bot/${botToken}/getChatMember'
+     And match response contains 'Unauthorized'
+```
+2025-02-01 15:30:20,458 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_bottoken_getChatMember_GET_verified.feature
+2025-02-01 15:30:20,458 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_bottoken_getChatMember_GET.feature: ```diff
++++ file:/path/to/karate-scripts/broken_auth_botmember.feature
+@@ -1,6 +1,8 @@ features:
+   scenario: Checking broken authentication and authorization for /bot{token}/getChatMember endpoint
+     * def botToken = 'your_telegram_bot_token' // replace with actual token from telegram API documentation
++  * Given url 'http://oas-telegram.api/bot/${botToken}/getChatMember'
+     * And header Authorization = ""                        // No authorization, to test broken authentication
++    Then status is either 401 or 403 depending on the scenario (e.g., checking for missing token)
+-   When method get
++   When method 'GET /bot/${botToken}/getChatMember'
+     And match response contains 'Unauthorized'
+```
+2025-02-01 15:30:20,458 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 15:30:20,459 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 15:30:20,492 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 15:30:20,494 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 15:33:15,978 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 15:33:15,979 - karate_llm_test_gen - INFO - Generated test case: ```diff
++++ file:/path/to/karate-test-scripts/broken_auth_botmembercount.feature
+@@ -1,6 +1,8 @@ fea...
+2025-02-01 15:33:15,980 - __main__ - INFO - Generated Karate test for /bot{token}/getChatMembersCount GET at output/karate_feature_files/ID_003_krtestoas_bottoken_getChatMembersCount_GET.feature
+2025-02-01 15:33:15,980 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 15:33:15,980 - karate_compatibility_verifier - INFO - ```diff
++++ file:/path/to/karate-test-scripts/broken_auth_botmembercount.feature
+@@ -1,6 +1,8 @@ features:
+   scenario: Checking broken authentication and authorization on /bot{token}/getChatMembersCount endpoint
+     * given url http://oas_telegram.api/bot${#bot-details}
++    // Replace #bot-details with the actual bot token value for testing purposes
+  +* def botToken = 'yourActualBotTokenHere' // Set your bot token here before running tests
+     * def chatMembersCountUrl = sprintf('http://oas_telegram.api/bot%s/getChatMembersCount', botToken)
+-    Given url '/bot{token}/getChatMembersCount'
++    And given url chatMembersCountUrl
+     * when method get
++      * switch response status match {
+2         case 401: // Expected unauthorized access due to missing or invalid bot token
+           then message 'Unauthorized - Bot does not have permission'
+3         case <other relevant HTTP status codes>:
+           fail "Broken authentication/authorization vulnerability detected"
++      * switch response header Authorization match {
+4             case bearer: // Expecting Bearer token to be present, but it should only exist for authenticated bots
+               then message 'Unauthorized - Incorrect or missing authorization'
+5         default:
+           fail "Broken authentication/authorization vulnerability detected"
++      * match response body contains '<expected error messages related to broken auth/auth>' // Replace with actual expected responses for testing purposes
+     }
+```
+2025-02-01 15:36:42,590 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 15:36:42,591 - karate_compatibility_verifier - INFO - ```diff
++++ file:/path/to/karate-test-scripts/broken_auth_botmembercount.feature
+@@ -1,6 +1,8 @@ features:
+   scenario: Checking broken authentication and authorization on /bot{token}/getChatMembersCount endpoint
+     * def botToken = 'yourActualBotTokenHere' // Set your bot token here before running tests
+     * def chatMembersCountUrl = sprintf('http://oas_telegram.api/bot%s/getChatMembersCount', botToken)
++    And given url chatMembersCountUrl
+-    Given url '/bot{token}/getChatMembersCount' // Replace #bot-details with the actual token value for testing purposes
+     * when method get
++      * switch response status match {
+2         case 401: // Expected unauthorized access due to missing or invalid bot token
+           then message 'Unauthorized - Bot does not have permission'
+3         case <other relevant HTTP status codes>:
+           fail "Broken authentication/authorization vulnerability detected"
++      * switch response header Authorization match {
+4             case bearer: // Expecting Bearer token to be present, but it should only exist for authenticated bots
+               then message 'Unauthorized - Incorrect or missing authorization'
+5         default:
+           fail "Broken authentication/authorization vulnerability detected"
++      * match response body contains '<expected error messages related to broken auth/auth>' // Replace with actual expected responses for testing purposes
+     }
+```
+2025-02-01 15:38:21,716 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 15:38:21,716 - karate_compatibility_verifier - INFO - ```diff
++++ file:/path/to/karate-test-scripts/broken_auth_botmembercount.feature
+@@ -1,6 +1,8 @@ features:
+   scenario: Checking broken authentication and authorization on /bot{token}/getChatMembersCount endpoint
+     * def botToken = 'yourActualBotTokenHere' // Set your bot token here before running tests
++    And given url chatMembersCountUrl
+-    Given url '/bot{token}/getChatMembersCount' // Replace #bot-details with the actual token value for testing purposes
+     * when method get
+      * switch response status match {
+2         case 401: // Expected unauthorized access due to missing or invalid bot token
+           then message 'Unauthorized - Bot does not have permission'
++        * switch response header Authorization match {
+3            case bearer: // Expecting Bearer token to be present, but it should only exist for authenticated bots
+               then message 'Unauthorized - Incorrect or missing authorization'
+4         default:
+           fail "Broken authentication/authorization vulnerability detected"
++      * match response body contains '<expected error messages related to broken auth/auth>' // Replace with actual expected responses for testing purposes
+     }
+```
+2025-02-01 15:38:21,717 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_bottoken_getChatMembersCount_GET_verified.feature
+2025-02-01 15:38:21,717 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_bottoken_getChatMembersCount_GET.feature: ```diff
++++ file:/path/to/karate-test-scripts/broken_auth_botmembercount.feature
+@@ -1,6 +1,8 @@ features:
+   scenario: Checking broken authentication and authorization on /bot{token}/getChatMembersCount endpoint
+     * def botToken = 'yourActualBotTokenHere' // Set your bot token here before running tests
++    And given url chatMembersCountUrl
+-    Given url '/bot{token}/getChatMembersCount' // Replace #bot-details with the actual token value for testing purposes
+     * when method get
+      * switch response status match {
+2         case 401: // Expected unauthorized access due to missing or invalid bot token
+           then message 'Unauthorized - Bot does not have permission'
++        * switch response header Authorization match {
+3            case bearer: // Expecting Bearer token to be present, but it should only exist for authenticated bots
+               then message 'Unauthorized - Incorrect or missing authorization'
+4         default:
+           fail "Broken authentication/authorization vulnerability detected"
++      * match response body contains '<expected error messages related to broken auth/auth>' // Replace with actual expected responses for testing purposes
+     }
+```
+2025-02-01 15:38:21,717 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-01 15:38:21,721 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-01 15:38:24,838 - __main__ - INFO - Skipping karate test run.

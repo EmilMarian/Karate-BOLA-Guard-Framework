@@ -1,0 +1,280 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "configuration",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    }
+  ],
+  "path": "/v1/payment_method_configurations/{configuration}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "PaymentMethodConfigurations control which payment methods are displayed to your customers when you don't explicitly specify payment method types. You can have multiple configurations with different sets of payment methods for different scenarios.\n\nThere are two types of PaymentMethodConfigurations. Which is used depends on the [charge type](https://stripe.com/docs/connect/charges):\n\n**Direct** configurations apply to payments created on your account, including Connect destination charges, Connect separate charges and transfers, and payments not involving Connect.\n\n**Child** configurations apply to payments created on your connected accounts using direct charges, and charges with the on_behalf_of parameter.\n\nChild configurations have a `parent` that sets default values and controls which settings connected accounts may override. You can specify a parent ID at payment time, and Stripe will automatically resolve the connected account\u2019s associated child configuration. Parent configurations are [managed in the dashboard](https://dashboard.stripe.com/settings/payment_methods/connected_accounts) and are not available in this API.\n\nRelated guides:\n- [Payment Method Configurations API](https://stripe.com/docs/connect/payment-method-configurations)\n- [Multiple configurations on dynamic payment methods](https://stripe.com/docs/payments/multiple-payment-method-configs)\n- [Multiple configurations for your Connect accounts](https://stripe.com/docs/connect/multiple-payment-method-configurations)",
+            "properties": {
+              "acss_debit": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "active": {
+                "description": "Whether the configuration can be used for new payments.",
+                "type": "boolean"
+              },
+              "affirm": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "afterpay_clearpay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "alipay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "alma": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "amazon_pay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "apple_pay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "application": {
+                "description": "For child configs, the Connect application associated with the configuration.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "au_becs_debit": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "bacs_debit": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "bancontact": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "blik": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "boleto": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "card": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "cartes_bancaires": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "cashapp": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "customer_balance": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "eps": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "fpx": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "giropay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "google_pay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "grabpay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "ideal": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "is_default": {
+                "description": "The default configuration is used whenever a payment method configuration is not specified.",
+                "type": "boolean"
+              },
+              "jcb": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "klarna": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "konbini": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "link": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "mobilepay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "multibanco": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "name": {
+                "description": "The configuration's name.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "payment_method_configuration"
+                ],
+                "type": "string"
+              },
+              "oxxo": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "p24": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "parent": {
+                "description": "For child configs, the configuration's parent configuration.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "pay_by_bank": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "paynow": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "paypal": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "promptpay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "revolut_pay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "sepa_debit": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "sofort": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "swish": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "twint": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "us_bank_account": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "wechat_pay": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              },
+              "zip": {
+                "$ref": "#/components/schemas/payment_method_config_resource_payment_method_properties"
+              }
+            },
+            "required": [
+              "active",
+              "id",
+              "is_default",
+              "livemode",
+              "name",
+              "object"
+            ],
+            "title": "PaymentMethodConfigResourcePaymentMethodConfiguration",
+            "type": "object",
+            "x-expandableFields": [
+              "acss_debit",
+              "affirm",
+              "afterpay_clearpay",
+              "alipay",
+              "alma",
+              "amazon_pay",
+              "apple_pay",
+              "au_becs_debit",
+              "bacs_debit",
+              "bancontact",
+              "blik",
+              "boleto",
+              "card",
+              "cartes_bancaires",
+              "cashapp",
+              "customer_balance",
+              "eps",
+              "fpx",
+              "giropay",
+              "google_pay",
+              "grabpay",
+              "ideal",
+              "jcb",
+              "klarna",
+              "konbini",
+              "link",
+              "mobilepay",
+              "multibanco",
+              "oxxo",
+              "p24",
+              "pay_by_bank",
+              "paynow",
+              "paypal",
+              "promptpay",
+              "revolut_pay",
+              "sepa_debit",
+              "sofort",
+              "swish",
+              "twint",
+              "us_bank_account",
+              "wechat_pay",
+              "zip"
+            ],
+            "x-resourceId": "payment_method_configuration"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

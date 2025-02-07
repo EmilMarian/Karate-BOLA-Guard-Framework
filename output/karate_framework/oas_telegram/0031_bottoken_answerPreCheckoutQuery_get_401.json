@@ -1,0 +1,51 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "in": "query",
+      "name": "pre_checkout_query_id",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "in": "query",
+      "name": "ok",
+      "required": true,
+      "type": "boolean"
+    },
+    {
+      "in": "query",
+      "name": "error_message",
+      "required": false,
+      "type": "string"
+    }
+  ],
+  "path": "/bot{token}/answerPreCheckoutQuery",
+  "requestBody": {},
+  "responses": {
+    "401": {
+      "description": "Unauthorized",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

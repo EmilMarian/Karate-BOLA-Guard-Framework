@@ -1,0 +1,72 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "cache_time": {
+            "type": "integer"
+          },
+          "inline_query_id": {
+            "type": "string"
+          },
+          "is_personal": {
+            "type": "boolean"
+          },
+          "next_offset": {
+            "type": "string"
+          },
+          "results": {
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "switch_pm_parameter": {
+            "type": "string"
+          },
+          "switch_pm_text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "inline_query_id",
+          "results"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/answerInlineQuery",
+  "requestBody": {},
+  "responses": {
+    "401": {
+      "description": "Unauthorized",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

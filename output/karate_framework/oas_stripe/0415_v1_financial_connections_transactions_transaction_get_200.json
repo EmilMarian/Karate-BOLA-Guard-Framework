@@ -1,0 +1,140 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "transaction",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/financial_connections/transactions/{transaction}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Transaction represents a real transaction that affects a Financial Connections Account balance.",
+            "properties": {
+              "account": {
+                "description": "The ID of the Financial Connections Account this transaction belongs to.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "amount": {
+                "description": "The amount of this transaction, in cents (or local equivalent).",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "description": {
+                "description": "The description of this transaction.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "financial_connections.transaction"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "The status of the transaction.",
+                "enum": [
+                  "pending",
+                  "posted",
+                  "void"
+                ],
+                "type": "string"
+              },
+              "status_transitions": {
+                "$ref": "#/components/schemas/bank_connections_resource_transaction_resource_status_transitions"
+              },
+              "transacted_at": {
+                "description": "Time at which the transaction was transacted. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "transaction_refresh": {
+                "description": "The token of the transaction refresh that last updated or created this transaction.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "updated": {
+                "description": "Time at which the object was last updated. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "account",
+              "amount",
+              "currency",
+              "description",
+              "id",
+              "livemode",
+              "object",
+              "status",
+              "status_transitions",
+              "transacted_at",
+              "transaction_refresh",
+              "updated"
+            ],
+            "title": "BankConnectionsResourceTransaction",
+            "type": "object",
+            "x-expandableFields": [
+              "status_transitions"
+            ],
+            "x-resourceId": "financial_connections.transaction"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "confirmation_token",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    }
+  ],
+  "path": "/v1/confirmation_tokens/{confirmation_token}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "ConfirmationTokens help transport client side data collected by Stripe JS over\nto your server for confirming a PaymentIntent or SetupIntent. If the confirmation\nis successful, values present on the ConfirmationToken are written onto the Intent.\n\nTo learn more about how to use ConfirmationToken, visit the related guides:\n- [Finalize payments on the server](https://stripe.com/docs/payments/finalize-payments-on-the-server)\n- [Build two-step confirmation](https://stripe.com/docs/payments/build-a-two-step-confirmation).",
+            "properties": {
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "expires_at": {
+                "description": "Time at which this ConfirmationToken expires and can no longer be used to confirm a PaymentIntent or SetupIntent.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "mandate_data": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/confirmation_tokens_resource_mandate_data"
+                  }
+                ],
+                "description": "Data used for generating a Mandate.",
+                "nullable": true
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "confirmation_token"
+                ],
+                "type": "string"
+              },
+              "payment_intent": {
+                "description": "ID of the PaymentIntent that this ConfirmationToken was used to confirm, or null if this ConfirmationToken has not yet been used.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "payment_method_options": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/confirmation_tokens_resource_payment_method_options"
+                  }
+                ],
+                "description": "Payment-method-specific configuration for this ConfirmationToken.",
+                "nullable": true
+              },
+              "payment_method_preview": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/confirmation_tokens_resource_payment_method_preview"
+                  }
+                ],
+                "description": "Payment details collected by the Payment Element, used to create a PaymentMethod when a PaymentIntent or SetupIntent is confirmed with this ConfirmationToken.",
+                "nullable": true
+              },
+              "return_url": {
+                "description": "Return URL used to confirm the Intent.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "setup_future_usage": {
+                "description": "Indicates that you intend to make future payments with this ConfirmationToken's payment method.\n\nThe presence of this property will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.",
+                "enum": [
+                  "off_session",
+                  "on_session"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "setup_intent": {
+                "description": "ID of the SetupIntent that this ConfirmationToken was used to confirm, or null if this ConfirmationToken has not yet been used.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "shipping": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/confirmation_tokens_resource_shipping"
+                  }
+                ],
+                "description": "Shipping information collected on this ConfirmationToken.",
+                "nullable": true
+              },
+              "use_stripe_sdk": {
+                "description": "Indicates whether the Stripe SDK is used to handle confirmation flow. Defaults to `true` on ConfirmationToken.",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "created",
+              "id",
+              "livemode",
+              "object",
+              "use_stripe_sdk"
+            ],
+            "title": "ConfirmationTokensResourceConfirmationToken",
+            "type": "object",
+            "x-expandableFields": [
+              "mandate_data",
+              "payment_method_options",
+              "payment_method_preview",
+              "shipping"
+            ],
+            "x-resourceId": "confirmation_token"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "format": "binary",
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/bot{token}/sendMessage#bytes",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "description": "",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/definitions/Message"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

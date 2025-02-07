@@ -1,0 +1,284 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "The ID of a project",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "pattern": "^(\\d+|[^/]+(%2[fF])[^/]+)$",
+        "type": "string"
+      }
+    },
+    {
+      "description": "The source branch",
+      "in": "query",
+      "name": "source_branch",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The target branch",
+      "in": "query",
+      "name": "target_branch",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Assignee user ID",
+      "in": "query",
+      "name": "assignee_id",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Title of MR",
+      "in": "query",
+      "name": "title",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Description of MR",
+      "in": "query",
+      "name": "description",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The target project (numeric id)",
+      "in": "query",
+      "name": "target_project_id",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Labels for MR as a comma-separated list",
+      "explode": false,
+      "in": "query",
+      "name": "labels",
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Milestone ID",
+      "in": "query",
+      "name": "milestone_id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/projects/{id}/merge_requests",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "example": {
+            "assignee": {
+              "created_at": "2012-04-29T08:46:00Z",
+              "email": "admin@example.com",
+              "id": 1,
+              "name": "Administrator",
+              "state": "active",
+              "username": "admin"
+            },
+            "author": {
+              "created_at": "2012-04-29T08:46:00Z",
+              "email": "admin@example.com",
+              "id": 1,
+              "name": "Administrator",
+              "state": "active",
+              "username": "admin"
+            },
+            "description": "fixed login page css paddings",
+            "downvotes": 0,
+            "id": 1,
+            "labels": [],
+            "merge_status": "can_be_merged",
+            "merge_when_build_succeeds": true,
+            "milestone": {
+              "created_at": "2015-02-02T19:49:26.013Z",
+              "description": "Assumenda aut placeat expedita exercitationem labore sunt enim earum.",
+              "due_date": null,
+              "id": 5,
+              "iid": 1,
+              "project_id": 4,
+              "state": "closed",
+              "title": "v2.0",
+              "updated_at": "2015-02-02T19:49:26.013Z"
+            },
+            "project_id": 3,
+            "source_branch": "test1",
+            "source_project_id": 4,
+            "state": "opened",
+            "subscribed": true,
+            "target_branch": "master",
+            "target_project_id": 4,
+            "title": "test1",
+            "upvotes": 0,
+            "user_notes_count": 0,
+            "work_in_progress": false
+          },
+          "schema": {
+            "properties": {
+              "assignee": {
+                "properties": {
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "author": {
+                "properties": {
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "description": {
+                "type": "string"
+              },
+              "downvotes": {
+                "type": "integer"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "iid": {
+                "type": "integer"
+              },
+              "labels": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "merge_status": {
+                "type": "string"
+              },
+              "merge_when_build_succeeds": {
+                "type": "boolean"
+              },
+              "milestone": {
+                "properties": {
+                  "created_at": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "due_date": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "iid": {
+                    "type": "integer"
+                  },
+                  "project_id": {
+                    "type": "integer"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "updated_at": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "project_id": {
+                "type": "integer"
+              },
+              "source_branch": {
+                "type": "string"
+              },
+              "source_project_id": {
+                "type": "integer"
+              },
+              "state": {
+                "type": "string"
+              },
+              "subscribed": {
+                "type": "boolean"
+              },
+              "target_branch": {
+                "type": "string"
+              },
+              "target_project_id": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "upvotes": {
+                "type": "integer"
+              },
+              "user_notes_count": {
+                "type": "integer"
+              },
+              "work_in_progress": {
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

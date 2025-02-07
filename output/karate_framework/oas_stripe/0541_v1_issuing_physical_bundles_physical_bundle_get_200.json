@@ -1,0 +1,114 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "physical_bundle",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/issuing/physical_bundles/{physical_bundle}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Physical Bundle represents the bundle of physical items - card stock, carrier letter, and envelope - that is shipped to a cardholder when you create a physical card.",
+            "properties": {
+              "features": {
+                "$ref": "#/components/schemas/issuing_physical_bundle_features"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "name": {
+                "description": "Friendly display name.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "issuing.physical_bundle"
+                ],
+                "type": "string"
+              },
+              "status": {
+                "description": "Whether this physical bundle can be used to create cards.",
+                "enum": [
+                  "active",
+                  "inactive",
+                  "review"
+                ],
+                "type": "string"
+              },
+              "type": {
+                "description": "Whether this physical bundle is a standard Stripe offering or custom-made for you.",
+                "enum": [
+                  "custom",
+                  "standard"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "features",
+              "id",
+              "livemode",
+              "name",
+              "object",
+              "status",
+              "type"
+            ],
+            "title": "IssuingPhysicalBundle",
+            "type": "object",
+            "x-expandableFields": [
+              "features"
+            ],
+            "x-resourceId": "issuing.physical_bundle"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

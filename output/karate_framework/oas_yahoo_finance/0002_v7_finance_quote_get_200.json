@@ -1,0 +1,96 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "query",
+      "name": "formatted",
+      "schema": {
+        "default": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "in": "query",
+      "name": "region",
+      "schema": {
+        "enum": [
+          "US"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "lang",
+      "schema": {
+        "enum": [
+          "en-US"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "includePrePost",
+      "schema": {
+        "default": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "in": "query",
+      "name": "fields",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "corsDomain",
+      "schema": {
+        "enum": [
+          "finance.yahoo.com"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "symbols",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/v7/finance/quote",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "quoteResponse": {
+                "properties": {
+                  "error": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "result": {
+                    "items": {
+                      "$ref": "#/components/schemas/QuoteResult"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

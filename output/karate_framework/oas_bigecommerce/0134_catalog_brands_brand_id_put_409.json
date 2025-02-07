@@ -1,0 +1,84 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "The ID of the `Brand` requested.\n",
+      "in": "path",
+      "name": "brand_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    }
+  ],
+  "path": "/catalog/brands/{brand_id}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "id": {
+              "description": "The unique numeric ID of the brand; increments sequentially.\n",
+              "type": "integer"
+            },
+            "image_url": {
+              "description": "Image URL used for this category on the storefront. Images can be uploaded via form file post to `/brands/{brandId}/image`, or by providing a publicly accessible URL in this field.\n",
+              "type": "string"
+            },
+            "meta_description": {
+              "description": "A meta description to include.\n",
+              "type": "string"
+            },
+            "meta_keywords": {
+              "description": "Comma-separated list of meta keywords to include in the HTML.\n",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "name": {
+              "description": "The name of the brand. Must be unique.\n",
+              "type": "string"
+            },
+            "page_title": {
+              "description": "The title shown in the browser while viewing the brand.\n",
+              "type": "string"
+            },
+            "search_keywords": {
+              "description": "A comma-separated list of keywords that can be used to locate this brand.\n",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "Returns a `Brand` from the BigCommerce Catalog.\n",
+    "required": true
+  },
+  "responses": {
+    "409": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseError"
+              },
+              {
+                "properties": {
+                  "errors": {
+                    "$ref": "#/components/schemas/DetailedErrors"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          }
+        }
+      },
+      "description": "The `Brand` was in conflict with another product. This is the result of duplicate unique values, such as `name`.\n"
+    }
+  }
+}

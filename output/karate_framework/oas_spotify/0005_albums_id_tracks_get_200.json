@@ -1,0 +1,186 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid user access token or your client credentials.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The Spotify ID of the album.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "An [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or the string from_token. Provide this parameter if you want to apply [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/).",
+      "in": "query",
+      "name": "market",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of tracks to return. Default: 20. Minimum: 1. Maximum: 50.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The index of the first track to return. Default: 0 (the first object). Use with limit to get the next set of tracks.",
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/albums/{id}/tracks",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "externalDocs": {
+              "description": "Find more info on the official Spotify Web API Reference",
+              "url": "https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject"
+            },
+            "properties": {
+              "href": {
+                "description": "A link to the Web API endpoint returning the full result of the request",
+                "type": "string"
+              },
+              "items": {
+                "description": "The requested data.",
+                "items": {
+                  "externalDocs": {
+                    "description": "Find more info on the official Spotify Web API Reference",
+                    "url": "https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject"
+                  },
+                  "properties": {
+                    "artists": {
+                      "description": "The artists who performed the track. Each artist object includes a link in `href` to more detailed information about the artist.",
+                      "items": {
+                        "$ref": "#/components/schemas/SimplifiedArtistObject"
+                      },
+                      "type": "array"
+                    },
+                    "available_markets": {
+                      "description": "A list of the countries in which the track can be played, identified by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.",
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "disc_number": {
+                      "description": "The disc number (usually `1` unless the album consists of more than one disc).",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "duration_ms": {
+                      "description": "The track length in milliseconds.",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "explicit": {
+                      "description": "Whether or not the track has explicit lyrics ( `true` = yes it does; `false` = no it does not OR unknown).",
+                      "type": "boolean"
+                    },
+                    "external_urls": {
+                      "$ref": "#/components/schemas/ExternalUrlObject"
+                    },
+                    "href": {
+                      "description": "A link to the Web API endpoint providing full details of the track.",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.",
+                      "type": "string"
+                    },
+                    "is_local": {
+                      "description": "Whether or not the track is from a local file.",
+                      "type": "boolean"
+                    },
+                    "is_playable": {
+                      "description": "Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/) is applied. If `true` , the track is playable in the given market. Otherwise `false`.",
+                      "type": "boolean"
+                    },
+                    "linked_from": {
+                      "$ref": "#/components/schemas/LinkedTrackObject"
+                    },
+                    "name": {
+                      "description": "The name of the track.",
+                      "type": "string"
+                    },
+                    "preview_url": {
+                      "description": "A URL to a 30 second preview (MP3 format) of the track.",
+                      "type": "string"
+                    },
+                    "restrictions": {
+                      "$ref": "#/components/schemas/TrackRestrictionObject"
+                    },
+                    "track_number": {
+                      "description": "The number of the track. If an album has several discs, the track number is the number on the specified disc.",
+                      "format": "int32",
+                      "type": "integer"
+                    },
+                    "type": {
+                      "description": "The object type: \"track\".",
+                      "type": "string"
+                    },
+                    "uri": {
+                      "description": "The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "limit": {
+                "description": "The maximum number of items in the response (as set in the query or by default).",
+                "format": "int32",
+                "type": "integer"
+              },
+              "next": {
+                "description": "URL to the next page of items. ( `null` if none)",
+                "type": "string"
+              },
+              "offset": {
+                "description": "The offset of the items returned (as set in the query or by default)",
+                "format": "int32",
+                "type": "integer"
+              },
+              "previous": {
+                "description": "URL to the previous page of items. ( `null` if none)",
+                "type": "string"
+              },
+              "total": {
+                "description": "The total number of items available to return.",
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the HTTP status code in the response header is 200 OK and the response body contains an album object in JSON format. On error, the header status code is an error code and the response body contains an error object."
+    }
+  }
+}

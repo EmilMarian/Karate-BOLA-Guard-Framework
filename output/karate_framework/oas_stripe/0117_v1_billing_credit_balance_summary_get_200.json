@@ -1,0 +1,158 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The customer for which to fetch credit balance summary.",
+      "in": "query",
+      "name": "customer",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "The filter criteria for the credit balance summary.",
+      "explode": true,
+      "in": "query",
+      "name": "filter",
+      "required": true,
+      "schema": {
+        "properties": {
+          "applicability_scope": {
+            "properties": {
+              "price_type": {
+                "enum": [
+                  "metered"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "price_type"
+            ],
+            "title": "scope_param",
+            "type": "object"
+          },
+          "credit_grant": {
+            "maxLength": 5000,
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "applicability_scope",
+              "credit_grant"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "balance_summary_filter_param",
+        "type": "object"
+      },
+      "style": "deepObject"
+    }
+  ],
+  "path": "/v1/billing/credit_balance_summary",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Indicates the billing credit balance for billing credits granted to a customer.",
+            "properties": {
+              "balances": {
+                "description": "The billing credit balances. One entry per credit grant currency. If a customer only has credit grants in a single currency, then this will have a single balance entry.",
+                "items": {
+                  "$ref": "#/components/schemas/credit_balance"
+                },
+                "type": "array"
+              },
+              "customer": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/customer"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_customer"
+                  }
+                ],
+                "description": "The customer the balance is for.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/customer"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_customer"
+                    }
+                  ]
+                }
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "billing.credit_balance_summary"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "balances",
+              "customer",
+              "livemode",
+              "object"
+            ],
+            "title": "CreditBalanceSummary",
+            "type": "object",
+            "x-expandableFields": [
+              "balances",
+              "customer"
+            ],
+            "x-resourceId": "billing.credit_balance_summary"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

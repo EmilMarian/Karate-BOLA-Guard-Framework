@@ -1,0 +1,73 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the image is being attached.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/images",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ProductImageBase"
+            },
+            {
+              "properties": {
+                "image_file": {
+                  "description": "Must be sent as a multipart/form-data field in the request body.\n",
+                  "type": "string"
+                },
+                "image_url": {
+                  "description": "Must be a fully qualified URL path, including protocol.\n",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "description": "The model for a POST to create an image on a product.\n"
+        }
+      }
+    },
+    "description": "A BigCommerce `ProductImage` object.\n",
+    "required": true
+  },
+  "responses": {
+    "404": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error payload for the BigCommerce API.\n",
+            "properties": {
+              "instance": {
+                "type": "string"
+              },
+              "status": {
+                "description": "404 HTTP status code.\n",
+                "type": "integer"
+              },
+              "title": {
+                "description": "The error title describing the particular error.",
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "The product ID does not exist.\n"
+    }
+  }
+}

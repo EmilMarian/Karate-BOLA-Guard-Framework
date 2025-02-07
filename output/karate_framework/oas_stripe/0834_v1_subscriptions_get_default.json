@@ -1,0 +1,275 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Filter subscriptions by their automatic tax settings.",
+      "explode": true,
+      "in": "query",
+      "name": "automatic_tax",
+      "required": false,
+      "schema": {
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "enabled"
+        ],
+        "title": "automatic_tax_filter_params",
+        "type": "object"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "The collection method of the subscriptions to retrieve. Either `charge_automatically` or `send_invoice`.",
+      "in": "query",
+      "name": "collection_method",
+      "required": false,
+      "schema": {
+        "enum": [
+          "charge_automatically",
+          "send_invoice"
+        ],
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Only return subscriptions that were created during the given date interval.",
+      "explode": true,
+      "in": "query",
+      "name": "created",
+      "required": false,
+      "schema": {
+        "anyOf": [
+          {
+            "properties": {
+              "gt": {
+                "type": "integer"
+              },
+              "gte": {
+                "type": "integer"
+              },
+              "lt": {
+                "type": "integer"
+              },
+              "lte": {
+                "type": "integer"
+              }
+            },
+            "title": "range_query_specs",
+            "type": "object"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "Only return subscriptions whose current_period_end falls within the given date interval.",
+      "explode": true,
+      "in": "query",
+      "name": "current_period_end",
+      "required": false,
+      "schema": {
+        "anyOf": [
+          {
+            "properties": {
+              "gt": {
+                "type": "integer"
+              },
+              "gte": {
+                "type": "integer"
+              },
+              "lt": {
+                "type": "integer"
+              },
+              "lte": {
+                "type": "integer"
+              }
+            },
+            "title": "range_query_specs",
+            "type": "object"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "Only return subscriptions whose current_period_start falls within the given date interval.",
+      "explode": true,
+      "in": "query",
+      "name": "current_period_start",
+      "required": false,
+      "schema": {
+        "anyOf": [
+          {
+            "properties": {
+              "gt": {
+                "type": "integer"
+              },
+              "gte": {
+                "type": "integer"
+              },
+              "lt": {
+                "type": "integer"
+              },
+              "lte": {
+                "type": "integer"
+              }
+            },
+            "title": "range_query_specs",
+            "type": "object"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "The ID of the customer whose subscriptions will be retrieved.",
+      "in": "query",
+      "name": "customer",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+      "in": "query",
+      "name": "ending_before",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Filter for subscriptions that contain this recurring price ID.",
+      "in": "query",
+      "name": "price",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+      "in": "query",
+      "name": "starting_after",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "The status of the subscriptions to retrieve. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Pass `ended` to find subscriptions that are canceled and subscriptions that are expired due to [incomplete payment](https://stripe.com/docs/billing/subscriptions/overview#subscription-statuses). Passing in a value of `all` will return subscriptions of all statuses. If no value is supplied, all subscriptions that have not been canceled are returned.",
+      "in": "query",
+      "name": "status",
+      "required": false,
+      "schema": {
+        "enum": [
+          "active",
+          "all",
+          "canceled",
+          "ended",
+          "incomplete",
+          "incomplete_expired",
+          "past_due",
+          "paused",
+          "trialing",
+          "unpaid"
+        ],
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Filter for subscriptions that are associated with the specified test clock. The response will not include subscriptions with test clocks if this and the customer parameter is not set.",
+      "in": "query",
+      "name": "test_clock",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/subscriptions",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

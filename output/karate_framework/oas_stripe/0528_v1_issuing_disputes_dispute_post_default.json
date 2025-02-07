@@ -1,0 +1,750 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "dispute",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/issuing/disputes/{dispute}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "evidence": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "description": "The dispute amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).",
+              "type": "integer"
+            },
+            "evidence": {
+              "description": "Evidence provided for the dispute.",
+              "properties": {
+                "canceled": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "additional_documentation": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "canceled_at": {
+                          "anyOf": [
+                            {
+                              "format": "unix-time",
+                              "type": "integer"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "cancellation_policy_provided": {
+                          "anyOf": [
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "cancellation_reason": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "expected_at": {
+                          "anyOf": [
+                            {
+                              "format": "unix-time",
+                              "type": "integer"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "explanation": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "product_description": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "product_type": {
+                          "enum": [
+                            "",
+                            "merchandise",
+                            "service"
+                          ],
+                          "type": "string"
+                        },
+                        "return_status": {
+                          "enum": [
+                            "",
+                            "merchant_rejected",
+                            "successful"
+                          ],
+                          "type": "string"
+                        },
+                        "returned_at": {
+                          "anyOf": [
+                            {
+                              "format": "unix-time",
+                              "type": "integer"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "title": "canceled",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "duplicate": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "additional_documentation": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "card_statement": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "cash_receipt": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "check_image": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "explanation": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "original_transaction": {
+                          "maxLength": 5000,
+                          "type": "string"
+                        }
+                      },
+                      "title": "duplicate",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "fraudulent": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "additional_documentation": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "explanation": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "title": "fraudulent",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "merchandise_not_as_described": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "additional_documentation": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "explanation": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "received_at": {
+                          "anyOf": [
+                            {
+                              "format": "unix-time",
+                              "type": "integer"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "return_description": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "return_status": {
+                          "enum": [
+                            "",
+                            "merchant_rejected",
+                            "successful"
+                          ],
+                          "type": "string"
+                        },
+                        "returned_at": {
+                          "anyOf": [
+                            {
+                              "format": "unix-time",
+                              "type": "integer"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "title": "merchandise_not_as_described",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "no_valid_authorization": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "additional_documentation": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "explanation": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "title": "no_valid_authorization",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "not_received": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "additional_documentation": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "expected_at": {
+                          "anyOf": [
+                            {
+                              "format": "unix-time",
+                              "type": "integer"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "explanation": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "product_description": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "product_type": {
+                          "enum": [
+                            "",
+                            "merchandise",
+                            "service"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "title": "not_received",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "other": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "additional_documentation": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "explanation": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "product_description": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "product_type": {
+                          "enum": [
+                            "",
+                            "merchandise",
+                            "service"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "title": "other",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "reason": {
+                  "enum": [
+                    "canceled",
+                    "duplicate",
+                    "fraudulent",
+                    "merchandise_not_as_described",
+                    "no_valid_authorization",
+                    "not_received",
+                    "other",
+                    "service_not_as_described"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                },
+                "service_not_as_described": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "additional_documentation": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "canceled_at": {
+                          "anyOf": [
+                            {
+                              "format": "unix-time",
+                              "type": "integer"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "cancellation_reason": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "explanation": {
+                          "anyOf": [
+                            {
+                              "maxLength": 2500,
+                              "type": "string"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "received_at": {
+                          "anyOf": [
+                            {
+                              "format": "unix-time",
+                              "type": "integer"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "title": "service_not_as_described",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "title": "evidence_param",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`."
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

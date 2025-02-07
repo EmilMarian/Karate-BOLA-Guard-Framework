@@ -1,0 +1,213 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "topup",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/topups/{topup}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "description": "An arbitrary string attached to the object. Often useful for displaying to users.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`."
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "To top up your Stripe balance, you create a top-up object. You can retrieve\nindividual top-ups, as well as list all top-ups. Top-ups are identified by a\nunique, random ID.\n\nRelated guide: [Topping up your platform account](https://stripe.com/docs/connect/top-ups)",
+            "properties": {
+              "amount": {
+                "description": "Amount transferred.",
+                "type": "integer"
+              },
+              "balance_transaction": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/balance_transaction"
+                  }
+                ],
+                "description": "ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/balance_transaction"
+                    }
+                  ]
+                }
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "description": {
+                "description": "An arbitrary string attached to the object. Often useful for displaying to users.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "expected_availability_date": {
+                "description": "Date the funds are expected to arrive in your Stripe account for payouts. This factors in delays like weekends or bank holidays. May not be specified depending on status of top-up.",
+                "nullable": true,
+                "type": "integer"
+              },
+              "failure_code": {
+                "description": "Error code explaining reason for top-up failure if available (see [the errors section](https://stripe.com/docs/api#errors) for a list of codes).",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "failure_message": {
+                "description": "Message to user further explaining reason for top-up failure if available.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "topup"
+                ],
+                "type": "string"
+              },
+              "source": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/source"
+                  }
+                ],
+                "description": "The source field is deprecated. It might not always be present in the API response.",
+                "nullable": true
+              },
+              "statement_descriptor": {
+                "description": "Extra information about a top-up. This will appear on your source's bank statement. It must contain at least one letter.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "status": {
+                "description": "The status of the top-up is either `canceled`, `failed`, `pending`, `reversed`, or `succeeded`.",
+                "enum": [
+                  "canceled",
+                  "failed",
+                  "pending",
+                  "reversed",
+                  "succeeded"
+                ],
+                "type": "string"
+              },
+              "transfer_group": {
+                "description": "A string that identifies this top-up as part of a group.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              }
+            },
+            "required": [
+              "amount",
+              "created",
+              "currency",
+              "id",
+              "livemode",
+              "metadata",
+              "object",
+              "status"
+            ],
+            "title": "Topup",
+            "type": "object",
+            "x-expandableFields": [
+              "balance_transaction",
+              "source"
+            ],
+            "x-resourceId": "topup"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

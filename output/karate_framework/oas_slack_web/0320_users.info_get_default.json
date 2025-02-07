@@ -1,0 +1,92 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `users:read`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Set this to `true` to receive the locale for this user. Defaults to `false`",
+      "in": "query",
+      "name": "include_locale",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "User to get info on",
+      "in": "query",
+      "name": "user",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users.info",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "user_not_found",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from users.info method",
+            "properties": {
+              "callstack": {
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "user_not_found",
+                  "user_not_visible",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "users.info error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

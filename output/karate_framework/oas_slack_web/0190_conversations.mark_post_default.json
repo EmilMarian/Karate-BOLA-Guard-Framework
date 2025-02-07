@@ -1,0 +1,103 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `conversations:write`",
+      "in": "header",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/conversations.mark",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel": {
+              "description": "Channel or conversation to set the read cursor for.",
+              "type": "string"
+            },
+            "ts": {
+              "description": "Unique identifier of message you want marked as most recently seen in this conversation.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from conversations.mark method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "method_not_supported_for_channel_type",
+                  "missing_scope",
+                  "channel_not_found",
+                  "invalid_timestamp",
+                  "not_in_channel",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required",
+                  "not_allowed_token_type"
+                ],
+                "type": "string"
+              },
+              "needed": {
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              },
+              "provided": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "conversations.mark error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

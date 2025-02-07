@@ -35,10 +35,10 @@ def view_fragments(collection_name, n=5, q=""):
 # Add a main function to run the script from the terminal
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python chroma_viewer.py <collection_name> [n_results]")
+        print("Usage: python3 chroma_viewer.py oas_medium [n_results]")
         sys.exit(1)
     
     collection_name = sys.argv[1]
     n_results = int(sys.argv[2]) if len(sys.argv) > 2 else 5  # Default to 5 if not provided
-    query = sys.argv[3]
-    view_fragments(collection_name, n_results, query)
+    # query = sys.argv[2]
+    view_fragments(collection_name, n_results, "user")

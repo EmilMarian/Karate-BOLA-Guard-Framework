@@ -1,0 +1,484 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The client secret of the PaymentIntent. We require it if you use a publishable key to retrieve the source.",
+      "in": "query",
+      "name": "client_secret",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "intent",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/payment_intents/{intent}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A PaymentIntent guides you through the process of collecting a payment from your customer.\nWe recommend that you create exactly one PaymentIntent for each order or\ncustomer session in your system. You can reference the PaymentIntent later to\nsee the history of payment attempts for a particular session.\n\nA PaymentIntent transitions through\n[multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)\nthroughout its lifetime as it interfaces with Stripe.js to perform\nauthentication flows and ultimately creates at most one successful charge.\n\nRelated guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)",
+            "properties": {
+              "amount": {
+                "description": "Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge \u00a5100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).",
+                "type": "integer"
+              },
+              "amount_capturable": {
+                "description": "Amount that can be captured from this PaymentIntent.",
+                "type": "integer"
+              },
+              "amount_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_flows_amount_details"
+                  },
+                  {
+                    "$ref": "#/components/schemas/payment_flows_amount_details_client"
+                  }
+                ]
+              },
+              "amount_received": {
+                "description": "Amount that this PaymentIntent collects.",
+                "type": "integer"
+              },
+              "application": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/application"
+                  }
+                ],
+                "description": "ID of the Connect application that created the PaymentIntent.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/application"
+                    }
+                  ]
+                }
+              },
+              "application_fee_amount": {
+                "description": "The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).",
+                "nullable": true,
+                "type": "integer"
+              },
+              "automatic_payment_methods": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_flows_automatic_payment_methods_payment_intent"
+                  }
+                ],
+                "description": "Settings to configure compatible payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods)",
+                "nullable": true
+              },
+              "canceled_at": {
+                "description": "Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "cancellation_reason": {
+                "description": "Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, or `automatic`).",
+                "enum": [
+                  "abandoned",
+                  "automatic",
+                  "duplicate",
+                  "failed_invoice",
+                  "fraudulent",
+                  "requested_by_customer",
+                  "void_invoice"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "capture_method": {
+                "description": "Controls when the funds will be captured from the customer's account.",
+                "enum": [
+                  "automatic",
+                  "automatic_async",
+                  "manual"
+                ],
+                "type": "string"
+              },
+              "client_secret": {
+                "description": "The client secret of this PaymentIntent. Used for client-side retrieval using a publishable key. \n\nThe client secret can be used to complete a payment from your frontend. It should not be stored, logged, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret.\n\nRefer to our docs to [accept a payment](https://stripe.com/docs/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "confirmation_method": {
+                "description": "Describes whether we can confirm this PaymentIntent automatically, or if it requires customer action to confirm the payment.",
+                "enum": [
+                  "automatic",
+                  "manual"
+                ],
+                "type": "string"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "format": "currency",
+                "type": "string"
+              },
+              "customer": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/customer"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_customer"
+                  }
+                ],
+                "description": "ID of the Customer this PaymentIntent belongs to, if one exists.\n\nPayment methods attached to other Customers cannot be used with this PaymentIntent.\n\nIf [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/customer"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_customer"
+                    }
+                  ]
+                }
+              },
+              "description": {
+                "description": "An arbitrary string attached to the object. Often useful for displaying to users.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "invoice": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/invoice"
+                  }
+                ],
+                "description": "ID of the invoice that created this PaymentIntent, if it exists.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/invoice"
+                    }
+                  ]
+                }
+              },
+              "last_payment_error": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/api_errors"
+                  }
+                ],
+                "description": "The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason.",
+                "nullable": true
+              },
+              "latest_charge": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/charge"
+                  }
+                ],
+                "description": "ID of the latest [Charge object](https://stripe.com/docs/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/charge"
+                    }
+                  ]
+                }
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).",
+                "type": "object"
+              },
+              "next_action": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_intent_next_action"
+                  }
+                ],
+                "description": "If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source.",
+                "nullable": true
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "payment_intent"
+                ],
+                "type": "string"
+              },
+              "on_behalf_of": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/account"
+                  }
+                ],
+                "description": "The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/account"
+                    }
+                  ]
+                }
+              },
+              "payment_method": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/payment_method"
+                  }
+                ],
+                "description": "ID of the payment method used in this PaymentIntent.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/payment_method"
+                    }
+                  ]
+                }
+              },
+              "payment_method_configuration_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_method_config_biz_payment_method_configuration_details"
+                  }
+                ],
+                "description": "Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this PaymentIntent.",
+                "nullable": true
+              },
+              "payment_method_options": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_intent_payment_method_options"
+                  }
+                ],
+                "description": "Payment-method-specific configuration for this PaymentIntent.",
+                "nullable": true
+              },
+              "payment_method_types": {
+                "description": "The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.",
+                "items": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "processing": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_intent_processing"
+                  }
+                ],
+                "description": "If present, this property tells you about the processing state of the payment.",
+                "nullable": true
+              },
+              "receipt_email": {
+                "description": "Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "review": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/review"
+                  }
+                ],
+                "description": "ID of the review associated with this PaymentIntent, if any.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/review"
+                    }
+                  ]
+                }
+              },
+              "setup_future_usage": {
+                "description": "Indicates that you intend to make future payments with this PaymentIntent's payment method.\n\nIf you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.\n\nIf the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.\n\nWhen processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).",
+                "enum": [
+                  "off_session",
+                  "on_session"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "shipping": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/shipping"
+                  }
+                ],
+                "description": "Shipping information for this PaymentIntent.",
+                "nullable": true
+              },
+              "statement_descriptor": {
+                "description": "Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).\n\nSetting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "statement_descriptor_suffix": {
+                "description": "Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "status": {
+                "description": "Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses).",
+                "enum": [
+                  "canceled",
+                  "processing",
+                  "requires_action",
+                  "requires_capture",
+                  "requires_confirmation",
+                  "requires_payment_method",
+                  "succeeded"
+                ],
+                "type": "string"
+              },
+              "transfer_data": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/transfer_data"
+                  }
+                ],
+                "description": "The data that automatically creates a Transfer after the payment finalizes. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).",
+                "nullable": true
+              },
+              "transfer_group": {
+                "description": "A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers).",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              }
+            },
+            "required": [
+              "amount",
+              "capture_method",
+              "confirmation_method",
+              "created",
+              "currency",
+              "id",
+              "livemode",
+              "object",
+              "payment_method_types",
+              "status"
+            ],
+            "title": "PaymentIntent",
+            "type": "object",
+            "x-expandableFields": [
+              "amount_details",
+              "application",
+              "automatic_payment_methods",
+              "customer",
+              "invoice",
+              "last_payment_error",
+              "latest_charge",
+              "next_action",
+              "on_behalf_of",
+              "payment_method",
+              "payment_method_configuration_details",
+              "payment_method_options",
+              "processing",
+              "review",
+              "shipping",
+              "transfer_data"
+            ],
+            "x-resourceId": "payment_intent"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

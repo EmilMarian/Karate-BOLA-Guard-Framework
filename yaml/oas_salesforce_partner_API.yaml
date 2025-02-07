@@ -1,0 +1,322 @@
+﻿openapi: 3.0.0
+servers:
+  - description: Salesforce Partner API Swagger Definition
+    url: 'https://wexinc--stagefull.sandbox.my.salesforce.com/services'
+info:
+  description: Partner API - Salesforce Swagger Definition
+  version: 1.0.3
+  title: Salesforce Partner API
+  contact:
+    email: jon.huffaker@wexinc.com
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+paths:
+  /apexrest/PB2P:
+    post:
+      tags:
+        - admins
+      summary: >-
+        Inserts Partner BOCA To Prospect record and sends Prospect BOCA Email
+        with link to complete application and apply
+      operationId: CreatePartnerBOCAToProspect
+      description: >-
+        Inserts a Partner BOCA To Prospect record and sends prospect BOCA Apply
+        Now email
+      responses:
+        '200':
+          description: Record Created
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Partner_BOCA_To_Prospect__c'
+        description: ''
+  '/apexrest/PB2P/{id}':
+    get:
+      tags:
+        - admins
+      summary: Fetch Partner BOCA To Prospect Record by Id
+      operationId: FetchPartnerBOCAToProspect
+      description: Fetch Partner BOCA To Prospect Record by Id
+      parameters:
+        - name: id
+          in: path
+          description: Record Id for fetching specified Partner BOCA to Prospect record
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Valid Partner BOCA to Prospect Output
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Partner_BOCA_To_Prospect__c'
+        '400':
+          description: 'invalid input, object invalid'
+  /data/v52.0/query:
+    get:
+      tags:
+        - admins
+      summary: Query Execution
+      operationId: query
+      description: search results matching criteria
+      parameters:
+        - name: q
+          in: query
+          description: search results matching criteria
+          schema:
+            type: string
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/All'
+        '400':
+          description: bad request
+components:
+  schemas:
+    OnlineApplication__c:
+      type: object
+      readOnly: true
+      properties:
+        Legal_Business_Name__c:
+          type: string
+        Trade_Name__c:
+          type: string
+        Business_Street_Address__c:
+          type: string
+        City__c:
+          type: string
+        State__c:
+          type: string
+          example: TN
+        Zip_Code__c:
+          type: string
+          example: 37211
+        Contact_Name__c:
+          type: string
+        Email__c:
+          type: string
+          example: example@ryder.com
+        MC_FF_or_DOT__c:
+          type: string
+        MC_Number__c:
+          type: string
+        DOT_Number__c:
+          type: integer
+        FF_Number__c:
+          type: string
+        Federal_Tax_ID__c:
+          type: string
+        Carrier_ID_Number__c:
+          type: string
+        Carrier_ID_Added_MM_DD_YYYY__c:
+          type: string
+          example: 06/10/2022
+        Promotional_Code__c:
+          type: string
+        Number_of_Cards_Needed__c:
+          type: integer
+        Number_of_Trucks__c:
+          type: integer
+        Number_of_Drivers__c:
+          type: integer
+        Phone_Number__c:
+          type: string
+        Mobile_Number__c:
+          type: string
+        Application_Stage__c:
+          type: string
+        Status__c:
+          type: string
+        Partner_Data_Field_1__c:
+          type: string
+        Partner_Data_Field_2__c:
+          type: string
+        Partner_Data_Field_3__c:
+          type: string
+        Partner_Data_Field_4__c:
+          type: string
+        Partner_Data_Field_5__c:
+          type: string
+    Program__c:
+      type: object
+      readOnly: true
+      properties:
+        Id:
+          type: string
+        Name:
+          type: string
+        CreatedDate:
+          type: string
+        Preferred_Language_Indicator__c:
+          type: string
+        Partner_Name__c:
+          type: string
+    OnlineApplicationOffer__c:
+      type: object
+      readOnly: true
+      properties:
+        Id:
+          type: string
+        Name:
+          type: string
+          example: null
+        CreatedDate:
+          type: integer
+        Application_Title__c:
+          type: string
+          example: null
+        Offer_Email__c:
+          type: string
+          example: null
+        Offer_Phone_Number__c:
+          type: string
+          example: null
+        Partner_Group_Email_Address__c:
+          type: string
+          example: fuel_innovations@ryder.com
+        Program__c:
+          type: string
+          example: a0Z7g000002OK02EAG
+    Partner_BOCA_To_Prospect__c:
+      type: object
+      required:
+        - Program__c
+        - Online_Application_Offer__c
+        - Company_Name__c
+        - First_Name__c
+        - Last_Name__c
+        - Email__c
+        - Phone__c
+        - Partner_Sales_Code__c
+        - Sales_Rep_First_Name__c
+        - Sales_Rep_Last_Name__c
+        - Sales_Rep_Email__c
+        - Sales_Rep_Phone__c
+      properties:
+        Id:
+          type: string
+        OwnerId:
+          type: string
+        Name:
+          type: string
+        Company_Name__c:
+          type: string
+          example: Test Company
+          maxLength: 30
+        Email__c:
+          type: string
+          example: test@wexinc.com
+        CreatedDate:
+          type: integer
+          example: '2021-09-17T16:47:55.000+0000'
+        First_Name__c:
+          type: string
+          example: Jane
+        Last_Name__c:
+          type: string
+          example: Doe
+        Online_Application_Offer__c:
+          type: string
+          example: a3L7g000000kYBmEAM
+        Partner_Opportunity_ID__c:
+          type: string
+          example: 0067g00000IJDEsAAP
+        Partner_Sales_Code__c:
+          type: string
+          example: 446F2C1A-DC5E-4C7E-9
+          description: Verification Code generated for Partner or Provided by Partner
+        Partner__c:
+          type: string
+          example: a057g000004v685AAA
+        Phone__c:
+          type: string
+          example: 6155555555
+        Program__c:
+          type: string
+          example: a0Z7g000002OK02EAG
+        Sales_Rep_Code__c:
+          type: string
+          example: 4759
+        Sales_Rep_Email__c:
+          type: string
+          example: john@ryder.com
+        Sales_Rep_First_Name__c:
+          type: string
+          example: John
+        Sales_Rep_Last_Name__c:
+          type: string
+          example: Smith
+        Sales_Rep_Phone__c:
+          type: string
+          example: 8655551234
+        Partner_Data_Field_1__c:
+          type: string
+          example: 0068971
+        Partner_Data_Field_2__c:
+          type: string
+          example: UDF 2
+        Partner_Data_Field_3__c:
+          type: string
+          example: NA
+        Partner_Data_Field_4__c:
+          type: string
+          example: 3-6 months
+        Partner_Data_Field_5__c:
+          type: string
+          example: Other
+    Partner__c:
+      type: object
+      readOnly: true
+      properties:
+        Id:
+          type: string
+          example: a057g000004v685AAA
+        Name:
+          type: string
+          example: RYDER FUEL CARD
+        CreatedDate:
+          type: integer
+    SFResult:
+      type: object
+      properties:
+        id:
+          type: string
+        result:
+          type: string
+        message:
+          type: string
+      required:
+        - Id
+    All:
+      type: object
+      properties:
+        totalSize:
+          type: integer
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/Records'
+    Records:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/Attributes'
+    Attributes:
+      type: object
+      properties:
+        type:
+          type: string
+        url:
+          type: string

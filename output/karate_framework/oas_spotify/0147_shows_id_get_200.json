@@ -1,0 +1,171 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the show.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). If a country code is specified, only shows and episodes that are available in that market will be returned.  \nIf a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.  \n*Note: If neither market or user country are provided, the content is considered unavailable for the client.*   \nUsers can view the country that is associated with their account in the [account settings](https://www.spotify.com/se/account/overview/).",
+      "in": "query",
+      "name": "market",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/shows/{id}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "externalDocs": {
+              "description": "Find more info on the official Spotify Web API Reference",
+              "url": "https://developer.spotify.com/documentation/web-api/reference/#object-showobject"
+            },
+            "properties": {
+              "available_markets": {
+                "description": "A list of the countries in which the show can be played, identified by their [ISO 3166-1 alpha-2](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "copyrights": {
+                "description": "The copyright statements of the show.",
+                "items": {
+                  "$ref": "#/components/schemas/CopyrightObject"
+                },
+                "type": "array"
+              },
+              "description": {
+                "description": "A description of the show. HTML tags are stripped away from this field, use `html_description` field in case HTML tags are needed.",
+                "type": "string"
+              },
+              "episodes": {
+                "description": "A list of the show's episodes.",
+                "externalDocs": {
+                  "description": "Find more info on the official Spotify Web API Reference",
+                  "url": "https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject"
+                },
+                "properties": {
+                  "href": {
+                    "description": "A link to the Web API endpoint returning the full result of the request",
+                    "type": "string"
+                  },
+                  "items": {
+                    "description": "The requested data.",
+                    "items": {
+                      "$ref": "#/components/schemas/SimplifiedEpisodeObject"
+                    },
+                    "type": "array"
+                  },
+                  "limit": {
+                    "description": "The maximum number of items in the response (as set in the query or by default).",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "next": {
+                    "description": "URL to the next page of items. ( `null` if none)",
+                    "type": "string"
+                  },
+                  "offset": {
+                    "description": "The offset of the items returned (as set in the query or by default)",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "previous": {
+                    "description": "URL to the previous page of items. ( `null` if none)",
+                    "type": "string"
+                  },
+                  "total": {
+                    "description": "The total number of items available to return.",
+                    "format": "int32",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "explicit": {
+                "description": "Whether or not the show has explicit content (true = yes it does; false = no it does not OR unknown).",
+                "type": "boolean"
+              },
+              "external_urls": {
+                "$ref": "#/components/schemas/ExternalUrlObject"
+              },
+              "href": {
+                "description": "A link to the Web API endpoint providing full details of the show.",
+                "type": "string"
+              },
+              "html_description": {
+                "description": "A description of the show. This field may contain HTML tags.",
+                "type": "string"
+              },
+              "id": {
+                "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the show.",
+                "type": "string"
+              },
+              "images": {
+                "description": "The cover art for the show in various sizes, widest first.",
+                "items": {
+                  "$ref": "#/components/schemas/ImageObject"
+                },
+                "type": "array"
+              },
+              "is_externally_hosted": {
+                "description": "True if all of the show's episodes are hosted outside of Spotify's CDN. This field might be `null` in some cases.",
+                "type": "boolean"
+              },
+              "languages": {
+                "description": "A list of the languages used in the show, identified by their [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.",
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "media_type": {
+                "description": "The media type of the show.",
+                "type": "string"
+              },
+              "name": {
+                "description": "The name of the episode.",
+                "type": "string"
+              },
+              "publisher": {
+                "description": "The publisher of the show.",
+                "type": "string"
+              },
+              "type": {
+                "description": "The object type.",
+                "type": "string"
+              },
+              "uri": {
+                "description": "The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the show.",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the HTTP status code in the response header is `200`\nOK and the response body contains a [show object](https://developer.spotify.com/documentation/web-api/reference/#object-showobject)\nin JSON format.  \n\nOn error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes)\nand the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema).  \n\nIf a show is unavailable in the given `market` the HTTP status code in the response header is `404` NOT FOUND."
+    }
+  }
+}

@@ -1,0 +1,337 @@
+2025-02-01 11:39:01,376 - __main__ - INFO - Skipping fragment creation: False
+2025-02-01 11:39:01,464 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-01 11:39:01,736 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The ID of a user to get information about, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}", "requestBody": {}, "responses": {"404": {"content": {}, "description": "Not Found, user with such ID does not exist."}}}', 'metadata': {'filename': '0023_users_userid_get_404.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The ID of a user, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}/follows", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"data": {"description": "List of user short information entries", "items": {"$ref": "#/components/schemas/UserShortInfo"}, "type": "array"}, "meta": {"$ref": "#/components/schemas/MetaData"}, "pagination": {"$ref": "#/components/schemas/CursorPaginationInfo"}}, "type": "object"}}}, "description": "List of users this user follows."}}}', 'metadata': {'filename': '0025_users_userid_follows_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The ID of a user, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}/followed-by", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"data": {"description": "List of user short information entries", "items": {"$ref": "#/components/schemas/UserShortInfo"}, "type": "array"}, "meta": {"$ref": "#/components/schemas/MetaData"}, "pagination": {"$ref": "#/components/schemas/CursorPaginationInfo"}}, "type": "object"}}}, "description": "List of users this user is followed by."}}}', 'metadata': {'filename': '0024_users_userid_followedby_get_200.json'}}], form collection oas_instagram_fragments
+2025-02-01 11:39:01,737 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 11:39:01,737 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 11:39:02,193 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 11:39:02,193 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 11:42:06,903 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 11:42:06,905 - karate_llm_test_gen - INFO - Generated test case: ```diff
++++ file:///home/user/karate-examples/broken_auth_test.feature
+@@ -1,7 +1,8 @@ features:
+ --...
+2025-02-01 11:42:06,906 - __main__ - INFO - Generated Karate test for /users/{user-id} GET at output/karate_feature_files/ID_001_krtestoas_users_user-id_GET.feature
+2025-02-01 11:42:06,906 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 11:42:06,908 - karate_compatibility_verifier - INFO - ```diff
++++ file:///home/user/karate-examples/broken_auth_test.feature
+@@ -1,7 +1,8 @@ features:
+ ---
+ {
+     "description": "",
+     // Added feature description for clarity in the test case documentation
+     "scenario": "Check Broken Authentication and Authorization on User Retrieval",
+-    "scenarios": [
++    "Scenario Title: Checking broken authentication/authorization vulnerabilities when attempting to retrieve user data.",
+     {
+         "request": {
+             "url": http://oas_instagram.api, // Using the provided API URL for testing purposes
+-            "/users/{userId}",
++            "/user/{userId}" // Corrected path variable usage as per given endpoint information
+             "method": "GET",
+             "headers": {
+                 "Authorization": "" // Intentionally left blank to simulate missing auth headers in test cases.
+             }
+         },
+-        "steps": [
++        "Scenario Steps: ",
+          "+ "* def userId = function() { return karate.random(10) + '-' + karate.number('999')}, // Generating a random user ID for testing purposes
+          "+* Given url 'http://oas_instagram.api/user/{userId}'",
+-        "         * And params {userId: generatedUserId}",
++        "         * And param userId = generateRandomUserId()",
+          "* When method get",
+          "*     Then status 401 or 403 // Expecting an unautmited response due to missing Authorization header.",
+          "* Or when conditionally based on additional test cases, expect different HTTP responses indicating broken auth/authorization."
+      ]
+ }
+}
+```
+2025-02-01 11:45:58,146 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 11:45:58,146 - karate_compatibility_verifier - INFO - ```diff
++++ file:///home/user/karate-examples/broken_auth_test.feature
+@@ -1,7 +1,8 @@ features:
+ ---
+ {
+     "description": "",
+     // Added feature description for clarity in the test case documentation
+     "scenario": "Check Broken Authentication and Authorization on User Retrieval",
++    "Scenario Title: Checking broken authentication/authorization vulnerabilities when attempting to retrieve user data.",
+     {
+         "request": {
+             "url": http://oas_instagram.api, // Using the provided API URL for testing purposes
++            "/user/{userId}",
+-            "/users/{userId}",
+             "method": "GET",
+             "headers": {
+                 "Authorization": "" // Intentionally left blank to simulate missing auth headers in test cases.
+             }
+         },
++        "steps": [
+-        "Scenario Steps: ",
+          "+* Given url 'http://oas_instagram.api/user/{userId}'",
+          "* And param userId = function() { return karate.random(10) + '-' + karate.number('999')}", // Generating a random user ID for testing purposes using the Gherkin syntax feature of def keyword in Karate DSL
++        "         * Given url 'http://oas_instagram.api/user/{userId}'",
+          "* When method get",
+          "+* And request {url: '#{request.url}', headers: {'Authorization': ''}}", // Correcting the syntax for setting HTTP requests in Karate DSL, using Gherkin's 'And' keyword to set up context before executing a step
++        "* Then status 401 or 403 // Expecting an unautmited response due to missing Authorization header.",
+          "* Or when conditionally based on additional test cases, expect different HTTP responses indicating broken auth/authorization."
+      ]
+ }
+}
+```
+2025-02-01 11:47:52,174 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 11:47:52,174 - karate_compatibility_verifier - INFO - ```diff
++++ file:///home/user/karate-examples/broken_auth_test.feature
+@@ -1,7 +1,8 @@ features:
+ ---
+ {
+     "description": "",
+     // Added feature description for clarity in the test case documentation
+     "scenario": "Check Broken Authentication and Authorization on User Retrieval",
++    "Scenario Title: Checking broken authentication/authorization vulnerabilities when attempting to retrieve user data.",
+     {
+         "request": {
+             "+* Given url 'http://oas_instagram.api/user/{userId}'", // Corrected the URL path by adding '/{userId}' for dynamic testing purposes using Karate DSL's def keyword feature.
++            "/user/{userId}",
+             "method": "GET",
+             "+* And request {url: '#{request.url}', headers: {'Authorization': ''}}" // Corrected the syntax to set up HTTP requests in Karate DSL using Gherkin's 'And' keyword feature, ensuring proper context before executing a step.
++        "         * When method get",
+          "* And path '/users/{userId}'", // Added missing path definition for clarity and consistency with the request setup steps.
+          "+* Then status 401 or 403 // Expecting an unautmited response due to missing Authorization header."
+      ]
+ }
+}
+```
+2025-02-01 11:47:52,175 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_user-id_GET_verified.feature
+2025-02-01 11:47:52,175 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_user-id_GET.feature: ```diff
++++ file:///home/user/karate-examples/broken_auth_test.feature
+@@ -1,7 +1,8 @@ features:
+ ---
+ {
+     "description": "",
+     // Added feature description for clarity in the test case documentation
+     "scenario": "Check Broken Authentication and Authorization on User Retrieval",
++    "Scenario Title: Checking broken authentication/authorization vulnerabilities when attempting to retrieve user data.",
+     {
+         "request": {
+             "+* Given url 'http://oas_instagram.api/user/{userId}'", // Corrected the URL path by adding '/{userId}' for dynamic testing purposes using Karate DSL's def keyword feature.
++            "/user/{userId}",
+             "method": "GET",
+             "+* And request {url: '#{request.url}', headers: {'Authorization': ''}}" // Corrected the syntax to set up HTTP requests in Karate DSL using Gherkin's 'And' keyword feature, ensuring proper context before executing a step.
++        "         * When method get",
+          "* And path '/users/{userId}'", // Added missing path definition for clarity and consistency with the request setup steps.
+          "+* Then status 401 or 403 // Expecting an unautmited response due to missing Authorization header."
+      ]
+ }
+}
+```
+2025-02-01 11:47:52,175 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 11:47:52,176 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 11:47:52,208 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 11:47:52,208 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 11:50:02,249 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 11:50:02,250 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Broken Authentication/Authorization Vulnerability Testing",
+  "scenario": "Test the ...
+2025-02-01 11:50:02,251 - __main__ - INFO - Generated Karate test for /users/{user-id}/follows GET at output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET.feature
+2025-02-01 11:50:02,251 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 11:50:02,251 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Vulnerability Testing",
+  "scenario": "Test the /users/{user-id}/follows endpoint for broken authentication and authorization when following another user.",
+  "steps": [
+    "Given url 'http://oas_instagram.api/users/${dynamicUserId}/follows'",
+    "And def generateDynamicUserId = function() { return 'user-' + karate.faker.random.numeric(5) }",
+    "And dynamicUserId should not be empty",
+    "When method get and header Authorization=',"
+  },
+  // Additional steps to simulate following a user with different scenarios (e.g., valid, invalid tokens/credentials)...
+}
+2025-02-01 11:53:16,243 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 11:53:16,243 - karate_compatibility_verifier - INFO - Feature: Broken Authentication/Authorization Vulnerability Testing
+     Background:
+       * url 'http://oas_instagram.api'
+  Scenario: Test the /users/{user-id}/follows endpoint for broken authentication and authorization when following another user.
+    Given url 'http://oas_instagram.api/users/'
+      And def generateDynamicUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+      * dynamicUserId should not be empty
+    When method get and header Authorization=',null'
+    Then status 401 or 403
+    
+    Given path generateDynamicUserId()
+        And request {user_id: '${dynamicUserId}'} with headers {}
+      * def response = karate.get('http://oas_instagram.api/users/' + dynamicUserId + '/follows', {}, null, {'Authorization': ',null'})
+    Then status 401 or 403
+    
+    Given path generateDynamicUserId() and headers {} with request {user_id: '${dynamicUserId}'}
+      * def response = karate.get('http://oas_instagram.api/users/' + dynamicUserId + '/follows', {}, null, {'Authorization': ',null'})
+    Then status 401 or 403 and body should not contain 'user-id: ${dynamicUserId}'
+2025-02-01 11:54:42,243 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 11:54:42,243 - karate_compatibility_verifier - INFO - Feature: Broken Authentication/Authorization Vulnerability Testing
+     Background:
+       * url 'http://oas_instagram.api'
+ Scenario: Test the /users/{userId}/follows endpoint for broken authentication and authorization when following another user.
+    Given url 'http://oas_instagram.api/users/'
+      And def generateDynamicUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+      * dynamicUserId should not be empty
+    When method get and header Authorization=',null'
+    Then status 401 or 4x3
+    
+    Given path generateDynamicUserId()
+        And request {userId: '${dynamicUserId}'} with headers {}
+      * def response = karate.get('http://oas_instagram.api/users/' + dynamicUserId + '/follows', {}, null, {'Authorization': ',null'})
+    Then status 401 or 4x3 and body should not contain 'user-id: ${dynamicUserId}'
+2025-02-01 11:54:42,244 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET_verified.feature
+2025-02-01 11:54:42,244 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET.feature: Feature: Broken Authentication/Authorization Vulnerability Testing
+     Background:
+       * url 'http://oas_instagram.api'
+ Scenario: Test the /users/{userId}/follows endpoint for broken authentication and authorization when following another user.
+    Given url 'http://oas_instagram.api/users/'
+      And def generateDynamicUserId = function() { return 'user-' + karate.faker.random.numeric(5) }
+      * dynamicUserId should not be empty
+    When method get and header Authorization=',null'
+    Then status 401 or 4x3
+    
+    Given path generateDynamicUserId()
+        And request {userId: '${dynamicUserId}'} with headers {}
+      * def response = karate.get('http://oas_instagram.api/users/' + dynamicUserId + '/follows', {}, null, {'Authorization': ',null'})
+    Then status 401 or 4x3 and body should not contain 'user-id: ${dynamicUserId}'
+2025-02-01 11:54:42,245 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 11:54:42,245 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 11:54:42,283 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 11:54:42,283 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 11:57:18,527 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 11:57:18,528 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Broken Authentication/Authorization Checks on Followed-By Endpoint",
+  "scenario": "...
+2025-02-01 11:57:18,528 - __main__ - INFO - Generated Karate test for /users/{user-id}/followed-by GET at output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET.feature
+2025-02-01 11:57:18,529 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 11:57:18,529 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization Checks on Followed-By Endpoint",
+  "scenario": "Ensure that unauthorized users cannot access followed user data due to broken authentication or authorization mechanisms.",
+  "steps": [
+    "Given url http://oas_instagram.api/users/{user-id}/followed-by",
+    
+    // Test with a valid authenticated request (omitted for brevity)
+    
+    {
+      "And def userId = generateUserId()",
+      
+      "When method get",
+      
+      "Then status 401 or 403"
+    },
+    
+    // Test with an unauthorized request (omitted for brevity)
+    
+    {
+      "And def userId = generateUserId()",
+      
+      "When method get",
+      
+      "Then status 500 or 'Internal Server Error'"
+    },
+    
+    // Test with an invalid user ID (omitted for brevity)
+    
+    {
+      "And def userId = generateUserId()",
+      
+      "When method get",
+      
+      "Then status 400 or 'Bad Request: Invalid User ID'"
+    }
+  ]
+}
+2025-02-01 12:00:18,587 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 12:00:18,587 - karate_compatibility_verifier - INFO - Feature: Broken Authentication/Authorization Checks on Followed-By Endpoint
+
+Background:
+* url 'http://oas_instagram.api/users/{userId}/followed-by'
+
+Scenario: Ensure that unauttified users cannot access followed user data due to broken authentication or authorization mechanisms.
+
+  Given def validUserId = generateValidUserId()
+  
+  When method get, headers={Authorization=Bearer invalidToken}, body="invalid_request"
+  Then status is one of (401, 403)
+
+Scenario: Ensure that an unauthorized request returns the correct error.
+
+  Given def userId = generateUserId()
+  
+  When method get, headers={Authorization=Bearer invalidToken}, body="invalid_request"
+  Then status is 'Internal Server Error' or "Bad Request: Invalid User ID"
+
+Scenario: Ensure that an unauthorized request returns the correct error.
+
+  Given def userId = generateUserId()
+  
+  When method get, headers={Authorization=Bearer invalidToken}, body="invalid_request"
+  Then status is '400 Bad Request' or "Bad Request: Invalid User ID"
+2025-02-01 12:01:33,387 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 12:01:33,387 - karate_compatibility_verifier - INFO - Feature: Broken Authentication/Authorization Checks on Followed-By Endpoint
+
+Background:
+* url 'http://oas_instagram.api/users/{userId}/followed-by', variables('userId')
+
+Scenario: Ensure that unauthorized users cannot access followed user data due to broken authentication or authorization mechanisms.
+
+  Given def validUserId = generateValidUserId()
+  
+  When method get, headers={Authorization=Bearer invalidToken}, body=""
+  Then status is one of (401)
+
+Scenario: Ensure that an unauthorized request returns the correct error.
+
+  Given def userId = generateUserId()
+  
+  When method get, headers={Authorization=Bearer invalidToken}, body="invalid_request"
+  Then status is '401 Unauthorized' or "Unauthorized: Invalid User ID/Invalid Token"
+2025-02-01 12:01:33,387 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET_verified.feature
+2025-02-01 12:01:33,388 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET.feature: Feature: Broken Authentication/Authorization Checks on Followed-By Endpoint
+
+Background:
+* url 'http://oas_instagram.api/users/{userId}/followed-by', variables('userId')
+
+Scenario: Ensure that unauthorized users cannot access followed user data due to broken authentication or authorization mechanisms.
+
+  Given def validUserId = generateValidUserId()
+  
+  When method get, headers={Authorization=Bearer invalidToken}, body=""
+  Then status is one of (401)
+
+Scenario: Ensure that an unauthorized request returns the correct error.
+
+  Given def userId = generateUserId()
+  
+  When method get, headers={Authorization=Bearer invalidToken}, body="invalid_request"
+  Then status is '401 Unauthorized' or "Unauthorized: Invalid User ID/Invalid Token"
+2025-02-01 12:01:33,388 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-01 12:01:33,390 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-01 12:01:36,205 - __main__ - INFO - Skipping karate test run.

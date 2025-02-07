@@ -1,0 +1,65 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "type": "integer"
+    },
+    {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "allowed_updates": {
+            "items": {
+              "$ref": "#/definitions/AllowedUpdate"
+            },
+            "type": "array"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "timeout": {
+            "type": "integer"
+          }
+        },
+        "required": null,
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/getUpdates",
+  "requestBody": {},
+  "responses": {
+    "403": {
+      "description": "Forbidden",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,952 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `reactions:read`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Channel where the message to get reactions for was posted.",
+      "in": "query",
+      "name": "channel",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "File to get reactions for.",
+      "in": "query",
+      "name": "file",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "File comment to get reactions for.",
+      "in": "query",
+      "name": "file_comment",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "If true always return the complete reaction list.",
+      "in": "query",
+      "name": "full",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "Timestamp of the message to get reactions for.",
+      "in": "query",
+      "name": "timestamp",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/reactions.get",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "file": {
+                  "channels": [
+                    "C2U7V2YA2"
+                  ],
+                  "comments_count": 1,
+                  "created": 1507850315,
+                  "groups": [],
+                  "id": "F7H0D7ZA4",
+                  "ims": [],
+                  "name": "computer.gif",
+                  "reactions": [
+                    {
+                      "count": 1,
+                      "name": "stuck_out_tongue_winking_eye",
+                      "users": [
+                        "U2U85N1RV"
+                      ]
+                    }
+                  ],
+                  "timestamp": 1507850315,
+                  "title": "computer.gif",
+                  "user": "U2U85N1RV"
+                },
+                "ok": true,
+                "type": "file"
+              }
+            }
+          },
+          "schema": {
+            "description": "Schema for successful response from reactions.get method",
+            "items": {
+              "anyOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "channel": {
+                      "pattern": "^[CGD][A-Z0-9]{8,}$",
+                      "title": "Channel-like conversation ID",
+                      "type": "string"
+                    },
+                    "message": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "attachments": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "fallback": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "integer"
+                              },
+                              "image_bytes": {
+                                "type": "integer"
+                              },
+                              "image_height": {
+                                "type": "integer"
+                              },
+                              "image_url": {
+                                "type": "string"
+                              },
+                              "image_width": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "id"
+                            ],
+                            "type": "object"
+                          },
+                          "minItems": 1,
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "blocks": {
+                          "$ref": "#/components/schemas/blocks"
+                        },
+                        "bot_id": {
+                          "items": {
+                            "anyOf": [
+                              {
+                                "$ref": "#/components/schemas/defs_bot_id"
+                              },
+                              {
+                                "nullable": true,
+                                "title": "Nil bot_id set when display_as_bot is false"
+                              }
+                            ]
+                          }
+                        },
+                        "bot_profile": {
+                          "$ref": "#/components/schemas/objs_bot_profile"
+                        },
+                        "client_msg_id": {
+                          "type": "string"
+                        },
+                        "comment": {
+                          "$ref": "#/components/schemas/objs_comment"
+                        },
+                        "display_as_bot": {
+                          "type": "boolean"
+                        },
+                        "file": {
+                          "$ref": "#/components/schemas/objs_file"
+                        },
+                        "files": {
+                          "items": {
+                            "$ref": "#/components/schemas/objs_file"
+                          },
+                          "minItems": 1,
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "icons": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "emoji": {
+                              "type": "string"
+                            },
+                            "image_64": {
+                              "format": "uri",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "inviter": {
+                          "$ref": "#/components/schemas/defs_user_id"
+                        },
+                        "is_delayed_message": {
+                          "type": "boolean"
+                        },
+                        "is_intro": {
+                          "type": "boolean"
+                        },
+                        "is_starred": {
+                          "type": "boolean"
+                        },
+                        "last_read": {
+                          "$ref": "#/components/schemas/defs_ts"
+                        },
+                        "latest_reply": {
+                          "$ref": "#/components/schemas/defs_ts"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "old_name": {
+                          "type": "string"
+                        },
+                        "parent_user_id": {
+                          "$ref": "#/components/schemas/defs_user_id"
+                        },
+                        "permalink": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "pinned_to": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_channel"
+                          },
+                          "type": "array"
+                        },
+                        "purpose": {
+                          "type": "string"
+                        },
+                        "reactions": {
+                          "items": {
+                            "$ref": "#/components/schemas/objs_reaction"
+                          },
+                          "type": "array"
+                        },
+                        "reply_count": {
+                          "type": "integer"
+                        },
+                        "reply_users": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_user_id"
+                          },
+                          "minItems": 1,
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "reply_users_count": {
+                          "type": "integer"
+                        },
+                        "source_team": {
+                          "$ref": "#/components/schemas/defs_workspace_id"
+                        },
+                        "subscribed": {
+                          "type": "boolean"
+                        },
+                        "subtype": {
+                          "type": "string"
+                        },
+                        "team": {
+                          "$ref": "#/components/schemas/defs_workspace_id"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "thread_ts": {
+                          "$ref": "#/components/schemas/defs_ts"
+                        },
+                        "topic": {
+                          "type": "string"
+                        },
+                        "ts": {
+                          "$ref": "#/components/schemas/defs_ts"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "unread_count": {
+                          "type": "integer"
+                        },
+                        "upload": {
+                          "type": "boolean"
+                        },
+                        "user": {
+                          "$ref": "#/components/schemas/defs_user_id"
+                        },
+                        "user_profile": {
+                          "$ref": "#/components/schemas/objs_user_profile_short"
+                        },
+                        "user_team": {
+                          "$ref": "#/components/schemas/defs_workspace_id"
+                        },
+                        "username": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "type",
+                        "ts"
+                      ],
+                      "title": "Message object",
+                      "type": "object"
+                    },
+                    "ok": {
+                      "enum": [
+                        true
+                      ],
+                      "title": "default success response",
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "enum": [
+                        "message"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "type",
+                    "channel",
+                    "message"
+                  ]
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "file": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "channels": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_channel_id"
+                          },
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "comments_count": {
+                          "type": "integer"
+                        },
+                        "created": {
+                          "type": "integer"
+                        },
+                        "date_delete": {
+                          "type": "integer"
+                        },
+                        "display_as_bot": {
+                          "type": "boolean"
+                        },
+                        "editable": {
+                          "type": "boolean"
+                        },
+                        "editor": {
+                          "$ref": "#/components/schemas/defs_user_id"
+                        },
+                        "external_id": {
+                          "type": "string"
+                        },
+                        "external_type": {
+                          "type": "string"
+                        },
+                        "external_url": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "filetype": {
+                          "type": "string"
+                        },
+                        "groups": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_group_id"
+                          },
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "has_rich_preview": {
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "$ref": "#/components/schemas/defs_file_id"
+                        },
+                        "image_exif_rotation": {
+                          "type": "integer"
+                        },
+                        "ims": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_dm_id"
+                          },
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "is_external": {
+                          "type": "boolean"
+                        },
+                        "is_public": {
+                          "type": "boolean"
+                        },
+                        "is_starred": {
+                          "type": "boolean"
+                        },
+                        "is_tombstoned": {
+                          "type": "boolean"
+                        },
+                        "last_editor": {
+                          "$ref": "#/components/schemas/defs_user_id"
+                        },
+                        "mimetype": {
+                          "type": "string"
+                        },
+                        "mode": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "non_owner_editable": {
+                          "type": "boolean"
+                        },
+                        "num_stars": {
+                          "type": "integer"
+                        },
+                        "original_h": {
+                          "type": "integer"
+                        },
+                        "original_w": {
+                          "type": "integer"
+                        },
+                        "permalink": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "permalink_public": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "pinned_info": {
+                          "$ref": "#/components/schemas/defs_pinned_info"
+                        },
+                        "pinned_to": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_channel"
+                          },
+                          "type": "array"
+                        },
+                        "pretty_type": {
+                          "type": "string"
+                        },
+                        "preview": {
+                          "type": "string"
+                        },
+                        "public_url_shared": {
+                          "type": "boolean"
+                        },
+                        "reactions": {
+                          "items": {
+                            "$ref": "#/components/schemas/objs_reaction"
+                          },
+                          "type": "array"
+                        },
+                        "shares": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "private": {
+                              "additionalProperties": false
+                            },
+                            "public": {
+                              "additionalProperties": false
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "size": {
+                          "type": "integer"
+                        },
+                        "source_team": {
+                          "$ref": "#/components/schemas/defs_team"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "thumb_1024": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_1024_h": {
+                          "type": "integer"
+                        },
+                        "thumb_1024_w": {
+                          "type": "integer"
+                        },
+                        "thumb_160": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_360": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_360_h": {
+                          "type": "integer"
+                        },
+                        "thumb_360_w": {
+                          "type": "integer"
+                        },
+                        "thumb_480": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_480_h": {
+                          "type": "integer"
+                        },
+                        "thumb_480_w": {
+                          "type": "integer"
+                        },
+                        "thumb_64": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_720": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_720_h": {
+                          "type": "integer"
+                        },
+                        "thumb_720_w": {
+                          "type": "integer"
+                        },
+                        "thumb_80": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_800": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_800_h": {
+                          "type": "integer"
+                        },
+                        "thumb_800_w": {
+                          "type": "integer"
+                        },
+                        "thumb_960": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_960_h": {
+                          "type": "integer"
+                        },
+                        "thumb_960_w": {
+                          "type": "integer"
+                        },
+                        "thumb_tiny": {
+                          "type": "string"
+                        },
+                        "timestamp": {
+                          "type": "integer"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "updated": {
+                          "type": "integer"
+                        },
+                        "url_private": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "url_private_download": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "user": {
+                          "type": "string"
+                        },
+                        "user_team": {
+                          "$ref": "#/components/schemas/defs_team"
+                        },
+                        "username": {
+                          "type": "string"
+                        }
+                      },
+                      "title": "file object",
+                      "type": "object"
+                    },
+                    "ok": {
+                      "enum": [
+                        true
+                      ],
+                      "title": "default success response",
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "enum": [
+                        "file"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "type",
+                    "file"
+                  ]
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "comment": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "comment": {
+                          "type": "string"
+                        },
+                        "created": {
+                          "type": "integer"
+                        },
+                        "id": {
+                          "$ref": "#/components/schemas/defs_comment_id"
+                        },
+                        "is_intro": {
+                          "type": "boolean"
+                        },
+                        "is_starred": {
+                          "type": "boolean"
+                        },
+                        "num_stars": {
+                          "type": "integer"
+                        },
+                        "pinned_info": {
+                          "$ref": "#/components/schemas/defs_pinned_info"
+                        },
+                        "pinned_to": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_channel"
+                          },
+                          "type": "array"
+                        },
+                        "reactions": {
+                          "items": {
+                            "$ref": "#/components/schemas/objs_reaction"
+                          },
+                          "type": "array"
+                        },
+                        "timestamp": {
+                          "type": "integer"
+                        },
+                        "user": {
+                          "$ref": "#/components/schemas/defs_user_id"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "created",
+                        "timestamp",
+                        "user",
+                        "is_intro",
+                        "comment"
+                      ],
+                      "title": "File Comment Object",
+                      "type": "object"
+                    },
+                    "file": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "channels": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_channel_id"
+                          },
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "comments_count": {
+                          "type": "integer"
+                        },
+                        "created": {
+                          "type": "integer"
+                        },
+                        "date_delete": {
+                          "type": "integer"
+                        },
+                        "display_as_bot": {
+                          "type": "boolean"
+                        },
+                        "editable": {
+                          "type": "boolean"
+                        },
+                        "editor": {
+                          "$ref": "#/components/schemas/defs_user_id"
+                        },
+                        "external_id": {
+                          "type": "string"
+                        },
+                        "external_type": {
+                          "type": "string"
+                        },
+                        "external_url": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "filetype": {
+                          "type": "string"
+                        },
+                        "groups": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_group_id"
+                          },
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "has_rich_preview": {
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "$ref": "#/components/schemas/defs_file_id"
+                        },
+                        "image_exif_rotation": {
+                          "type": "integer"
+                        },
+                        "ims": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_dm_id"
+                          },
+                          "type": "array",
+                          "uniqueItems": true
+                        },
+                        "is_external": {
+                          "type": "boolean"
+                        },
+                        "is_public": {
+                          "type": "boolean"
+                        },
+                        "is_starred": {
+                          "type": "boolean"
+                        },
+                        "is_tombstoned": {
+                          "type": "boolean"
+                        },
+                        "last_editor": {
+                          "$ref": "#/components/schemas/defs_user_id"
+                        },
+                        "mimetype": {
+                          "type": "string"
+                        },
+                        "mode": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "non_owner_editable": {
+                          "type": "boolean"
+                        },
+                        "num_stars": {
+                          "type": "integer"
+                        },
+                        "original_h": {
+                          "type": "integer"
+                        },
+                        "original_w": {
+                          "type": "integer"
+                        },
+                        "permalink": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "permalink_public": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "pinned_info": {
+                          "$ref": "#/components/schemas/defs_pinned_info"
+                        },
+                        "pinned_to": {
+                          "items": {
+                            "$ref": "#/components/schemas/defs_channel"
+                          },
+                          "type": "array"
+                        },
+                        "pretty_type": {
+                          "type": "string"
+                        },
+                        "preview": {
+                          "type": "string"
+                        },
+                        "public_url_shared": {
+                          "type": "boolean"
+                        },
+                        "reactions": {
+                          "items": {
+                            "$ref": "#/components/schemas/objs_reaction"
+                          },
+                          "type": "array"
+                        },
+                        "shares": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "private": {
+                              "additionalProperties": false
+                            },
+                            "public": {
+                              "additionalProperties": false
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "size": {
+                          "type": "integer"
+                        },
+                        "source_team": {
+                          "$ref": "#/components/schemas/defs_team"
+                        },
+                        "state": {
+                          "type": "string"
+                        },
+                        "thumb_1024": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_1024_h": {
+                          "type": "integer"
+                        },
+                        "thumb_1024_w": {
+                          "type": "integer"
+                        },
+                        "thumb_160": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_360": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_360_h": {
+                          "type": "integer"
+                        },
+                        "thumb_360_w": {
+                          "type": "integer"
+                        },
+                        "thumb_480": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_480_h": {
+                          "type": "integer"
+                        },
+                        "thumb_480_w": {
+                          "type": "integer"
+                        },
+                        "thumb_64": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_720": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_720_h": {
+                          "type": "integer"
+                        },
+                        "thumb_720_w": {
+                          "type": "integer"
+                        },
+                        "thumb_80": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_800": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_800_h": {
+                          "type": "integer"
+                        },
+                        "thumb_800_w": {
+                          "type": "integer"
+                        },
+                        "thumb_960": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "thumb_960_h": {
+                          "type": "integer"
+                        },
+                        "thumb_960_w": {
+                          "type": "integer"
+                        },
+                        "thumb_tiny": {
+                          "type": "string"
+                        },
+                        "timestamp": {
+                          "type": "integer"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "updated": {
+                          "type": "integer"
+                        },
+                        "url_private": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "url_private_download": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "user": {
+                          "type": "string"
+                        },
+                        "user_team": {
+                          "$ref": "#/components/schemas/defs_team"
+                        },
+                        "username": {
+                          "type": "string"
+                        }
+                      },
+                      "title": "file object",
+                      "type": "object"
+                    },
+                    "ok": {
+                      "enum": [
+                        true
+                      ],
+                      "title": "default success response",
+                      "type": "boolean"
+                    },
+                    "type": {
+                      "enum": [
+                        "file_comment"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "type",
+                    "file",
+                    "comment"
+                  ]
+                }
+              ]
+            },
+            "title": "reactions.get success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

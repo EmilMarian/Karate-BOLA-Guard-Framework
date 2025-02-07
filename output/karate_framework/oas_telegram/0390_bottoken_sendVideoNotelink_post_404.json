@@ -1,0 +1,69 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+        "properties": {
+          "chat_id": {
+            "type": "object"
+          },
+          "disable_notification": {
+            "type": "boolean"
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "length": {
+            "type": "integer"
+          },
+          "reply_markup": {
+            "type": "object"
+          },
+          "reply_to_message_id": {
+            "type": "integer"
+          },
+          "video_note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "chat_id",
+          "video_note"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/sendVideoNote#link",
+  "requestBody": {},
+  "responses": {
+    "404": {
+      "description": "Not Found",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

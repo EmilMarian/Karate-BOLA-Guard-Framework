@@ -1,0 +1,238 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The query string, case-insensitive. Leading and trailing wildcards are applied automatically.",
+      "in": "path",
+      "name": "query",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "An optional, parameter separated list of the modes to filter by",
+      "explode": true,
+      "in": "query",
+      "name": "modes",
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "True to only return stations in that have Fares data available for single fares to another station.",
+      "in": "query",
+      "name": "faresOnly",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "An optional result limit, defaulting to and with a maximum of 50. Since children of the stop point heirarchy are returned for matches,\r\n            it is possible that the flattened result set will contain more than 50 items.",
+      "in": "query",
+      "name": "maxResults",
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "An optional, parameter separated list of the lines to filter by",
+      "explode": true,
+      "in": "query",
+      "name": "lines",
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "If true, returns results including HUBs.",
+      "in": "query",
+      "name": "includeHubs",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "If the national-rail mode is included, this flag will filter the national rail stations so that only those operated by TfL are returned",
+      "in": "query",
+      "name": "tflOperatedNationalRailStationsOnly",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "path": "/StopPoint/Search/{query}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "from": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "matches": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.SearchMatch"
+                },
+                "type": "array"
+              },
+              "maxScore": {
+                "format": "double",
+                "type": "number"
+              },
+              "page": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "pageSize": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "query": {
+                "type": "string"
+              },
+              "total": {
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "properties": {
+              "from": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "matches": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.SearchMatch"
+                },
+                "type": "array"
+              },
+              "maxScore": {
+                "format": "double",
+                "type": "number"
+              },
+              "page": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "pageSize": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "query": {
+                "type": "string"
+              },
+              "total": {
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "properties": {
+              "from": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "matches": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.SearchMatch"
+                },
+                "type": "array"
+              },
+              "maxScore": {
+                "format": "double",
+                "type": "number"
+              },
+              "page": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "pageSize": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "query": {
+                "type": "string"
+              },
+              "total": {
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "properties": {
+              "from": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "matches": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.SearchMatch"
+                },
+                "type": "array"
+              },
+              "maxScore": {
+                "format": "double",
+                "type": "number"
+              },
+              "page": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "pageSize": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "query": {
+                "type": "string"
+              },
+              "total": {
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The location ID.",
+      "in": "path",
+      "name": "location-id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Return media after this UNIX timestamp.",
+      "in": "query",
+      "name": "min_timestamp",
+      "schema": {
+        "format": "int64",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Return media before this UNIX timestamp.",
+      "in": "query",
+      "name": "max_timestamp",
+      "schema": {
+        "format": "int64",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Return media before this `min_id`.",
+      "in": "query",
+      "name": "min_id",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Return media after this `max_id`.",
+      "in": "query",
+      "name": "max_id",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/locations/{location-id}/media/recent",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "List of media entries",
+                "items": {
+                  "$ref": "#/components/schemas/MediaEntry"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              },
+              "pagination": {
+                "$ref": "#/components/schemas/IdPaginationInfo"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "List of media entries from this location."
+    }
+  }
+}

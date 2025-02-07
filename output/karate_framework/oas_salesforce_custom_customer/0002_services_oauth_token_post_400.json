@@ -1,0 +1,71 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/services/oauth/token",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "client_id": {
+              "description": "Client ID",
+              "example": "DVG9UP4AwgjJiu.rSYHv2B9H7Cy3l.66JLconxmcjAKRw7jcs4BFloBmK2F.Y6Vbn2RGCFO2STGG8rGf",
+              "type": "string"
+            },
+            "client_secret": {
+              "description": "Client Secret",
+              "example": "AA0795D9F0A6C823162C6C46B5187476345E4E8C869E1A1dD1C94FFCD7796E33",
+              "type": "string"
+            },
+            "grant_type": {
+              "description": "Grant Type",
+              "example": "Read",
+              "type": "string"
+            },
+            "password": {
+              "description": "Password",
+              "example": "password123",
+              "type": "string"
+            },
+            "username": {
+              "description": "Username",
+              "example": "username@cala.co.uk.uat",
+              "type": "string"
+            }
+          },
+          "required": [
+            "grant_type",
+            "client_id",
+            "client_secret",
+            "username",
+            "password"
+          ],
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "400": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "error": {
+                "description": "Error",
+                "example": "invalid_grant",
+                "type": "string"
+              },
+              "error_description": {
+                "description": "Error Description",
+                "example": "authentication failure",
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "description": "Bad Request"
+    }
+  }
+}

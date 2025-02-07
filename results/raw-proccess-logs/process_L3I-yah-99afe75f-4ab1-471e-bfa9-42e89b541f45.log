@@ -1,0 +1,479 @@
+2025-01-26 20:22:20,350 - __main__ - INFO - Skipping fragment creation: False
+2025-01-26 20:22:20,437 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-26 20:22:20,680 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"in": "query", "name": "formatted", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "region", "schema": {"enum": ["US"], "type": "string"}}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "fields", "schema": {"type": "string"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": "symbols", "required": true, "schema": {"type": "string"}}], "path": "/v7/finance/quote", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"quoteResponse": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"$ref": "#/components/schemas/QuoteResult"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0002_v7_finance_quote_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"in": "query", "name": "interval", "required": true, "schema": {"enum": ["1m", "5m", "15m", "30m", "1h", "6h", "1d"], "type": "string"}}, {"in": "query", "name": "range", "required": true, "schema": {"enum": ["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"], "type": "string"}}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "includeTimestamps", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "indicators", "schema": {"type": "string"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": "symbols", "required": true, "schema": {"type": "string"}}], "path": "/v7/finance/spark", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"quoteResponse": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"$ref": "#/components/schemas/QuoteResult"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0003_v7_finance_spark_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"in": "path", "name": "symbol", "required": true, "schema": {"type": "string"}}, {"in": "query", "name": "region", "schema": {"enum": ["US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"explode": false, "in": "query", "name": "events", "schema": {"items": {"enum": ["div", "split"], "type": "string"}, "type": "array"}, "style": "pipeDelimited"}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "interval", "required": true, "schema": {"enum": ["1m", "5m", "15m", "30m", "1h", "6h", "1d"], "type": "string"}}, {"in": "query", "name": "useYfid", "schema": {"default": true, "type": "boolean"}}, {"in": "query", "name": "period1", "required": true, "schema": {"format": "int64", "type": "integer"}}, {"in": "query", "name": "period2", "required": true, "schema": {"format": "int64", "type": "integer"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": ".tsrc", "schema": {"enum": ["finance"], "type": "string"}}], "path": "/v8/finance/chart/{symbol}", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"chart": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"properties": {"indicators": {"properties": {"quote": {"items": {"properties": {"close": {"items": {"example": 1.1782727241516113, "type": "number"}, "type": "array"}, "high": {"items": {"example": 1.1784114837646484, "type": "number"}, "type": "array"}, "low": {"items": {"example": 1.1782727241516113, "type": "number"}, "type": "array"}, "open": {"items": {"example": 1.1784114837646484, "type": "number"}, "type": "array"}, "volume": {"items": {"example": 0, "format": "int32", "type": "integer"}, "type": "array"}}, "type": "object"}, "type": "array"}}, "type": "object"}, "meta": {"properties": {"chartPreviousClose": {"example": 1.178, "type": "number"}, "currency": {"example": "USD", "type": "string"}, "currentTradingPeriod": {"properties": {"post": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617404340, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "pre": {"properties": {"end": {"example": 1617318000, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "regular": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}}, "type": "object"}, "dataGranularity": {"example": "2m", "type": "string"}, "exchangeName": {"example": "CCY", "type": "string"}, "exchangeTimezoneName": {"example": "Europe/London", "type": "string"}, "firstTradeDate": {"example": 1070236800, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "instrumentType": {"example": "CURRENCY", "type": "string"}, "previousClose": {"example": 1.178, "type": "number"}, "priceHint": {"example": 4, "format": "int32", "type": "integer"}, "range": {"example": "1d", "type": "string"}, "regularMarketPrice": {"example": 1.1769, "type": "number"}, "regularMarketTime": {"example": 1617398979, "format": "int32", "type": "integer"}, "scale": {"example": 4, "format": "int32", "type": "integer"}, "symbol": {"example": "EURUSD=X", "type": "string"}, "timezone": {"example": "BST", "type": "string"}, "tradingPeriods": {"items": {"items": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "type": "array"}, "type": "array"}, "validRanges": {"items": {"example": "1d", "type": "string"}, "type": "array"}}, "type": "object"}, "timestamp": {"items": {"example": 1617318000, "format": "int32", "type": "integer"}, "type": "array"}}, "type": "object"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0001_v8_finance_chart_symbol_get_200.json'}}], form collection oas_yahoo_finance_fragments
+2025-01-26 20:22:20,680 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 20:22:20,681 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 20:22:21,105 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 20:22:21,106 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 20:27:33,578 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 20:27:33,579 - karate_llm_test_gen - INFO - Generated test case: Here are the Karate DSL test scripts for each scenario:
+
+**Scenario 1: OAuth Authorization Code Gran...
+2025-01-26 20:27:33,580 - __main__ - INFO - Generated Karate test for /v7/finance/quote GET at output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET.feature
+2025-01-26 20:27:33,581 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 20:27:33,581 - karate_compatibility_verifier - INFO - Here are the Karate DSL test scripts for each scenario:
+
+**Scenario 1: OAuth Authorization Code Grant Fuzz Testing**
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+
+**Scenario 2: Test API for OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 3: Unauthorized Endpoint Access via API Key**
+```karate
+Feature: Unauthorized Endpoint Access via API Key
+
+Scenario: Evaluate the security of the `/api/private` endpoint against unauthorized API key usage
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+And header Api-Key = 'invalid_api_key'
+When method get
+Then status 401
+And match response contains 'Invalid API key.'
+
+Given header Api-Key = 'valid_api_key_but_not_authorized_for_endpoint'
+When method get
+Then status 403
+And match response contains 'API key not authorized for this endpoint.'
+```
+
+Note that these scripts are designed to test potential vulnerabilities in the OAuth authorization code grant flow, token generation, and API key authentication.
+2025-01-26 20:35:00,648 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 20:35:00,649 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+**Scenario 1: OAuth Authorization Code Grant Fuzz Testing**
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+* foreach clientIds as clientId {
+    * foreach redirectUris as redirectUri {
+        And request { response_type: 'code', client_id: '#clientId', redirect_uri: '#redirectUri', scope: 'email', state: 'xyz' }
+        When method post
+        Then status 200
+        And match response does not contain 'Error'
+    }
+}
+```
+
+**Scenario 2: Test API for OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 3: Unauthorized Endpoint Access via API Key**
+```karate
+Feature: Unauthorized Endpoint Access via API Key
+
+Scenario: Evaluate the security of the `/api/private` endpoint against unauthorized API key usage
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+And header Api-Key = 'invalid_api_key'
+When method get
+Then status 401
+And match response contains 'Invalid API key.'
+
+Given header Api-Key = 'valid_api_key_but_not_authorized_for_endpoint'
+When method get
+Then status 403
+And match response contains 'API key not authorized for this endpoint.'
+```
+2025-01-26 20:39:33,065 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 20:39:33,065 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+* foreach clientIds as clientId {
+    * foreach redirectUris as redirectUri {
+        And request { response_type: 'code', client_id: '#clientId', redirect_uri: '#redirectUri', scope: 'email', state: 'xyz' }
+        When method post
+        Then status 200
+        And match response does not contain 'Error'
+    }
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Unauthorized Endpoint Access via API Key
+
+Scenario: Evaluate the security of the `/api/private` endpoint against unauthorized API key usage
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+And header Api-Key = 'invalid_api_key'
+When method get
+Then status 401
+And match response contains 'Invalid API key.'
+
+Given header Api-Key = 'valid_api_key_but_not_authorized_for_endpoint'
+When method get
+Then status 403
+And match response contains 'API key not authorized for this endpoint.'
+```
+2025-01-26 20:39:33,065 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET_verified.feature
+2025-01-26 20:39:33,065 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET.feature: Here is the corrected Karate DSL script:
+
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+* foreach clientIds as clientId {
+    * foreach redirectUris as redirectUri {
+        And request { response_type: 'code', client_id: '#clientId', redirect_uri: '#redirectUri', scope: 'email', state: 'xyz' }
+        When method post
+        Then status 200
+        And match response does not contain 'Error'
+    }
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Unauthorized Endpoint Access via API Key
+
+Scenario: Evaluate the security of the `/api/private` endpoint against unauthorized API key usage
+Given url 'http://oas_yahoo_finance.api/v7/finance/quote'
+And header Api-Key = 'invalid_api_key'
+When method get
+Then status 401
+And match response contains 'Invalid API key.'
+
+Given header Api-Key = 'valid_api_key_but_not_authorized_for_endpoint'
+When method get
+Then status 403
+And match response contains 'API key not authorized for this endpoint.'
+```
+2025-01-26 20:39:33,066 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 20:39:33,066 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 20:39:33,099 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 20:39:33,101 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 20:44:45,591 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 20:44:45,592 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-01-26 20:44:45,593 - __main__ - INFO - Generated Karate test for /v7/finance/spark GET at output/karate_feature_files/ID_002_krtestoas_v7_finance_spark_GET.feature
+2025-01-26 20:44:45,593 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 20:44:45,593 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```json
+{
+  "feature": "Yahoo Finance API Security Testing",
+  "scenario": "Test for Broken Authentication and Authorization Vulnerabilities",
+  "steps": [
+    {
+      "Given": "url http://oas_yahoo_finance.api/v7/finance/spark",
+      "And": "header Accept = application/json",
+      "* def adminAccess = callonce read('classpath:helpers/adminAccess.feature'),",
+      "When": "method get",
+      "Then": "status 200"
+    },
+    {
+      "Given": "url http://oas_yahoo_finance.api/v7/finance/spark",
+      "And": "header Accept = application/json",
+      "* def regularUserAccess = callonce read('classpath:helpers/regularUserAccess.feature'),",
+      "When": "method get",
+      "Then": "status 200"
+    },
+    {
+      "Given": "url http://oas_yahoo_finance.api/v7/finance/spark",
+      "And": "header Accept = application/json",
+      "* def guestAccess = callonce read('classpath:helpers/guestAccess.feature'),",
+      "When": "method get",
+      "Then": "status 200"
+    }
+  ]
+}
+```
+
+This test script checks for potential Broken Authentication/Authorization vulnerabilities by attempting to access the Yahoo Finance API with different types of user roles (admin, regular user, and guest). The `callonce` keyword is used to ensure that each scenario runs only once.
+2025-01-26 20:49:37,740 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 20:49:37,741 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+
+```feature
+Feature: Yahoo Finance API Security Testing
+
+Scenario: Test for Broken Authentication and Authorization Vulnerabilities
+  Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+  And header Accept = 'application/json'
+  * def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+  When method get
+  Then status 200
+
+  Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+  And header Accept = 'application/json'
+  * def regularUserAccess = callonce read('classpath:helpers/regularUserAccess.feature')
+  When method get
+  Then status 200
+
+  Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+  And header Accept = 'application/json'
+  * def guestAccess = callonce read('classpath:helpers/guestAccess.feature')
+  When method get
+  Then status 200
+```
+
+Note that I removed the unnecessary curly braces and reformatted the script to conform to standard Karate DSL syntax.
+2025-01-26 20:51:27,163 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 20:51:27,163 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```feature
+Feature: Yahoo Finance API Security Testing
+
+Scenario: Test for Broken Authentication and Authorization Vulnerabilities
+  Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+  And header Accept = 'application/json'
+  * def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+  When method get
+  Then status 200
+
+  Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+  And header Accept = 'application/json'
+  * def regularUserAccess = callonce read('classpath:helpers/regularUserAccess.feature')
+  When method get
+  Then status 200
+
+  Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+  And header Accept = 'application/json'
+  * def guestAccess = callonce read('classpath:helpers/guestAccess.feature')
+  When method get
+  Then status 200
+2025-01-26 20:51:27,164 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_v7_finance_spark_GET_verified.feature
+2025-01-26 20:51:27,164 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_v7_finance_spark_GET.feature: Here is the corrected Karate DSL script:
+
+```feature
+Feature: Yahoo Finance API Security Testing
+
+Scenario: Test for Broken Authentication and Authorization Vulnerabilities
+  Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+  And header Accept = 'application/json'
+  * def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+  When method get
+  Then status 200
+
+  Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+  And header Accept = 'application/json'
+  * def regularUserAccess = callonce read('classpath:helpers/regularUserAccess.feature')
+  When method get
+  Then status 200
+
+  Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+  And header Accept = 'application/json'
+  * def guestAccess = callonce read('classpath:helpers/guestAccess.feature')
+  When method get
+  Then status 200
+2025-01-26 20:51:27,164 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 20:51:27,165 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 20:51:27,199 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 20:51:27,200 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 20:55:57,492 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 20:55:57,492 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-01-26 20:55:57,493 - __main__ - INFO - Generated Karate test for /v8/finance/chart/{symbol} GET at output/karate_feature_files/ID_003_krtestoas_v8_finance_chart_symbol_GET.feature
+2025-01-26 20:55:57,493 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 20:55:57,493 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```
+Feature: Test API for Yahoo Finance Chart
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+And request { symbol: '<stolen_symbol>' }
+When method get
+Then status 200
+And match response contains '<expected_data>'
+
+Feature: Test API for Refresh Token Abuse
+
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+And request { symbol: '<leaked_symbol>' }
+When method get
+Then status 200
+And match response contains '<expected_data>'
+
+Feature: Test API for OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+* def symbols = ['AAPL', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+foreach symbol in symbols
+And request { symbol: symbol }
+When method get
+Then status 200
+And match response contains '<expected_data>'
+```
+Note that I've used the actual API endpoint URL `http://oas_yahoo_finance.api/v8/finance/chart/{symbol}` and replaced `<stolen_symbol>`, `<leaked_symbol>` with placeholders for your specific test cases. You'll need to replace these with actual values or variables.
+
+Also, since there is no authentication specified in the API description, I've assumed that any user can access this endpoint without authentication. If you want to simulate a authenticated request, please let me know and I can modify the script accordingly.
+2025-01-26 21:01:13,096 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 21:01:13,096 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+
+````
+Feature: Test API for Yahoo Finance Chart
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+And param symbol = '<stolen_symbol>'
+When method get
+Then status 200
+And match response contains '<expected_data>'
+
+Feature: Test API for Refresh Token Abuse
+
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+And param symbol = '<leaked_symbol>'
+When method get
+Then status 200
+And match response contains '<expected_data>'
+
+Feature: Test API for OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+* def symbols = ['AAPL', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+foreach symbol in symbols
+And param symbol = symbol
+When method get
+Then status 200
+And match response contains '<expected_data>'
+```
+
+Note that I've replaced the placeholders with actual Karate DSL syntax.
+2025-01-26 21:03:30,296 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 21:03:30,296 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for Yahoo Finance Chart
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+And param symbol = '<stolen_symbol>'
+When method get
+Then status 200
+And match response contains '<expected_data>'
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+And param symbol = '<leaked_symbol>'
+When method get
+Then status 200
+And match response contains '<expected_data>'
+
+Feature: Test API for OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+* def symbols = ['AAPL', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+foreach symbol in symbols
+And param symbol = symbol
+When method get
+Then status 200
+And match response contains '<expected_data>'
+```
+2025-01-26 21:03:30,297 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_v8_finance_chart_symbol_GET_verified.feature
+2025-01-26 21:03:30,297 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_v8_finance_chart_symbol_GET.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for Yahoo Finance Chart
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+And param symbol = '<stolen_symbol>'
+When method get
+Then status 200
+And match response contains '<expected_data>'
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+And param symbol = '<leaked_symbol>'
+When method get
+Then status 200
+And match response contains '<expected_data>'
+
+Feature: Test API for OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+* def symbols = ['AAPL', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+foreach symbol in symbols
+And param symbol = symbol
+When method get
+Then status 200
+And match response contains '<expected_data>'
+```
+2025-01-26 21:03:30,297 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-26 21:03:30,299 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-26 21:03:33,220 - __main__ - INFO - Skipping karate test run.

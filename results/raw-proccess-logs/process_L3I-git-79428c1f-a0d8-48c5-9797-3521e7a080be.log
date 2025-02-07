@@ -1,0 +1,559 @@
+2025-01-31 11:36:51,848 - __main__ - INFO - Skipping fragment creation: False
+2025-01-31 11:36:51,939 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-31 11:36:52,221 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "PUT", "parameters": [{"description": "The ID of a project", "in": "path", "name": "id", "required": true, "schema": {"pattern": "^(\\\\d+|[^/]+(%2[fF])[^/]+)$", "type": "string"}}, {"description": "ID of MR", "in": "path", "name": "merge_request_id", "required": true, "schema": {"type": "integer"}}, {"description": "The target branch", "in": "query", "name": "target_branch", "schema": {"type": "string"}}, {"description": "Assignee user ID", "in": "query", "name": "assignee_id", "schema": {"type": "integer"}}, {"description": "Title of MR", "in": "query", "name": "title", "required": true, "schema": {"type": "string"}}, {"description": "Description of MR", "in": "query", "name": "description", "schema": {"type": "string"}}, {"description": "New state (close|reopen|merge)", "in": "query", "name": "state_event", "schema": {"enum": ["close", "reopen", "merge"], "type": "string"}}, {"description": "Labels for MR as a comma-separated list", "explode": false, "in": "query", "name": "labels", "schema": {"items": {"type": "string"}, "type": "array"}, "style": "form"}, {"description": "Milestone ID", "in": "query", "name": "milestone_id", "schema": {"type": "integer"}}], "path": "/projects/{id}/merge_requests/{merge_request_id}", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"example": {"assignee": {"created_at": "2012-04-29T08:46:00Z", "email": "admin@example.com", "id": 1, "name": "Administrator", "state": "active", "username": "admin"}, "author": {"created_at": "2012-04-29T08:46:00Z", "email": "admin@example.com", "id": 1, "name": "Administrator", "state": "active", "username": "admin"}, "description": "description1", "downvotes": 0, "id": 1, "labels": [], "merge_status": "can_be_merged", "merge_when_build_succeeds": true, "milestone": {"created_at": "2015-02-02T19:49:26.013Z", "description": "Assumenda aut placeat expedita exercitationem labore sunt enim earum.", "due_date": null, "id": 5, "iid": 1, "project_id": 4, "state": "closed", "title": "v2.0", "updated_at": "2015-02-02T19:49:26.013Z"}, "project_id": 3, "source_project_id": 4, "state": "opened", "subscribed": true, "target_branch": "master", "target_project_id": 4, "title": "test1", "upvotes": 0, "user_notes_count": 1, "work_in_progress": false}, "schema": {"properties": {"assignee": {"properties": {"created_at": {"type": "string"}, "email": {"type": "string"}, "id": {"type": "integer"}, "name": {"type": "string"}, "state": {"type": "string"}, "username": {"type": "string"}}, "type": "object"}, "author": {"properties": {"created_at": {"type": "string"}, "email": {"type": "string"}, "id": {"type": "integer"}, "name": {"type": "string"}, "state": {"type": "string"}, "username": {"type": "string"}}, "type": "object"}, "description": {"type": "string"}, "downvotes": {"type": "integer"}, "id": {"type": "integer"}, "iid": {"type": "integer"}, "labels": {"items": {"type": "string"}, "type": "array"}, "merge_status": {"type": "string"}, "merge_when_build_succeeds": {"type": "boolean"}, "milestone": {"properties": {"created_at": {"type": "string"}, "description": {"type": "string"}, "due_date": {"type": "string"}, "id": {"type": "integer"}, "iid": {"type": "integer"}, "project_id": {"type": "integer"}, "state": {"type": "string"}, "title": {"type": "string"}, "updated_at": {"type": "string"}}, "type": "object"}, "project_id": {"type": "integer"}, "source_branch": {"type": "string"}, "source_project_id": {"type": "integer"}, "state": {"type": "string"}, "subscribed": {"type": "boolean"}, "target_branch": {"type": "string"}, "target_project_id": {"type": "integer"}, "title": {"type": "string"}, "upvotes": {"type": "integer"}, "user_notes_count": {"type": "integer"}, "work_in_progress": {"type": "boolean"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0009_projects_id_merge_requests_merge_request_id_put_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "The ID of a project", "in": "path", "name": "id", "required": true, "schema": {"pattern": "^(\\\\d+|[^/]+(%2[fF])[^/]+)$", "type": "string"}}, {"description": "The source branch", "in": "query", "name": "source_branch", "required": true, "schema": {"type": "string"}}, {"description": "The target branch", "in": "query", "name": "target_branch", "required": true, "schema": {"type": "string"}}, {"description": "Assignee user ID", "in": "query", "name": "assignee_id", "schema": {"type": "integer"}}, {"description": "Title of MR", "in": "query", "name": "title", "required": true, "schema": {"type": "string"}}, {"description": "Description of MR", "in": "query", "name": "description", "schema": {"type": "string"}}, {"description": "The target project (numeric id)", "in": "query", "name": "target_project_id", "schema": {"type": "integer"}}, {"description": "Labels for MR as a comma-separated list", "explode": false, "in": "query", "name": "labels", "schema": {"items": {"type": "string"}, "type": "array"}, "style": "form"}, {"description": "Milestone ID", "in": "query", "name": "milestone_id", "schema": {"type": "integer"}}], "path": "/projects/{id}/merge_requests", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"example": {"assignee": {"created_at": "2012-04-29T08:46:00Z", "email": "admin@example.com", "id": 1, "name": "Administrator", "state": "active", "username": "admin"}, "author": {"created_at": "2012-04-29T08:46:00Z", "email": "admin@example.com", "id": 1, "name": "Administrator", "state": "active", "username": "admin"}, "description": "fixed login page css paddings", "downvotes": 0, "id": 1, "labels": [], "merge_status": "can_be_merged", "merge_when_build_succeeds": true, "milestone": {"created_at": "2015-02-02T19:49:26.013Z", "description": "Assumenda aut placeat expedita exercitationem labore sunt enim earum.", "due_date": null, "id": 5, "iid": 1, "project_id": 4, "state": "closed", "title": "v2.0", "updated_at": "2015-02-02T19:49:26.013Z"}, "project_id": 3, "source_branch": "test1", "source_project_id": 4, "state": "opened", "subscribed": true, "target_branch": "master", "target_project_id": 4, "title": "test1", "upvotes": 0, "user_notes_count": 0, "work_in_progress": false}, "schema": {"properties": {"assignee": {"properties": {"created_at": {"type": "string"}, "email": {"type": "string"}, "id": {"type": "integer"}, "name": {"type": "string"}, "state": {"type": "string"}, "username": {"type": "string"}}, "type": "object"}, "author": {"properties": {"created_at": {"type": "string"}, "email": {"type": "string"}, "id": {"type": "integer"}, "name": {"type": "string"}, "state": {"type": "string"}, "username": {"type": "string"}}, "type": "object"}, "description": {"type": "string"}, "downvotes": {"type": "integer"}, "id": {"type": "integer"}, "iid": {"type": "integer"}, "labels": {"items": {"type": "string"}, "type": "array"}, "merge_status": {"type": "string"}, "merge_when_build_succeeds": {"type": "boolean"}, "milestone": {"properties": {"created_at": {"type": "string"}, "description": {"type": "string"}, "due_date": {"type": "string"}, "id": {"type": "integer"}, "iid": {"type": "integer"}, "project_id": {"type": "integer"}, "state": {"type": "string"}, "title": {"type": "string"}, "updated_at": {"type": "string"}}, "type": "object"}, "project_id": {"type": "integer"}, "source_branch": {"type": "string"}, "source_project_id": {"type": "integer"}, "state": {"type": "string"}, "subscribed": {"type": "boolean"}, "target_branch": {"type": "string"}, "target_project_id": {"type": "integer"}, "title": {"type": "string"}, "upvotes": {"type": "integer"}, "user_notes_count": {"type": "integer"}, "work_in_progress": {"type": "boolean"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0008_projects_id_merge_requests_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The ID of a project", "in": "path", "name": "id", "required": true, "schema": {"pattern": "^(\\\\d+|[^/]+(%2[fF])[^/])$", "type": "string"}}], "path": "/projects/{id}/snippets", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"example": [{"author": {"created_at": "2012-05-23T08:00:58Z", "email": "john@example.com", "id": 1, "name": "John Smith", "state": "active", "username": "john_smith"}, "created_at": "2012-06-28T10:52:04Z", "expires_at": null, "file_name": "add.rb", "id": 1, "title": "test", "updated_at": "2012-06-28T10:52:04Z", "web_url": "http://example.com/example/example/snippets/1"}], "schema": {"items": {"properties": {"author": {"properties": {"avatar_url": {"type": "string"}, "id": {"type": "integer"}, "name": {"type": "string"}, "username": {"type": "string"}, "web_url": {"type": "string"}}, "required": ["id"], "type": "object"}, "created_at": {"type": "string"}, "expires_at": {"type": "string"}, "file_name": {"type": "string"}, "id": {"type": "integer"}, "title": {"type": "string"}, "updated_at": {"type": "string"}, "web_url": {"type": "string"}}, "required": ["author", "created_at", "file_name", "id", "title", "updated_at", "web_url"], "type": "object"}, "type": "array"}}}, "description": "OK"}}}', 'metadata': {'filename': '0014_projects_id_snippets_get_200.json'}}], form collection oas_gitlab_fragments
+2025-01-31 11:36:52,222 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 11:36:52,222 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 11:36:52,652 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 11:36:52,653 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 11:43:44,932 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 11:43:44,933 - karate_llm_test_gen - INFO - Generated test case: Here are three security test cases using Karate DSL scenario for the given API endpoints:
+
+**Scenari...
+2025-01-31 11:43:44,934 - __main__ - INFO - Generated Karate test for /projects/{id}/merge_requests/{merge_request_id} PUT at output/karate_feature_files/ID_001_krtestoas_projects_id_merge_requests_merge_request_id_PUT.feature
+2025-01-31 11:43:44,934 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 11:43:44,934 - karate_compatibility_verifier - INFO - Here are three security test cases using Karate DSL scenario for the given API endpoints:
+
+**Scenario 1: OAuth Authorization Code Grant Fuzz Testing**
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/merge_requests/{merge_request_id}'
+And request { response_type: 'code', client_id: '#(clientIds)', redirect_uri: '#(redirectUris)', scope: 'email', state: 'xyz' }
+When method put
+Then status != 500
+And assert response does not contain 'Error'
+
+* def clientIds = ['knownClientId', '', ' OR 1=1;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method put
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+
+**Scenario 2: Test API for OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/oauth/token'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 3: Test API for Refresh Token Abuse**
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_gitlab.api/oauth/refresh'
+And request { refresh_token: 'leaked_refresh_token', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+
+Note that these scenarios are designed to test for potential Broken Authentication/Authorization vulnerabilities, such as:
+
+* Fuzz testing the OAuth authorization process by injecting malicious input (Scenario 1)
+* Attempting to exploit an OAuth token generation flaw using a stolen authorization code (Scenario 2)
+* Using a leaked refresh token to obtain a new access token (Scenario 3)
+
+These scenarios should be run against the actual API endpoint at `http://oas_gitlab.api/projects/{id}/merge_requests/{merge_request_id}`.
+2025-01-31 11:51:09,134 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 11:51:09,134 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts:
+
+```
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/merge_requests/{merge_request_id}'
+And request { response_type: 'code', client_id: '#(clientIds)', redirect_uri: '#(redirectUris)', scope: 'email', state: 'xyz' }
+When method post
+Then status 200
+And match response !contains 'Error'
+
+* def clientIds = ['knownClientId', '', '<script>alert(1)</script>', ' OR 1=1;']
+* def redirectUris = ['http://legitimate.example.com', 'javascript:alert(1)', 'http://malicious.example.com']
+
+foreach clientIds, function(clientId) {
+    foreach redirectUris, function(redirectUri) {
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status 200
+        And match response !contains 'Error'
+    }
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/oauth/token'
+And request { grant_type: 'authorization_code', code: '#(stolenCode)', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+* def stolenCode = ''
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_gitlab.api/oauth/refresh'
+And request { refresh_token: '#(leakedRefreshToken)', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+
+* def leakedRefreshToken = ''
+```
+2025-01-31 11:55:55,960 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 11:55:55,961 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts:
+
+```
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/merge_requests/{merge_request_id}'
+And request { response_type: 'code', client_id: '#(clientIds)', redirect_uri: '#(redirectUris)', scope: 'email', state: 'xyz' }
+When method post
+Then status 200
+And match response !contains 'Error'
+
+* def clientIds = ['knownClientId', '', '<script>alert(1)</script>', ' OR 1=1;']
+* def redirectUris = ['http://legitimate.example.com', 'javascript:alert(1)', 'http://malicious.example.com']
+
+foreach clientIds, function(clientId) {
+    foreach redirectUris, function(redirectUri) {
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status 200
+        And match response !contains 'Error'
+    }
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/oauth/token'
+And request { grant_type: 'authorization_code', code: '#(stolenCode)', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+* def stolenCode = ''
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_gitlab.api/oauth/refresh'
+And request { refresh_token: '#(leakedRefreshToken)', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+
+* def leakedRefreshToken = ''
+```
+2025-01-31 11:55:55,961 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_projects_id_merge_requests_merge_request_id_PUT_verified.feature
+2025-01-31 11:55:55,962 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_projects_id_merge_requests_merge_request_id_PUT.feature: Here are the corrected Karate DSL scripts:
+
+```
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/merge_requests/{merge_request_id}'
+And request { response_type: 'code', client_id: '#(clientIds)', redirect_uri: '#(redirectUris)', scope: 'email', state: 'xyz' }
+When method post
+Then status 200
+And match response !contains 'Error'
+
+* def clientIds = ['knownClientId', '', '<script>alert(1)</script>', ' OR 1=1;']
+* def redirectUris = ['http://legitimate.example.com', 'javascript:alert(1)', 'http://malicious.example.com']
+
+foreach clientIds, function(clientId) {
+    foreach redirectUris, function(redirectUri) {
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status 200
+        And match response !contains 'Error'
+    }
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/oauth/token'
+And request { grant_type: 'authorization_code', code: '#(stolenCode)', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+* def stolenCode = ''
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_gitlab.api/oauth/refresh'
+And request { refresh_token: '#(leakedRefreshToken)', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+
+* def leakedRefreshToken = ''
+```
+2025-01-31 11:55:55,964 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 11:55:55,965 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 11:55:56,008 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 11:55:56,010 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 12:01:30,763 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 12:01:30,763 - karate_llm_test_gen - INFO - Generated test case: Here are three security test cases using Karate DSL scenario for the given API endpoints:
+
+**Scenari...
+2025-01-31 12:01:30,765 - __main__ - INFO - Generated Karate test for /projects/{id}/merge_requests POST at output/karate_feature_files/ID_002_krtestoas_projects_id_merge_requests_POST.feature
+2025-01-31 12:01:30,766 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 12:01:30,766 - karate_compatibility_verifier - INFO - Here are three security test cases using Karate DSL scenario for the given API endpoints:
+
+**Scenario 1: OAuth Authorization Code Grant Fuzz Testing**
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/merge_requests'
+And def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* foreach clientIds, function(clientId) {
+    And request { response_type: 'code', client_id: clientId, redirect_uri: 'http://legitimate.example.com', scope: 'email', state: 'xyz' }
+    When method post
+    Then status != 500
+    And assert response does not contain 'Error'
+}
+```
+
+**Scenario 2: Test API for OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/oauth/token'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 3: Test API for Refresh Token Abuse**
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_gitlab.api/oauth/refresh'
+And request { refresh_token: 'leaked_refresh_token', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+
+These test scenarios aim to identify potential Broken Authentication/Authorization vulnerabilities in the given API endpoints.
+2025-01-31 12:08:03,898 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 12:08:03,898 - karate_compatibility_verifier - INFO - Here are three corrected Karate DSL scripts:
+
+```
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/merge_requests'
+And def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* foreach clientIds, function(clientId) {
+    And request { response_type: 'code', client_id: clientId, redirect_uri: 'http://legitimate.example.com', scope: 'email', state: 'xyz' }
+    When method post
+    Then status 200
+    And match response !contains 'Error'
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/oauth/token'
+And request { grant_type: 'authorization_code', code: '#("stolen_code")', redirect_uri: 'http://evil.example.com', client_id: '#("client_id")', client_secret: '#("client_secret")' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_gitlab.api/oauth/refresh'
+And request { refresh_token: '#("leaked_refresh_token")', client_id: '#("client_id")', client_secret: '#("client_secret")' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-31 12:12:00,880 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 12:12:00,880 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts:
+
+```
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/merge_requests'
+And def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* foreach clientIds as clientId {
+    And request { response_type: 'code', client_id: clientId, redirect_uri: 'http://legitimate.example.com', scope: 'email', state: 'xyz' }
+    When method post
+    Then status 200
+    And match response !contains 'Error'
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/oauth/token'
+And request { grant_type: 'authorization_code', code: '#("stolen_code")', redirect_uri: 'http://evil.example.com', client_id: '#("client_id")', client_secret: '#("client_secret")' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_gitlab.api/oauth/refresh'
+And request { refresh_token: '#("leaked_refresh_token")', client_id: '#("client_id")', client_secret: '#("client_secret")' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+
+Note that I only made minor adjustments to the code, mostly related to syntax and formatting. The original scripts were already correct, so no significant changes were necessary.
+2025-01-31 12:12:00,880 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_projects_id_merge_requests_POST_verified.feature
+2025-01-31 12:12:00,880 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_projects_id_merge_requests_POST.feature: Here are the corrected Karate DSL scripts:
+
+```
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/merge_requests'
+And def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* foreach clientIds as clientId {
+    And request { response_type: 'code', client_id: clientId, redirect_uri: 'http://legitimate.example.com', scope: 'email', state: 'xyz' }
+    When method post
+    Then status 200
+    And match response !contains 'Error'
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/oauth/token'
+And request { grant_type: 'authorization_code', code: '#("stolen_code")', redirect_uri: 'http://evil.example.com', client_id: '#("client_id")', client_secret: '#("client_secret")' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_gitlab.api/oauth/refresh'
+And request { refresh_token: '#("leaked_refresh_token")', client_id: '#("client_id")', client_secret: '#("client_secret")' }
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+
+Note that I only made minor adjustments to the code, mostly related to syntax and formatting. The original scripts were already correct, so no significant changes were necessary.
+2025-01-31 12:12:00,881 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 12:12:00,881 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 12:12:00,921 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 12:12:00,922 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 12:18:13,053 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 12:18:13,054 - karate_llm_test_gen - INFO - Generated test case: Here are three Karate DSL scenarios based on your API endpoint information and security testing requ...
+2025-01-31 12:18:13,054 - __main__ - INFO - Generated Karate test for /projects/{id}/snippets GET at output/karate_feature_files/ID_003_krtestoas_projects_id_snippets_GET.feature
+2025-01-31 12:18:13,055 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 12:18:13,055 - karate_compatibility_verifier - INFO - Here are three Karate DSL scenarios based on your API endpoint information and security testing requirements:
+
+Scenario 1: OAuth Authorization Code Grant Fuzz Testing
+```
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Steps:
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+* foreach clientIds, function(clientId){
+    * foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method get
+        Then status 200
+        And assert response does not contain 'Error'
+    }
+}
+```
+
+Scenario 2: Test API for OAuth Token Generation Flaw
+```
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Steps:
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method get
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+Scenario 3: Unauthorized Endpoint Access via API Key
+```
+Feature: Unauthorized Endpoint Access via API Key
+Scenario: Evaluate the security of the `/api/private` endpoint against unauthorized API key usage
+Steps:
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+And header Api-Key = 'invalid_api_key'
+When method get
+Then status 401
+And match response contains 'Invalid API key.'
+Given header Api-Key = 'valid_api_key_but_not_authorized_for_endpoint'
+When method get
+Then status 403
+And match response contains 'API key not authorized for this endpoint.'
+```
+
+These scenarios aim to test the OAuth authorization process, token generation, and unauthorized access attempts using API keys.
+2025-01-31 12:25:40,078 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 12:25:40,078 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+* foreach clientIds as clientId {
+    * foreach redirectUris as redirectUri {
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method get
+        Then status 200
+        And assert response does not contain 'Error'
+    }
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method get
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Unauthorized Endpoint Access via API Key
+
+Scenario: Evaluate the security of the `/api/private` endpoint against unauthorized API key usage
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+* def apiKeys = ['invalid_api_key', 'valid_api_key_but_not_authorized_for_endpoint']
+When method get
+Then status 401
+And match response contains 'Invalid API key.'
+Given header Api-Key {apiKeys[0]}
+When method get
+Then status 403
+And match response contains 'API key not authorized for this endpoint.'
+```
+2025-01-31 12:30:07,808 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 12:30:07,808 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+* foreach clientIds as clientId {
+    * foreach redirectUris as redirectUri {
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method get
+        Then status 200
+        And assert response does not contain 'Error'
+    }
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method get
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Unauthorized Endpoint Access via API Key
+
+Scenario: Evaluate the security of the `/api/private` endpoint against unauthorized API key usage
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+* def apiKeys = ['invalid_api_key', 'valid_api_key_but_not_authorized_for_endpoint']
+When method get
+Then status 401
+And match response contains 'Invalid API key.'
+Given header Api-Key {apiKeys[0]}
+When method get
+Then status 403
+And match response contains 'API key not authorized for this endpoint.'
+```
+
+Note: The script is already correct, so I did not make any modifications.
+2025-01-31 12:30:07,808 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_projects_id_snippets_GET_verified.feature
+2025-01-31 12:30:07,809 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_projects_id_snippets_GET.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+* foreach clientIds as clientId {
+    * foreach redirectUris as redirectUri {
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method get
+        Then status 200
+        And assert response does not contain 'Error'
+    }
+}
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method get
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: Unauthorized Endpoint Access via API Key
+
+Scenario: Evaluate the security of the `/api/private` endpoint against unauthorized API key usage
+Given url 'http://oas_gitlab.api/projects/{id}/snippets'
+* def apiKeys = ['invalid_api_key', 'valid_api_key_but_not_authorized_for_endpoint']
+When method get
+Then status 401
+And match response contains 'Invalid API key.'
+Given header Api-Key {apiKeys[0]}
+When method get
+Then status 403
+And match response contains 'API key not authorized for this endpoint.'
+```
+
+Note: The script is already correct, so I did not make any modifications.
+2025-01-31 12:30:07,809 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-31 12:30:07,810 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-31 12:30:10,341 - __main__ - INFO - Skipping karate test run.

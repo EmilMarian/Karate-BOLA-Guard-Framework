@@ -1,0 +1,110 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `chat:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/chat.deleteScheduledMessage",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "as_user": {
+              "description": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope.",
+              "type": "boolean"
+            },
+            "channel": {
+              "description": "The channel the scheduled_message is posting to",
+              "type": "string"
+            },
+            "scheduled_message_id": {
+              "description": "`scheduled_message_id` returned from call to chat.scheduleMessage",
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel",
+            "scheduled_message_id"
+          ],
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_scheduled_message_id",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from chat.deleteScheduledMessage method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "invalid_scheduled_message_id",
+                  "channel_not_found",
+                  "bad_token",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "token_revoked",
+                  "no_permission",
+                  "org_login_required",
+                  "ekm_access_denied",
+                  "missing_scope",
+                  "invalid_arguments",
+                  "invalid_arg_name",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required",
+                  "fatal_error"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "chat.deleteScheduledMessage error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response if no message is found"
+    }
+  }
+}

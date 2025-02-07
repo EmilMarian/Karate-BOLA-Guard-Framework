@@ -1,0 +1,393 @@
+2025-01-25 10:21:44,147 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 10:21:44,314 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 10:21:51,692 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/users/v1/register", "requestBody": {"content": {"application/json": {"schema": {"properties": {"email": {"example": "user@tempmail.com", "type": "string"}, "password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Successfully registered. Login to receive an auth token.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully created user"}}}', 'metadata': {'filename': '0005_users_v1_register_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"auth_token": {"example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw", "type": "string"}, "message": {"example": "Successfully logged in.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully logged in user"}}}', 'metadata': {'filename': '0007_users_v1_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Password is not correct for the given username.", "type": "string"}, "status": {"enum": ["fail"], "example": "fail", "type": "string"}}, "type": "object"}}}, "description": "Invalid request"}}}', 'metadata': {'filename': '0008_users_v1_login_post_400.json'}}]
+2025-01-25 10:21:51,695 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 10:21:51,699 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 10:21:56,700 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 10:21:56,700 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 10:22:26,079 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 10:22:26,080 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: Security Test Case for Broken Authentication/Authorization on User Registration API...
+2025-01-25 10:22:26,081 - __main__ - INFO - Generated Karate test for /users/v1/register POST at output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature
+2025-01-25 10:22:26,082 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 10:22:26,082 - karate_compatibility_verifier - INFO - ```yaml
+feature: Security Test Case for Broken Authentication/Authorization on User Registration API
+  scenario: Attempt to register a user with invalid credentials, testing broken authentication and authorization vulnerabilities.
+    given url 'http://apimockurl.example/users/v1/register'
+    
+    // Assuming the registration endpoint requires username and password for basic auth
+    when request {username: "admin", password: ""}  // Invalid credential attempt (empty)
+    
+    then status 403
+    and match response 'Authentication credentials are required.'
+```
+2025-01-25 10:22:50,948 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 10:22:50,948 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Security Test Case for Broken Authentication/Authorization on User Registration API
+  scenario: Attempt to register a user with invalid credentials, testing broken authentication and authorization vulnerabilities.
+    given url 'http://apimockurl.example/users/v1/register'
+    
+    // Assuming the registration endpoint requires username and password for basic auth
+    when request {username: "admin", password:""}  // Invalid credential attempt (empty)
+    
+    then status 403
+    and match response 'Authentication credentials are required.'
+```
+2025-01-25 10:22:58,915 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 10:22:58,915 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Security Test Case for Broken Authentication/Authorization on User Registration API
+  scenario: Attempt to register a user with invalid credentials, testing broken authentication and authorization vulnerabilities.
+    given url 'http://apimockurl.example/users/v1/register'
+    
+    // Assuming the registration endpoint requires username and password for basic auth
+    when request {username: "admin", password:""}  // Invalid credential attempt (empty)
+    
+    then status_code shouldBe(403)
+    and body.should include('Authentication credentials are required.')
+```
+2025-01-25 10:22:58,915 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST_verified.feature
+2025-01-25 10:22:58,916 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestvam_users_v1_register_POST.feature: ```yaml
+Feature: Security Test Case for Broken Authentication/Authorization on User Registration API
+  scenario: Attempt to register a user with invalid credentials, testing broken authentication and authorization vulnerabilities.
+    given url 'http://apimockurl.example/users/v1/register'
+    
+    // Assuming the registration endpoint requires username and password for basic auth
+    when request {username: "admin", password:""}  // Invalid credential attempt (empty)
+    
+    then status_code shouldBe(403)
+    and body.should include('Authentication credentials are required.')
+```
+2025-01-25 10:22:58,916 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 10:22:58,916 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 10:22:58,939 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 10:22:58,941 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 10:23:48,142 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 10:23:48,143 - karate_llm_test_gen - INFO - Generated test case: ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify that the login e...
+2025-01-25 10:23:48,143 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature
+2025-01-25 10:23:48,144 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 10:23:48,144 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify that the login endpoint does not allow unauthorized access or improper authentication handling.",
+  "steps": [
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'wrong_password'}",
+      "Then status should be in the range 400-599, indicating a bad request or unauthorized access"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': '', 'password': ''}",
+      "Then status should be in the range 400-599, indicating missing or invalid credentials"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'} and header Authorization: Bearer validToken",
+      "Then status should be 200, indicating successful authentication"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'} and header Authorization: Bearer invalidToken or missing token",
+      "Then status should be in the range 401-599, indicating unauthorized access due to incorrect authentication"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'} and header Authorization: Bearer validToken but the user does not exist or is banned",
+      "Then status should be in the range 403-599, indicating forbidden access"
+    }
+  ],
+  "# Explanation": "This scenario checks for Broken Authentication/Authorization vulnerabilities by simulating various authentication attempts and verifying that unauthorized or improperly authenticated requests are handled correctly with appropriate HTTP status codes."
+}
+```
+2025-01-25 10:24:38,022 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 10:24:38,022 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify that the login endpoint does not allow unauthorized access or improper authentication handling.",
+    "Given url 'http://apimockurl.example/users/v1/login'",
+    "When method post with body {'username': 'admin', 'password': 'wrong_password'}",
+    "Then status in [400, 403]",
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': '', 'password': ''}",
+      "Then status in [400, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "And header Authorization: Bearer validToken",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status is 200"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "And header Authorization: Bearer invalidToken or missing token",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [401, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "And header Authorization: Bearer validToken but the user does not exist or is banned",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [403, 5xx]"
+    }
+}
+```
+2025-01-25 10:25:07,437 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 10:25:07,437 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'wrong_password'}",
+      "Then status in [400, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': '', 'password': ''}",
+      "Then status is 400"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and added missing header declaration for valid token test case
+      "And header Authorization: Bearer validToken",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status is 200"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and corrected token test case to reflect invalid or missing Authorization header
+      "And (header Authorization: Bearer validToken OR header is not set)",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [401, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and added missing header declaration for invalid token test case with banned user scenario
+      "And (header Authorization: Bearer validToken AND condition to check if the user is not found or is banned)",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [403, 5xx]"
+    }
+}
+```
+2025-01-25 10:25:07,438 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST_verified.feature
+2025-01-25 10:25:07,438 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestvam_users_v1_login_POST.feature: ```json
+{
+  "feature": "Broken Authentication/Authorization",
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'wrong_password'}",
+      "Then status in [400, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': '', 'password': ''}",
+      "Then status is 400"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and added missing header declaration for valid token test case
+      "And header Authorization: Bearer validToken",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status is 200"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and corrected token test case to reflect invalid or missing Authorization header
+      "And (header Authorization: Bearer validToken OR header is not set)",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [401, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and added missing header declaration for invalid token test case with banned user scenario
+      "And (header Authorization: Bearer validToken AND condition to check if the user is not found or is banned)",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [403, 5xx]"
+    }
+}
+```
+2025-01-25 10:25:07,439 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 10:25:07,439 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 10:25:07,468 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 10:25:07,469 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 10:25:57,274 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 10:25:57,275 - karate_llm_test_gen - INFO - Generated test case: ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify that the login e...
+2025-01-25 10:25:57,276 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST.feature
+2025-01-25 10:25:57,276 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 10:25:57,276 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify that the login endpoint does not allow unauthorized access or improper authentication handling.",
+  "steps": [
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'wrong_password'}",
+      "Then status should be in the range 400-599, indicating a bad request or unauthorized access"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': '', 'password': ''}",
+      "Then status should be in the range 400-599, indicating missing or invalid credentials"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'} and header Authorization: Bearer validToken",
+      "Then status should be 200, indicating successful authentication"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'} and header Authorization: Bearer invalidToken or missing token",
+      "Then status should be in the range 401-599, indicating unauthorized access due to incorrect authentication"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'} and header Authorization: Bearer validToken but the user does not exist or is banned",
+      "Then status should be in the range 403-599, indicating forbidden access"
+    }
+  ],
+  "# Explanation": "This scenario checks for Broken Authentication/Authorization vulnerabilities by simulating various authentication attempts and verifying that unauthorized or improperly authenticated requests are handled correctly with appropriate HTTP status codes."
+}
+```
+2025-01-25 10:26:47,615 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 10:26:47,615 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+  "scenario": "Verify that the login endpoint does not allow unauthorized access or improper authentication handling.",
+    "Given url 'http://apimockurl.example/users/v1/login'",
+    "When method post with body {'username': 'admin', 'password': 'wrong_password'}",
+    "Then status in [400, 403]",
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': '', 'password': ''}",
+      "Then status in [400, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "And header Authorization: Bearer validToken",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status is 200"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "And header Authorization: Bearer invalidToken or missing token",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [401, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "And header Authorization: Bearer validToken but the user does not exist or is banned",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [403, 5xx]"
+    }
+}
+```
+2025-01-25 10:27:17,308 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 10:27:17,308 - karate_compatibility_verifier - INFO - ```json
+{
+  "feature": "Broken Authentication/Authorization",
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'wrong_password'}",
+      "Then status in [400, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': '', 'password': ''}",
+      "Then status is 400"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and added missing header declaration for valid token test case
+      "And header Authorization: Bearer validToken",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status is 200"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and corrected token test case to reflect invalid or missing Authorization header
+      "And (header Authorization: Bearer validToken OR header is not set)",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [401, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and added missing header declaration for invalid token test case with banned user scenario
+      "And (header Authorization: Bearer validToken AND condition to check if the user is not found or is banned)",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [403, 5xx]"
+    }
+}
+```
+2025-01-25 10:27:17,309 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST_verified.feature
+2025-01-25 10:27:17,309 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestvam_users_v1_login_POST.feature: ```json
+{
+  "feature": "Broken Authentication/Authorization",
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': 'admin', 'password': 'wrong_password'}",
+      "Then status in [400, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+      "When method post with body {'username': '', 'password': ''}",
+      "Then status is 400"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and added missing header declaration for valid token test case
+      "And header Authorization: Bearer validToken",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status is 200"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and corrected token test case to reflect invalid or missing Authorization header
+      "And (header Authorization: Bearer validToken OR header is not set)",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [401, 403]"
+    },
+    {
+      "Given url 'http://apimockurl.example/users/v1/login'",
+                                // Fixed indentation and added missing header declaration for invalid token test case with banned user scenario
+      "And (header Authorization: Bearer validToken AND condition to check if the user is not found or is banned)",
+      "When method post with body {'username': 'admin', 'password': 'correct_password'}",
+      "Then status in [403, 5xx]"
+    }
+}
+```
+2025-01-25 10:27:17,309 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 10:27:17,328 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 10:27:20,281 - __main__ - INFO - Skipping karate test run.

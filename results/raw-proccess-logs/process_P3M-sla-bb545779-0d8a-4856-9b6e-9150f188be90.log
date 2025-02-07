@@ -1,0 +1,243 @@
+2025-01-25 19:53:35,101 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 19:53:35,166 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 19:53:35,399 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `calls:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/calls.participants.add", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"id": {"description": "`id` returned by the [`calls.add`](/methods/calls.add) method.", "type": "string"}, "users": {"description": "The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).", "type": "string"}}, "required": ["id", "users"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0143_calls.participants.add_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `users:read`", "in": "query", "name": "token", "required": true, "schema": {"type": "string"}}, {"description": "User to get presence info on. Defaults to the authed user.", "in": "query", "name": "user", "schema": {"type": "string"}}], "path": "/users.getPresence", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": {"type": "object"}, "description": "Schema for error response users.getPresence method", "properties": {"error": {"type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.counts error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0316_users.getPresence_get_default.json'}}], form collection oas_slack_web_fragments
+2025-01-25 19:53:35,402 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:53:35,402 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:53:35,851 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 19:53:35,852 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 19:53:50,309 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 19:53:50,310 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Test for Broken Authentication/Authorization on Admin User Invite",
+  "scenario": "U...
+2025-01-25 19:53:50,311 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature
+2025-01-25 19:53:50,311 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 19:53:50,311 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on Admin User Invite",
+  "scenario": "User attempts to invite another user without proper authentication or authorization as an admin.",
+  "given_url": "http://oas-github.api/admin.users.invite",
+  "steps": [
+    {
+      "step": "Given url 'http://oas-github.api/admin.users.invite'"
+    },
+    {
+      "step": "And header Authorization = Bearer <regular_user_token>" // Replace with actual token if available for testing, or use a placeholder value to simulate unauthorized access attempt
+    },
+    {
+      "step": "When method post"
+    },
+    {
+      "then step": [
+        {"statusCode": 401},
+        {"responseBody": ["Unauthorized"]} // Adjust the expected response based on actual API behavior for unauthorized access attempts. This example assumes a generic 'Unauthorized' message is returned by the server when authentication fails or authorization checks are not met.
+      ]
+    },
+    {
+      "step": "And header Authorization = Bearer <admin_token>" // Replace with actual admin token if available for testing, otherwise use a placeholder value to simulate an authorized access attempt without proper permissions check
+    },
+    {
+      "then step": [
+        {"statusCode": 403},
+        {"responseBody": ["Forbidden"]} // Adjust the expected response based on actual API behavior for unauthorized actions. This example assumes a generic 'Forbidden' message is returned by the server when an admin attempts to perform an action without proper permissions check or authorization level verification.
+      ]
+    },
+    {
+      "step": "And header Authorization = Bearer <admin_token with correct scope>" // Replace this step if you want to test for successful invitation under appropriate conditions, otherwise leave it commented out during unauthorized access tests.
+    },
+    {
+      "then step": [
+        {"statusCode": 201},
+        {"responseBody": ["User invited successfully"]} // Adjust the expected response based on actual API behavior for successful invitation with proper authentication and authorization checks passed. This example assumes a generic 'Success' message is returned by the server when an admin correctly performs user invitations under appropriate conditions.
+      ]
+    }
+  ]
+}
+2025-01-25 19:54:06,426 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 19:54:06,426 - karate_compatibility_verifier - INFO - Your message was too long and could not be processed. Please try again with something shorter.
+2025-01-25 19:54:11,564 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 19:54:11,564 - karate_compatibility_verifier - INFO - As there's no specific Karate DSL script provided, I will create a simple example of what such a corrected version might look like. Assuming the original intention was to define some karate moves using a domain-specific language (DSL) for clarity and precision:
+
+```karateDsl
+// Corrected Karate Domain Specific Language Script Example
+
+define Moves {
+    punch = "strike hand forward"
+    kick  = "kick foot backward"
+}
+
+test karateMoves() {
+    // Performing a series of moves using the defined DSL
+    repeat(5) {
+        move: punch
+        assertEqual("Striking with right fist", getMove())
+        
+        wait(1 second)
+        
+        if (randomNumber(0, 2) == 0) { // Randomly decide to perform a kick instead of another punch
+            move: kick
+            assertEqual("Executing front kick", getMove())
+        } else {
+            move: punch
+            assertEqual("Striking with left fist", getMove())
+        }
+    }
+}
+```
+This script defines a simple DSL for karate moves and demonstrates how to use it in testing. It's concise, focusing on the core functionality of defining movements (punches or kicks) and asserting their execution within tests.
+2025-01-25 19:54:11,565 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST_verified.feature
+2025-01-25 19:54:11,565 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature: As there's no specific Karate DSL script provided, I will create a simple example of what such a corrected version might look like. Assuming the original intention was to define some karate moves using a domain-specific language (DSL) for clarity and precision:
+
+```karateDsl
+// Corrected Karate Domain Specific Language Script Example
+
+define Moves {
+    punch = "strike hand forward"
+    kick  = "kick foot backward"
+}
+
+test karateMoves() {
+    // Performing a series of moves using the defined DSL
+    repeat(5) {
+        move: punch
+        assertEqual("Striking with right fist", getMove())
+        
+        wait(1 second)
+        
+        if (randomNumber(0, 2) == 0) { // Randomly decide to perform a kick instead of another punch
+            move: kick
+            assertEqual("Executing front kick", getMove())
+        } else {
+            move: punch
+            assertEqual("Striking with left fist", getMove())
+        }
+    }
+}
+```
+This script defines a simple DSL for karate moves and demonstrates how to use it in testing. It's concise, focusing on the core functionality of defining movements (punches or kicks) and asserting their execution within tests.
+2025-01-25 19:54:11,566 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:54:11,566 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:54:11,586 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 19:54:11,587 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 19:54:22,445 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 19:54:22,445 - karate_llm_test_gen - INFO - Generated test case: Given the API endpoint details, here is a Karate DSL test script to check for potential Broken Authe...
+2025-01-25 19:54:22,446 - __main__ - INFO - Generated Karate test for /calls.participants.add POST at output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature
+2025-01-25 19:54:22,446 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 19:54:22,446 - karate_compatibility_verifier - INFO - Given the API endpoint details, here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```yaml
+Feature: Testing broken authentication and authorization on /calls.participants.add endpoint
+Scenario: Attempt unauthorized access with invalid credentials or missing required fields
+Given url = 'http://oas_github.api/calls'
+And header Authorization = '' // Assuming no valid auth headers are provided intentionally for testing broken authentication
+When method post
+Then status 401
+```
+
+This test case checks if the API returns a `401 Unauthorized` response when an attempt is made to access `/calls.participants.add` without providing any Authorization header, which simulits as trying unauthorized access with invalid credentials or missing required fields for authentication and authorization purposes.
+2025-01-25 19:54:27,241 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 19:54:27,242 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Testing broken authentication and authorization on /calls.participants.add endpoint
+  Background:
+    Given url = 'http://oas_github.api/calls'
+  
+Scenario: Attempt unauthorized access with invalid credentials or missing required fields
+  * And header Authorization = '' // Assuming no valid auth headers are provided intentionally for testing broken authentication
+  When method post '/calls/participants/add'
+    Then status 401
+```
+2025-01-25 19:54:29,272 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 19:54:29,272 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Testing broken authentication and authorization on /calls.participants.add endpoint
+  Background:
+    Given url = 'http://oas_github.api/calls'
+  
+Scenario: Attempt unauthorized access with invalid credentials or missing required fields
+  * And header Authorization = '' // Assuming no valid auth headers are provided intentionally for testing broken authentication
+  When method post '/calls/participants/add'
+    Then status 401
+```
+2025-01-25 19:54:29,273 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST_verified.feature
+2025-01-25 19:54:29,273 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature: ```yaml
+Feature: Testing broken authentication and authorization on /calls.participants.add endpoint
+  Background:
+    Given url = 'http://oas_github.api/calls'
+  
+Scenario: Attempt unauthorized access with invalid credentials or missing required fields
+  * And header Authorization = '' // Assuming no valid auth headers are provided intentionally for testing broken authentication
+  When method post '/calls/participants/add'
+    Then status 401
+```
+2025-01-25 19:54:29,273 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:54:29,274 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 19:54:29,293 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 19:54:29,294 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 19:54:37,755 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 19:54:37,756 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: Broken Authentication/Authorization on User Presence Check API Endpoint
+scenario: A...
+2025-01-25 19:54:37,757 - __main__ - INFO - Generated Karate test for /users.getPresence GET at output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature
+2025-01-25 19:54:37,757 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 19:54:37,757 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Authentication/Authorization on User Presence Check API Endpoint
+scenario: Attempt to access user presence with invalid credentials and unautmised roles
+given url 'http://oas_github.api/users.getPresence'
+and header Authorization = "Bearer <invalid_token>" // Replace '<invalid_token>' with an actual example of a token that would be considered invalid for this endpoint (if such information is available) or use placeholder text if not disclosed publicly
+when method get
+then status 401
+and response message contains 'Unauthorized'
+* def adminAccess = callonce read('classpath:helpers/adminUserPresence.feature'), // Assuming there exists a feature file that checks for administrative access to user presence data, which should be included in the test suite if available
+switch adminAccess.status
+  case 200: then assert 'Admin has correct permissions' false // This assertion will fail since we expect an unauthorized status code (401) but are checking a successful response for demonstration purposes; adjust based on actual feature file content and expected outcomes
+case 403: then pass // Pass this step if the test script is correctly identifying that regular users cannot access user presence data without proper authorization, even when using an invalid token.
+```
+2025-01-25 19:54:48,227 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 19:54:48,228 - karate_compatibility_verifier - INFO - Given url 'http://oas_github.api/users.getPresence'
+    and header Authorization = "Bearer invalidToken" // Replace '<invalid_token>' with an actual example of a token that would be considered invalid for this endpoint (if such information is available) or use placeholder text if not disclosed publicly
+When method get
+Then status 401
+And response message contains 'Unauthorized'
+* def adminAccess = callonce read('classpath:helpers/adminUserPresence.feature') // Assuming there exists a feature file that checks for administrative access to user presence data, which should be included in the test suite if available
+When method get
+Then status 401
+And response message contains 'Unauthorized'
+2025-01-25 19:54:50,138 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 19:54:50,139 - karate_compatibility_verifier - INFO - Given url 'http://oas_github.api/users.getPresence'
+    and header Authorization = "Bearer invalidToken" // Assuming a placeholder for an actual invalid token, e.g., "Bearer abc123Invalid!"
+When method get
+Then status 401
+And response message contains 'Unauthorized'
+2025-01-25 19:54:50,139 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET_verified.feature
+2025-01-25 19:54:50,139 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature: Given url 'http://oas_github.api/users.getPresence'
+    and header Authorization = "Bearer invalidToken" // Assuming a placeholder for an actual invalid token, e.g., "Bearer abc123Invalid!"
+When method get
+Then status 401
+And response message contains 'Unauthorized'
+2025-01-25 19:54:50,139 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 19:54:50,141 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 19:54:52,704 - __main__ - INFO - Skipping karate test run.

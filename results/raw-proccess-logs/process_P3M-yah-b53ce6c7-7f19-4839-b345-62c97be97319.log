@@ -1,0 +1,271 @@
+2025-02-01 16:42:37,855 - __main__ - INFO - Skipping fragment creation: False
+2025-02-01 16:42:37,935 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-01 16:42:38,162 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"in": "query", "name": "formatted", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "region", "schema": {"enum": ["US"], "type": "string"}}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "fields", "schema": {"type": "string"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": "symbols", "required": true, "schema": {"type": "string"}}], "path": "/v7/finance/quote", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"quoteResponse": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"$ref": "#/components/schemas/QuoteResult"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0002_v7_finance_quote_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"in": "query", "name": "interval", "required": true, "schema": {"enum": ["1m", "5m", "15m", "30m", "1h", "6h", "1d"], "type": "string"}}, {"in": "query", "name": "range", "required": true, "schema": {"enum": ["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"], "type": "string"}}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "includeTimestamps", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "indicators", "schema": {"type": "string"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": "symbols", "required": true, "schema": {"type": "string"}}], "path": "/v7/finance/spark", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"quoteResponse": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"$ref": "#/components/schemas/QuoteResult"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0003_v7_finance_spark_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"in": "path", "name": "symbol", "required": true, "schema": {"type": "string"}}, {"in": "query", "name": "region", "schema": {"enum": ["US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"explode": false, "in": "query", "name": "events", "schema": {"items": {"enum": ["div", "split"], "type": "string"}, "type": "array"}, "style": "pipeDelimited"}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "interval", "required": true, "schema": {"enum": ["1m", "5m", "15m", "30m", "1h", "6h", "1d"], "type": "string"}}, {"in": "query", "name": "useYfid", "schema": {"default": true, "type": "boolean"}}, {"in": "query", "name": "period1", "required": true, "schema": {"format": "int64", "type": "integer"}}, {"in": "query", "name": "period2", "required": true, "schema": {"format": "int64", "type": "integer"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": ".tsrc", "schema": {"enum": ["finance"], "type": "string"}}], "path": "/v8/finance/chart/{symbol}", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"chart": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"properties": {"indicators": {"properties": {"quote": {"items": {"properties": {"close": {"items": {"example": 1.1782727241516113, "type": "number"}, "type": "array"}, "high": {"items": {"example": 1.1784114837646484, "type": "number"}, "type": "array"}, "low": {"items": {"example": 1.1782727241516113, "type": "number"}, "type": "array"}, "open": {"items": {"example": 1.1784114837646484, "type": "number"}, "type": "array"}, "volume": {"items": {"example": 0, "format": "int32", "type": "integer"}, "type": "array"}}, "type": "object"}, "type": "array"}}, "type": "object"}, "meta": {"properties": {"chartPreviousClose": {"example": 1.178, "type": "number"}, "currency": {"example": "USD", "type": "string"}, "currentTradingPeriod": {"properties": {"post": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617404340, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "pre": {"properties": {"end": {"example": 1617318000, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "regular": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}}, "type": "object"}, "dataGranularity": {"example": "2m", "type": "string"}, "exchangeName": {"example": "CCY", "type": "string"}, "exchangeTimezoneName": {"example": "Europe/London", "type": "string"}, "firstTradeDate": {"example": 1070236800, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "instrumentType": {"example": "CURRENCY", "type": "string"}, "previousClose": {"example": 1.178, "type": "number"}, "priceHint": {"example": 4, "format": "int32", "type": "integer"}, "range": {"example": "1d", "type": "string"}, "regularMarketPrice": {"example": 1.1769, "type": "number"}, "regularMarketTime": {"example": 1617398979, "format": "int32", "type": "integer"}, "scale": {"example": 4, "format": "int32", "type": "integer"}, "symbol": {"example": "EURUSD=X", "type": "string"}, "timezone": {"example": "BST", "type": "string"}, "tradingPeriods": {"items": {"items": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "type": "array"}, "type": "array"}, "validRanges": {"items": {"example": "1d", "type": "string"}, "type": "array"}}, "type": "object"}, "timestamp": {"items": {"example": 1617318000, "format": "int32", "type": "integer"}, "type": "array"}}, "type": "object"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0001_v8_finance_chart_symbol_get_200.json'}}], form collection oas_yahoo_finance_fragments
+2025-02-01 16:42:38,162 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:42:38,163 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:42:38,581 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 16:42:38,582 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 16:45:37,327 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 16:45:37,328 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+feature: 'Broken Auth & Authorization Tests'
+scenario: 'GET /v7/finance/quote - Unauthentica...
+2025-02-01 16:45:37,329 - __main__ - INFO - Generated Karate test for /v7/finance/quote GET at output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET.feature
+2025-02-01 16:45:37,329 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 16:45:37,329 - karate_compatibility_verifier - INFO - ```yaml
+feature: 'Broken Auth & Authorization Tests'
+scenario: 'GET /v7/finance/quote - Unauthenticated Access Attempt with Forbidden Header'
+given url: 'http://oas_yahoo_finance.api/v7/finance/quote'
+and header Keycloak-Forbidden = "true"
+when request method get
+then status 403
+and response body contains {code:'UNAUTHORIZED'}
+# Explanation: This scenario simulates an unauthenticated user attempting to access a protected resource, using the Keycloak 'Forbidden' header. The test verifies that the API correctly responds with HTTP 403 Forbidden status code and returns a message indicating UNAUTHORIZED when such attempts are made.
+```
+
+```yaml
+feature: 'Broken Auth & Authorization Tests'
+scenario: 'GET /v7/finance/quote - Unauthenticated Access Attempt without Headers'
+given url: 'http://oas_yahoo_finance.api/v7/finance/quote'
+when request method get
+then status 401
+and response body contains {error:'Missing Authorization Header'}
+# Explanation: This scenario tests the API behavior when an unauthenticated user tries to access a protected resource without including any headers. The test checks for HTTP 401 Unauthorized and verifies that the error message 'Missing Authorization Header' is returned, indicating proper handling of missing authentication details.
+```
+2025-02-01 16:47:33,876 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 16:47:33,876 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Auth & Authorization Tests
+scenario: GET /v7/finance/quote - Unauthenticated Access Attempt with Forbidden Header
+given url: 'http://oas_yahoo_finance.api/v7/finance/quote'
+and header Keycloak-Forbidden = "true"
+when request method get
+then status 403
+and response body {code:'UNAUTHORIZED'}
+```
+2025-02-01 16:48:16,070 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 16:48:16,070 - karate_compatibility_verifier - INFO - ```yaml
+feature: Broken Auth & Authorization Tests
+scenario: GET /v7/finance/quote - Unauthenticated Access Attempt with Forbidden Header
+    given url: 'https://oas_yahoo_finance.api/v7/finance/quote'
+    and header Keycloak-Forbidden = "true"
+    when request method get
+    then status 403
+    and response body {code:'UNAUTHORIZED'}
+```
+2025-02-01 16:48:16,071 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET_verified.feature
+2025-02-01 16:48:16,071 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET.feature: ```yaml
+feature: Broken Auth & Authorization Tests
+scenario: GET /v7/finance/quote - Unauthenticated Access Attempt with Forbidden Header
+    given url: 'https://oas_yahoo_finance.api/v7/finance/quote'
+    and header Keycloak-Forbidden = "true"
+    when request method get
+    then status 403
+    and response body {code:'UNAUTHORIZED'}
+```
+2025-02-01 16:48:16,071 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:48:16,072 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:48:16,108 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 16:48:16,109 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 16:51:04,847 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 16:51:04,848 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+
+Feature: Checking Finance API Endpoint /v7/finance/spark for Broken Authentication and Auth...
+2025-02-01 16:51:04,848 - __main__ - INFO - Generated Karate test for /v7/finance/spark GET at output/karate_feature_files/ID_002_krtestoas_v7_finance_spark_GET.feature
+2025-02-01 16:51:04,849 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 16:51:04,849 - karate_compatibility_verifier - INFO - ```yaml
+
+Feature: Checking Finance API Endpoint /v7/finance/spark for Broken Authentication and Authorization Vulnerabilities
+
+Scenario: Attempt unauthorized access with invalid credentials to check broken authentication handling
+
+Steps:
+
+  * Given url http://oas_yahoo_finance.api/v7/finance/spark
+
+    * And header 'Authorization' = "Bearer <invalid_token>" // Replace '<invalid_token>' with an actual invalid token for testing purposes
+
+    * When method get
+
+      * Then status 401 or 5xx (depending on the API implementation) and match response message contains 'Unauthorized' or appropriate error indicating broken authentication handling
+
+Scenario: Attempt access without any credentials to check authorization vulnerabilities for unauthenticated users
+
+Steps:
+
+  * Given url http://oas_yahoo_finance.api/v7/finance/spark
+
+    * When method get (assuming the API requires authentication)
+
+      * Then status 401 or 5xx and match response message contains 'Access denied' to verify that unauthenticated access is blocked appropriately, indicating good authorization checks are in place for this endpoint.
+```
+2025-02-01 16:54:48,924 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 16:54:48,924 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Checking Finance API Endpoint /v7/finance/spark for Broken Authentication and Authorization Vulnerabilities
+
+Scenario: Attempt unauthorized access with invalid credentials to check broken authentication handling
+
+Steps:
+
+  * Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+
+    * And header 'Authorization' = "Bearer INVALIDTOKEN" // Replace 'INVALIDTOKEN' with an actual invalid token for testing purposes
+
+    * When method get
+
+      * Then status 401 or 5xx (depending on the API implementation) and match response message contains 'Unauthorized' or appropriate error indicating broken authentication handling
+
+Scenario: Attempt access without any credentials to check authorization vulnerabilities for unauthenticated users
+
+Steps:
+
+  * Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+
+    * When method get (assuming the API requires authentication)
+
+      * Then status 401 or 5xx and match response message contains 'Access denied' to verify that unauthenticated access is blocked appropriately, indicating good authorization checks are in place for this endpoint.
+```
+2025-02-01 16:56:21,941 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 16:56:21,941 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Checking Finance API Endpoint /v7/finance/spark for Broken Authentication and Authorization Vulnerabilities
+
+Scenario: Attempt unauthorized access with invalid credentials to check broken authentication handling
+
+Steps:
+
+  * Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+
+    * And header {'Authorization': "Bearer INVALIDTOKEN"} // Replace 'INVALIDTOKEN' with an actual invalid token for testing purposes
+
+    * When method get
+
+      * Then status in [401, 5xx] (depending on the API implementation) and match response message contains 'Unauthorized' or appropriate error indicating broken authentication handling
+
+Scenario: Attempt access without any credentials to check authorization vulnerabilities for unauthenticated users
+
+Steps:
+
+  * Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+
+    * When method get (assuming the API requires authentication)
+
+      * Then status in [401, 5xx] and match response message contains 'Access denied' to verify that unauthenticated access is blocked appropriately, indicating good authorization checks are in place for this endpoint.
+```
+2025-02-01 16:56:21,941 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_v7_finance_spark_GET_verified.feature
+2025-02-01 16:56:21,942 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_v7_finance_spark_GET.feature: ```yaml
+Feature: Checking Finance API Endpoint /v7/finance/spark for Broken Authentication and Authorization Vulnerabilities
+
+Scenario: Attempt unauthorized access with invalid credentials to check broken authentication handling
+
+Steps:
+
+  * Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+
+    * And header {'Authorization': "Bearer INVALIDTOKEN"} // Replace 'INVALIDTOKEN' with an actual invalid token for testing purposes
+
+    * When method get
+
+      * Then status in [401, 5xx] (depending on the API implementation) and match response message contains 'Unauthorized' or appropriate error indicating broken authentication handling
+
+Scenario: Attempt access without any credentials to check authorization vulnerabilities for unauthenticated users
+
+Steps:
+
+  * Given url 'http://oas_yahoo_finance.api/v7/finance/spark'
+
+    * When method get (assuming the API requires authentication)
+
+      * Then status in [401, 5xx] and match response message contains 'Access denied' to verify that unauthenticated access is blocked appropriately, indicating good authorization checks are in place for this endpoint.
+```
+2025-02-01 16:56:21,942 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:56:21,943 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:56:21,973 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 16:56:21,974 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 16:59:14,833 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 16:59:14,834 - karate_llm_test_gen - INFO - Generated test case: ```diff
++++ file:/tests/security_test_scenarios/broken_auth_oauth.feature
+@@ -1,4 +1,8 @@ features:
+...
+2025-02-01 16:59:14,835 - __main__ - INFO - Generated Karate test for /v8/finance/chart/{symbol} GET at output/karate_feature_files/ID_003_krtestoas_v8_finance_chart_symbol_GET.feature
+2025-02-01 16:59:14,836 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 16:59:14,836 - karate_compatibility_verifier - INFO - ```diff
++++ file:/tests/security_test_scenarios/broken_auth_oauth.feature
+@@ -1,4 +1,8 @@ features:
+ title: Check OAuth Token Generation Vulnerability with Stolen Authorization Code
+   url: http://oas_yahoo_finance.api/v8/finance/chart/{symbol}
+ scenarios:
+  ===========
+ - Given the API endpoint for obtaining financial charts is accessible and requires authentication, but no specifics are provided
+ + Given url 'http://oas_yahoo_finance.api/v8/finance/chart/' with OAuth token generation vulnerability scenario
+   * def grantType = 'authorization_code'
+   * def code = 'stolen_code' # This should be a stolen authorization code for testing purposes
+   * def redirectUri = 'http://evil.example.com'
+   * def clientId = 'client_id'
+   * def clientSecret = 'client_secret'
+ + Given url '/oauth/token?' with OAuth token generation vulnerability parameters
+     params.grantType = grantType
+     params.code = code
+     params.redirectUri = redirectUri
+     params.clientId = clientId
+     params[\"clientSecret\"] = clientSecret
+   When method post
+ + Then status should be 403 or similar indicating an authentication/authorization error due to stolen authorization code
+   And assert response contains 'Invalid grant: authorization code is invalid' or any other relevant message for the vulnerability scenario
+```
+2025-02-01 17:01:23,393 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 17:01:23,393 - karate_compatibility_verifier - INFO - ```diff
++ Given url '/oauth/token?' with OAuth token generation vulnerability parameters
+  params.grantType = 'authorization_code'
+  def stolenCode = 'stolen_code' # This should be a stolen authorization code for testing purposes
+  + When method post
+    And header Authorization = 'Basic ' + Java.encrypt('client_id:client_secret')
++ Then status in [401, 429] or similar indicating an authentication/authorization error due to stolen authorization code
+```
+2025-02-01 17:02:18,897 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 17:02:18,898 - karate_compatibility_verifier - INFO - Outputting only the corrected Karate DSL script as per your instructions (assuming a hypothetical scenario where we're testing for vulnerabilities):
+
+```diff
++ Given url '/oauth/token?' with OAuth token generation using parameters that could lead to security issues if misused. Replace 'stolen_code' and the hardcoded credentials below:
+  params.grantType = 'authorization_code'
+- def stolenCode = 'stolen_code' # This should be a securely handled test code, not directly used in tests for real scenarios
++ And header Authorization = Java.encrypt('client_id:' + SecureRandomTokenGenerator())
++ Then status is 403 or another appropriate error response indicating unauthorized access due to misuse of credentials/tokens
+```
+2025-02-01 17:02:18,898 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_v8_finance_chart_symbol_GET_verified.feature
+2025-02-01 17:02:18,898 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_v8_finance_chart_symbol_GET.feature: Outputting only the corrected Karate DSL script as per your instructions (assuming a hypothetical scenario where we're testing for vulnerabilities):
+
+```diff
++ Given url '/oauth/token?' with OAuth token generation using parameters that could lead to security issues if misused. Replace 'stolen_code' and the hardcoded credentials below:
+  params.grantType = 'authorization_code'
+- def stolenCode = 'stolen_code' # This should be a securely handled test code, not directly used in tests for real scenarios
++ And header Authorization = Java.encrypt('client_id:' + SecureRandomTokenGenerator())
++ Then status is 403 or another appropriate error response indicating unauthorized access due to misuse of credentials/tokens
+```
+2025-02-01 17:02:18,898 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-01 17:02:18,900 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-01 17:02:21,858 - __main__ - INFO - Skipping karate test run.

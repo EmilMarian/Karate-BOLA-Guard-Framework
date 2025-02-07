@@ -1,0 +1,421 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Origin of the journey. Can be WGS84 coordinates expressed as \"lat,long\", a UK postcode, a Naptan (StopPoint) id, an ICS StopId, or a free-text string (will cause disambiguation unless it exactly matches a point of interest name).",
+      "in": "path",
+      "name": "from",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Destination of the journey. Can be WGS84 coordinates expressed as \"lat,long\", a UK postcode, a Naptan (StopPoint) id, an ICS StopId, or a free-text string (will cause disambiguation unless it exactly matches a point of interest name).",
+      "in": "path",
+      "name": "to",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Travel through point on the journey. Can be WGS84 coordinates expressed as \"lat,long\", a UK postcode, a Naptan (StopPoint) id, an ICS StopId, or a free-text string (will cause disambiguation unless it exactly matches a point of interest name).",
+      "in": "query",
+      "name": "via",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Does the journey cover stops outside London? eg. \"nationalSearch=true\"",
+      "in": "query",
+      "name": "nationalSearch",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "The date must be in yyyyMMdd format",
+      "in": "query",
+      "name": "date",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The time must be in HHmm format",
+      "in": "query",
+      "name": "time",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Does the time given relate to arrival or leaving time? Possible options: \"departing\" | \"arriving\"",
+      "in": "query",
+      "name": "timeIs",
+      "schema": {
+        "enum": [
+          "Arriving",
+          "Departing"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "The journey preference eg possible options: \"leastinterchange\" | \"leasttime\" | \"leastwalking\"",
+      "in": "query",
+      "name": "journeyPreference",
+      "schema": {
+        "enum": [
+          "LeastInterchange",
+          "LeastTime",
+          "LeastWalking"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "The mode must be a comma separated list of modes. eg possible options: \"public-bus,overground,train,tube,coach,dlr,cablecar,tram,river,walking,cycle\"",
+      "explode": true,
+      "in": "query",
+      "name": "mode",
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "The accessibility preference must be a comma separated list eg. \"noSolidStairs,noEscalators,noElevators,stepFreeToVehicle,stepFreeToPlatform\"",
+      "explode": true,
+      "in": "query",
+      "name": "accessibilityPreference",
+      "schema": {
+        "items": {
+          "enum": [
+            "NoRequirements",
+            "NoSolidStairs",
+            "NoEscalators",
+            "NoElevators",
+            "StepFreeToVehicle",
+            "StepFreeToPlatform"
+          ],
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "An optional name to associate with the origin of the journey in the results.",
+      "in": "query",
+      "name": "fromName",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "An optional name to associate with the destination of the journey in the results.",
+      "in": "query",
+      "name": "toName",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "An optional name to associate with the via point of the journey in the results.",
+      "in": "query",
+      "name": "viaName",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The max walking time in minutes for transfer eg. \"120\"",
+      "in": "query",
+      "name": "maxTransferMinutes",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The max walking time in minutes for journeys eg. \"120\"",
+      "in": "query",
+      "name": "maxWalkingMinutes",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The walking speed. eg possible options: \"slow\" | \"average\" | \"fast\".",
+      "in": "query",
+      "name": "walkingSpeed",
+      "schema": {
+        "enum": [
+          "Slow",
+          "Average",
+          "Fast"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "The cycle preference. eg possible options: \"allTheWay\" | \"leaveAtStation\" | \"takeOnTransport\" | \"cycleHire\"",
+      "in": "query",
+      "name": "cyclePreference",
+      "schema": {
+        "enum": [
+          "None",
+          "LeaveAtStation",
+          "TakeOnTransport",
+          "AllTheWay",
+          "CycleHire"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "Time adjustment command. eg possible options: \"TripFirst\" | \"TripLast\"",
+      "in": "query",
+      "name": "adjustment",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A comma separated list of cycling proficiency levels. eg possible options: \"easy,moderate,fast\"",
+      "explode": true,
+      "in": "query",
+      "name": "bikeProficiency",
+      "schema": {
+        "items": {
+          "enum": [
+            "Easy",
+            "Moderate",
+            "Fast"
+          ],
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Option to determine whether to return alternative cycling journey",
+      "in": "query",
+      "name": "alternativeCycle",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "Option to determine whether to return alternative walking journey",
+      "in": "query",
+      "name": "alternativeWalking",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "Flag to determine whether certain text (e.g. walking instructions) should be output with HTML tags or not.",
+      "in": "query",
+      "name": "applyHtmlMarkup",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "A boolean to indicate whether or not to return 3 public transport journeys, a bus journey, a cycle hire journey, a personal cycle journey and a walking journey",
+      "in": "query",
+      "name": "useMultiModalCall",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "A boolean to indicate whether to optimize journeys using walking",
+      "in": "query",
+      "name": "walkingOptimization",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "A boolean to indicate whether to return one or more taxi journeys. Note, setting this to true will override \"useMultiModalCall\".",
+      "in": "query",
+      "name": "taxiOnlyTrip",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "path": "/Journey/JourneyResults/{from}/to/{to}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A DTO representing a list of possible journeys.",
+            "properties": {
+              "cycleHireDockingStationData": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.JourneyPlannerCycleHireDockingStationData"
+              },
+              "journeyVector": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.JourneyVector"
+              },
+              "journeys": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.Journey"
+                },
+                "type": "array"
+              },
+              "lines": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Line"
+                },
+                "type": "array"
+              },
+              "recommendedMaxAgeMinutes": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "searchCriteria": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.SearchCriteria"
+              },
+              "stopMessages": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "description": "A DTO representing a list of possible journeys.",
+            "properties": {
+              "cycleHireDockingStationData": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.JourneyPlannerCycleHireDockingStationData"
+              },
+              "journeyVector": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.JourneyVector"
+              },
+              "journeys": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.Journey"
+                },
+                "type": "array"
+              },
+              "lines": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Line"
+                },
+                "type": "array"
+              },
+              "recommendedMaxAgeMinutes": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "searchCriteria": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.SearchCriteria"
+              },
+              "stopMessages": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "description": "A DTO representing a list of possible journeys.",
+            "properties": {
+              "cycleHireDockingStationData": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.JourneyPlannerCycleHireDockingStationData"
+              },
+              "journeyVector": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.JourneyVector"
+              },
+              "journeys": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.Journey"
+                },
+                "type": "array"
+              },
+              "lines": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Line"
+                },
+                "type": "array"
+              },
+              "recommendedMaxAgeMinutes": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "searchCriteria": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.SearchCriteria"
+              },
+              "stopMessages": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "description": "A DTO representing a list of possible journeys.",
+            "properties": {
+              "cycleHireDockingStationData": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.JourneyPlannerCycleHireDockingStationData"
+              },
+              "journeyVector": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.JourneyVector"
+              },
+              "journeys": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.Journey"
+                },
+                "type": "array"
+              },
+              "lines": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.Line"
+                },
+                "type": "array"
+              },
+              "recommendedMaxAgeMinutes": {
+                "format": "int32",
+                "type": "integer"
+              },
+              "searchCriteria": {
+                "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.JourneyPlanner.SearchCriteria"
+              },
+              "stopMessages": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

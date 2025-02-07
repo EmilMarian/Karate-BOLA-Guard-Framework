@@ -1,0 +1,210 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+      "in": "query",
+      "name": "ending_before",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "in": "path",
+      "name": "payment_link",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+      "in": "query",
+      "name": "starting_after",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/payment_links/{payment_link}/line_items",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "",
+            "properties": {
+              "data": {
+                "description": "Details about each object.",
+                "items": {
+                  "description": "A line item.",
+                  "properties": {
+                    "amount_discount": {
+                      "description": "Total discount amount applied. If no discounts were applied, defaults to 0.",
+                      "type": "integer"
+                    },
+                    "amount_subtotal": {
+                      "description": "Total before any discounts or taxes are applied.",
+                      "type": "integer"
+                    },
+                    "amount_tax": {
+                      "description": "Total tax amount applied. If no tax was applied, defaults to 0.",
+                      "type": "integer"
+                    },
+                    "amount_total": {
+                      "description": "Total after discounts and taxes.",
+                      "type": "integer"
+                    },
+                    "currency": {
+                      "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                      "format": "currency",
+                      "type": "string"
+                    },
+                    "description": {
+                      "description": "An arbitrary string attached to the object. Often useful for displaying to users. Defaults to product name.",
+                      "maxLength": 5000,
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "discounts": {
+                      "description": "The discounts applied to the line item.",
+                      "items": {
+                        "$ref": "#/components/schemas/line_items_discount_amount"
+                      },
+                      "type": "array"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the object.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "object": {
+                      "description": "String representing the object's type. Objects of the same type share the same value.",
+                      "enum": [
+                        "item"
+                      ],
+                      "type": "string"
+                    },
+                    "price": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/price"
+                        }
+                      ],
+                      "description": "The price used to generate the line item.",
+                      "nullable": true
+                    },
+                    "quantity": {
+                      "description": "The quantity of products being purchased.",
+                      "nullable": true,
+                      "type": "integer"
+                    },
+                    "taxes": {
+                      "description": "The taxes applied to the line item.",
+                      "items": {
+                        "$ref": "#/components/schemas/line_items_tax_amount"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "amount_discount",
+                    "amount_subtotal",
+                    "amount_tax",
+                    "amount_total",
+                    "currency",
+                    "id",
+                    "object"
+                  ],
+                  "title": "LineItem",
+                  "type": "object",
+                  "x-expandableFields": [
+                    "discounts",
+                    "price",
+                    "taxes"
+                  ],
+                  "x-resourceId": "item"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "description": "True if this list has another page of items after this one that can be fetched.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                "enum": [
+                  "list"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "The URL where this list can be accessed.",
+                "maxLength": 5000,
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "PaymentLinksResourceListLineItems",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

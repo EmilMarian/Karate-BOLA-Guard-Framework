@@ -1,0 +1,106 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the `Modifier` belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The ID of the `Modifier`.\n",
+      "in": "path",
+      "name": "modifier_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/modifiers/{modifier_id}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "config": {
+              "$ref": "#/components/schemas/OptionConfig"
+            },
+            "display_name": {
+              "description": "The name of the option shown on the storefront.\n",
+              "type": "string"
+            },
+            "id": {
+              "description": "The unique numeric ID of the modifier; increments sequentially.\n",
+              "type": "integer"
+            },
+            "name": {
+              "description": "The unique option name. Auto-generated from the display name, a timestamp, and the product ID.\n",
+              "type": "string"
+            },
+            "option_values": {
+              "items": {
+                "$ref": "#/components/schemas/ModifierValue"
+              },
+              "type": "array"
+            },
+            "product_id": {
+              "description": "The unique numeric ID of the product to which the option belongs.\n",
+              "type": "integer"
+            },
+            "required": {
+              "description": "Whether or not this modifer is required at checkout.\n",
+              "type": "boolean"
+            },
+            "type": {
+              "description": "The type of modifier, which determines how it will display on the storefront. For reference, the former v2 API values are:\nD = date, C = checkbox, F = file, T = text, MT = multi_line_text, N = numbers_only_text, RB = radio_buttons,\nRT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.\n",
+              "enum": [
+                "date",
+                "checkbox",
+                "file",
+                "text",
+                "multi_line_text",
+                "numbers_only_text",
+                "radio_buttons",
+                "rectangles",
+                "dropdown",
+                "product_list",
+                "product_list_with_images",
+                "swatch"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "A BigCommerce `Modifier` object.\n",
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Modifier"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/CollectionMeta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "A modifier object.\n"
+    }
+  }
+}

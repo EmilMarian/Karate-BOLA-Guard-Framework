@@ -1,0 +1,92 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Latitude component of start location.",
+      "in": "query",
+      "name": "start_latitude",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "Longitude component of start location.",
+      "in": "query",
+      "name": "start_longitude",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "Latitude component of end location.",
+      "in": "query",
+      "name": "end_latitude",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "description": "Longitude component of end location.",
+      "in": "query",
+      "name": "end_longitude",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    }
+  ],
+  "path": "/estimates/price",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "currency_code": {
+                  "description": "[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.",
+                  "type": "string"
+                },
+                "display_name": {
+                  "description": "Display name of product.",
+                  "type": "string"
+                },
+                "estimate": {
+                  "description": "Formatted string of estimate in local currency of the start location. Estimate could be a range, a single number (flat rate) or \"Metered\" for TAXI.",
+                  "type": "string"
+                },
+                "high_estimate": {
+                  "description": "Upper bound of the estimated price.",
+                  "type": "number"
+                },
+                "low_estimate": {
+                  "description": "Lower bound of the estimated price.",
+                  "type": "number"
+                },
+                "product_id": {
+                  "description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles",
+                  "type": "string"
+                },
+                "surge_multiplier": {
+                  "description": "Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier.",
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "An array of price estimates by product"
+    }
+  }
+}

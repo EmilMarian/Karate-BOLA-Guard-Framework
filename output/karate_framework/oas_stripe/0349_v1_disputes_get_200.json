@@ -1,0 +1,325 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Only return disputes associated to the charge specified by this charge ID.",
+      "in": "query",
+      "name": "charge",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Only return disputes that were created during the given date interval.",
+      "explode": true,
+      "in": "query",
+      "name": "created",
+      "required": false,
+      "schema": {
+        "anyOf": [
+          {
+            "properties": {
+              "gt": {
+                "type": "integer"
+              },
+              "gte": {
+                "type": "integer"
+              },
+              "lt": {
+                "type": "integer"
+              },
+              "lte": {
+                "type": "integer"
+              }
+            },
+            "title": "range_query_specs",
+            "type": "object"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+      "in": "query",
+      "name": "ending_before",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Only return disputes associated to the PaymentIntent specified by this PaymentIntent ID.",
+      "in": "query",
+      "name": "payment_intent",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+      "in": "query",
+      "name": "starting_after",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/disputes",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "",
+            "properties": {
+              "data": {
+                "items": {
+                  "description": "A dispute occurs when a customer questions your charge with their card issuer.\nWhen this happens, you have the opportunity to respond to the dispute with\nevidence that shows that the charge is legitimate.\n\nRelated guide: [Disputes and fraud](https://stripe.com/docs/disputes)",
+                  "properties": {
+                    "amount": {
+                      "description": "Disputed amount. Usually the amount of the charge, but it can differ (usually because of currency fluctuation or because only part of the order is disputed).",
+                      "type": "integer"
+                    },
+                    "balance_transactions": {
+                      "description": "List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.",
+                      "items": {
+                        "$ref": "#/components/schemas/balance_transaction"
+                      },
+                      "type": "array"
+                    },
+                    "charge": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/charge"
+                        }
+                      ],
+                      "description": "ID of the charge that's disputed.",
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/charge"
+                          }
+                        ]
+                      }
+                    },
+                    "created": {
+                      "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "currency": {
+                      "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                      "format": "currency",
+                      "type": "string"
+                    },
+                    "enhanced_eligibility_types": {
+                      "description": "List of eligibility types that are included in `enhanced_evidence`.",
+                      "items": {
+                        "enum": [
+                          "visa_compelling_evidence_3"
+                        ],
+                        "type": "string",
+                        "x-stripeBypassValidation": true
+                      },
+                      "type": "array"
+                    },
+                    "evidence": {
+                      "$ref": "#/components/schemas/dispute_evidence"
+                    },
+                    "evidence_details": {
+                      "$ref": "#/components/schemas/dispute_evidence_details"
+                    },
+                    "id": {
+                      "description": "Unique identifier for the object.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "is_charge_refundable": {
+                      "description": "If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute.",
+                      "type": "boolean"
+                    },
+                    "livemode": {
+                      "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                      "type": "boolean"
+                    },
+                    "metadata": {
+                      "additionalProperties": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                      "type": "object"
+                    },
+                    "object": {
+                      "description": "String representing the object's type. Objects of the same type share the same value.",
+                      "enum": [
+                        "dispute"
+                      ],
+                      "type": "string"
+                    },
+                    "payment_intent": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/payment_intent"
+                        }
+                      ],
+                      "description": "ID of the PaymentIntent that's disputed.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/payment_intent"
+                          }
+                        ]
+                      }
+                    },
+                    "payment_method_details": {
+                      "$ref": "#/components/schemas/dispute_payment_method_details"
+                    },
+                    "reason": {
+                      "description": "Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories).",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, or `lost`.",
+                      "enum": [
+                        "lost",
+                        "needs_response",
+                        "under_review",
+                        "warning_closed",
+                        "warning_needs_response",
+                        "warning_under_review",
+                        "won"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "amount",
+                    "balance_transactions",
+                    "charge",
+                    "created",
+                    "currency",
+                    "enhanced_eligibility_types",
+                    "evidence",
+                    "evidence_details",
+                    "id",
+                    "is_charge_refundable",
+                    "livemode",
+                    "metadata",
+                    "object",
+                    "reason",
+                    "status"
+                  ],
+                  "title": "Dispute",
+                  "type": "object",
+                  "x-expandableFields": [
+                    "balance_transactions",
+                    "charge",
+                    "evidence",
+                    "evidence_details",
+                    "payment_intent",
+                    "payment_method_details"
+                  ],
+                  "x-resourceId": "dispute"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "description": "True if this list has another page of items after this one that can be fetched.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                "enum": [
+                  "list"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "The URL where this list can be accessed.",
+                "maxLength": 5000,
+                "pattern": "^/v1/disputes",
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "DisputeList",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

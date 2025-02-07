@@ -1,0 +1,59 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "properties": {
+          "cache_time": {
+            "type": "integer"
+          },
+          "callback_query_id": {
+            "type": "string"
+          },
+          "show_alert": {
+            "type": "boolean"
+          },
+          "text": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/answerCallbackQuery",
+  "requestBody": {},
+  "responses": {
+    "420": {
+      "description": "Flood",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Search term e.g victoria",
+      "in": "path",
+      "name": "query",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Optionally filter by the specified modes",
+      "explode": true,
+      "in": "query",
+      "name": "modes",
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A comma seperated list of service types to filter on. Supported values: Regular, Night. Defaulted to 'Regular' if not specified",
+      "explode": true,
+      "in": "query",
+      "name": "serviceTypes",
+      "schema": {
+        "items": {
+          "enum": [
+            "Regular",
+            "Night"
+          ],
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/Line/Search/{query}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "input": {
+                "type": "string"
+              },
+              "searchMatches": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.RouteSearchMatch"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "properties": {
+              "input": {
+                "type": "string"
+              },
+              "searchMatches": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.RouteSearchMatch"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "properties": {
+              "input": {
+                "type": "string"
+              },
+              "searchMatches": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.RouteSearchMatch"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "properties": {
+              "input": {
+                "type": "string"
+              },
+              "searchMatches": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.RouteSearchMatch"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

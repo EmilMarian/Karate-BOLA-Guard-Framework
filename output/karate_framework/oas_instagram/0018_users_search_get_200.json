@@ -1,0 +1,48 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A query string.",
+      "in": "query",
+      "name": "q",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Number of users to return.",
+      "in": "query",
+      "name": "count",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/users/search",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "User short information entries",
+                "items": {
+                  "$ref": "#/components/schemas/UserShortInfo"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "List of found users."
+    }
+  }
+}

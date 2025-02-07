@@ -1,0 +1,79 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `chat:write`",
+      "in": "header",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/chat.meMessage",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel": {
+              "description": "Channel to send message to. Can be a public channel, private group or IM channel. Can be an encoded ID, or a name.",
+              "type": "string"
+            },
+            "text": {
+              "description": "Text of the message to send.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "channel": "C024BE7LR",
+                "ok": true,
+                "ts": "1417671948.000006"
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from chat.meMessage method",
+            "properties": {
+              "channel": {
+                "pattern": "^[CGD][A-Z0-9]{8,}$",
+                "title": "Channel-like conversation ID",
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "ts": {
+                "pattern": "^\\d{10}\\.\\d{6}$",
+                "title": "Timestamp in format 0123456789.012345",
+                "type": "string"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "chat.meMessage schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+2025-01-31 05:59:25,546 - __main__ - INFO - Skipping fragment creation: False
+2025-01-31 05:59:25,615 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-31 05:59:26,274 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}, {"description": "", "in": "query", "name": "user_id", "required": true, "type": "string"}], "path": "/bot{token}/unbanChatMember", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0465_bottoken_unbanChatMember_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}, {"description": "", "in": "query", "name": "user_id", "required": true, "type": "string"}], "path": "/bot{token}/getChatMember", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0150_bottoken_getChatMember_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}], "path": "/bot{token}/getChatMembersCount", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0157_bottoken_getChatMembersCount_get_401.json'}}], form collection oas_telegram_fragments
+2025-01-31 05:59:26,275 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 05:59:26,276 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 05:59:26,688 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 05:59:26,689 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 06:03:51,594 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 06:03:51,595 - karate_llm_test_gen - INFO - Generated test case: Here's an example of a security test scenario using Karate DSL to check for broken authentication an...
+2025-01-31 06:03:51,596 - __main__ - INFO - Generated Karate test for /bot{token}/unbanChatMember GET at output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature
+2025-01-31 06:03:51,597 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 06:03:51,597 - karate_compatibility_verifier - INFO - Here's an example of a security test scenario using Karate DSL to check for broken authentication and authorization on the `/bot{token}/unbanChatMember` endpoint:
+```yaml
+Feature: Test for Broken Authentication/Authorization on /bot{token}/unbanChatMember Endpoint
+  Scenario: Attempt to unban a chat member without proper authentication
+    Given url http://oas_telegram.api/bot{token}/unbanChatMember
+    And request { chatId: <chat_id> }
+    When method get
+    Then status code is 401
+    And match response contains 'Unauthorized'
+
+  Scenario: Attempt to unban a chat member with an invalid token
+    Given url http://oas_telegram.api/bot{token}/unbanChatMember
+    And request { chatId: <chat_id> }
+    When method get
+    Then status code is 401
+    And match response contains 'Unauthorized'
+```
+Note that the `<chat_id>` placeholder should be replaced with a valid chat ID for testing purposes. Additionally, you may need to modify the request payload and headers as needed based on the specific API requirements and authentication scheme used by your application.

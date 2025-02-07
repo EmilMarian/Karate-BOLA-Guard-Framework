@@ -1,0 +1,67 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The tag name.",
+      "in": "path",
+      "name": "tag-name",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Count of tagged media to return.",
+      "in": "query",
+      "name": "count",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Return media before this `min_tag_id`.",
+      "in": "query",
+      "name": "min_tag_id",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Return media after this `max_tag_id`.",
+      "in": "query",
+      "name": "max_tag_id",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/tags/{tag-name}/media/recent",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "List of media entries with this tag",
+                "items": {
+                  "$ref": "#/components/schemas/MediaEntry"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              },
+              "pagination": {
+                "$ref": "#/components/schemas/TagPaginationInfo"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "List of media entries with this tag."
+    }
+  }
+}

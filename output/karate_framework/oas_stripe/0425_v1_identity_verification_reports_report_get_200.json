@@ -1,0 +1,142 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "report",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/identity/verification_reports/{report}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A VerificationReport is the result of an attempt to collect and verify data from a user.\nThe collection of verification checks performed is determined from the `type` and `options`\nparameters used. You can find the result of each verification check performed in the\nappropriate sub-resource: `document`, `id_number`, `selfie`.\n\nEach VerificationReport contains a copy of any data collected by the user as well as\nreference IDs which can be used to access collected images through the [FileUpload](https://stripe.com/docs/api/files)\nAPI. To configure and create VerificationReports, use the\n[VerificationSession](https://stripe.com/docs/api/identity/verification_sessions) API.\n\nRelated guide: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).",
+            "properties": {
+              "client_reference_id": {
+                "description": "A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "document": {
+                "$ref": "#/components/schemas/gelato_document_report"
+              },
+              "email": {
+                "$ref": "#/components/schemas/gelato_email_report"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "id_number": {
+                "$ref": "#/components/schemas/gelato_id_number_report"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "identity.verification_report"
+                ],
+                "type": "string"
+              },
+              "options": {
+                "$ref": "#/components/schemas/gelato_verification_report_options"
+              },
+              "phone": {
+                "$ref": "#/components/schemas/gelato_phone_report"
+              },
+              "selfie": {
+                "$ref": "#/components/schemas/gelato_selfie_report"
+              },
+              "type": {
+                "description": "Type of report.",
+                "enum": [
+                  "document",
+                  "id_number",
+                  "verification_flow"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "verification_flow": {
+                "description": "The configuration token of a verification flow from the dashboard.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "verification_session": {
+                "description": "ID of the VerificationSession that created this report.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              }
+            },
+            "required": [
+              "created",
+              "id",
+              "livemode",
+              "object",
+              "type"
+            ],
+            "title": "GelatoVerificationReport",
+            "type": "object",
+            "x-expandableFields": [
+              "document",
+              "email",
+              "id_number",
+              "options",
+              "phone",
+              "selfie"
+            ],
+            "x-resourceId": "identity.verification_report"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

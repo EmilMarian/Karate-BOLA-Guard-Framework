@@ -1,0 +1,138 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/entitlements/features/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "active": {
+              "description": "Inactive features cannot be attached to new products and will not be returned from the features list endpoint.",
+              "type": "boolean"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format."
+            },
+            "name": {
+              "description": "The feature's name, for your own purpose, not meant to be displayable to the customer.",
+              "maxLength": 80,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A feature represents a monetizable ability or functionality in your system.\nFeatures can be assigned to products, and when those products are purchased, Stripe will create an entitlement to the feature for the purchasing customer.",
+            "properties": {
+              "active": {
+                "description": "Inactive features cannot be attached to new products and will not be returned from the features list endpoint.",
+                "type": "boolean"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "lookup_key": {
+                "description": "A unique key you provide as your own system identifier. This may be up to 80 characters.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "name": {
+                "description": "The feature's name, for your own purpose, not meant to be displayable to the customer.",
+                "maxLength": 80,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "entitlements.feature"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "active",
+              "id",
+              "livemode",
+              "lookup_key",
+              "metadata",
+              "name",
+              "object"
+            ],
+            "title": "Feature",
+            "type": "object",
+            "x-expandableFields": [],
+            "x-resourceId": "entitlements.feature"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

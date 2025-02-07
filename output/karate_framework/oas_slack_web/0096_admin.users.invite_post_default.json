@@ -1,0 +1,103 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.users:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.users.invite",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel_ids": {
+              "description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.",
+              "type": "string"
+            },
+            "custom_message": {
+              "description": "An optional message to send to the user in the invite email.",
+              "type": "string"
+            },
+            "email": {
+              "description": "The email address of the person to invite.",
+              "type": "string"
+            },
+            "guest_expiration_ts": {
+              "description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.",
+              "type": "string"
+            },
+            "is_restricted": {
+              "description": "Is this user a multi-channel guest user? (default: false)",
+              "type": "boolean"
+            },
+            "is_ultra_restricted": {
+              "description": "Is this user a single channel guest user? (default: false)",
+              "type": "boolean"
+            },
+            "real_name": {
+              "description": "Full name of the user.",
+              "type": "string"
+            },
+            "resend": {
+              "description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)",
+              "type": "boolean"
+            },
+            "team_id": {
+              "description": "The ID (`T1234`) of the workspace.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "team_id",
+            "email",
+            "channel_ids"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.",
+            "properties": {
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "Default error template",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

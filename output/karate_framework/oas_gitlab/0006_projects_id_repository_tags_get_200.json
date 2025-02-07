@@ -1,0 +1,67 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID or NAMESPACE/PROJECT_NAME of a project",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "pattern": "^(\\d+|[^/]+(%2[fF])[^/])$",
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/projects/{id}/repository/tags",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "example": [
+            {
+              "commit": {
+                "author_email": "john@example.com",
+                "author_name": "John Smith",
+                "authored_date": "2012-05-28T04:42:42-07:00",
+                "committed_date": "2012-05-28T04:42:42-07:00",
+                "committer_email": "jack@example.com",
+                "committer_name": "Jack Smith",
+                "id": "2695effb5807a22ff3d138d593fd856244e155e7",
+                "message": "Initial commit",
+                "parents_ids": [
+                  "2a4b78934375d7f53875269ffd4f45fd83a84ebe"
+                ]
+              },
+              "message": null,
+              "name": "v1.0.0",
+              "release": {
+                "description": "Amazing release. Wow",
+                "tag_name": "1.0.0"
+              }
+            }
+          ],
+          "schema": {
+            "items": {
+              "properties": {
+                "commit": {
+                  "$ref": "#/components/schemas/Commit"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "commit",
+                "name"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

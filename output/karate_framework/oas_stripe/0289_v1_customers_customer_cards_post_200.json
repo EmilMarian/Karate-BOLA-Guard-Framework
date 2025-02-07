@@ -1,0 +1,231 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "customer",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/customers/{customer}/cards",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "bank_account": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "card": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "alipay_account": {
+              "description": "A token returned by [Stripe.js](https://stripe.com/docs/js) representing the user\u2019s Alipay account details.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "bank_account": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "account_holder_name": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "account_holder_type": {
+                      "enum": [
+                        "company",
+                        "individual"
+                      ],
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "account_number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "currency": {
+                      "format": "currency",
+                      "type": "string"
+                    },
+                    "object": {
+                      "enum": [
+                        "bank_account"
+                      ],
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "routing_number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "account_number",
+                    "country"
+                  ],
+                  "title": "customer_payment_source_bank_account",
+                  "type": "object"
+                },
+                {
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              ],
+              "description": "Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details."
+            },
+            "card": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "address_city": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "address_country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "address_line1": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "address_line2": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "address_state": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "address_zip": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "cvc": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "exp_month": {
+                      "type": "integer"
+                    },
+                    "exp_year": {
+                      "type": "integer"
+                    },
+                    "metadata": {
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "type": "object"
+                    },
+                    "name": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "object": {
+                      "enum": [
+                        "card"
+                      ],
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "exp_month",
+                    "exp_year",
+                    "number"
+                  ],
+                  "title": "customer_payment_source_card",
+                  "type": "object"
+                },
+                {
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              ],
+              "description": "A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js).",
+              "x-stripeBypassValidation": true
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "source": {
+              "description": "Please refer to full [documentation](https://stripe.com/docs/api) instead.",
+              "maxLength": 5000,
+              "type": "string",
+              "x-stripeBypassValidation": true
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/account"
+              },
+              {
+                "$ref": "#/components/schemas/bank_account"
+              },
+              {
+                "$ref": "#/components/schemas/card"
+              },
+              {
+                "$ref": "#/components/schemas/source"
+              }
+            ],
+            "title": "Polymorphic",
+            "x-resourceId": "payment_source",
+            "x-stripeBypassValidation": true
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

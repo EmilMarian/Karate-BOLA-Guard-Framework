@@ -1,0 +1,331 @@
+2025-01-26 05:14:17,452 - __main__ - INFO - Skipping fragment creation: False
+2025-01-26 05:14:17,520 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-26 05:14:17,744 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"in": "query", "name": "formatted", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "region", "schema": {"enum": ["US"], "type": "string"}}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "fields", "schema": {"type": "string"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": "symbols", "required": true, "schema": {"type": "string"}}], "path": "/v7/finance/quote", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"quoteResponse": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"$ref": "#/components/schemas/QuoteResult"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0002_v7_finance_quote_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"in": "query", "name": "interval", "required": true, "schema": {"enum": ["1m", "5m", "15m", "30m", "1h", "6h", "1d"], "type": "string"}}, {"in": "query", "name": "range", "required": true, "schema": {"enum": ["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"], "type": "string"}}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "includeTimestamps", "schema": {"default": false, "type": "boolean"}}, {"in": "query", "name": "indicators", "schema": {"type": "string"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": "symbols", "required": true, "schema": {"type": "string"}}], "path": "/v7/finance/spark", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"quoteResponse": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"$ref": "#/components/schemas/QuoteResult"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0003_v7_finance_spark_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"in": "path", "name": "symbol", "required": true, "schema": {"type": "string"}}, {"in": "query", "name": "region", "schema": {"enum": ["US"], "type": "string"}}, {"in": "query", "name": "includePrePost", "schema": {"default": false, "type": "boolean"}}, {"explode": false, "in": "query", "name": "events", "schema": {"items": {"enum": ["div", "split"], "type": "string"}, "type": "array"}, "style": "pipeDelimited"}, {"in": "query", "name": "lang", "schema": {"enum": ["en-US"], "type": "string"}}, {"in": "query", "name": "interval", "required": true, "schema": {"enum": ["1m", "5m", "15m", "30m", "1h", "6h", "1d"], "type": "string"}}, {"in": "query", "name": "useYfid", "schema": {"default": true, "type": "boolean"}}, {"in": "query", "name": "period1", "required": true, "schema": {"format": "int64", "type": "integer"}}, {"in": "query", "name": "period2", "required": true, "schema": {"format": "int64", "type": "integer"}}, {"in": "query", "name": "corsDomain", "schema": {"enum": ["finance.yahoo.com"], "type": "string"}}, {"in": "query", "name": ".tsrc", "schema": {"enum": ["finance"], "type": "string"}}], "path": "/v8/finance/chart/{symbol}", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"chart": {"properties": {"error": {"$ref": "#/components/schemas/Error"}, "result": {"items": {"properties": {"indicators": {"properties": {"quote": {"items": {"properties": {"close": {"items": {"example": 1.1782727241516113, "type": "number"}, "type": "array"}, "high": {"items": {"example": 1.1784114837646484, "type": "number"}, "type": "array"}, "low": {"items": {"example": 1.1782727241516113, "type": "number"}, "type": "array"}, "open": {"items": {"example": 1.1784114837646484, "type": "number"}, "type": "array"}, "volume": {"items": {"example": 0, "format": "int32", "type": "integer"}, "type": "array"}}, "type": "object"}, "type": "array"}}, "type": "object"}, "meta": {"properties": {"chartPreviousClose": {"example": 1.178, "type": "number"}, "currency": {"example": "USD", "type": "string"}, "currentTradingPeriod": {"properties": {"post": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617404340, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "pre": {"properties": {"end": {"example": 1617318000, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "regular": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}}, "type": "object"}, "dataGranularity": {"example": "2m", "type": "string"}, "exchangeName": {"example": "CCY", "type": "string"}, "exchangeTimezoneName": {"example": "Europe/London", "type": "string"}, "firstTradeDate": {"example": 1070236800, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "instrumentType": {"example": "CURRENCY", "type": "string"}, "previousClose": {"example": 1.178, "type": "number"}, "priceHint": {"example": 4, "format": "int32", "type": "integer"}, "range": {"example": "1d", "type": "string"}, "regularMarketPrice": {"example": 1.1769, "type": "number"}, "regularMarketTime": {"example": 1617398979, "format": "int32", "type": "integer"}, "scale": {"example": 4, "format": "int32", "type": "integer"}, "symbol": {"example": "EURUSD=X", "type": "string"}, "timezone": {"example": "BST", "type": "string"}, "tradingPeriods": {"items": {"items": {"properties": {"end": {"example": 1617404340, "format": "int32", "type": "integer"}, "gmtoffset": {"example": 3600, "format": "int32", "type": "integer"}, "start": {"example": 1617318000, "format": "int32", "type": "integer"}, "timezone": {"example": "BST", "type": "string"}}, "type": "object"}, "type": "array"}, "type": "array"}, "validRanges": {"items": {"example": "1d", "type": "string"}, "type": "array"}}, "type": "object"}, "timestamp": {"items": {"example": 1617318000, "format": "int32", "type": "integer"}, "type": "array"}}, "type": "object"}, "type": "array"}}, "type": "object"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0001_v8_finance_chart_symbol_get_200.json'}}], form collection oas_yahoo_finance_fragments
+2025-01-26 05:14:17,745 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 05:14:17,745 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 05:14:18,174 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 05:14:18,174 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 05:17:33,471 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 05:17:33,473 - karate_llm_test_gen - INFO - Generated test case: Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerab...
+2025-01-26 05:17:33,473 - __main__ - INFO - Generated Karate test for /v7/finance/quote GET at output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET.feature
+2025-01-26 05:17:33,474 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 05:17:33,474 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: Testing API Endpoint Security
+  Scenario: Checking for Broken Authentication/Authorization Vulnerabilities on /v7/finance/quote endpoint
+    Given url http://oas_yahoo_finance.api/v7/finance/quote
+      When method get
+        Then status == 200
+```
+2025-01-26 05:19:57,747 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 05:19:57,747 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Testing API Endpoint Security
+  Scenario: Checking for Broken Authentication/Authorization Vulnerabilities on /v7/finance/quote endpoint
+    Given url http://oas_yahoo_finance.api/v7/finance/quote
+      When method get
+        Then status == 200
+```
+2025-01-26 05:20:42,145 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 05:20:42,145 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Testing API Endpoint Security
+  Scenario: Checking for Broken Authentication/Authorization Vulnerabilities on /v7/finance/quote endpoint
+    Given url http://oas_yahoo_finance.api/v7/finance/quote
+      When method get
+        Then status == 200
+```
+2025-01-26 05:20:42,146 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET_verified.feature
+2025-01-26 05:20:42,146 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_v7_finance_quote_GET.feature: Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Testing API Endpoint Security
+  Scenario: Checking for Broken Authentication/Authorization Vulnerabilities on /v7/finance/quote endpoint
+    Given url http://oas_yahoo_finance.api/v7/finance/quote
+      When method get
+        Then status == 200
+```
+2025-01-26 05:20:42,146 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 05:20:42,147 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 05:20:42,180 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 05:20:42,181 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 05:26:42,129 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 05:26:42,130 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 05:26:42,130 - __main__ - INFO - Generated Karate test for /v7/finance/spark GET at output/karate_feature_files/ID_002_krtestoas_v7_finance_spark_GET.feature
+2025-01-26 05:26:42,131 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 05:26:42,131 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Finance Spark API Endpoint
+  Scenario: Attempt to access finance spark data without proper authentication
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = ''
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with invalid authentication token
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <invalid_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with expired authentication token
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <expired_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with invalid scope
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { scope: \'invalid\_scope\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+    
+  Scenario: Attempt to access finance spark data with invalid client ID
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { client_id: \'invalid\_client\_id\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+    
+  Scenario: Attempt to access finance spark data with invalid redirect URI
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { redirect_uri: \'invalid\_redirect_uri\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+```
+2025-01-26 05:33:18,790 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 05:33:18,790 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Finance Spark API Endpoint
+  Scenario: Attempt to access finance spark data without proper authentication
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = ''
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with invalid authentication token
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <invalid_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with expired authentication token
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <expired_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with invalid scope
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { scope: '\'invalid\_scope\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+    
+  Scenario: Attempt to access finance spark data with invalid client ID
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { client_id: '\'invalid_client_id\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+    
+  Scenario: Attempt to access finance spark data with invalid redirect URI
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { redirect_uri: '\'invalid_redirect_uri\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+```
+2025-01-26 05:37:51,835 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 05:37:51,835 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is as follows:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Finance Spark API Endpoint
+  Scenario: Attempt to access finance spark data without proper authentication
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = ''
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with invalid authentication token
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <invalid_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with expired authentication token
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <expired_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with invalid scope
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { scope: '\'invalid\_scope\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+    
+  Scenario: Attempt to access finance spark data with invalid client ID
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { client_id: '\'invalid_client_id\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+    
+  Scenario: Attempt to access finance spark data with invalid redirect URI
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { redirect_uri: '\'invalid_redirect_uri\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+```
+2025-01-26 05:37:51,835 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_v7_finance_spark_GET_verified.feature
+2025-01-26 05:37:51,836 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_v7_finance_spark_GET.feature: The corrected Karate DSL script is as follows:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on Finance Spark API Endpoint
+  Scenario: Attempt to access finance spark data without proper authentication
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = ''
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with invalid authentication token
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <invalid_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with expired authentication token
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <expired_token>'
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+    
+  Scenario: Attempt to access finance spark data with invalid scope
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { scope: '\'invalid\_scope\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+    
+  Scenario: Attempt to access finance spark data with invalid client ID
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { client_id: '\'invalid_client_id\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+    
+  Scenario: Attempt to access finance spark data with invalid redirect URI
+    Given url http://oas_yahoo_finance.api/v7/finance/spark
+    And header Authorization = 'Bearer <valid_token>'
+    And request { redirect_uri: '\'invalid_redirect_uri\' }
+    When method get
+    Then status 403
+    And match response contains 'Forbidden'
+```
+2025-01-26 05:37:51,836 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 05:37:51,837 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 05:37:51,869 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 05:37:51,870 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 05:41:58,961 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 05:41:58,962 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-26 05:41:58,962 - __main__ - INFO - Generated Karate test for /v8/finance/chart/{symbol} GET at output/karate_feature_files/ID_003_krtestoas_v8_finance_chart_symbol_GET.feature
+2025-01-26 05:41:58,963 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 05:41:58,963 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities in the given API endpoint:
+```kotlin
+Feature: OAuth Token Generation Flaw Testing
+  Scenario: Attempt to obtain access and refresh tokens with invalid grant_type parameter
+    Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+    And request { grant_type: \'invalid\', code: '', redirect_uri: '', client_id: '', client_secret: '' }
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+```
+This test script checks if the API endpoint returns a `401 Unauthorized` error when an invalid grant\_type parameter is provided in the request. If the API endpoint does not return a `401 Unauthorized` error, it means that there may be a Broken Authentication/Authorization vulnerability in the API.
+2025-01-26 05:44:45,252 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 05:44:45,252 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: OAuth Token Generation Flaw Testing
+  Scenario: Attempt to obtain access and refresh tokens with invalid grant_type parameter
+    Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+    And request { grant_type: \'invalid\', code: '', redirect_uri: '', client_id: '', client_secret: '' }
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+```
+2025-01-26 05:45:47,864 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 05:45:47,864 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: OAuth Token Generation Flaw Testing
+  Scenario: Attempt to obtain access and refresh tokens with invalid grant_type parameter
+    Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+    And request { grant_type: \'invalid\', code: '', redirect_uri: '', client_id: '', client_secret: '' }
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+```
+2025-01-26 05:45:47,865 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_v8_finance_chart_symbol_GET_verified.feature
+2025-01-26 05:45:47,865 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_v8_finance_chart_symbol_GET.feature: Here is the corrected Karate DSL test script:
+```kotlin
+Feature: OAuth Token Generation Flaw Testing
+  Scenario: Attempt to obtain access and refresh tokens with invalid grant_type parameter
+    Given url 'http://oas_yahoo_finance.api/v8/finance/chart/{symbol}'
+    And request { grant_type: \'invalid\', code: '', redirect_uri: '', client_id: '', client_secret: '' }
+    When method get
+    Then status 401
+    And match response contains 'Unauthorized'
+```
+2025-01-26 05:45:47,865 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-26 05:45:47,867 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-26 05:45:50,808 - __main__ - INFO - Skipping karate test run.

@@ -1,0 +1,172 @@
+2025-02-02 14:02:58,599 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 14:02:58,691 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 14:02:58,920 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/users/v1/register", "requestBody": {"content": {"application/json": {"schema": {"properties": {"email": {"example": "user@tempmail.com", "type": "string"}, "password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Successfully registered. Login to receive an auth token.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully created user"}}}', 'metadata': {'filename': '0005_users_v1_register_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"auth_token": {"example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw", "type": "string"}, "message": {"example": "Successfully logged in.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully logged in user"}}}', 'metadata': {'filename': '0007_users_v1_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Password is not correct for the given username.", "type": "string"}, "status": {"enum": ["fail"], "example": "fail", "type": "string"}}, "type": "object"}}}, "description": "Invalid request"}}}', 'metadata': {'filename': '0008_users_v1_login_post_400.json'}}], form collection oas_vampi_fragments
+2025-02-02 14:02:58,921 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:02:58,922 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:02:59,363 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:02:59,363 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:03:03,822 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:03:03,823 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test API for Broken Authentication/Authorization on User Registration",
+  "scenario...
+2025-02-02 14:03:03,826 - __main__ - INFO - Generated Karate test for /users/v1/register POST at output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST.feature
+2025-02-02 14:03:03,826 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:03:03,826 - karate_compatibility_verifier - INFO - {
+  "feature": "Test API for Broken Authentication/Authorization on User Registration",
+  "scenario": "User registration with invalid credentials should fail due to broken authentication or authorization checks.",
+  "steps": [
+    "Given url http://oas_vampi.api/users/v1/register",
+    "And request { username: 'invalid', password: '', email: '' }", // Assuming empty fields are invalid for registration
+    "When method post",
+    "Then status 403 or contains('Invalid credentials') in response body"
+  ]
+}
+2025-02-02 14:03:06,884 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:03:06,884 - karate_compatibility_verifier - INFO -  Given url 'http://oas_vampi.api/users/v1/register'
+And request { username: '', password: '', email: '' }
+When method post
+Then status 403 or contains('Invalid credentials') in response body
+2025-02-02 14:03:08,293 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:03:08,293 - karate_compatibility_verifier - INFO -  Given url 'https://api.example.com/users'
+And request { username: '', password: '' } // assuming email is not required for registration
+When method post
+Then status 403 or contains('Invalid credentials') in response body
+2025-02-02 14:03:08,294 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST_verified.feature
+2025-02-02 14:03:08,294 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST.feature:  Given url 'https://api.example.com/users'
+And request { username: '', password: '' } // assuming email is not required for registration
+When method post
+Then status 403 or contains('Invalid credentials') in response body
+2025-02-02 14:03:08,294 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:03:08,295 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:03:08,320 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:03:08,321 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:03:16,451 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:03:16,452 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test for Broken Authentication/Authorization on User Login",
+  "scenario": "Verify ...
+2025-02-02 14:03:16,453 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST.feature
+2025-02-02 14:03:16,454 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:03:16,454 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on User Login",
+  "scenario": "Verify that the /users/v1/login endpoint is not accessible without proper authentication and authorization.",
+  "steps": [
+    {
+      "Given url http://oas_vampi.api/users/v1/login"
+    },
+    {
+      "When method post with body {'username': 'unauthorized', 'password': '<any>'}"
+    },
+    {
+      "Then status 403 or 500 (depending on the API's error handling)"
+    },
+    {
+      "Given url http://oas_vampi.api/users/v1/login"
+    },
+    {
+      "When method post with body {'username': 'admin', 'password': '<any>'}"
+    },
+    {
+      "Then status 403 or 500 (depending on the API's error handling)"
+    },
+    {
+      "# Explanation: This scenario checks for broken authentication by attempting to access the login endpoint with an unauthorized user and a potentially authorized but incorrect admin credentials, expecting HTTP status codes that indicate forbidden or bad request."
+    }
+  ]
+}
+2025-02-02 14:03:22,634 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:03:22,634 - karate_compatibility_verifier - INFO -  Given url http://oas_vampi.api/users/v1/login
+When method post with body {'username': 'unauthorized', 'password': '<any>'}
+Then status 403 or 500 (depending on the API's error handling)
+Given url http://oas_vampi.api/users/v1/login
+When method post with body {'username': 'admin', 'password': '<any>'}
+Then status 403 or 500 (depending on the API's error handling)
+2025-02-02 14:03:24,326 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:03:24,326 - karate_compatibility_verifier - INFO -  Given url 'https://oas_vampi.api/users/v1/login'
+When method post with body {'username': 'admin', 'password': '<any>'}
+Then status 403 or 500 (depending on the API's error handling)
+2025-02-02 14:03:24,326 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST_verified.feature
+2025-02-02 14:03:24,327 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST.feature:  Given url 'https://oas_vampi.api/users/v1/login'
+When method post with body {'username': 'admin', 'password': '<any>'}
+Then status 403 or 500 (depending on the API's error handling)
+2025-02-02 14:03:24,327 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:03:24,328 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:03:24,349 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:03:24,351 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:03:29,745 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:03:29,746 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Test for Broken Authentication/Authorization on User Login",
+  "scenario": "Verify ...
+2025-02-02 14:03:29,747 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST.feature
+2025-02-02 14:03:29,748 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:03:29,748 - karate_compatibility_verifier - INFO - {
+  "feature": "Test for Broken Authentication/Authorization on User Login",
+  "scenario": "Verify that the application responds with a generic error message when unauthorized access is attempted.",
+  "steps": [
+    {
+      "Given url http://oas_vampi.api/users/v1/login"
+    },
+    {
+      "And request body {'username': 'unauthorized', 'password': 'anything'}"
+    },
+    {
+      "When method post"
+    },
+    {
+      "Then status 403",
+    },
+    {
+      "And match response '{errorMessage}' contains 'Unauthorized'"
+    }
+  ]
+}
+2025-02-02 14:03:33,322 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:03:33,323 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on User Login
+    * url 'http://oas_vampi.api/users/v1/login'
+    * form data {'username': 'unauthorized', 'password': 'anything'}
+    When method post()
+    Then status 403
+    And response {errorMessage} contains 'Unauthorized'
+2025-02-02 14:03:35,365 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:03:35,365 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on User Login
+    Given url 'http://oas_vampi.api/users/v1/login'
+    And form data {'username': 'unauthorized', 'password': 'anything'}
+    When method post()
+    Then status 403
+    And response {errorMessage} contains 'Unauthorized'
+2025-02-02 14:03:35,366 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST_verified.feature
+2025-02-02 14:03:35,366 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST.feature:  Feature: Test for Broken Authentication/Authorization on User Login
+    Given url 'http://oas_vampi.api/users/v1/login'
+    And form data {'username': 'unauthorized', 'password': 'anything'}
+    When method post()
+    Then status 403
+    And response {errorMessage} contains 'Unauthorized'
+2025-02-02 14:03:35,366 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 14:03:35,369 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 14:03:37,680 - __main__ - INFO - Skipping karate test run.

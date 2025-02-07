@@ -1,0 +1,112 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/account_links",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "collection_options": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "account": {
+              "description": "The identifier of the account to create an account link for.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "collect": {
+              "description": "The collect parameter is deprecated. Use `collection_options` instead.",
+              "enum": [
+                "currently_due",
+                "eventually_due"
+              ],
+              "type": "string"
+            },
+            "collection_options": {
+              "description": "Specifies the requirements that Stripe collects from connected accounts in the Connect Onboarding flow.",
+              "properties": {
+                "fields": {
+                  "enum": [
+                    "currently_due",
+                    "eventually_due"
+                  ],
+                  "type": "string"
+                },
+                "future_requirements": {
+                  "enum": [
+                    "include",
+                    "omit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "title": "collection_options_params",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "refresh_url": {
+              "description": "The URL the user will be redirected to if the account link is expired, has been previously-visited, or is otherwise invalid. The URL you specify should attempt to generate a new account link with the same parameters used to create the original account link, then redirect the user to the new account link's URL so they can continue with Connect Onboarding. If a new account link cannot be generated or the redirect fails you should display a useful error to the user.",
+              "type": "string"
+            },
+            "return_url": {
+              "description": "The URL that the user will be redirected to upon leaving or completing the linked flow.",
+              "type": "string"
+            },
+            "type": {
+              "description": "The type of account link the user is requesting. Possible values are `account_onboarding` or `account_update`.",
+              "enum": [
+                "account_onboarding",
+                "account_update"
+              ],
+              "type": "string",
+              "x-stripeBypassValidation": true
+            }
+          },
+          "required": [
+            "account",
+            "type"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

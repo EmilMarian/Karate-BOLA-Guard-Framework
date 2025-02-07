@@ -1,0 +1,57 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The access token must have been issued on behalf of the user.  \nThis access token must be tied to the user who owns the playlist, and must have the scope `ugc-image-upload` granted. In addition, the token must also contain `playlist-modify-public` and/or `playlist-modify-private`, depending the public status of the playlist you want to update . See [Using Scopes](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes).",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The content type of the request body: `image/jpeg`",
+      "in": "header",
+      "name": "Content-Type",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist.",
+      "in": "path",
+      "name": "playlist_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/playlists/{playlist_id}/images",
+  "requestBody": {
+    "content": {
+      "image/jpeg": {
+        "schema": {
+          "format": "base64",
+          "type": "string"
+        }
+      }
+    },
+    "description": "The new cover image of the playlist as a Base64 encoded JPEG image. Maximum payload size is 256KB.",
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponseObject"
+          }
+        }
+      },
+      "description": "Unexpected error"
+    }
+  }
+}

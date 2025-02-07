@@ -1,0 +1,128 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The zoom level",
+      "in": "path",
+      "name": "z",
+      "required": true,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The place type (a valid list of place types can be obtained from the /Place/Meta/placeTypes endpoint)",
+      "explode": false,
+      "in": "path",
+      "name": "type",
+      "required": true,
+      "schema": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "The width of the requested overlay.",
+      "in": "path",
+      "name": "width",
+      "required": true,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The height of the requested overlay.",
+      "in": "path",
+      "name": "height",
+      "required": true,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "in": "query",
+      "name": "lat",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "lon",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "location.lat",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "in": "query",
+      "name": "location.lon",
+      "required": true,
+      "schema": {
+        "format": "double",
+        "type": "number"
+      }
+    },
+    {
+      "in": "path",
+      "name": "Lat",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "path",
+      "name": "Lon",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/Place/{type}/overlay/{z}/{Lat}/{Lon}/{width}/{height}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "type": "object"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "type": "object"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

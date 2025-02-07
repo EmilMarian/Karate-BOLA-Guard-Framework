@@ -1,0 +1,476 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/treasury/outbound_payments",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "destination_payment_method_data": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "destination_payment_method_options": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "end_user_details": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "description": "Amount (in cents) to be transferred.",
+              "type": "integer"
+            },
+            "currency": {
+              "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+              "format": "currency",
+              "type": "string"
+            },
+            "customer": {
+              "description": "ID of the customer to whom the OutboundPayment is sent. Must match the Customer attached to the `destination_payment_method` passed in.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "description": {
+              "description": "An arbitrary string attached to the object. Often useful for displaying to users.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "destination_payment_method": {
+              "description": "The PaymentMethod to use as the payment instrument for the OutboundPayment. Exclusive with `destination_payment_method_data`.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "destination_payment_method_data": {
+              "description": "Hash used to generate the PaymentMethod to be used for this OutboundPayment. Exclusive with `destination_payment_method`.",
+              "properties": {
+                "billing_details": {
+                  "properties": {
+                    "address": {
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "city": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "country": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "line1": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "line2": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "postal_code": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            },
+                            "state": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            }
+                          },
+                          "title": "billing_details_address",
+                          "type": "object"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "email": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "name": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "phone": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "title": "billing_details_inner_params",
+                  "type": "object"
+                },
+                "financial_account": {
+                  "type": "string"
+                },
+                "metadata": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "type": {
+                  "enum": [
+                    "financial_account",
+                    "us_bank_account"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                },
+                "us_bank_account": {
+                  "properties": {
+                    "account_holder_type": {
+                      "enum": [
+                        "company",
+                        "individual"
+                      ],
+                      "type": "string"
+                    },
+                    "account_number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "account_type": {
+                      "enum": [
+                        "checking",
+                        "savings"
+                      ],
+                      "type": "string"
+                    },
+                    "financial_connections_account": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "routing_number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "title": "payment_method_param",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "payment_method_data",
+              "type": "object"
+            },
+            "destination_payment_method_options": {
+              "description": "Payment method-specific configuration for this OutboundPayment.",
+              "properties": {
+                "us_bank_account": {
+                  "anyOf": [
+                    {
+                      "properties": {
+                        "network": {
+                          "enum": [
+                            "ach",
+                            "us_domestic_wire"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "title": "payment_method_options_param",
+                      "type": "object"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "title": "payment_method_options",
+              "type": "object"
+            },
+            "end_user_details": {
+              "description": "End user details.",
+              "properties": {
+                "ip_address": {
+                  "type": "string"
+                },
+                "present": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "present"
+              ],
+              "title": "end_user_details_params",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "financial_account": {
+              "description": "The FinancialAccount to pull funds from.",
+              "type": "string"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "statement_descriptor": {
+              "description": "The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. The default value is \"payment\".",
+              "maxLength": 5000,
+              "type": "string"
+            }
+          },
+          "required": [
+            "amount",
+            "currency",
+            "financial_account"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).\n\nSimulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.\n\nRelated guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)",
+            "properties": {
+              "amount": {
+                "description": "Amount (in cents) transferred.",
+                "type": "integer"
+              },
+              "cancelable": {
+                "description": "Returns `true` if the object can be canceled, and `false` otherwise.",
+                "type": "boolean"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "format": "currency",
+                "type": "string"
+              },
+              "customer": {
+                "description": "ID of the [customer](https://stripe.com/docs/api/customers) to whom an OutboundPayment is sent.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "description": {
+                "description": "An arbitrary string attached to the object. Often useful for displaying to users.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "destination_payment_method": {
+                "description": "The PaymentMethod via which an OutboundPayment is sent. This field can be empty if the OutboundPayment was created using `destination_payment_method_data`.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "destination_payment_method_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/outbound_payments_payment_method_details"
+                  }
+                ],
+                "description": "Details about the PaymentMethod for an OutboundPayment.",
+                "nullable": true
+              },
+              "end_user_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/treasury_outbound_payments_resource_outbound_payment_resource_end_user_details"
+                  }
+                ],
+                "description": "Details about the end user.",
+                "nullable": true
+              },
+              "expected_arrival_date": {
+                "description": "The date when funds are expected to arrive in the destination account.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "financial_account": {
+                "description": "The FinancialAccount that funds were pulled from.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "hosted_regulatory_receipt_url": {
+                "description": "A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "treasury.outbound_payment"
+                ],
+                "type": "string"
+              },
+              "returned_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/treasury_outbound_payments_resource_returned_status"
+                  }
+                ],
+                "description": "Details about a returned OutboundPayment. Only set when the status is `returned`.",
+                "nullable": true
+              },
+              "statement_descriptor": {
+                "description": "The description that appears on the receiving end for an OutboundPayment (for example, bank statement for external bank transfer).",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "status": {
+                "description": "Current status of the OutboundPayment: `processing`, `failed`, `posted`, `returned`, `canceled`. An OutboundPayment is `processing` if it has been created and is pending. The status changes to `posted` once the OutboundPayment has been \"confirmed\" and funds have left the account, or to `failed` or `canceled`. If an OutboundPayment fails to arrive at its destination, its status will change to `returned`.",
+                "enum": [
+                  "canceled",
+                  "failed",
+                  "posted",
+                  "processing",
+                  "returned"
+                ],
+                "type": "string"
+              },
+              "status_transitions": {
+                "$ref": "#/components/schemas/treasury_outbound_payments_resource_outbound_payment_resource_status_transitions"
+              },
+              "tracking_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/treasury_outbound_payments_resource_outbound_payment_resource_tracking_details"
+                  }
+                ],
+                "description": "Details about network-specific tracking information if available.",
+                "nullable": true
+              },
+              "transaction": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/treasury.transaction"
+                  }
+                ],
+                "description": "The Transaction associated with this object.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/treasury.transaction"
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "amount",
+              "cancelable",
+              "created",
+              "currency",
+              "expected_arrival_date",
+              "financial_account",
+              "id",
+              "livemode",
+              "metadata",
+              "object",
+              "statement_descriptor",
+              "status",
+              "status_transitions",
+              "transaction"
+            ],
+            "title": "TreasuryOutboundPaymentsResourceOutboundPayment",
+            "type": "object",
+            "x-expandableFields": [
+              "destination_payment_method_details",
+              "end_user_details",
+              "returned_details",
+              "status_transitions",
+              "tracking_details",
+              "transaction"
+            ],
+            "x-resourceId": "treasury.outbound_payment"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

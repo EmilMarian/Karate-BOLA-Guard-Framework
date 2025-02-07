@@ -1,0 +1,109 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "personalization_design",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "rejection_reasons": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "rejection_reasons": {
+              "description": "The reason(s) the personalization design was rejected.",
+              "properties": {
+                "card_logo": {
+                  "items": {
+                    "enum": [
+                      "geographic_location",
+                      "inappropriate",
+                      "network_name",
+                      "non_binary_image",
+                      "non_fiat_currency",
+                      "other",
+                      "other_entity",
+                      "promotional_material"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "carrier_text": {
+                  "items": {
+                    "enum": [
+                      "geographic_location",
+                      "inappropriate",
+                      "network_name",
+                      "non_fiat_currency",
+                      "other",
+                      "other_entity",
+                      "promotional_material"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "title": "rejection_reasons_param",
+              "type": "object"
+            }
+          },
+          "required": [
+            "rejection_reasons"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

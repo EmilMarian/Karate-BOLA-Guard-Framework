@@ -1,0 +1,459 @@
+2025-02-07 13:11:46,122 - __main__ - INFO - Skipping fragment creation: False
+2025-02-07 13:11:46,181 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-07 13:11:46,405 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/identity/api/auth/signup", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"name\\\\\\":\\\\\\"{{name}}\\\\\\",\\\\\\"email\\\\\\":\\\\\\"{{email}}\\\\\\",\\\\\\"number\\\\\\":\\\\\\"{{phone}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_identity_api_auth_signup_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtb25zdGVyQGRhcmt3ZWIuY29tIiwiaWF0IjoxNjA4NTQzODI0LCJleHAiOjE2MDg2MzAyMjR9.AAIvhrtstlloPf7-NNCcmhEZm-XkO1aO3x3CLns1em7ft9U77B88LpK9jIrF8C-IH32JPWVazRFo0gBIBZ9FpA", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/workshop/api/merchant/contact_mechanic", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\r\\\\n    \\\\\\"mechanic_code\\\\\\": \\\\\\"TRAC_JHN\\\\\\",\\\\r\\\\n    \\\\\\"problem_details\\\\\\": \\\\\\"Hi Jhon\\\\\\",\\\\r\\\\n    \\\\\\"vin\\\\\\": \\\\\\"{{VIN}}\\\\\\",\\\\r\\\\n    \\\\\\"mechanic_api\\\\\\": \\\\\\"{{url}}/workshop/api/mechanic/receive_report\\\\\\",\\\\r\\\\n    \\\\\\"repeat_request_if_failed\\\\\\": false,\\\\r\\\\n    \\\\\\"number_of_repeats\\\\\\": 1\\\\r\\\\n}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0019_workshop_api_merchant_contact_mechanic_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/identity/api/auth/verify", "requestBody": {"content": {"application/json": {"schema": {"example": {"token": "{{token}}"}, "type": "object"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0003_identity_api_auth_verify_post_200.json'}}], form collection crapi_fragments
+2025-02-07 13:11:46,405 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 13:11:46,406 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 13:11:46,833 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-07 13:11:46,834 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-07 13:12:08,822 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-07 13:12:08,823 - karate_llm_test_gen - INFO - Generated test case: Here are the Karate DSL test scripts for each of the given API endpoints:
+
+**Scenario 1: Test API fo...
+2025-02-07 13:12:08,824 - __main__ - INFO - Generated Karate test for /identity/api/auth/signup POST at output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature
+2025-02-07 13:12:08,825 - karate_compatibility_verifier - INFO - Original content:
+2025-02-07 13:12:08,825 - karate_compatibility_verifier - INFO - Here are the Karate DSL test scripts for each of the given API endpoints:
+
+**Scenario 1: Test API for Account Enumeration during Signup**
+```karate
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_ocrapi.api/identity/api/auth/signup'
+And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+```
+
+**Scenario 2: Test API for OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_ocrapi.api/identity/api/oauth/token'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 3: OAuth Authorization Code Grant Fuzz Testing**
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_ocrapi.api/identity/api/oauth/authorize'
+
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+
+Please note that these test scripts are just examples and may need to be modified based on the actual implementation of your API endpoints.
+2025-02-07 13:12:27,682 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-07 13:12:27,682 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+```
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_ocrapi.api/identity/api/auth/signup'
+And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+When method post
+Then status 200
+And match response contains "A verification email has been sent. Please check your inbox."
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_ocrapi.api/identity/api/oauth/token'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_ocrapi.api/identity/api/oauth authorize'
+
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain "Error"
+    }
+}
+```
+2025-02-07 13:12:42,179 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-07 13:12:42,179 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+````
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_ocrapi.api/identity/api/auth/signup'
+And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+When method post
+Then status 200
+And match response contains "A verification email has been sent. Please check your inbox."
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_ocrapi.api/identity/api/oauth/token'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_ocrapi.api/identity/api/oauth authorize'
+
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+
+foreach [clientId] from clientIds {
+    foreach [redirectUri] from redirectUris {
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain "Error"
+    }
+}
+```
+2025-02-07 13:12:42,179 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature
+2025-02-07 13:12:42,179 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature: Here are the corrected Karate DSL test scripts:
+
+````
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_ocrapi.api/identity/api/auth/signup'
+And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+When method post
+Then status 200
+And match response contains "A verification email has been sent. Please check your inbox."
+
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_ocrapi.api/identity/api/oauth/token'
+And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+When method post
+Then status 400
+And match response contains "Invalid grant: authorization code is invalid"
+
+Feature: OAuth Authorization Code Grant Fuzz Testing
+
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_ocrapi.api/identity/api/oauth authorize'
+
+* def clientIds = ['knownClientId', '', '\' OR 1=1\', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+
+foreach [clientId] from clientIds {
+    foreach [redirectUri] from redirectUris {
+        And request { response_type: 'code', client_id: clientId, redirect_uri: redirectUri, scope: 'email', state: 'xyz' }
+        When method post
+        Then status != 500
+        And assert response does not contain "Error"
+    }
+}
+```
+2025-02-07 13:12:42,181 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 13:12:42,182 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 13:12:42,215 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-07 13:12:42,216 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-07 13:12:56,543 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-07 13:12:56,545 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script for the given API endpoint:
+
+```karate
+Feature: Test Broken Authe...
+2025-02-07 13:12:56,546 - __main__ - INFO - Generated Karate test for /workshop/api/merchant/contact_mechanic POST at output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature
+2025-02-07 13:12:56,547 - karate_compatibility_verifier - INFO - Original content:
+2025-02-07 13:12:56,547 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script for the given API endpoint:
+
+```karate
+Feature: Test Broken Authentication/Authorization on /workshop/api/merchant/contact_mechanic
+
+Scenario: Attempt to contact mechanic without authentication
+Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to contact mechanic with invalid credentials
+* def invalidCredentials = { username: 'invalid', password: 'wrong' }
+Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+And request ${invalidCredentials}
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to contact mechanic with valid credentials but no role for contacting mechanics
+* def validCredentials = { username: 'valid', password: 'correct' }
+Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+And request ${validCredentials}
+When method post
+Then status 403
+And match response contains "You do not have permission to contact mechanics"
+```
+
+This script tests the following scenarios:
+
+1. Attempting to contact a mechanic without authentication, which should result in an unauthorized error (401).
+2. Providing invalid credentials for contacting a mechanic, also resulting in an unauthorized error.
+3. Using valid credentials but no role for contacting mechanics, which should deny access with a permission denied message.
+
+Note that the actual implementation of these scenarios may vary depending on your specific authentication and authorization mechanisms.
+2025-02-07 13:13:07,389 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-07 13:13:07,389 - karate_compatibility_verifier - INFO - Feature: Test Broken Authentication/Authorization on /workshop/api/merchant/contact_mechanic
+
+Scenario: Attempt to contact mechanic without authentication
+Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to contact mechanic with invalid credentials
+* def invalidCredentials = { username: 'invalid', password: 'wrong' }
+Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+And request ${invalidCredentials}
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to contact mechanic with valid credentials but no role for contacting mechanics
+* def validCredentials = { username: 'valid', password: 'correct' }
+Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+And request ${validCredentials}
+When method post
+Then status 403
+And match response contains "You do not have permission to contact mechanics"
+2025-02-07 13:13:15,484 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-07 13:13:15,485 - karate_compatibility_verifier - INFO - Feature: Test Broken Authentication/Authorization on /workshop/api/merchant/contact_mechanic
+
+Scenario: Attempt to contact mechanic without authentication
+  Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+  When method post
+  Then status 401
+  And match response contains "Unauthorized"
+
+Scenario: Attempt to contact mechanic with invalid credentials
+* def invalidCredentials = { username: 'invalid', password: 'wrong' }
+Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+And request ${invalidCredentials}
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to contact mechanic with valid credentials but no role for contacting mechanics
+* def validCredentials = { username: 'valid', password: 'correct' }
+Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+And request ${validCredentials}
+When method post
+Then status 403
+And match response contains "You do not have permission to contact mechanics"
+2025-02-07 13:13:15,492 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified.feature
+2025-02-07 13:13:15,492 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature: Feature: Test Broken Authentication/Authorization on /workshop/api/merchant/contact_mechanic
+
+Scenario: Attempt to contact mechanic without authentication
+  Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+  When method post
+  Then status 401
+  And match response contains "Unauthorized"
+
+Scenario: Attempt to contact mechanic with invalid credentials
+* def invalidCredentials = { username: 'invalid', password: 'wrong' }
+Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+And request ${invalidCredentials}
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Attempt to contact mechanic with valid credentials but no role for contacting mechanics
+* def validCredentials = { username: 'valid', password: 'correct' }
+Given url 'http://oas_crapi.api/workshop/api/merchant/contact_mechanic'
+And request ${validCredentials}
+When method post
+Then status 403
+And match response contains "You do not have permission to contact mechanics"
+2025-02-07 13:13:15,493 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 13:13:15,494 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 13:13:15,529 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-07 13:13:15,530 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-07 13:13:30,883 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-07 13:13:30,884 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script for the given API endpoint:
+
+```
+Feature: Test API for Broken Aut...
+2025-02-07 13:13:30,885 - __main__ - INFO - Generated Karate test for /identity/api/auth/verify POST at output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST.feature
+2025-02-07 13:13:30,885 - karate_compatibility_verifier - INFO - Original content:
+2025-02-07 13:13:30,886 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script for the given API endpoint:
+
+```
+Feature: Test API for Broken Authentication/Authorization
+Scenario: Attempt to exploit broken authentication with a stolen access token
+Given url 'http://oas_crapi.api'
+And request { "access_token": "stolen_access_token" }
+When method post
+Then status 200
+
+Scenario: Verify user details without proper authorization
+Given url 'http://oas_crapi.api/identity/api/auth/verify'
+And header Authorization = 'Bearer stolen_access_token'
+When method post
+Then status 403
+And match response contains "Invalid access token"
+
+Scenario: Attempt to exploit broken authentication with an invalid client ID and secret
+Given url 'http://oas_crapi.api'
+And request { "client_id": "invalid_client_id", "client_secret": "invalid_client_secret" }
+When method post
+Then status 401
+
+Scenario: Verify user details without proper authorization for a non-existent user
+Given url 'http://oas_crapi.api/identity/api/auth/verify'
+And header Authorization = 'Bearer invalid_access_token'
+When method post
+Then status 403
+And match response contains "Invalid access token"
+```
+
+This test script covers the following scenarios:
+
+1. Attempting to exploit broken authentication with a stolen access token.
+2. Verifying user details without proper authorization (i.e., using an invalid or expired access token).
+3. Exploiting broken authentication by providing an invalid client ID and secret.
+4. Verifying user details for a non-existent user.
+
+Note that these scenarios are designed to test potential vulnerabilities in the API's authentication mechanism, but they may not cover all possible attack vectors.
+2025-02-07 13:13:41,761 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-07 13:13:41,761 - karate_compatibility_verifier - INFO - Feature: Test API for Broken Authentication/Authorization
+
+Scenario: Attempt to exploit broken authentication with a stolen access token
+Given url 'http://oas_ocrapi.api'
+And request { "access_token": "stolen_access_token" }
+When method post
+Then status 200
+
+Scenario: Verify user details without proper authorization
+Given path '/identity/api/auth/verify'
+And header Authorization = 'Bearer stolen_access_token'
+When method post
+Then status 403
+And match response contains "Invalid access token"
+
+Scenario: Attempt to exploit broken authentication with an invalid client ID and secret
+Given url 'http://oas_ocrapi.api'
+And request { "client_id": "invalid_client_id", "client_secret": "invalid_client_secret" }
+When method post
+Then status 401
+
+Scenario: Verify user details without proper authorization for a non-existent user
+Given path '/identity/api/auth/verify'
+And header Authorization = 'Bearer invalid_access_token'
+When method post
+Then status 403
+And match response contains "Invalid access token"
+2025-02-07 13:13:49,655 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-07 13:13:49,655 - karate_compatibility_verifier - INFO - Feature: Test API for Broken Authentication/Authorization
+
+Scenario: Attempt to exploit broken authentication with a stolen access token
+Given url 'http://oas_ocrapi.api'
+And request { "access_token": "stolen_access_token" }
+When method post
+Then status 200
+
+Scenario: Verify user details without proper authorization
+Given path '/identity/api/auth/verify'
+And header Authorization = 'Bearer stolen_access_token'
+When method post
+Then status 403
+And match response contains "Invalid access token"
+
+Scenario: Attempt to exploit broken authentication with an invalid client ID and secret
+Given url 'http://oas_ocrapi.api'
+And request { "client_id": "invalid_client_id", "client_secret": "invalid_client_secret" }
+When method post
+Then status 401
+
+Scenario: Verify user details without proper authorization for a non-existent user
+Given path '/identity/api/auth/verify'
+And header Authorization = 'Bearer invalid_access_token'
+When method post
+Then status 403
+And match response contains "Invalid access token"
+2025-02-07 13:13:49,656 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST_verified.feature
+2025-02-07 13:13:49,657 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestcra_identity_api_auth_verify_POST.feature: Feature: Test API for Broken Authentication/Authorization
+
+Scenario: Attempt to exploit broken authentication with a stolen access token
+Given url 'http://oas_ocrapi.api'
+And request { "access_token": "stolen_access_token" }
+When method post
+Then status 200
+
+Scenario: Verify user details without proper authorization
+Given path '/identity/api/auth/verify'
+And header Authorization = 'Bearer stolen_access_token'
+When method post
+Then status 403
+And match response contains "Invalid access token"
+
+Scenario: Attempt to exploit broken authentication with an invalid client ID and secret
+Given url 'http://oas_ocrapi.api'
+And request { "client_id": "invalid_client_id", "client_secret": "invalid_client_secret" }
+When method post
+Then status 401
+
+Scenario: Verify user details without proper authorization for a non-existent user
+Given path '/identity/api/auth/verify'
+And header Authorization = 'Bearer invalid_access_token'
+When method post
+Then status 403
+And match response contains "Invalid access token"
+2025-02-07 13:13:49,658 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-07 13:13:49,660 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-07 13:13:51,943 - __main__ - INFO - Skipping karate test run.

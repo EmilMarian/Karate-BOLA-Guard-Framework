@@ -1,0 +1,238 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Name of repository owner.",
+      "in": "path",
+      "name": "owner",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Name of repository.",
+      "in": "path",
+      "name": "repo",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The time should be passed in as UTC in the ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.\nExample: \"2012-10-09T23:39:01Z\".\n",
+      "in": "query",
+      "name": "since",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Sha or branch to start listing commits from.",
+      "in": "query",
+      "name": "sha",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Only commits containing this file path will be returned.",
+      "in": "query",
+      "name": "path",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "GitHub login, name, or email by which to filter by commit author.",
+      "in": "query",
+      "name": "author",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "ISO 8601 Date - Only commits before this date will be returned.",
+      "in": "query",
+      "name": "until",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/repos/{owner}/{repo}/commits",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "author": {
+                  "properties": {
+                    "avatar_url": {
+                      "type": "string"
+                    },
+                    "gravatar_id": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "login": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "commit": {
+                  "properties": {
+                    "author": {
+                      "properties": {
+                        "date": {
+                          "description": "ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ",
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "committer": {
+                      "properties": {
+                        "date": {
+                          "description": "ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ",
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "tree": {
+                      "properties": {
+                        "sha": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "committer": {
+                  "properties": {
+                    "avatar_url": {
+                      "type": "string"
+                    },
+                    "gravatar_id": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "login": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "parents": {
+                  "items": {
+                    "properties": {
+                      "sha": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "sha": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

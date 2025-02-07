@@ -1,0 +1,46 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of the `Brand` requested.\n",
+      "in": "path",
+      "name": "brand_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    }
+  ],
+  "path": "/catalog/brands/{brand_id}",
+  "requestBody": {},
+  "responses": {
+    "404": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error payload for the BigCommerce API.\n",
+            "properties": {
+              "instance": {
+                "type": "string"
+              },
+              "status": {
+                "description": "404 HTTP status code.\n",
+                "type": "integer"
+              },
+              "title": {
+                "description": "The error title describing the particular error.",
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "The resource was not found.\n"
+    }
+  }
+}

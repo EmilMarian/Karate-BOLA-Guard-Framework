@@ -1,0 +1,160 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/customer_sessions",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "components": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "components": {
+              "description": "Configuration for each component. Exactly 1 component must be enabled.",
+              "properties": {
+                "buy_button": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "buy_button_param",
+                  "type": "object"
+                },
+                "payment_element": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "features": {
+                      "properties": {
+                        "payment_method_allow_redisplay_filters": {
+                          "items": {
+                            "enum": [
+                              "always",
+                              "limited",
+                              "unspecified"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "payment_method_redisplay": {
+                          "enum": [
+                            "disabled",
+                            "enabled"
+                          ],
+                          "type": "string",
+                          "x-stripeBypassValidation": true
+                        },
+                        "payment_method_redisplay_limit": {
+                          "type": "integer"
+                        },
+                        "payment_method_remove": {
+                          "enum": [
+                            "disabled",
+                            "enabled"
+                          ],
+                          "type": "string",
+                          "x-stripeBypassValidation": true
+                        },
+                        "payment_method_save": {
+                          "enum": [
+                            "disabled",
+                            "enabled"
+                          ],
+                          "type": "string",
+                          "x-stripeBypassValidation": true
+                        },
+                        "payment_method_save_usage": {
+                          "enum": [
+                            "off_session",
+                            "on_session"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "title": "features_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "payment_element_param",
+                  "type": "object"
+                },
+                "pricing_table": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "pricing_table_param",
+                  "type": "object"
+                }
+              },
+              "title": "components",
+              "type": "object"
+            },
+            "customer": {
+              "description": "The ID of an existing customer for which to create the Customer Session.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "components",
+            "customer"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

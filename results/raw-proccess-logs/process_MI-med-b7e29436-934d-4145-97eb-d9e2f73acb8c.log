@@ -1,0 +1,192 @@
+2025-02-02 14:23:52,736 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 14:23:52,804 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 14:23:53,033 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The id of the user being queried", "in": "path", "name": "userId", "required": true, "type": "string"}], "path": "/users/{userId}/publications", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, lacks the listPublications scope or has been revoked."}}}', 'metadata': {'filename': '0015_users_userId_publications_get_401.json'}}, {'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"401": {"description": "The \\"accessToken\\" is invalid or has been revoked."}}}', 'metadata': {'filename': '0003_me_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The id of the publication being queried", "in": "path", "name": "publicationId", "required": true, "type": "string"}], "path": "/publications/{publicationId}/contributors", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, or has been revoked."}}}', 'metadata': {'filename': '0005_publications_publicationId_contributors_get_401.json'}}], form collection oas_medium_fragments
+2025-02-02 14:23:53,033 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:23:53,034 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:23:53,467 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:23:53,468 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:24:03,132 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:24:03,132 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:24:03,133 - __main__ - INFO - Generated Karate test for /users/{userId}/publications GET at output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature
+2025-02-02 14:24:03,133 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:24:03,133 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `/users/{userId}/publications`:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user publications without proper authentication or authorization
+    Given url http://oas_medium.api/users/{userId}/publications
+    And header Authorization = 'Bearer <regular_user_token>'
+    When method get
+    Then status 403
+    And match response contains 'You do not have permission to access this resource.'
+```
+This test script checks if the API endpoint `/users/{userId}/publications` requires proper authentication and authorization before allowing access. If the user is not authenticated or authorized, they should receive a 403 status code indicating that they do not have permission to access the resource.
+2025-02-02 14:24:08,977 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:24:08,977 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access user publications without proper authentication or authorization
+    Given url http://oas_medium.api/users/{userId}/publications
+    And header Authorization = 'Bearer <regular_user_token>'
+    When method get
+    Then status 403
+    And match response contains 'You do not have permission to access this resource.'
+2025-02-02 14:24:12,360 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:24:12,360 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to access user publications without proper authentication or authorization
+Given url http://oas_medium.api/users/{userId}/publications
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this resource.'
+2025-02-02 14:24:12,361 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET_verified.feature
+2025-02-02 14:24:12,361 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature:  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to access user publications without proper authentication or authorization
+Given url http://oas_medium.api/users/{userId}/publications
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this resource.'
+2025-02-02 14:24:12,361 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:24:12,362 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:24:12,381 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:24:12,382 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:24:22,557 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:24:22,558 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:24:22,559 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_002_krtestoas_me_GET.feature
+2025-02-02 14:24:22,559 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:24:22,559 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+  Scenario: Attempt to access the /me endpoint without authentication
+    Given url http://oas_medium.api/me
+    When method get
+    Then status == 401
+    And match response contains "Unauthorized"
+  Scenario: Attempt to access the /me endpoint with an invalid token
+    Given url http://oas_medium.api/me
+    And header Authorization = 'Bearer <invalid_token>'
+    When method get
+    Then status == 401
+    And match response contains "Unauthorized"
+```
+Note: This test script assumes that the `/me` endpoint requires authentication and returns a 401 Unauthorized error if the request is not properly authenticated. If this is not the case, you may need to modify the script accordingly.
+2025-02-02 14:24:29,256 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:24:29,256 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on /me endpoint
+  Scenario: Attempt to access the /me endpoint without authentication
+    Given url http://oas_medium.api/me
+    When method get
+    Then status == 401
+    And match response contains "Unauthorized"
+  Scenario: Attempt to access the /me endpoint with an invalid token
+    Given url http://oas_medium.api/me
+    And header Authorization = 'Bearer <invalid_token>'
+    When method get
+    Then status == 401
+    And match response contains "Unauthorized"
+2025-02-02 14:24:34,090 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:24:34,091 - karate_compatibility_verifier - INFO -  Here are the corrected Karate DSL script snippets:
+
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+Scenario: Attempt to access the /me endpoint without authentication
+Given url http://oas_medium.api/me
+When method get
+Then status == 401
+And match response contains "Unauthorized"
+Scenario: Attempt to access the /me endpoint with an invalid token
+Given url http://oas_medium.api/me
+And header Authorization = 'Bearer <invalid\_token>'
+When method get
+Then status == 401
+And match response contains "Unauthorized"
+2025-02-02 14:24:34,091 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_me_GET_verified.feature
+2025-02-02 14:24:34,091 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_me_GET.feature:  Here are the corrected Karate DSL script snippets:
+
+Feature: Test for Broken Authentication/Authorization on /me endpoint
+Scenario: Attempt to access the /me endpoint without authentication
+Given url http://oas_medium.api/me
+When method get
+Then status == 401
+And match response contains "Unauthorized"
+Scenario: Attempt to access the /me endpoint with an invalid token
+Given url http://oas_medium.api/me
+And header Authorization = 'Bearer <invalid\_token>'
+When method get
+Then status == 401
+And match response contains "Unauthorized"
+2025-02-02 14:24:34,091 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:24:34,092 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:24:34,112 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:24:34,113 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:24:46,701 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:24:46,702 - karate_llm_test_gen - INFO - Generated test case:  Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization ...
+2025-02-02 14:24:46,703 - __main__ - INFO - Generated Karate test for /publications/{publicationId}/contributors GET at output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature
+2025-02-02 14:24:46,703 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:24:46,703 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the API endpoint `/publications/{publicationId}/contributors`:
+```kotlin
+Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access a publication's contributors without proper authentication or authorization
+    Given url "http://oas_medium.api/publications/{publicationId}/contributors"
+      And header Authorization = ""
+      And request { path: "/publications/{publicationId}/contributors", method: GET }
+    When method get
+      Then status 401
+      And match response contains "Unauthorized"
+```
+This test script first attempts to access the publication's contributors without proper authentication or authorization by sending a GET request with an empty `Authorization` header. If the API returns a `401 Unauthorized` status code and the response contains the string "Unauthorized", then it is likely that there are Broken Authentication/Authorization vulnerabilities on the endpoint.
+
+You can modify this test script to include additional scenarios, such as attempting to access the publication's contributors with an invalid or expired token, or trying to access a publication's contributors using a different user's credentials.
+2025-02-02 14:24:53,802 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:24:53,802 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Attempt to access a publication's contributors without proper authentication or authorization
+    Given url "http://oas_medium.api/publications/{publicationId}/contributors"
+      And header Authorization = ""
+      And request { path: "/publications/{publicationId}/contributors", method: GET }
+    When method get
+      Then status 401
+      And match response contains "Unauthorized"
+2025-02-02 14:24:57,592 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:24:57,592 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to access a publication's contributors without proper authentication or authorization
+Given url "http://oas_medium.api/publications/{publicationId}/contributors"
+And header Authorization = ""
+And request { path: "/publications/{publicationId}/contributors", method: GET }
+When method get
+Then status 401
+And match response contains "Unauthorized"
+2025-02-02 14:24:57,592 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET_verified.feature
+2025-02-02 14:24:57,593 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature:  Feature: Test for Broken Authentication/Authorization Vulnerabilities
+Scenario: Attempt to access a publication's contributors without proper authentication or authorization
+Given url "http://oas_medium.api/publications/{publicationId}/contributors"
+And header Authorization = ""
+And request { path: "/publications/{publicationId}/contributors", method: GET }
+When method get
+Then status 401
+And match response contains "Unauthorized"
+2025-02-02 14:24:57,593 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 14:24:57,595 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 14:24:59,875 - __main__ - INFO - Skipping karate test run.

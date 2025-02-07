@@ -1,0 +1,273 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Unique identifier of the order.",
+      "in": "path",
+      "name": "order",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/climate/orders/{order}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "beneficiary": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "beneficiary": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "public_name": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "public_name"
+                  ],
+                  "title": "beneficiary_params",
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Publicly sharable reference for the end beneficiary of carbon removal. Assumed to be the Stripe account if not set."
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Orders represent your intent to purchase a particular Climate product. When you create an order, the\npayment is deducted from your merchant balance.",
+            "properties": {
+              "amount_fees": {
+                "description": "Total amount of [Frontier](https://frontierclimate.com/)'s service fees in the currency's smallest unit.",
+                "type": "integer"
+              },
+              "amount_subtotal": {
+                "description": "Total amount of the carbon removal in the currency's smallest unit.",
+                "type": "integer"
+              },
+              "amount_total": {
+                "description": "Total amount of the order including fees in the currency's smallest unit.",
+                "type": "integer"
+              },
+              "beneficiary": {
+                "$ref": "#/components/schemas/climate_removals_beneficiary"
+              },
+              "canceled_at": {
+                "description": "Time at which the order was canceled. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "cancellation_reason": {
+                "description": "Reason for the cancellation of this order.",
+                "enum": [
+                  "expired",
+                  "product_unavailable",
+                  "requested"
+                ],
+                "nullable": true,
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "certificate": {
+                "description": "For delivered orders, a URL to a delivery certificate for the order.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "confirmed_at": {
+                "description": "Time at which the order was confirmed. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase, representing the currency for this order.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "delayed_at": {
+                "description": "Time at which the order's expected_delivery_year was delayed. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "delivered_at": {
+                "description": "Time at which the order was delivered. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "delivery_details": {
+                "description": "Details about the delivery of carbon removal for this order.",
+                "items": {
+                  "$ref": "#/components/schemas/climate_removals_order_deliveries"
+                },
+                "type": "array"
+              },
+              "expected_delivery_year": {
+                "description": "The year this order is expected to be delivered.",
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "metric_tons": {
+                "description": "Quantity of carbon removal that is included in this order.",
+                "format": "decimal",
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "climate.order"
+                ],
+                "type": "string"
+              },
+              "product": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/climate.product"
+                  }
+                ],
+                "description": "Unique ID for the Climate `Product` this order is purchasing.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/climate.product"
+                    }
+                  ]
+                }
+              },
+              "product_substituted_at": {
+                "description": "Time at which the order's product was substituted for a different product. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "status": {
+                "description": "The current status of this order.",
+                "enum": [
+                  "awaiting_funds",
+                  "canceled",
+                  "confirmed",
+                  "delivered",
+                  "open"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "amount_fees",
+              "amount_subtotal",
+              "amount_total",
+              "created",
+              "currency",
+              "delivery_details",
+              "expected_delivery_year",
+              "id",
+              "livemode",
+              "metadata",
+              "metric_tons",
+              "object",
+              "product",
+              "status"
+            ],
+            "title": "ClimateRemovalsOrders",
+            "type": "object",
+            "x-expandableFields": [
+              "beneficiary",
+              "delivery_details",
+              "product"
+            ],
+            "x-resourceId": "climate.order"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

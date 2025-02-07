@@ -1,0 +1,48 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36",
+      "in": "header",
+      "name": "User-Agent",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "example": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+      "in": "header",
+      "name": "Content-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "example": "*/*",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/identity/api/v2/user/videos",
+  "requestBody": {
+    "content": {
+      "*/*": {
+        "schema": {
+          "example": "\"\\r\\n------WebKitFormBoundary7MA4YWxkTrZu0gW\\r\\nContent-Disposition: form-data; name=\\\"file\\\"; filename=\\\"abc.mp4\\\"\\r\\nContent-Type: video/mp4\\r\\n\\r\\nhakfhas\\r\\n------WebKitFormBoundary7MA4YWxkTrZu0gW--\"",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {}
+      },
+      "description": "Successful response"
+    }
+  }
+}

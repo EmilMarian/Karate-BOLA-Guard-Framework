@@ -1,0 +1,262 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "account",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "person",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/accounts/{account}/persons/{person}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "This is an object representing a person associated with a Stripe account.\n\nA platform cannot access a person for an account where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.\n\nSee the [Standard onboarding](/connect/standard-accounts) or [Express onboarding](/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](/connect/handling-api-verification#person-information).",
+            "properties": {
+              "account": {
+                "description": "The account the person is associated with.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "additional_tos_acceptances": {
+                "$ref": "#/components/schemas/person_additional_tos_acceptances"
+              },
+              "address": {
+                "$ref": "#/components/schemas/address"
+              },
+              "address_kana": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/legal_entity_japan_address"
+                  }
+                ],
+                "nullable": true
+              },
+              "address_kanji": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/legal_entity_japan_address"
+                  }
+                ],
+                "nullable": true
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "dob": {
+                "$ref": "#/components/schemas/legal_entity_dob"
+              },
+              "email": {
+                "description": "The person's email address.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "first_name": {
+                "description": "The person's first name.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "first_name_kana": {
+                "description": "The Kana variation of the person's first name (Japan only).",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "first_name_kanji": {
+                "description": "The Kanji variation of the person's first name (Japan only).",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "full_name_aliases": {
+                "description": "A list of alternate names or aliases that the person is known by.",
+                "items": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "future_requirements": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/person_future_requirements"
+                  }
+                ],
+                "nullable": true
+              },
+              "gender": {
+                "description": "The person's gender.",
+                "nullable": true,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "id_number_provided": {
+                "description": "Whether the person's `id_number` was provided. True if either the full ID number was provided or if only the required part of the ID number was provided (ex. last four of an individual's SSN for the US indicated by `ssn_last_4_provided`).",
+                "type": "boolean"
+              },
+              "id_number_secondary_provided": {
+                "description": "Whether the person's `id_number_secondary` was provided.",
+                "type": "boolean"
+              },
+              "last_name": {
+                "description": "The person's last name.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "last_name_kana": {
+                "description": "The Kana variation of the person's last name (Japan only).",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "last_name_kanji": {
+                "description": "The Kanji variation of the person's last name (Japan only).",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "maiden_name": {
+                "description": "The person's maiden name.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "nationality": {
+                "description": "The country where the person is a national.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "person"
+                ],
+                "type": "string"
+              },
+              "phone": {
+                "description": "The person's phone number.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "political_exposure": {
+                "description": "Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.",
+                "enum": [
+                  "existing",
+                  "none"
+                ],
+                "type": "string"
+              },
+              "registered_address": {
+                "$ref": "#/components/schemas/address"
+              },
+              "relationship": {
+                "$ref": "#/components/schemas/person_relationship"
+              },
+              "requirements": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/person_requirements"
+                  }
+                ],
+                "nullable": true
+              },
+              "ssn_last_4_provided": {
+                "description": "Whether the last four digits of the person's Social Security number have been provided (U.S. only).",
+                "type": "boolean"
+              },
+              "verification": {
+                "$ref": "#/components/schemas/legal_entity_person_verification"
+              }
+            },
+            "required": [
+              "account",
+              "created",
+              "id",
+              "object"
+            ],
+            "title": "Person",
+            "type": "object",
+            "x-expandableFields": [
+              "additional_tos_acceptances",
+              "address",
+              "address_kana",
+              "address_kanji",
+              "dob",
+              "future_requirements",
+              "registered_address",
+              "relationship",
+              "requirements",
+              "verification"
+            ],
+            "x-resourceId": "person"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

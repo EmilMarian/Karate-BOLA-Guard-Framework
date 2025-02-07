@@ -1,0 +1,246 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A single line id e.g. victoria",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The direction of travel. Can be inbound or outbound.",
+      "in": "path",
+      "name": "direction",
+      "required": true,
+      "schema": {
+        "enum": [
+          "inbound",
+          "outbound",
+          "all"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "A comma seperated list of service types to filter on. Supported values: Regular, Night. Defaulted to 'Regular' if not specified",
+      "explode": true,
+      "in": "query",
+      "name": "serviceTypes",
+      "schema": {
+        "items": {
+          "enum": [
+            "Regular",
+            "Night"
+          ],
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "form"
+    },
+    {
+      "description": "That excludes crowding from line disruptions. Can be true or false.",
+      "in": "query",
+      "name": "excludeCrowding",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "path": "/Line/{id}/Route/Sequence/{direction}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "direction": {
+                "type": "string"
+              },
+              "isOutboundOnly": {
+                "type": "boolean"
+              },
+              "lineId": {
+                "type": "string"
+              },
+              "lineName": {
+                "type": "string"
+              },
+              "lineStrings": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "mode": {
+                "type": "string"
+              },
+              "orderedLineRoutes": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.OrderedRoute"
+                },
+                "type": "array"
+              },
+              "stations": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "stopPointSequences": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.StopPointSequence"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "application/xml": {
+          "schema": {
+            "properties": {
+              "direction": {
+                "type": "string"
+              },
+              "isOutboundOnly": {
+                "type": "boolean"
+              },
+              "lineId": {
+                "type": "string"
+              },
+              "lineName": {
+                "type": "string"
+              },
+              "lineStrings": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "mode": {
+                "type": "string"
+              },
+              "orderedLineRoutes": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.OrderedRoute"
+                },
+                "type": "array"
+              },
+              "stations": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "stopPointSequences": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.StopPointSequence"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/json": {
+          "schema": {
+            "properties": {
+              "direction": {
+                "type": "string"
+              },
+              "isOutboundOnly": {
+                "type": "boolean"
+              },
+              "lineId": {
+                "type": "string"
+              },
+              "lineName": {
+                "type": "string"
+              },
+              "lineStrings": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "mode": {
+                "type": "string"
+              },
+              "orderedLineRoutes": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.OrderedRoute"
+                },
+                "type": "array"
+              },
+              "stations": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "stopPointSequences": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.StopPointSequence"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "text/xml": {
+          "schema": {
+            "properties": {
+              "direction": {
+                "type": "string"
+              },
+              "isOutboundOnly": {
+                "type": "boolean"
+              },
+              "lineId": {
+                "type": "string"
+              },
+              "lineName": {
+                "type": "string"
+              },
+              "lineStrings": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "mode": {
+                "type": "string"
+              },
+              "orderedLineRoutes": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.OrderedRoute"
+                },
+                "type": "array"
+              },
+              "stations": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.MatchedStop"
+                },
+                "type": "array"
+              },
+              "stopPointSequences": {
+                "items": {
+                  "$ref": "#/components/schemas/Tfl.Api.Presentation.Entities.StopPointSequence"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

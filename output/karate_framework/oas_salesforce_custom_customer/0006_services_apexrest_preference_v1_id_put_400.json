@@ -1,0 +1,120 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "Contact, Lead or Individual ID",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/services/apexrest/preference/v1/{id}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "Interests": {
+              "description": "Interest records",
+              "items": {
+                "properties": {
+                  "recordId": {
+                    "description": "ID of related Plot or Site or Area",
+                    "example": "00Q4J000007bwL6UAI",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "Type__c field on Interest - allowed values:Plot, Site or Area",
+                    "example": "Site",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "buyingPosition": {
+              "description": "Current_Property_Status__c field on Lead or Contact - allowed values from picklist:First time buyer, Property on the market, Property not on the market, No property to sell, Investor",
+              "example": "First Time Buyer",
+              "type": "string"
+            },
+            "emailOptIn": {
+              "description": "Value of Email_Opt_In__c field on Lead or Contact",
+              "example": true,
+              "type": "boolean"
+            },
+            "houseStyle": {
+              "description": "House_Style__c field on Lead or Contact - allowed values from picklist:Any, Apartment, Bungalow, Terrace, Detached, Linked Detached, Penthouse, Semi Detached, Townhouse",
+              "example": "Apartment, Detached",
+              "type": "string"
+            },
+            "maxBudget": {
+              "description": "Max_Budget__c field on Lead or Contact - allowed values from picklist:None, \u00a3150k, \u00a3200k, \u00a3250k, \u00a3300k, \u00a3350k, \u00a3400k, \u00a3450k, \u00a3500k, \u00a3550k, \u00a3600k, \u00a3650k, \u00a3700k, \u00a3750k, \u00a3800k, \u00a3850k, \u00a3900k, \u00a3950k, \u00a31,000,000+",
+              "example": "\u00a3150k",
+              "type": "string"
+            },
+            "minBudget": {
+              "description": "Min_Budget__c field on Lead or Contact - allowed values from picklist:None, \u00a3150k, \u00a3200k, \u00a3250k, \u00a3300k, \u00a3350k, \u00a3400k, \u00a3450k, \u00a3500k, \u00a3550k, \u00a3600k, \u00a3650k, \u00a3700k, \u00a3750k, \u00a3800k, \u00a3850k, \u00a3900k, \u00a3950k, \u00a31,000,000+",
+              "example": "\u00a3150k",
+              "type": "string"
+            },
+            "minimumNumberOfBedrooms": {
+              "description": "Minimum_Number_of_Bedrooms__c field on Lead or Contact - allowed values from picklist:1,2,3,4,5+",
+              "example": "3",
+              "type": "string"
+            },
+            "postalOptIn": {
+              "description": "Value of Postal_Opt_In__c field on Lead or Contact",
+              "example": true,
+              "type": "boolean"
+            },
+            "selectedIncentives": {
+              "description": "Selected_Incentives__c multi-picklist field on Lead or Contact, allowed from picklist:Armed Forces Discount, Assisted Move, Carpets, Discount Market Value, First Home Fund, Fittings, Furniture package, Golden Share, Guaranteed Buyer Service, Help to Buy        England, Help to Buy Scotland, Landscaping, LBTT contribution, LBTT paid, Lighting package, Mortage Pay, Part exchange, Ready for you, Reserve for \u00a399, Showhome Sale & Leaseback, Sonos system ,Stamp Duty contribution, Stamp Duty paid, Turf, Vouchers",
+              "example": "Carpets, Fittings",
+              "type": "string"
+            },
+            "smsOptIn": {
+              "description": "Value of SMS_Opt_In__c field on Lead or Contact",
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "The Request Payload"
+  },
+  "responses": {
+    "400": {
+      "content": {
+        "*/*": {
+          "schema": {
+            "properties": {
+              "errorMessage": {
+                "description": "Error Message",
+                "example": "Bad request, Cannot find a record, Unexpected exception, Required field missing",
+                "type": "string"
+              },
+              "statusCode": {
+                "description": "Status code",
+                "example": 400,
+                "type": "integer"
+              },
+              "success": {
+                "description": "Boolean to define whether the call was successfull or not",
+                "example": false,
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Bad Request"
+    }
+  }
+}

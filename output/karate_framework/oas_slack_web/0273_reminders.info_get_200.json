@@ -1,0 +1,92 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `reminders:read`",
+      "in": "query",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The ID of the reminder",
+      "in": "query",
+      "name": "reminder",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/reminders.info",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from reminders.info method",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "reminder": {
+                "additionalProperties": false,
+                "properties": {
+                  "complete_ts": {
+                    "type": "integer"
+                  },
+                  "creator": {
+                    "$ref": "#/components/schemas/defs_user_id"
+                  },
+                  "id": {
+                    "$ref": "#/components/schemas/defs_reminder_id"
+                  },
+                  "recurring": {
+                    "type": "boolean"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "integer"
+                  },
+                  "user": {
+                    "$ref": "#/components/schemas/defs_user_id"
+                  }
+                },
+                "required": [
+                  "id",
+                  "creator",
+                  "user",
+                  "text",
+                  "recurring"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "ok",
+              "reminder"
+            ],
+            "title": "reminders.info schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

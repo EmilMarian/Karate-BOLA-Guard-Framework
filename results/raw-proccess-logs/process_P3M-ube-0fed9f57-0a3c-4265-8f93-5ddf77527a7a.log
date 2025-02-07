@@ -1,0 +1,265 @@
+2025-01-25 21:24:04,857 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 21:24:04,919 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 21:24:05,167 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"email": {"description": "Email address of the Uber user", "type": "string"}, "first_name": {"description": "First name of the Uber user.", "type": "string"}, "last_name": {"description": "Last name of the Uber user.", "type": "string"}, "picture": {"description": "Image URL of the Uber user.", "type": "string"}, "promo_code": {"description": "Promo code of the Uber user.", "type": "string"}}, "type": "object"}}}, "description": "Profile information for a user"}}}', 'metadata': {'filename': '0007_me_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Latitude component of start location.", "in": "query", "name": "start_latitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Longitude component of start location.", "in": "query", "name": "start_longitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Unique customer identifier to be used for experience customization.", "in": "query", "name": "customer_uuid", "schema": {"format": "uuid", "type": "string"}}, {"description": "Unique identifier representing a specific product for a given latitude & longitude.", "in": "query", "name": "product_id", "schema": {"type": "string"}}], "path": "/estimates/time", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"items": {"properties": {"capacity": {"description": "Capacity of product. For example, 4 people.", "type": "string"}, "description": {"description": "Description of product.", "type": "string"}, "display_name": {"description": "Display name of product.", "type": "string"}, "image": {"description": "Image URL representing the product.", "type": "string"}, "product_id": {"description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.", "type": "string"}}, "type": "object"}, "type": "array"}}}, "description": "An array of products"}}}', 'metadata': {'filename': '0005_estimates_time_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Latitude component of start location.", "in": "query", "name": "start_latitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Longitude component of start location.", "in": "query", "name": "start_longitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Unique customer identifier to be used for experience customization.", "in": "query", "name": "customer_uuid", "schema": {"format": "uuid", "type": "string"}}, {"description": "Unique identifier representing a specific product for a given latitude & longitude.", "in": "query", "name": "product_id", "schema": {"type": "string"}}], "path": "/estimates/time", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"schema": {"properties": {"code": {"format": "int32", "type": "integer"}, "fields": {"type": "string"}, "message": {"type": "string"}}, "type": "object"}}}, "description": "Unexpected error"}}}', 'metadata': {'filename': '0006_estimates_time_get_default.json'}}], form collection oas_uber_fragments
+2025-01-25 21:24:05,167 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:24:05,168 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:24:05,597 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:24:05,597 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:24:09,903 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:24:09,904 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on /me endpoint",
+  "scenario":...
+2025-01-25 21:24:09,904 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_001_krtestoas_me_GET.feature
+2025-01-25 21:24:09,905 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:24:09,905 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on /me endpoint",
+  "scenario": "User attempts to access the personal information without proper authentication or authorization.",
+  "given url": "/http://oas_uber.api/me"
+}
+
+When method get
+Then status is not equal(401) // Expecting a non-successful response for unautmized access attempt
+And match response contains 'Unauthorized' or 'Forbidden' 
+```
+2025-01-25 21:24:13,242 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:24:13,242 - karate_compatibility_verifier - INFO - Scenario: User attempts to access the personal information without proper authentication or authorization.
+Given url 'https://httpbin.org/me'
+When method get
+Then status is not equal(200) // Expecting a non-successful response for unauthorized access attempt
+And match response contains { message: 'Unauthenticated user' } or '{ forbidden:' }
+2025-01-25 21:24:15,233 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:24:15,234 - karate_compatibility_verifier - INFO - Scenario: User attempts to access the personal information without proper authentication or authorization.
+Given url 'https://httpbin.org/me'
+When method get
+Then status is not equal(200) // Expecting a non-successful response for unauthorized access attempt
+And match (response contains { message: 'Unauthenticated user', code: 401 }) or (match response contains '{ forbidden:' } and contentType == "application/json")
+2025-01-25 21:24:15,234 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_me_GET_verified.feature
+2025-01-25 21:24:15,234 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_me_GET.feature: Scenario: User attempts to access the personal information without proper authentication or authorization.
+Given url 'https://httpbin.org/me'
+When method get
+Then status is not equal(200) // Expecting a non-successful response for unauthorized access attempt
+And match (response contains { message: 'Unauthenticated user', code: 401 }) or (match response contains '{ forbidden:' } and contentType == "application/json")
+2025-01-25 21:24:15,235 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:24:15,235 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:24:15,255 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:24:15,256 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:24:22,295 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:24:22,296 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on Time Estimates API",
+  "scen...
+2025-01-25 21:24:22,297 - __main__ - INFO - Generated Karate test for /estimates/time GET at output/karate_feature_files/ID_002_krtestoas_estimates_time_GET.feature
+2025-01-25 21:24:22,297 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:24:22,297 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on Time Estimates API",
+  "scenario": "User attempts to access time estimates without proper authentication or authorization.",
+  "given_url": "/estimates/time",
+  "steps": [
+    {
+      "step": "Given url http://oas-uber.api/estimates/time"
+    },
+    {
+m
+      step: "* def unauthorizedUser = 'unauthorized_user'"
+    },
+    {
+      step: "And header Authorization = \'Bearer invalidToken\''
+    },
+    {
+      step: "When method get"
+    },
+    {
+      step: "Then status 401 or 403"
+    },
+    {
+      step: "And match response contains 'Unauthorized' or 'Forbidden'"
+    }
+  ]
+}
+```
+2025-01-25 21:24:29,297 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:24:29,298 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test for Broken Authentication/Authorization on Time Estimates API
+  Background:
+    * url '/estimates/time'
+
+Scenario: User attempts to access time estimates without proper authentication or authorization.
+  Given 'url http://oas-uber.api/estimates/time'
+  
+  And def unauthorizedUser = 'unauthorized_user'
+  
+  And header Authorization = 'Bearer invalidToken'
+  
+  When method get
+  
+  Then status is one of (401, 403)
+  
+  And response contains ('Unauthorized', 'Forbidden')
+```
+2025-01-25 21:24:34,920 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:24:34,920 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test for Broken Authentication/Authorization on Time Estimates API
+  Background:
+    * url '/estimates/time'
+
+Scenario: User attempts to access time estimates without proper authentication or authorization.
+  Given 'url https://oas-uber.api/estimates/time' # Corrected URL format and protocol (HTTPS) for security purposes
+  
+  And def unauthorizedUser = 'unauthorized_user'
+  
+  And header Authorization = {Authorization: "Bearer invalidToken"} # Proper syntax using a dictionary-like structure in KataDescriptors Language Server Specification (KDLS) or similar DSLs, if applicable. If not directly supported by Karate/Gherkin, this is conceptual representation
+  
+  When method get
+  
+  Then status should be one of (401, 403) # Corrected to 'should' for assertion in Gherkin syntax
+  
+  And response body contains ('Unauthorized', 'Forbidden') # Assuming the DSL supports checking content within responses like this. If not directly supported by Karate/Gherkin, it would be a conceptual representation or pseudo-code commentary for clarity in documentation purposes.
+```
+2025-01-25 21:24:34,920 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_estimates_time_GET_verified.feature
+2025-01-25 21:24:34,920 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_estimates_time_GET.feature: ```yaml
+Feature: Test for Broken Authentication/Authorization on Time Estimates API
+  Background:
+    * url '/estimates/time'
+
+Scenario: User attempts to access time estimates without proper authentication or authorization.
+  Given 'url https://oas-uber.api/estimates/time' # Corrected URL format and protocol (HTTPS) for security purposes
+  
+  And def unauthorizedUser = 'unauthorized_user'
+  
+  And header Authorization = {Authorization: "Bearer invalidToken"} # Proper syntax using a dictionary-like structure in KataDescriptors Language Server Specification (KDLS) or similar DSLs, if applicable. If not directly supported by Karate/Gherkin, this is conceptual representation
+  
+  When method get
+  
+  Then status should be one of (401, 403) # Corrected to 'should' for assertion in Gherkin syntax
+  
+  And response body contains ('Unauthorized', 'Forbidden') # Assuming the DSL supports checking content within responses like this. If not directly supported by Karate/Gherkin, it would be a conceptual representation or pseudo-code commentary for clarity in documentation purposes.
+```
+2025-01-25 21:24:34,921 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:24:34,921 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:24:34,942 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:24:34,943 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:24:48,173 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:24:48,173 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on Time Estimates API",
+  "scen...
+2025-01-25 21:24:48,174 - __main__ - INFO - Generated Karate test for /estimates/time GET at output/karate_feature_files/ID_003_krtestoas_estimates_time_GET.feature
+2025-01-25 21:24:48,174 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:24:48,174 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on Time Estimates API",
+  "scenario": "User attempts to access time estimates without proper authentication or authorization.",
+  "given_url": "/estimates/time",
+  "steps": [
+    {
+      "step": "Given url http://oas-uber.api/estimates/time"
+    },
+    {
+m
+      step: "* def unauthorizedUser = 'unauthorized_user'"
+    },
+    {
+      step: "And header Authorization = \'Bearer invalidToken\''
+    },
+    {
+      step: "When method get"
+    },
+    {
+      step: "Then status 401 or 403"
+    },
+    {
+      step: "And match response contains 'Unauthorized' or 'Forbidden'"
+    }
+  ]
+}
+```
+2025-01-25 21:24:55,134 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:24:55,134 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test for Broken Authentication/Authorization on Time Estimates API
+  Background:
+    * url '/estimates/time'
+
+Scenario: User attempts to access time estimates without proper authentication or authorization.
+  Given 'url http://oas-uber.api/estimates/time'
+  
+  And def unauthorizedUser = 'unauthorized_user'
+  
+  And header Authorization = 'Bearer invalidToken'
+  
+  When method get
+  
+  Then status is one of (401, 403)
+  
+  And response contains ('Unauthorized', 'Forbidden')
+```
+2025-01-25 21:25:00,891 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:25:00,891 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test for Broken Authentication/Authorization on Time Estimates API
+  Background:
+    * url '/estimates/time'
+
+Scenario: User attempts to access time estimates without proper authentication or authorization.
+  Given 'url https://oas-uber.api/estimates/time' # Corrected URL format and protocol (HTTPS) for security purposes
+  
+  And def unauthorizedUser = 'unauthorized_user'
+  
+  And header Authorization = {Authorization: "Bearer invalidToken"} # Proper syntax using a dictionary-like structure in KataDescriptors Language Server Specification (KDLS) or similar DSLs, if applicable. If not directly supported by Karate/Gherkin, this is conceptual representation
+  
+  When method get
+  
+  Then status should be one of (401, 403) # Corrected to 'should' for assertion in Gherkin syntax
+  
+  And response body contains ('Unauthorized', 'Forbidden') # Assuming the DSL supports checking content within responses like this. If not directly supported by Karate/Gherkin, it would be a conceptual representation or pseudo-code commentary for clarity in documentation purposes.
+```
+2025-01-25 21:25:00,891 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_estimates_time_GET_verified.feature
+2025-01-25 21:25:00,891 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_estimates_time_GET.feature: ```yaml
+Feature: Test for Broken Authentication/Authorization on Time Estimates API
+  Background:
+    * url '/estimates/time'
+
+Scenario: User attempts to access time estimates without proper authentication or authorization.
+  Given 'url https://oas-uber.api/estimates/time' # Corrected URL format and protocol (HTTPS) for security purposes
+  
+  And def unauthorizedUser = 'unauthorized_user'
+  
+  And header Authorization = {Authorization: "Bearer invalidToken"} # Proper syntax using a dictionary-like structure in KataDescriptors Language Server Specification (KDLS) or similar DSLs, if applicable. If not directly supported by Karate/Gherkin, this is conceptual representation
+  
+  When method get
+  
+  Then status should be one of (401, 403) # Corrected to 'should' for assertion in Gherkin syntax
+  
+  And response body contains ('Unauthorized', 'Forbidden') # Assuming the DSL supports checking content within responses like this. If not directly supported by Karate/Gherkin, it would be a conceptual representation or pseudo-code commentary for clarity in documentation purposes.
+```
+2025-01-25 21:25:00,892 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 21:25:00,893 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 21:25:02,994 - __main__ - INFO - Skipping karate test run.

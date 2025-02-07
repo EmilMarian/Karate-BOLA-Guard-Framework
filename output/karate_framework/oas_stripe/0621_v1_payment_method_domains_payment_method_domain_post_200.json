@@ -1,0 +1,129 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "payment_method_domain",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/payment_method_domains/{payment_method_domain}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "description": "Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.",
+              "type": "boolean"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A payment method domain represents a web domain that you have registered with Stripe.\nStripe Elements use registered payment method domains to control where certain payment methods are shown.\n\nRelated guide: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).",
+            "properties": {
+              "amazon_pay": {
+                "$ref": "#/components/schemas/payment_method_domain_resource_payment_method_status"
+              },
+              "apple_pay": {
+                "$ref": "#/components/schemas/payment_method_domain_resource_payment_method_status"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "domain_name": {
+                "description": "The domain name that this payment method domain object represents.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "enabled": {
+                "description": "Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.",
+                "type": "boolean"
+              },
+              "google_pay": {
+                "$ref": "#/components/schemas/payment_method_domain_resource_payment_method_status"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "link": {
+                "$ref": "#/components/schemas/payment_method_domain_resource_payment_method_status"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "payment_method_domain"
+                ],
+                "type": "string"
+              },
+              "paypal": {
+                "$ref": "#/components/schemas/payment_method_domain_resource_payment_method_status"
+              }
+            },
+            "required": [
+              "amazon_pay",
+              "apple_pay",
+              "created",
+              "domain_name",
+              "enabled",
+              "google_pay",
+              "id",
+              "link",
+              "livemode",
+              "object",
+              "paypal"
+            ],
+            "title": "PaymentMethodDomainResourcePaymentMethodDomain",
+            "type": "object",
+            "x-expandableFields": [
+              "amazon_pay",
+              "apple_pay",
+              "google_pay",
+              "link",
+              "paypal"
+            ],
+            "x-resourceId": "payment_method_domain"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,440 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Only return transactions that belong to the given card.",
+      "in": "query",
+      "name": "card",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Only return transactions that belong to the given cardholder.",
+      "in": "query",
+      "name": "cardholder",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Only return transactions that were created during the given date interval.",
+      "explode": true,
+      "in": "query",
+      "name": "created",
+      "required": false,
+      "schema": {
+        "anyOf": [
+          {
+            "properties": {
+              "gt": {
+                "type": "integer"
+              },
+              "gte": {
+                "type": "integer"
+              },
+              "lt": {
+                "type": "integer"
+              },
+              "lte": {
+                "type": "integer"
+              }
+            },
+            "title": "range_query_specs",
+            "type": "object"
+          },
+          {
+            "type": "integer"
+          }
+        ]
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.",
+      "in": "query",
+      "name": "ending_before",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      },
+      "style": "form"
+    },
+    {
+      "description": "A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.",
+      "in": "query",
+      "name": "starting_after",
+      "required": false,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Only return transactions that have the given type. One of `capture` or `refund`.",
+      "in": "query",
+      "name": "type",
+      "required": false,
+      "schema": {
+        "enum": [
+          "capture",
+          "refund"
+        ],
+        "type": "string",
+        "x-stripeBypassValidation": true
+      },
+      "style": "form"
+    }
+  ],
+  "path": "/v1/issuing/transactions",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "",
+            "properties": {
+              "data": {
+                "items": {
+                  "description": "Any use of an [issued card](https://stripe.com/docs/issuing) that results in funds entering or leaving\nyour Stripe account, such as a completed purchase or refund, is represented by an Issuing\n`Transaction` object.\n\nRelated guide: [Issued card transactions](https://stripe.com/docs/issuing/purchases/transactions)",
+                  "properties": {
+                    "amount": {
+                      "description": "The transaction amount, which will be reflected in your balance. This amount is in your currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).",
+                      "type": "integer"
+                    },
+                    "amount_details": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/issuing_transaction_amount_details"
+                        }
+                      ],
+                      "description": "Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).",
+                      "nullable": true
+                    },
+                    "authorization": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/issuing.authorization"
+                        }
+                      ],
+                      "description": "The `Authorization` object that led to this transaction.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/issuing.authorization"
+                          }
+                        ]
+                      }
+                    },
+                    "balance_transaction": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/balance_transaction"
+                        }
+                      ],
+                      "description": "ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this transaction.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/balance_transaction"
+                          }
+                        ]
+                      }
+                    },
+                    "card": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/issuing.card"
+                        }
+                      ],
+                      "description": "The card used to make this transaction.",
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/issuing.card"
+                          }
+                        ]
+                      }
+                    },
+                    "cardholder": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/issuing.cardholder"
+                        }
+                      ],
+                      "description": "The cardholder to whom this transaction belongs.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/issuing.cardholder"
+                          }
+                        ]
+                      }
+                    },
+                    "created": {
+                      "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                      "format": "unix-time",
+                      "type": "integer"
+                    },
+                    "currency": {
+                      "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                      "format": "currency",
+                      "type": "string"
+                    },
+                    "dispute": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/issuing.dispute"
+                        }
+                      ],
+                      "description": "If you've disputed the transaction, the ID of the dispute.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/issuing.dispute"
+                          }
+                        ]
+                      }
+                    },
+                    "id": {
+                      "description": "Unique identifier for the object.",
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "livemode": {
+                      "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                      "type": "boolean"
+                    },
+                    "merchant_amount": {
+                      "description": "The amount that the merchant will receive, denominated in `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). It will be different from `amount` if the merchant is taking payment in a different currency.",
+                      "type": "integer"
+                    },
+                    "merchant_currency": {
+                      "description": "The currency with which the merchant is taking payment.",
+                      "format": "currency",
+                      "type": "string"
+                    },
+                    "merchant_data": {
+                      "$ref": "#/components/schemas/issuing_authorization_merchant_data"
+                    },
+                    "metadata": {
+                      "additionalProperties": {
+                        "maxLength": 500,
+                        "type": "string"
+                      },
+                      "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                      "type": "object"
+                    },
+                    "network_data": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/issuing_transaction_network_data"
+                        }
+                      ],
+                      "description": "Details about the transaction, such as processing dates, set by the card network.",
+                      "nullable": true
+                    },
+                    "object": {
+                      "description": "String representing the object's type. Objects of the same type share the same value.",
+                      "enum": [
+                        "issuing.transaction"
+                      ],
+                      "type": "string"
+                    },
+                    "purchase_details": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/issuing_transaction_purchase_details"
+                        }
+                      ],
+                      "description": "Additional purchase information that is optionally provided by the merchant.",
+                      "nullable": true
+                    },
+                    "token": {
+                      "anyOf": [
+                        {
+                          "maxLength": 5000,
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/components/schemas/issuing.token"
+                        }
+                      ],
+                      "description": "[Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.",
+                      "nullable": true,
+                      "x-expansionResources": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/issuing.token"
+                          }
+                        ]
+                      }
+                    },
+                    "treasury": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/issuing_transaction_treasury"
+                        }
+                      ],
+                      "description": "[Treasury](https://stripe.com/docs/api/treasury) details related to this transaction if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts",
+                      "nullable": true
+                    },
+                    "type": {
+                      "description": "The nature of the transaction.",
+                      "enum": [
+                        "capture",
+                        "refund"
+                      ],
+                      "type": "string",
+                      "x-stripeBypassValidation": true
+                    },
+                    "wallet": {
+                      "description": "The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`.",
+                      "enum": [
+                        "apple_pay",
+                        "google_pay",
+                        "samsung_pay"
+                      ],
+                      "nullable": true,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "amount",
+                    "card",
+                    "created",
+                    "currency",
+                    "id",
+                    "livemode",
+                    "merchant_amount",
+                    "merchant_currency",
+                    "merchant_data",
+                    "metadata",
+                    "object",
+                    "type"
+                  ],
+                  "title": "IssuingTransaction",
+                  "type": "object",
+                  "x-expandableFields": [
+                    "amount_details",
+                    "authorization",
+                    "balance_transaction",
+                    "card",
+                    "cardholder",
+                    "dispute",
+                    "merchant_data",
+                    "network_data",
+                    "purchase_details",
+                    "token",
+                    "treasury"
+                  ],
+                  "x-resourceId": "issuing.transaction"
+                },
+                "type": "array"
+              },
+              "has_more": {
+                "description": "True if this list has another page of items after this one that can be fetched.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                "enum": [
+                  "list"
+                ],
+                "type": "string"
+              },
+              "url": {
+                "description": "The URL where this list can be accessed.",
+                "maxLength": 5000,
+                "pattern": "^/v1/issuing/transactions",
+                "type": "string"
+              }
+            },
+            "required": [
+              "data",
+              "has_more",
+              "object",
+              "url"
+            ],
+            "title": "IssuingTransactionList",
+            "type": "object",
+            "x-expandableFields": [
+              "data"
+            ]
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

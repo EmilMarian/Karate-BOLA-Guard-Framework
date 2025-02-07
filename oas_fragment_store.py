@@ -55,12 +55,12 @@ def embed_and_store_fragments(fragments: List[Dict[str, Any]], collection_name: 
     except Exception as e:
         print(f"Error storing fragments: {str(e)}")
 
-def main():
-
-    oas_name = os.path.splitext(OAS_FILE_PATH)[0]  
+def main(oas_name: str = None):
+    if oas_name is None:
+        oas_name = os.path.splitext(file_path)[0]
     fragments_dir = f"output/{oas_name}"
     collection_name = f"{oas_name}_fragments"
-
+    
     fragments = load_fragments(fragments_dir)
     embed_and_store_fragments(fragments, collection_name)
 
@@ -76,4 +76,6 @@ def main():
         print(f"Error verifying collection: {str(e)}")
 
 if __name__ == "__main__":
-    main()
+    import sys
+    oas_name = sys.argv[1] if len(sys.argv) > 1 else None
+    main(oas_name)

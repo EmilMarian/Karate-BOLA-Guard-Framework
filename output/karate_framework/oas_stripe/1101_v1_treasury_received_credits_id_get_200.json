@@ -1,0 +1,194 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/treasury/received_credits/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "ReceivedCredits represent funds sent to a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.",
+            "properties": {
+              "amount": {
+                "description": "Amount (in cents) transferred.",
+                "type": "integer"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "format": "currency",
+                "type": "string"
+              },
+              "description": {
+                "description": "An arbitrary string attached to the object. Often useful for displaying to users.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "failure_code": {
+                "description": "Reason for the failure. A ReceivedCredit might fail because the receiving FinancialAccount is closed or frozen.",
+                "enum": [
+                  "account_closed",
+                  "account_frozen",
+                  "international_transaction",
+                  "other"
+                ],
+                "nullable": true,
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "financial_account": {
+                "description": "The FinancialAccount that received the funds.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "hosted_regulatory_receipt_url": {
+                "description": "A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "initiating_payment_method_details": {
+                "$ref": "#/components/schemas/treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details"
+              },
+              "linked_flows": {
+                "$ref": "#/components/schemas/treasury_received_credits_resource_linked_flows"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "network": {
+                "description": "The rails used to send the funds.",
+                "enum": [
+                  "ach",
+                  "card",
+                  "stripe",
+                  "us_domestic_wire"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "treasury.received_credit"
+                ],
+                "type": "string"
+              },
+              "reversal_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/treasury_received_credits_resource_reversal_details"
+                  }
+                ],
+                "description": "Details describing when a ReceivedCredit may be reversed.",
+                "nullable": true
+              },
+              "status": {
+                "description": "Status of the ReceivedCredit. ReceivedCredits are created either `succeeded` (approved) or `failed` (declined). If a ReceivedCredit is declined, the failure reason can be found in the `failure_code` field.",
+                "enum": [
+                  "failed",
+                  "succeeded"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "transaction": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/treasury.transaction"
+                  }
+                ],
+                "description": "The Transaction associated with this object.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/treasury.transaction"
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "amount",
+              "created",
+              "currency",
+              "description",
+              "id",
+              "initiating_payment_method_details",
+              "linked_flows",
+              "livemode",
+              "network",
+              "object",
+              "status"
+            ],
+            "title": "TreasuryReceivedCreditsResourceReceivedCredit",
+            "type": "object",
+            "x-expandableFields": [
+              "initiating_payment_method_details",
+              "linked_flows",
+              "reversal_details",
+              "transaction"
+            ],
+            "x-resourceId": "treasury.received_credit"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

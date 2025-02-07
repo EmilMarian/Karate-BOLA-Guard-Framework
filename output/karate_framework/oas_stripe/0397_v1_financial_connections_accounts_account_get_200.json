@@ -1,0 +1,251 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "account",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    }
+  ],
+  "path": "/v1/financial_connections/accounts/{account}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.",
+            "properties": {
+              "account_holder": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/bank_connections_resource_accountholder"
+                  }
+                ],
+                "description": "The account holder that this account belongs to.",
+                "nullable": true
+              },
+              "balance": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/bank_connections_resource_balance"
+                  }
+                ],
+                "description": "The most recent information about the account's balance.",
+                "nullable": true
+              },
+              "balance_refresh": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/bank_connections_resource_balance_refresh"
+                  }
+                ],
+                "description": "The state of the most recent attempt to refresh the account balance.",
+                "nullable": true
+              },
+              "category": {
+                "description": "The type of the account. Account category is further divided in `subcategory`.",
+                "enum": [
+                  "cash",
+                  "credit",
+                  "investment",
+                  "other"
+                ],
+                "type": "string"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "display_name": {
+                "description": "A human-readable name that has been assigned to this account, either by the account holder or by the institution.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "institution_name": {
+                "description": "The name of the institution that holds this account.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "last4": {
+                "description": "The last 4 digits of the account number. If present, this will be 4 numeric characters.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "financial_connections.account"
+                ],
+                "type": "string"
+              },
+              "ownership": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/financial_connections.account_ownership"
+                  }
+                ],
+                "description": "The most recent information about the account's owners.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/financial_connections.account_ownership"
+                    }
+                  ]
+                }
+              },
+              "ownership_refresh": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/bank_connections_resource_ownership_refresh"
+                  }
+                ],
+                "description": "The state of the most recent attempt to refresh the account owners.",
+                "nullable": true
+              },
+              "permissions": {
+                "description": "The list of permissions granted by this account.",
+                "items": {
+                  "enum": [
+                    "balances",
+                    "ownership",
+                    "payment_method",
+                    "transactions"
+                  ],
+                  "type": "string"
+                },
+                "nullable": true,
+                "type": "array"
+              },
+              "status": {
+                "description": "The status of the link to the account.",
+                "enum": [
+                  "active",
+                  "disconnected",
+                  "inactive"
+                ],
+                "type": "string"
+              },
+              "subcategory": {
+                "description": "If `category` is `cash`, one of:\n\n - `checking`\n - `savings`\n - `other`\n\nIf `category` is `credit`, one of:\n\n - `mortgage`\n - `line_of_credit`\n - `credit_card`\n - `other`\n\nIf `category` is `investment` or `other`, this will be `other`.",
+                "enum": [
+                  "checking",
+                  "credit_card",
+                  "line_of_credit",
+                  "mortgage",
+                  "other",
+                  "savings"
+                ],
+                "type": "string"
+              },
+              "subscriptions": {
+                "description": "The list of data refresh subscriptions requested on this account.",
+                "items": {
+                  "enum": [
+                    "transactions"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                },
+                "nullable": true,
+                "type": "array"
+              },
+              "supported_payment_method_types": {
+                "description": "The [PaymentMethod type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.",
+                "items": {
+                  "enum": [
+                    "link",
+                    "us_bank_account"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "transaction_refresh": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/bank_connections_resource_transaction_refresh"
+                  }
+                ],
+                "description": "The state of the most recent attempt to refresh the account transactions.",
+                "nullable": true
+              }
+            },
+            "required": [
+              "category",
+              "created",
+              "id",
+              "institution_name",
+              "livemode",
+              "object",
+              "status",
+              "subcategory",
+              "supported_payment_method_types"
+            ],
+            "title": "BankConnectionsResourceLinkedAccount",
+            "type": "object",
+            "x-expandableFields": [
+              "account_holder",
+              "balance",
+              "balance_refresh",
+              "ownership",
+              "ownership_refresh",
+              "transaction_refresh"
+            ],
+            "x-resourceId": "financial_connections.account"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

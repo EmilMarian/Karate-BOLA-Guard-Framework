@@ -1,0 +1,108 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The search term",
+      "in": "path",
+      "name": "keyword",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The sort field. if sort param is provided. Can be either asc or desc.",
+      "in": "query",
+      "name": "order",
+      "schema": {
+        "default": "desc",
+        "enum": [
+          "desc",
+          "asc"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter results by language",
+      "in": "query",
+      "name": "language",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The page number to fetch",
+      "in": "query",
+      "name": "start_page",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The sort field. One of stars, forks, or updated. Default: results are sorted by best match.",
+      "in": "query",
+      "name": "sort",
+      "schema": {
+        "enum": [
+          "updated",
+          "stars",
+          "forks"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/legacy/repos/search/{keyword}",
+  "requestBody": {},
+  "responses": {
+    "403": {
+      "content": {},
+      "description": "API rate limit exceeded. See http://developer.github.com/v3/#rate-limiting\nfor details.\n"
+    }
+  }
+}

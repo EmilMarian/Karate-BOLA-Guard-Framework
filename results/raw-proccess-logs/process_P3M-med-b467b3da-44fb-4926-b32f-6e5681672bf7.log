@@ -1,0 +1,276 @@
+2025-02-01 12:41:15,991 - __main__ - INFO - Skipping fragment creation: False
+2025-02-01 12:41:16,052 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-01 12:41:16,383 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The id of the user being queried", "in": "path", "name": "userId", "required": true, "type": "string"}], "path": "/users/{userId}/publications", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, lacks the listPublications scope or has been revoked."}}}', 'metadata': {'filename': '0015_users_userId_publications_get_401.json'}}, {'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"401": {"description": "The \\"accessToken\\" is invalid or has been revoked."}}}', 'metadata': {'filename': '0003_me_get_401.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The id of the publication being queried", "in": "path", "name": "publicationId", "required": true, "type": "string"}], "path": "/publications/{publicationId}/contributors", "requestBody": {}, "responses": {"401": {"description": "Unauthorized: The accessToken is invalid, or has been revoked."}}}', 'metadata': {'filename': '0005_publications_publicationId_contributors_get_401.json'}}], form collection oas_medium_fragments
+2025-02-01 12:41:16,384 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:41:16,385 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:41:16,809 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 12:41:16,810 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 12:45:10,580 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 12:45:10,580 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+
+Feature: Potential Broken Authorization on User Publications Access
+
+Scenario: Attempting a...
+2025-02-01 12:45:10,581 - __main__ - INFO - Generated Karate test for /users/{userId}/publications GET at output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature
+2025-02-01 12:45:10,582 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 12:45:10,582 - karate_compatibility_verifier - INFO - ```yaml
+
+Feature: Potential Broken Authorization on User Publications Access
+
+Scenario: Attempting access with insufficient permissions as 'user' role
+
+Steps:
+
+  * Given url http://oas_medium.api/users/{userId}/publications
+
+    * And header Authorization = "Bearer <insufficient_permission_token>" # Replace '<>' with a token that simulits the insufficient permission scenario, e.g., 'user' role without admin privileges
+
+    * When method get
+
+      * Then status 403
+
+      * And match response contains "You do not have sufficient permissions to access this publication."
+
+Scenario: Attempting unauthorized direct access as a non-existent userId with 'user' role
+
+Steps:
+
+  * Given url http://oas_medium.api/users/{nonExistentUserId}/publications # Replace '{nonExistentUserId}' with an ID that does not exist in the system to simulate unauthorized access attempt as a regular user
+
+    * And header Authorization = "Bearer <regular_user_token>" # Use a token for a 'user' role, assuming no admin privileges are present
+
+    * When method get
+
+      * Then status 401 or 403 depending on the API implementation (e.g., not found error vs insufficient permissions)
+
+      * And match response contains "User does not exist" # Expected message for non-existent userId access attempt, assuming a proper handling of such cases in the API.
+
+Scenario: Attempting to generate reports as 'user' or 'guest' roles on /admin/reports endpoint (hypothetical scenario)
+
+Steps:
+
+  * Given url http://oas_medium.api/admin/reports # Assuming this is the correct path for generating sensitive admin-only content like reports, if such a feature exists in your API but was not described initially
+
+    * And header Authorization = "Bearer <user_role_token>" # Use an insufficient permission token that simulates 'user' or 'guest' roles trying to access sensitive admin functionality
+
+      * When method post
+
+        * Then status 403
+
+        * And match response contains "Access denied for report generation." // This message should be expected if the API correctly denies unauthorized attempts.
+```
+2025-02-01 12:49:21,126 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 12:49:21,126 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Potential Broken Authorization on User Publications Access
+
+Scenario: Attempting access with insufficient permissions as 'user' role
+    * Given url http://oas_medium.api/users/{userId}/publications
+      * And header Authorization = "Bearer abc123" // Replace '<>' with a token that simulits the insufficient permission scenario, e.g., 'user' role without admin privileges
+    * When method get
+      * Then status 403
+      * And match response contains "You do not have sufficient permissions to access this publication."
+
+Scenario: Attempting unauthorized direct access as a non-existent userId with 'user' role
+    * Given url http://oas_medium.api/users/{nonExistentUserId}/publications // Replace '{nonExistentUserId}' with an ID that does not exist in the system to simulate unauthorized access attempt as a regular user
+      * And header Authorization = "Bearer def456" // Use a token for 'user' role, assuming no admin privileges are present
+    * When method get
+      * Then status 401 or 403 depending on the API implementation (e.g., not found error vs insufficient permissions)
+      * And match response contains "User does not exist" // Expected message for non-existent userId access attempt, assuming a proper handling of such cases in the API.
+
+Scenario: Attempting to generate reports as 'user' or 'guest' roles on /admin/reports endpoint (hypothetical scenario)
+    * Given url http://oas_medium.api/admin/reports // Assuming this is the correct path for generating sensitive admin-only content like reports, if such a feature exists in your API but was not described initially
+      * And header Authorization = "Bearer abc123" // Use an insufficient permission token that simulits 'user' or 'guest' roles trying to access sensitive admin functionality
+    * When method post
+      * Then status 403
+      * And match response contains "Access denied for report generation." // This message should be expected if the API correctly denies unautzhorized attempts.
+```
+2025-02-01 12:52:00,536 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 12:52:00,537 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Potential Broken Authorization on User Publications Access
+    Scenario: Attempting access with insufficient permissions as 'user' role
+      * Given url http://oas_medium.api/users/{userId}/publications
+        * And header Authorization = "Bearer abc123" // Replace '<>' with a token that simulits the insufficient permission scenario, e.g., 'user' without admin privileges
+      * When method get
+        * Then status 403
+        * And match response contains "You do not have sufficient permissions to access this publication."
+
+Scenario: Attempting unauthorized direct access as a non-existent userId with 'user' role
+    * Given url http://oas_medium.api/users/{nonExistentUserId}/publications // Replace '{nonExistentUserId}' with an ID that does not exist in the system to simulate unauthorized access attempt as a regular user
+      * And header Authorization = "Bearer def456" // Use a token for 'user' role, assuming no admin privileges are present
+    * When method get
+      * Then status 401 or 403 depending on the API implementation (e.g., not found error vs insufficient permissions)
+      * And match response contains "User does not exist" // Expected message for non-existent userId access attempt, assuming a proper handling of such cases in the API.
+
+Scenario: Attempting to generate reports as 'user' or 'guest' roles on /admin/reports endpoint (hypothetical scenario)
+    * Given url http://oas_medium.api/admin/reports // Assuming this is the correct path for generating sensitive admin-only content like reports, if such a feature exists in your API but was not described initially
+      * And header Authorization = "Bearer abc123" // Use an insufficient permission token that simulits 'user' or 'guest' roles trying to access sensitive admin functionality
+    * When method post
+      * Then status 403
+      * And match response contains "Access denied for report generation." // This message should be expected if the API correctly denies unautzhorized attempts.
+```
+2025-02-01 12:52:00,537 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET_verified.feature
+2025-02-01 12:52:00,537 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_userId_publications_GET.feature: ```yaml
+Feature: Potential Broken Authorization on User Publications Access
+    Scenario: Attempting access with insufficient permissions as 'user' role
+      * Given url http://oas_medium.api/users/{userId}/publications
+        * And header Authorization = "Bearer abc123" // Replace '<>' with a token that simulits the insufficient permission scenario, e.g., 'user' without admin privileges
+      * When method get
+        * Then status 403
+        * And match response contains "You do not have sufficient permissions to access this publication."
+
+Scenario: Attempting unauthorized direct access as a non-existent userId with 'user' role
+    * Given url http://oas_medium.api/users/{nonExistentUserId}/publications // Replace '{nonExistentUserId}' with an ID that does not exist in the system to simulate unauthorized access attempt as a regular user
+      * And header Authorization = "Bearer def456" // Use a token for 'user' role, assuming no admin privileges are present
+    * When method get
+      * Then status 401 or 403 depending on the API implementation (e.g., not found error vs insufficient permissions)
+      * And match response contains "User does not exist" // Expected message for non-existent userId access attempt, assuming a proper handling of such cases in the API.
+
+Scenario: Attempting to generate reports as 'user' or 'guest' roles on /admin/reports endpoint (hypothetical scenario)
+    * Given url http://oas_medium.api/admin/reports // Assuming this is the correct path for generating sensitive admin-only content like reports, if such a feature exists in your API but was not described initially
+      * And header Authorization = "Bearer abc123" // Use an insufficient permission token that simulits 'user' or 'guest' roles trying to access sensitive admin functionality
+    * When method post
+      * Then status 403
+      * And match response contains "Access denied for report generation." // This message should be expected if the API correctly denies unautzhorized attempts.
+```
+2025-02-01 12:52:00,538 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:52:00,538 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:52:00,577 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 12:52:00,577 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 12:55:23,612 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 12:55:23,614 - karate_llm_test_gen - INFO - Generated test case: {
+    "feature": "Test API Endpoint /me for Broken Authentication and Authorization",
+    "scenario"...
+2025-02-01 12:55:23,615 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_002_krtestoas_me_GET.feature
+2025-02-01 12:55:23,615 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 12:55:23,615 - karate_compatibility_verifier - INFO - {
+    "feature": "Test API Endpoint /me for Broken Authentication and Authorization",
+    "scenario": "User attempts to access the personal information endpoint without proper authentication or authorization.",
+    "steps": [
+        "Given url http://oas_medium.api/v1/userinfo/me",
+        
+        // Attempt with no credentials, expecting a 403 Forbidden response due to missing auth and potential broken access control
+        * match response status is 403,
+        "And assert that the error message indicates insufficient permissions or authentication failure"
+    ],
+    
+    {
+        // Attempt with invalid credentials (e.g., empty username/password), expecting a similar Forbidden response if basic auth check fails
+        Given url http://oas_medium.api/v1/userinfo/me,
+        
+        * def userCredentials = {'username': '', 'password': ''}, // Empty credentials for testing purposes
+        
+        When method post using headers {Authorization: "Basic " + Base64.encode(userCredentials.username + ":" + userCredentials.password)},
+        
+        Then status is 401,
+        And match response message contains 'Unauthorized' or similar error indicating failed authentication attempt
+    },
+    
+    {
+        // Attempt to access the endpoint with a non-existent session token (if implemented), expecting an unauthorized response due to broken authorization logic
+        Given url http://oas_medium.api/v1/userinfo/me,
+        
+        * def invalidSessionToken = 'invalidtoken', // Example of a mockup or placeholder for the purpose of testing vulnerability
+        
+        When method get using headers {Authorization: "Bearer " + invalidSessionToken},
+        
+        Then status is 401,
+        And match response message contains 'Forbidden' indicating broken authorization logic due to session token issues
+    }
+]
+}
+2025-02-01 12:55:23,675 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 12:55:23,676 - karate_compatibility_verifier - INFO - ERROR: The prompt size exceeds the context window size and cannot be processed.
+2025-02-01 12:55:49,530 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 12:55:49,530 - karate_compatibility_verifier - INFO - Feature: Sample API Test
+
+Scenario: Basic GET request
+  Given url 'https://api.example.com'
+  And path '/users'
+  When method GET
+  Then status code equals(200)
+  And response matchesJson('{"expectedResponse": "responseValue"}')
+2025-02-01 12:55:49,530 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_me_GET_verified.feature
+2025-02-01 12:55:49,531 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_me_GET.feature: Feature: Sample API Test
+
+Scenario: Basic GET request
+  Given url 'https://api.example.com'
+  And path '/users'
+  When method GET
+  Then status code equals(200)
+  And response matchesJson('{"expectedResponse": "responseValue"}')
+2025-02-01 12:55:49,531 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:55:49,532 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 12:55:49,575 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 12:55:49,575 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 12:58:37,863 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 12:58:37,864 - karate_llm_test_gen - INFO - Generated test case: {
+    "feature": "Broken Authorization Test on Publications Contributors Retrieval",
+    "scenario":...
+2025-02-01 12:58:37,864 - __main__ - INFO - Generated Karate test for /publications/{publicationId}/contributors GET at output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature
+2025-02-01 12:58:37,865 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 12:58:37,865 - karate_compatibility_verifier - INFO - {
+    "feature": "Broken Authorization Test on Publications Contributors Retrieval",
+    "scenario": "Attempting unautzrized access and checking broken authentication or authorization handling.",
+    "steps": [
+        "Given url http://oas_medium.api/publications/{publicationId}/contributors",
+        // Assuming the API does not require any specific headers for GET requests, but still testing potential vulnerabilities with various scenarios:
+        
+        "* def unauthorizedAttempt = callonce read('classpath:unauthorizedAccessContributors.feature')," +
+        "  * match unauthorizedAttempt.response status", // Check if the API responds differently for unauthorized attempts (e.g., a non-standard error code)
+        
+        "* def adminToken = 'Bearer ADMIN_ROLE_TOKEN'",
+        "And header Authorization contains adminToken",
+        "When method get path '/publications/{testPublicationId}/contributors'", // Use test publication ID for consistent testing across scenarios
+        
+        "* Then status matches 401 or any unexpected response indicating broken authentication/authorization handling"
+    ]
+}
+2025-02-01 13:01:06,583 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 13:01:06,584 - karate_compatibility_verifier - INFO - Given url http://oas_medium.api/publications/{testPublicationId}/contributors
+* header Authorization contains 'Bearer ADMIN_ROLE_TOKEN'
+When method get
+Then status 401 or any unexpected response indicating broken authentication/authorization handling
+2025-02-01 13:01:33,772 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 13:01:33,772 - karate_compatibility_verifier - INFO - Given url 'https://api.example.com'
+And path '/users'
+When method GET
+Then status == 200
+And match content-type contains "application/json"
+And jsonPath('$.data', equals(expectedResponse))
+2025-02-01 13:01:33,773 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET_verified.feature
+2025-02-01 13:01:33,773 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_publications_publicationId_contributors_GET.feature: Given url 'https://api.example.com'
+And path '/users'
+When method GET
+Then status == 200
+And match content-type contains "application/json"
+And jsonPath('$.data', equals(expectedResponse))
+2025-02-01 13:01:33,773 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-01 13:01:33,775 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-01 13:01:37,046 - __main__ - INFO - Skipping karate test run.

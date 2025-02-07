@@ -1,0 +1,208 @@
+2025-02-02 14:20:52,986 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 14:20:53,071 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 14:20:53,309 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/Users/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"passwordRepeat\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"securityQuestion\\\\\\":{\\\\\\"id\\\\\\":7,\\\\\\"question\\\\\\":\\\\\\"Name of your favorite pet?\\\\\\",\\\\\\"createdAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\",\\\\\\"updatedAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\"},\\\\\\"securityAnswer\\\\\\":\\\\\\"MIX MIX\\\\\\"}\\"", "type": "string"}}}}, "responses": {"201": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_api_Users_post_201.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/rest/user/login", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0002_rest_user_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "{{_token}}", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "application/json; charset=utf-8", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/BasketItems/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"ProductId\\\\\\":{{_product_2_id}},\\\\\\"BasketId\\\\\\":\\\\\\"{{_bid}}\\\\\\",\\\\\\"quantity\\\\\\":1}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0004_api_BasketItems_post_200.json'}}], form collection oas_juiceshop_fragments
+2025-02-02 14:20:53,310 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:20:53,310 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:20:53,730 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:20:53,730 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:21:06,387 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:21:06,388 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:21:06,389 - __main__ - INFO - Generated Karate test for /api/Users/ POST at output/karate_feature_files/ID_001_krtestoas_api_Users__POST.feature
+2025-02-02 14:21:06,389 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:21:06,389 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: Test API Endpoint for User Creation
+  Scenario: Attempt to create user with invalid credentials
+    Given url http://oas_juiceshop.api/api/Users/
+    And request { "username": "", "password": "" }
+    When method post
+    Then status == 401
+    And match response contains "Invalid username or password"
+    
+  Scenario: Attempt to create user with valid credentials
+    Given url http://oas_juiceshop.api/api/Users/
+    And request { "username": "validuser", "password": "validpass" }
+    When method post
+    Then status == 201
+    And match response contains "User created successfully"
+```
+This test script checks for two scenarios: attempting to create a user with invalid credentials and attempting to create a user with valid credentials. The first scenario sends an empty request body, which should result in a `401 Unauthorized` status code and the message "Invalid username or password". The second scenario sends a request body with valid credentials (i.e., a non-empty username and password), which should result in a `201 Created` status code and the message "User created successfully".
+2025-02-02 14:21:15,851 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:21:15,851 - karate_compatibility_verifier - INFO -  Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test API Endpoint for User Creation
+  Scenario: Attempt to create user with invalid credentials
+    Given url http://oas_juiceshop.api/api/Users/
+    And request { "username": "", "password": "" }
+    When method post
+    Then status == 401
+    And match response contains "Invalid username or password"
+    
+  Scenario: Attempt to create user with valid credentials
+    Given url http://oas_juiceshop.api/api/Users/
+    And request { "username": "validuser", "password": "validpass" }
+    When method post
+    Then status == 201
+    And match response contains "User created successfully"
+```
+2025-02-02 14:21:21,918 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:21:21,918 - karate_compatibility_verifier - INFO -  Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test API Endpoint for User Creation
+  Scenario: Attempt to create user with invalid credentials
+    Given url http://oas_juiceshop.api/api/Users/
+    And request { "username": "", "password": "" }
+    When method post
+    Then status == 401
+    And match response contains "Invalid username or password"
+    
+  Scenario: Attempt to create user with valid credentials
+    Given url http://oas_juiceshop.api/api/Users/
+    And request { "username": "validuser", "password": "validpass" }
+    When method post
+    Then status == 201
+    And match response contains "User created successfully"
+```
+2025-02-02 14:21:21,919 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_api_Users__POST_verified.feature
+2025-02-02 14:21:21,919 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_api_Users__POST.feature:  Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test API Endpoint for User Creation
+  Scenario: Attempt to create user with invalid credentials
+    Given url http://oas_juiceshop.api/api/Users/
+    And request { "username": "", "password": "" }
+    When method post
+    Then status == 401
+    And match response contains "Invalid username or password"
+    
+  Scenario: Attempt to create user with valid credentials
+    Given url http://oas_juiceshop.api/api/Users/
+    And request { "username": "validuser", "password": "validpass" }
+    When method post
+    Then status == 201
+    And match response contains "User created successfully"
+```
+2025-02-02 14:21:21,920 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:21:21,921 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:21:21,942 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:21:21,943 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:21:31,079 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:21:31,081 - karate_llm_test_gen - INFO - Generated test case:  Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization ...
+2025-02-02 14:21:31,082 - __main__ - INFO - Generated Karate test for /rest/user/login POST at output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST.feature
+2025-02-02 14:21:31,082 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:21:31,082 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/rest/user/login` endpoint:
+```
+Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the login process requires valid credentials
+    Given url http://oas_juiceshop.api/rest/user/login
+    And request { username: 'valid_username', password: 'valid_password' }
+    When method post
+    Then status 200
+    And match response contains 'Successfully logged in.'
+```
+This test script sends a POST request to the `/rest/user/login` endpoint with valid credentials and verifies that the application responds with a 200 success code and a message indicating successful login. If the application does not require valid credentials or returns an error response, this scenario will fail.
+2025-02-02 14:21:37,242 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:21:37,242 - karate_compatibility_verifier - INFO -  Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Verify that the login process requires valid credentials
+    Given url http://oas_juiceshop.api/rest/user/login
+    And request { username: 'valid_username', password: 'valid_password' }
+    When method post
+    Then status 200
+    And match response contains 'Successfully logged in.'
+2025-02-02 14:21:40,502 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:21:40,502 - karate_compatibility_verifier - INFO -  Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+Scenario: Verify that the login process requires valid credentials
+Given url http://oas_juiceshop.api/rest/user/login
+And request { username: 'valid_username', password: 'valid_password' }
+When method post
+Then status 200
+And match response contains 'Successfully logged in.'
+2025-02-02 14:21:40,502 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST_verified.feature
+2025-02-02 14:21:40,502 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST.feature:  Feature: Testing for Broken Authentication/Authorization Vulnerabilities
+Scenario: Verify that the login process requires valid credentials
+Given url http://oas_juiceshop.api/rest/user/login
+And request { username: 'valid_username', password: 'valid_password' }
+When method post
+Then status 200
+And match response contains 'Successfully logged in.'
+2025-02-02 14:21:40,503 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:21:40,503 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:21:40,519 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:21:40,520 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:21:50,796 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:21:50,796 - karate_llm_test_gen - INFO - Generated test case:  Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerab...
+2025-02-02 14:21:50,799 - __main__ - INFO - Generated Karate test for /api/BasketItems/ POST at output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST.feature
+2025-02-02 14:21:50,800 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:21:50,800 - karate_compatibility_verifier - INFO - Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: OAuth Token Generation Flaw Test
+  Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+    Given url "http://oas_juiceshop.api/oauth/token"
+    And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+    When method post
+    Then status 400
+    And match response contains "Invalid grant: authorization code is invalid"
+```
+Note that this script assumes the OAuth token endpoint is at `http://oas_juiceshop.api/oauth/token`. If it's different, you can replace `http://oas_juiceshop.api/oauth/token` with the correct URL in the test script.
+2025-02-02 14:21:58,653 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:21:58,654 - karate_compatibility_verifier - INFO -  Here's the corrected Karate DSL test script:
+```kotlin
+Feature: OAuth Token Generation Flaw Test
+  Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+    Given url "http://oas_juiceshop.api/oauth/token"
+    And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+    When method post
+    Then status 400
+    And match response contains "Invalid grant: authorization code is invalid"
+```
+2025-02-02 14:22:01,828 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:22:01,828 - karate_compatibility_verifier - INFO -  Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Sample API Test
+  Scenario: Basic GET request
+    Given url 'https://api.example.com/users'
+    And path '/users'
+    When method get
+    Then status 200
+    And match response == 'expectedResponse'
+```
+2025-02-02 14:22:01,829 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST_verified.feature
+2025-02-02 14:22:01,829 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST.feature:  Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Sample API Test
+  Scenario: Basic GET request
+    Given url 'https://api.example.com/users'
+    And path '/users'
+    When method get
+    Then status 200
+    And match response == 'expectedResponse'
+```
+2025-02-02 14:22:01,829 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 14:22:01,831 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 14:22:05,383 - __main__ - INFO - Skipping karate test run.

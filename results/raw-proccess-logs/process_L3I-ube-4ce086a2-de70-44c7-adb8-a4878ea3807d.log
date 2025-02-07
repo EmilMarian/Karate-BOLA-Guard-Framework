@@ -1,0 +1,563 @@
+2025-01-31 21:09:41,614 - __main__ - INFO - Skipping fragment creation: False
+2025-01-31 21:09:41,693 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-31 21:09:41,986 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [], "path": "/me", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"email": {"description": "Email address of the Uber user", "type": "string"}, "first_name": {"description": "First name of the Uber user.", "type": "string"}, "last_name": {"description": "Last name of the Uber user.", "type": "string"}, "picture": {"description": "Image URL of the Uber user.", "type": "string"}, "promo_code": {"description": "Promo code of the Uber user.", "type": "string"}}, "type": "object"}}}, "description": "Profile information for a user"}}}', 'metadata': {'filename': '0007_me_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Latitude component of start location.", "in": "query", "name": "start_latitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Longitude component of start location.", "in": "query", "name": "start_longitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Unique customer identifier to be used for experience customization.", "in": "query", "name": "customer_uuid", "schema": {"format": "uuid", "type": "string"}}, {"description": "Unique identifier representing a specific product for a given latitude & longitude.", "in": "query", "name": "product_id", "schema": {"type": "string"}}], "path": "/estimates/time", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"items": {"properties": {"capacity": {"description": "Capacity of product. For example, 4 people.", "type": "string"}, "description": {"description": "Description of product.", "type": "string"}, "display_name": {"description": "Display name of product.", "type": "string"}, "image": {"description": "Image URL representing the product.", "type": "string"}, "product_id": {"description": "Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.", "type": "string"}}, "type": "object"}, "type": "array"}}}, "description": "An array of products"}}}', 'metadata': {'filename': '0005_estimates_time_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Latitude component of start location.", "in": "query", "name": "start_latitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Longitude component of start location.", "in": "query", "name": "start_longitude", "required": true, "schema": {"format": "double", "type": "number"}}, {"description": "Unique customer identifier to be used for experience customization.", "in": "query", "name": "customer_uuid", "schema": {"format": "uuid", "type": "string"}}, {"description": "Unique identifier representing a specific product for a given latitude & longitude.", "in": "query", "name": "product_id", "schema": {"type": "string"}}], "path": "/estimates/time", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"schema": {"properties": {"code": {"format": "int32", "type": "integer"}, "fields": {"type": "string"}, "message": {"type": "string"}}, "type": "object"}}}, "description": "Unexpected error"}}}', 'metadata': {'filename': '0006_estimates_time_get_default.json'}}], form collection oas_uber_fragments
+2025-01-31 21:09:41,987 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 21:09:41,987 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 21:09:42,417 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 21:09:42,417 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 21:15:50,986 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 21:15:50,987 - karate_llm_test_gen - INFO - Generated test case: Here's the generated Karate DSL security test script:
+
+```json
+{
+    "feature": "Test API for Broken...
+2025-01-31 21:15:50,988 - __main__ - INFO - Generated Karate test for /me GET at output/karate_feature_files/ID_001_krtestoas_me_GET.feature
+2025-01-31 21:15:50,989 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 21:15:50,989 - karate_compatibility_verifier - INFO - Here's the generated Karate DSL security test script:
+
+```json
+{
+    "feature": "Test API for Broken Authentication/Authorization",
+    "scenario": "Attempt to access user information without authentication",
+    "steps": [
+        "Given url 'http://oas_uber.api/me'",
+        "When method get",
+        "Then status 401"
+    ]
+}
+```
+
+This test case attempts to access the `/me` endpoint without providing any authentication credentials. Since there is no specified authentication mechanism, this should result in a `401 Unauthorized` response.
+
+Next scenario:
+
+```json
+{
+    "feature": "Test API for Broken Authentication/Authorization",
+    "scenario": "Attempt to access user information with invalid token",
+    "steps": [
+        "Given url 'http://oas_uber.api/me'",
+        "And header Authorization = 'Bearer <invalid_token>'",
+        "When method get",
+        "Then status 401"
+    ]
+}
+```
+
+This test case attempts to access the `/me` endpoint with an invalid token. Since there is no specified authentication mechanism, this should result in a `401 Unauthorized` response.
+
+Next scenario:
+
+```json
+{
+    "feature": "Test API for Broken Authentication/Authorization",
+    "scenario": "Attempt to access user information with valid but expired token",
+    "steps": [
+        "Given url 'http://oas_uber.api/me'",
+        "And header Authorization = 'Bearer <expired_token>'",
+        "When method get",
+        "Then status 401"
+    ]
+}
+```
+
+This test case attempts to access the `/me` endpoint with a valid but expired token. Since there is no specified authentication mechanism, this should result in a `401 Unauthorized` response.
+
+Next scenario:
+
+```json
+{
+    "feature": "Test API for Broken Authentication/Authorization",
+    "scenario": "Attempt to access user information as an unauthorized role (e.g., editor)",
+    "steps": [
+        "Given url 'http://oas_uber.api/me'",
+        "And header Authorization = 'Bearer <editor_token>'",
+        "When method get",
+        "Then status 403"
+    ]
+}
+```
+
+This test case attempts to access the `/me` endpoint as an unauthorized role (e.g., editor). Since there is no specified authentication mechanism, this should result in a `403 Forbidden` response.
+
+These scenarios cover basic cases of broken authentication and authorization.
+2025-01-31 21:20:49,798 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 21:20:49,798 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+```feature
+Feature: Test API for Broken Authentication/Authorization
+
+Background:
+* url 'http://oas_uber.api'
+
+Scenario: Attempt to access user information without authentication
+Given path '/me'
+When method get
+Then status 401
+
+ Scenario: Attempt to access user information with invalid token
+Given path '/me'
+And header Authorization = 'Bearer <invalid_token>'
+When method get
+Then status 401
+
+Scenario: Attempt to access user information with valid but expired token
+Given path '/me'
+And header Authorization = 'Bearer <expired_token>'
+When method get
+Then status 401
+
+Scenario: Attempt to access user information as an unauthorized role (e.g., editor)
+Given path '/me'
+And header Authorization = 'Bearer <editor_token>'
+When method get
+Then status 403
+2025-01-31 21:22:48,254 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 21:22:48,255 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+```feature
+Feature: Test API for Broken Authentication/Authorization
+
+Background:
+* url 'http://oas_uber.api'
+
+Scenario: Attempt to access user information without authentication
+Given path '/me'
+When method get
+Then status 401
+
+Scenario: Attempt to access user information with invalid token
+Given path '/me'
+And header Authorization = 'Bearer <invalid_token>'
+When method get
+Then status 401
+
+Scenario: Attempt to access user information with valid but expired token
+Given path '/me'
+And header Authorization = 'Bearer <expired_token>'
+When method get
+Then status 401
+
+Scenario: Attempt to access user information as an unauthorized role (e.g., editor)
+Given path '/me'
+And header Authorization = 'Bearer <editor_token>'
+When method get
+Then status 403
+2025-01-31 21:22:48,256 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_me_GET_verified.feature
+2025-01-31 21:22:48,256 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_me_GET.feature: Here are the corrected Karate DSL test scripts:
+
+```feature
+Feature: Test API for Broken Authentication/Authorization
+
+Background:
+* url 'http://oas_uber.api'
+
+Scenario: Attempt to access user information without authentication
+Given path '/me'
+When method get
+Then status 401
+
+Scenario: Attempt to access user information with invalid token
+Given path '/me'
+And header Authorization = 'Bearer <invalid_token>'
+When method get
+Then status 401
+
+Scenario: Attempt to access user information with valid but expired token
+Given path '/me'
+And header Authorization = 'Bearer <expired_token>'
+When method get
+Then status 401
+
+Scenario: Attempt to access user information as an unauthorized role (e.g., editor)
+Given path '/me'
+And header Authorization = 'Bearer <editor_token>'
+When method get
+Then status 403
+2025-01-31 21:22:48,257 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 21:22:48,257 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 21:22:48,300 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 21:22:48,301 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 21:27:55,268 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 21:27:55,269 - karate_llm_test_gen - INFO - Generated test case: Here's your requested Karate DSL security test script:
+
+```
+Feature: Test API for Estimates Time Acc...
+2025-01-31 21:27:55,270 - __main__ - INFO - Generated Karate test for /estimates/time GET at output/karate_feature_files/ID_002_krtestoas_estimates_time_GET.feature
+2025-01-31 21:27:55,270 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 21:27:55,270 - karate_compatibility_verifier - INFO - Here's your requested Karate DSL security test script:
+
+```
+Feature: Test API for Estimates Time Access Flaw
+Scenario: Attempt to exploit estimates time access without authentication
+Given url 'http://oas_uber.api'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature'),
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Feature: Test API for Estimates Time Access Flaw (Unauthenticated User)
+Scenario: Attempt to exploit estimates time access without authentication as unauthenticated user
+Given url 'http://oas_uber.api/estimates/time'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature'),
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Feature: Test API for Estimates Time Access Flaw (Authenticated User)
+Scenario: Attempt to exploit estimates time access with valid authentication as authenticated user
+Given url 'http://oas_uber.api/estimates/time'
+And header Authorization = 'Bearer <valid_token>'
+When method get
+Then status 200
+And match response contains "Estimate details"
+```
+
+This script tests for potential Broken Authentication/Authorization vulnerabilities by attempting to access the `/estimates/time` endpoint without authentication (first scenario) and with valid authentication as an authenticated user (second scenario).
+2025-01-31 21:32:11,697 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 21:32:11,697 - karate_compatibility_verifier - INFO - ```
+Feature:
+Scenario: Attempt to exploit estimates time access without authentication
+Given url 'http://oas_uber.api'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Feature:
+Scenario: Attempt to exploit estimates time access without authentication as unauthenticated user
+Given url 'http://oas_uber.api/estimates/time'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Feature:
+Scenario: Attempt to exploit estimates time access with valid authentication as authenticated user
+Given url 'http://oas_uber.api/estimates/time'
+And header Authorization = 'Bearer <valid_token>'
+When method get
+Then status 200
+And match response contains "Estimate details"
+```
+2025-01-31 21:35:02,474 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 21:35:02,474 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts:
+
+```
+Feature: 
+Scenario: Attempt to exploit estimates time access without authentication
+Given url 'http://oas_uber.api'
+When method GET
+Then status 401
+And match response contains "Unauthorized"
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Feature: 
+Scenario: Attempt to exploit estimates time access without authentication as unauthenticated user
+Given url 'http://oas_uber.api/estimates/time'
+When method GET
+Then status 401
+And match response contains "Unauthorized"
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Feature: 
+Scenario: Attempt to exploit estimates time access with valid authentication as authenticated user
+Given url 'http://oas_uber.api/estimates/time'
+And header Authorization = 'Bearer <valid_token>'
+When method GET
+Then status 200
+And match response contains "Estimate details"
+```
+2025-01-31 21:35:02,475 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_estimates_time_GET_verified.feature
+2025-01-31 21:35:02,475 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_estimates_time_GET.feature: Here are the corrected Karate DSL scripts:
+
+```
+Feature: 
+Scenario: Attempt to exploit estimates time access without authentication
+Given url 'http://oas_uber.api'
+When method GET
+Then status 401
+And match response contains "Unauthorized"
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Feature: 
+Scenario: Attempt to exploit estimates time access without authentication as unauthenticated user
+Given url 'http://oas_uber.api/estimates/time'
+When method GET
+Then status 401
+And match response contains "Unauthorized"
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Estimate details'
+case 403:
+    * fail 'Admin should have access'
+
+Feature: 
+Scenario: Attempt to exploit estimates time access with valid authentication as authenticated user
+Given url 'http://oas_uber.api/estimates/time'
+And header Authorization = 'Bearer <valid_token>'
+When method GET
+Then status 200
+And match response contains "Estimate details"
+```
+2025-01-31 21:35:02,475 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 21:35:02,476 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 21:35:02,511 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 21:35:02,512 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 21:41:12,567 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 21:41:12,567 - karate_llm_test_gen - INFO - Generated test case: Here's the Karate DSL test script:
+
+```
+Feature: Test API for Estimate Time Access Flaw
+Scenario: At...
+2025-01-31 21:41:12,568 - __main__ - INFO - Generated Karate test for /estimates/time GET at output/karate_feature_files/ID_003_krtestoas_estimates_time_GET.feature
+2025-01-31 21:41:12,568 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 21:41:12,569 - karate_compatibility_verifier - INFO - Here's the Karate DSL test script:
+
+```
+Feature: Test API for Estimate Time Access Flaw
+Scenario: Attempt to access estimate time without authentication
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization = ''
+When method get
+Then status 401
+And match response contains "Unauthorized"
+* def unauthenticatedAccess = callonce read('classpath:helpers/unauthenticatedAccess.feature')
+*
+switch unauthenticatedAccess.status
+case 200:
+    * assert unauthenticatedAccess.response == 'You are not authenticated to access this resource'
+    case 401:
+        * fail 'User should be prompted for authentication'
+
+Feature: Test API for Estimate Time Access Flaw with invalid credentials
+Scenario: Attempt to access estimate time with incorrect username and password
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization = 'Bearer wrong_token'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+* def unauthenticatedAccess = callonce read('classpath:helpers/unauthenticatedAccess.feature')
+*
+switch unauthenticatedAccess.status
+case 200:
+    * assert unauthenticatedAccess.response == 'You are not authenticated to access this resource'
+    case 401:
+        * fail 'User should be prompted for authentication'
+
+Feature: Test API for Estimate Time Access Flaw with valid credentials
+Scenario: Attempt to access estimate time with correct username and password
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization = 'Bearer valid_token'
+When method get
+Then status 200
+And match response contains "Estimate details"
+* def authenticatedAccess = callonce read('classpath:helpers/authenticatedAccess.feature')
+*
+switch authenticatedAccess.status
+case 200:
+    * assert authenticatedAccess.response == 'You are successfully authenticated to access this resource'
+    case 401:
+        * fail 'User should not be prompted for authentication'
+
+```
+
+This script tests the estimate time API endpoint with different scenarios:
+
+1. Attempting to access without authentication (unauthenticated)
+2. Accessing with incorrect credentials
+3. Accessing with correct credentials
+
+Each scenario checks if the response status code is 401 or 200, and verifies that the expected message is present in the response.
+
+Note: The `classpath:helpers/unauthenticatedAccess.feature` and `classpath:helpers/authenticatedAccess.feature` files are placeholders for actual feature files containing test steps.
+2025-01-31 21:46:27,295 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 21:46:27,296 - karate_compatibility_verifier - INFO - ````
+Feature:
+Scenario: Attempt to access estimate time without authentication
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization ''
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+* def unauthenticatedAccess = callonce read('classpath:helpers/unauthenticatedAccess.feature')
+*
+match unauthenticatedAccess.status == 200 ? assert unauthenticatedAccess.response == 'You are not authenticated to access this resource' : fail 'User should be prompted for authentication'
+
+Feature:
+Scenario: Attempt to access estimate time with incorrect username and password
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization 'Bearer wrong_token'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+* def unauthenticatedAccess = callonce read('classpath:helpers/unauthenticatedAccess.feature')
+*
+match unauthenticatedAccess.status == 200 ? assert unauthenticatedAccess.response == 'You are not authenticated to access this resource' : fail 'User should be prompted for authentication'
+
+Feature:
+Scenario: Attempt to access estimate time with correct username and password
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization 'Bearer valid_token'
+When method get
+Then status 200
+And match response contains "Estimate details"
+* def authenticatedAccess = callonce read('classpath:helpers/authenticatedAccess.feature')
+*
+match authenticatedAccess.status == 200 ? assert authenticatedAccess.response == 'You are successfully authenticated to access this resource' : fail 'User should not be prompted for authentication'
+```
+2025-01-31 21:50:10,209 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 21:50:10,209 - karate_compatibility_verifier - INFO - The provided Karate DSL code snippets appear to be correct and do not require any modifications. Therefore, I will output the same test as it is, without making any changes.
+
+Here are the original code snippets:
+
+```
+Feature: 
+Scenario: Attempt to access estimate time without authentication
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization ''
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+* def unauthenticatedAccess = callonce read('classpath:helpers/unauthenticatedAccess.feature')
+*
+match unauthenticatedAccess.status == 200 ? assert unauthenticatedAccess.response == 'You are not authenticated to access this resource' : fail 'User should be prompted for authentication'
+
+Feature:
+Scenario: Attempt to access estimate time with incorrect username and password
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization 'Bearer wrong_token'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+* def unauthenticatedAccess = callonce read('classpath:helpers/unauthenticatedAccess.feature')
+*
+match unauthenticatedAccess.status == 200 ? assert unauthenticatedAccess.response == 'You are not authenticated to access this resource' : fail 'User should be prompted for authentication'
+
+Feature:
+Scenario: Attempt to access estimate time with correct username and password
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization 'Bearer valid_token'
+When method get
+Then status 200
+And match response contains "Estimate details"
+* def authenticatedAccess = callonce read('classpath:helpers/authenticatedAccess.feature')
+*
+match authenticatedAccess.status == 200 ? assert authenticatedAccess.response == 'You are successfully authenticated to access this resource' : fail 'User should not be prompted for authentication'
+```
+2025-01-31 21:50:10,209 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_estimates_time_GET_verified.feature
+2025-01-31 21:50:10,209 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_estimates_time_GET.feature: The provided Karate DSL code snippets appear to be correct and do not require any modifications. Therefore, I will output the same test as it is, without making any changes.
+
+Here are the original code snippets:
+
+```
+Feature: 
+Scenario: Attempt to access estimate time without authentication
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization ''
+When method get
+Then status 401
+And match response contains "Unauthorized"
+
+* def unauthenticatedAccess = callonce read('classpath:helpers/unauthenticatedAccess.feature')
+*
+match unauthenticatedAccess.status == 200 ? assert unauthenticatedAccess.response == 'You are not authenticated to access this resource' : fail 'User should be prompted for authentication'
+
+Feature:
+Scenario: Attempt to access estimate time with incorrect username and password
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization 'Bearer wrong_token'
+When method get
+Then status 401
+And match response contains "Unauthorized"
+* def unauthenticatedAccess = callonce read('classpath:helpers/unauthenticatedAccess.feature')
+*
+match unauthenticatedAccess.status == 200 ? assert unauthenticatedAccess.response == 'You are not authenticated to access this resource' : fail 'User should be prompted for authentication'
+
+Feature:
+Scenario: Attempt to access estimate time with correct username and password
+Given url 'http://oas_uber.api' + '/estimates/time'
+And header Authorization 'Bearer valid_token'
+When method get
+Then status 200
+And match response contains "Estimate details"
+* def authenticatedAccess = callonce read('classpath:helpers/authenticatedAccess.feature')
+*
+match authenticatedAccess.status == 200 ? assert authenticatedAccess.response == 'You are successfully authenticated to access this resource' : fail 'User should not be prompted for authentication'
+```
+2025-01-31 21:50:10,209 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-31 21:50:10,212 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-31 21:50:12,737 - __main__ - INFO - Skipping karate test run.

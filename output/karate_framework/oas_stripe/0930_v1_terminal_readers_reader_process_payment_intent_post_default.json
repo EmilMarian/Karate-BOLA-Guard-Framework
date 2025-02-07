@@ -1,0 +1,106 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "reader",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/terminal/readers/{reader}/process_payment_intent",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "process_config": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "payment_intent": {
+              "description": "PaymentIntent ID",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "process_config": {
+              "description": "Configuration overrides",
+              "properties": {
+                "allow_redisplay": {
+                  "enum": [
+                    "always",
+                    "limited",
+                    "unspecified"
+                  ],
+                  "type": "string"
+                },
+                "enable_customer_cancellation": {
+                  "type": "boolean"
+                },
+                "skip_tipping": {
+                  "type": "boolean"
+                },
+                "tipping": {
+                  "properties": {
+                    "amount_eligible": {
+                      "type": "integer"
+                    }
+                  },
+                  "title": "tipping_config",
+                  "type": "object"
+                }
+              },
+              "title": "process_config",
+              "type": "object"
+            }
+          },
+          "required": [
+            "payment_intent"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

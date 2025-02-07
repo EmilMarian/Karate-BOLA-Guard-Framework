@@ -1,0 +1,172 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "account",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/accounts/{account}/external_accounts",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "bank_account": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "bank_account": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "account_holder_name": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "account_holder_type": {
+                      "enum": [
+                        "company",
+                        "individual"
+                      ],
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "account_number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "account_type": {
+                      "enum": [
+                        "checking",
+                        "futsu",
+                        "savings",
+                        "toza"
+                      ],
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "country": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "currency": {
+                      "format": "currency",
+                      "type": "string"
+                    },
+                    "documents": {
+                      "properties": {
+                        "bank_account_ownership_verification": {
+                          "properties": {
+                            "files": {
+                              "items": {
+                                "maxLength": 500,
+                                "type": "string"
+                              },
+                              "type": "array"
+                            }
+                          },
+                          "title": "documents_param",
+                          "type": "object"
+                        }
+                      },
+                      "title": "external_account_documents_param",
+                      "type": "object"
+                    },
+                    "object": {
+                      "enum": [
+                        "bank_account"
+                      ],
+                      "maxLength": 5000,
+                      "type": "string"
+                    },
+                    "routing_number": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "account_number",
+                    "country"
+                  ],
+                  "title": "external_account_payout_bank_account",
+                  "type": "object"
+                },
+                {
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              ],
+              "description": "Either a token, like the ones returned by [Stripe.js](https://stripe.com/docs/js), or a dictionary containing a user's bank account details."
+            },
+            "default_for_currency": {
+              "description": "When set to true, or if this is the first external account added in this currency, this account becomes the default external account for its currency.",
+              "type": "boolean"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "external_account": {
+              "description": "Please refer to full [documentation](https://stripe.com/docs/api) instead.",
+              "maxLength": 5000,
+              "type": "string",
+              "x-stripeBypassValidation": true
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `chat:write`",
+      "in": "header",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/chat.delete",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "as_user": {
+              "description": "Pass true to delete the message as the authed user with `chat:write:user` scope. [Bot users](/bot-users) in this context are considered authed users. If unused or false, the message will be deleted with `chat:write:bot` scope.",
+              "type": "boolean"
+            },
+            "channel": {
+              "description": "Channel containing the message to be deleted.",
+              "type": "string"
+            },
+            "ts": {
+              "description": "Timestamp of the message to be deleted.",
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "channel": "C024BE91L",
+                "ok": true,
+                "ts": "1401383885.000061"
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response of chat.delete method",
+            "properties": {
+              "channel": {
+                "pattern": "^[CGD][A-Z0-9]{8,}$",
+                "title": "Channel-like conversation ID",
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "ts": {
+                "pattern": "^\\d{10}\\.\\d{6}$",
+                "title": "Timestamp in format 0123456789.012345",
+                "type": "string"
+              }
+            },
+            "required": [
+              "ok",
+              "channel",
+              "ts"
+            ],
+            "title": "chat.delete success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

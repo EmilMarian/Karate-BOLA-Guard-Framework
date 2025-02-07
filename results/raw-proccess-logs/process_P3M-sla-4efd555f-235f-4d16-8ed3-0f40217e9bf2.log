@@ -1,0 +1,215 @@
+2025-01-25 20:20:31,409 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 20:20:31,492 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 20:20:31,737 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `admin.users:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/admin.users.invite", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"channel_ids": {"description": "A comma-separated list of `channel_id`s for this user to join. At least one channel is required.", "type": "string"}, "custom_message": {"description": "An optional message to send to the user in the invite email.", "type": "string"}, "email": {"description": "The email address of the person to invite.", "type": "string"}, "guest_expiration_ts": {"description": "Timestamp when guest account should be disabled. Only include this timestamp if you are inviting a guest user and you want their account to expire on a certain date.", "type": "string"}, "is_restricted": {"description": "Is this user a multi-channel guest user? (default: false)", "type": "boolean"}, "is_ultra_restricted": {"description": "Is this user a single channel guest user? (default: false)", "type": "boolean"}, "real_name": {"description": "Full name of the user.", "type": "string"}, "resend": {"description": "Allow this invite to be resent in the future if a user has not signed up yet. (default: false)", "type": "boolean"}, "team_id": {"description": "The ID (`T1234`) of the workspace.", "type": "string"}}, "required": ["team_id", "email", "channel_ids"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0095_admin.users.invite_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "Authentication token. Requires scope: `calls:write`", "in": "header", "name": "token", "required": true, "schema": {"type": "string"}}], "path": "/calls.participants.add", "requestBody": {"content": {"application/x-www-form-urlencoded": {"schema": {"properties": {"id": {"description": "`id` returned by the [`calls.add`](/methods/calls.add) method.", "type": "string"}, "users": {"description": "The list of users to add as participants in the Call. [Read more on how to specify users here](/apis/calls#users).", "type": "string"}}, "required": ["id", "users"], "type": "object"}}}, "required": true}, "responses": {"200": {"content": {"application/json": {"examples": {"response": {"value": {"ok": true}}}, "schema": {"additionalProperties": true, "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.", "properties": {"ok": {"enum": [true], "title": "default success response", "type": "boolean"}}, "required": ["ok"], "title": "Default success template", "type": "object"}}}, "description": "Typical success response"}}}', 'metadata': {'filename': '0143_calls.participants.add_post_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Authentication token. Requires scope: `users:read`", "in": "query", "name": "token", "required": true, "schema": {"type": "string"}}, {"description": "User to get presence info on. Defaults to the authed user.", "in": "query", "name": "user", "schema": {"type": "string"}}], "path": "/users.getPresence", "requestBody": {}, "responses": {"default": {"content": {"application/json": {"examples": {"response": {"value": {"error": "invalid_auth", "ok": false}}}, "schema": {"additionalProperties": {"type": "object"}, "description": "Schema for error response users.getPresence method", "properties": {"error": {"type": "string"}, "ok": {"enum": [false], "title": "default failure response", "type": "boolean"}}, "required": ["ok", "error"], "title": "users.counts error schema", "type": "object"}}}, "description": "Typical error response"}}}', 'metadata': {'filename': '0316_users.getPresence_get_default.json'}}], form collection oas_slack_web_fragments
+2025-01-25 20:20:31,737 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:20:31,738 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:20:32,187 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:20:32,188 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:20:36,541 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:20:36,542 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on User Invitation",
+  "scenari...
+2025-01-25 20:20:36,542 - __main__ - INFO - Generated Karate test for /admin.users.invite POST at output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature
+2025-01-25 20:20:36,542 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:20:36,543 - karate_compatibility_verifier - INFO - ```yaml
+{
+  "feature": "Test for Broken Authentication/Authorization on User Invitation",
+  "scenario": "User without admin role attempts to invite another user using a regular token.",
+    "given url": "/admin.users.invite",
+    "and header Authorization = 'Bearer <regular_user_token>'",
+    "when method post",
+    "then status 403",
+    "and match response contains \"You are not authorized to invite users as a regular user.\""
+}
+```
+2025-01-25 20:20:41,333 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:20:41,333 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test for Broken Authentication/Authorization on User Invitation
+    Given url '/admin.users.invite'
+    And header Authorization = 'Bearer <regular_user_token>'
+    When method post
+    Then status 403
+    And response should contain "You are not authorized to invite users as a regular user."
+```
+2025-01-25 20:20:43,131 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:20:43,131 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test for Broken Authentication/Authorization on User Invitation
+    Given url '/admin.users.invite'
+    And header Authorization {Value} = 'Bearer <regular_user_token>'
+    When method post
+    Then status 403
+    And response body should contain '<not authorized message>'
+```
+2025-01-25 20:20:43,132 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST_verified.feature
+2025-01-25 20:20:43,132 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_adminusersinvite_POST.feature: ```yaml
+Feature: Test for Broken Authentication/Authorization on User Invitation
+    Given url '/admin.users.invite'
+    And header Authorization {Value} = 'Bearer <regular_user_token>'
+    When method post
+    Then status 403
+    And response body should contain '<not authorized message>'
+```
+2025-01-25 20:20:43,132 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:20:43,133 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:20:43,152 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:20:43,153 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:20:49,645 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:20:49,646 - karate_llm_test_gen - INFO - Generated test case: Given the API endpoint details, here is a Karate DSL test script to check for potential Broken Authe...
+2025-01-25 20:20:49,647 - __main__ - INFO - Generated Karate test for /calls.participants.add POST at output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature
+2025-01-25 20:20:49,647 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:20:49,647 - karate_compatibility_verifier - INFO - Given the API endpoint details, here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```yaml
+Feature: Testing broken authentication and authorization on /calls.participants.add POST method
+  Background:
+    Classpath['helpers']
+  
+  Scenario: Attempt unauthorized access using invalid credentials or missing required headers
+    Given url 'http://oas_telegram.api/calls'
+      And header Authorization = '' // Missing authorization token, expecting a forbidden response
+      
+      When method post
+        Then status 401
+```
+This test case checks for unauthorized access by attempting to send the POST request without providing an appropriate authentication mechanism. The expectation is that this will result in a `401 Unauthorized` HTTP status code, indicating broken or missing authorization/authentication on the API endpoint `/calls.participants.add`.
+2025-01-25 20:21:00,769 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:21:00,769 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Testing broken authentication and authorization on /calls.participants.add POST method
+  Background:
+    Classpath['helpers']
+  
+  Scenario: Attempt unauthorized access using invalid credentials or missing required headers
+    Given url 'http://oas_telegram.api/calls/participants'
+      And header Authorization = '' // Missing authorization token, expecting a forbidden response
+      
+      When method post
+        Then status 401
+```
+2025-01-25 20:21:04,226 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:21:04,226 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Testing broken authentication and authorization on /calls.participants.add POST method
+  Background:
+    Classpath['helpers']
+  
+  Scenario: Attempt unauthorized access using invalid credentials or missing required headers
+    Given url 'http://oas_telegram.api/calls/participants'
+      And header Authorization = '' // Missing authorization token, expecting a forbidden response
+      
+      When method post
+        Then status 401
+```
+2025-01-25 20:21:04,227 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST_verified.feature
+2025-01-25 20:21:04,227 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_callsparticipantsadd_POST.feature: ```yaml
+Feature: Testing broken authentication and authorization on /calls.participants.add POST method
+  Background:
+    Classpath['helpers']
+  
+  Scenario: Attempt unauthorized access using invalid credentials or missing required headers
+    Given url 'http://oas_telegram.api/calls/participants'
+      And header Authorization = '' // Missing authorization token, expecting a forbidden response
+      
+      When method post
+        Then status 401
+```
+2025-01-25 20:21:04,227 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:21:04,228 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 20:21:04,247 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 20:21:04,248 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 20:21:13,216 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 20:21:13,217 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Test API for Broken Authentication/Authorization on User Presence Retrieval",
+  "sce...
+2025-01-25 20:21:13,218 - __main__ - INFO - Generated Karate test for /users.getPresence GET at output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature
+2025-01-25 20:21:13,218 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 20:21:13,218 - karate_compatibility_verifier - INFO - {
+  "feature": "Test API for Broken Authentication/Authorization on User Presence Retrieval",
+  "scenario": "Attempt to retrieve user presence without proper authentication or authorization",
+  "given url": "http://oas_telegram.api/users.getPresence",
+  "steps": [
+    "And header Authorization = 'Bearer <unauthorized_token>'",
+    "When method get",
+    "Then status 401 or 403",
+    "* def unauthorizedAccessResult = callonce read('classpath:helpers/unauthorizedAccess.feature')," +
+    "* switch unauthorizedAccessResult.status,",
+    "* case 401:\\",
+    "*   assert 'Unauthenticated' in unauthorizedAccessResult.response,\n" +
+    "*   fail('User should be authenticated to retrieve presence')\n",
+    "* case 403:\\",
+    "   * match '#^.*(unauthorized|not authorized).*', unauthorizedAccessResult.response, // Assuming the API returns a message indicating lack of authorization"
+  ]
+}
+2025-01-25 20:21:31,332 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 20:21:31,332 - karate_compatibility_verifier - INFO - Feature: Test API for Broken Authentication/Authorization on User Presence Retrieval
+    http://oas_telegram.api/users.getPresence
+
+Background:
+* def unauthorizedToken = 'unauthorized' + new Date().toISOString()[:6] // Generate a unique token to simulate an unauthenticated request
+
+Scenario: Attempt to retrieve user presence without proper authentication or authorization
+    Given url is "http://oas_telegram.api/users.getPresence"
+    And header Authorization = 'Bearer ' + unautzhorizedToken
+    When method get
+    Then status 401 or 403
+    * def response = callonce read('classpath:helpers/unauthorizedAccess') // Assuming the helper script returns a structured result with status and message fields
+    switch (response.status) {
+        case '401':
+            assert "Unauthenticated" in response.message, 'User should be authenticated to retrieve presence'
+            fail('Expected authentication error')
+        case '403':
+            match response.message, "(unauthorized|not authorized)" // Assuming the API returns a message indicating lack of authorization
+    }
+2025-01-25 20:21:47,122 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 20:21:47,122 - karate_compatibility_verifier - INFO - Feature: Test API for Broken Authentication/Authorization on User Presence Retrieval
+    GET http://oas_telegram.api/users/{userId}/presence
+
+Background:
+* def unauthorizedToken = 'unauthorized' + new Date().toISOString()[:6] // Generate a unique token to simulate an unauthenticated request
+
+Scenario: Attempt to retrieve user presence without proper authentication or authorization for given User ID (replace {userId} with actual value)
+    Given url is "http://oas_telegram.api/users/{userId}/presence" where {userId} = 12345 // Example of a specific user's ID to test unauthorized access
+    And header Authorization = 'Bearer ' + unauthorizedToken
+    When method GET
+    Then status is either 401 or 403, depending on the API response indicating lack of authentication/authorization
+2025-01-25 20:21:47,123 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET_verified.feature
+2025-01-25 20:21:47,123 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_usersgetPresence_GET.feature: Feature: Test API for Broken Authentication/Authorization on User Presence Retrieval
+    GET http://oas_telegram.api/users/{userId}/presence
+
+Background:
+* def unauthorizedToken = 'unauthorized' + new Date().toISOString()[:6] // Generate a unique token to simulate an unauthenticated request
+
+Scenario: Attempt to retrieve user presence without proper authentication or authorization for given User ID (replace {userId} with actual value)
+    Given url is "http://oas_telegram.api/users/{userId}/presence" where {userId} = 12345 // Example of a specific user's ID to test unauthorized access
+    And header Authorization = 'Bearer ' + unauthorizedToken
+    When method GET
+    Then status is either 401 or 403, depending on the API response indicating lack of authentication/authorization
+2025-01-25 20:21:47,123 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 20:21:47,124 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 20:21:49,304 - __main__ - INFO - Skipping karate test run.

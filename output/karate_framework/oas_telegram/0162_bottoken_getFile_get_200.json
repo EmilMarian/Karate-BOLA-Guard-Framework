@@ -1,0 +1,54 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "query",
+      "name": "file_id",
+      "required": true,
+      "type": "string"
+    }
+  ],
+  "path": "/bot{token}/getFile",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "description": "",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          },
+          "result": {
+            "properties": {
+              "file_id": {
+                "type": "string"
+              },
+              "file_path": {
+                "type": "string"
+              },
+              "file_size": {
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

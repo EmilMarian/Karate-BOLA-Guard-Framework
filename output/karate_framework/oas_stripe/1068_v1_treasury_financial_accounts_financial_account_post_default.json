@@ -1,0 +1,290 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "financial_account",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/treasury/financial_accounts/{financial_account}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "features": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "forwarding_settings": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "nickname": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "platform_restrictions": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "features": {
+              "description": "Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.",
+              "properties": {
+                "card_issuing": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "requested"
+                  ],
+                  "title": "access",
+                  "type": "object"
+                },
+                "deposit_insurance": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "requested"
+                  ],
+                  "title": "access",
+                  "type": "object"
+                },
+                "financial_addresses": {
+                  "properties": {
+                    "aba": {
+                      "properties": {
+                        "requested": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "requested"
+                      ],
+                      "title": "aba_access",
+                      "type": "object"
+                    }
+                  },
+                  "title": "financial_addresses",
+                  "type": "object"
+                },
+                "inbound_transfers": {
+                  "properties": {
+                    "ach": {
+                      "properties": {
+                        "requested": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "requested"
+                      ],
+                      "title": "access_with_ach_details",
+                      "type": "object"
+                    }
+                  },
+                  "title": "inbound_transfers",
+                  "type": "object"
+                },
+                "intra_stripe_flows": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "requested"
+                  ],
+                  "title": "access",
+                  "type": "object"
+                },
+                "outbound_payments": {
+                  "properties": {
+                    "ach": {
+                      "properties": {
+                        "requested": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "requested"
+                      ],
+                      "title": "access_with_ach_details",
+                      "type": "object"
+                    },
+                    "us_domestic_wire": {
+                      "properties": {
+                        "requested": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "requested"
+                      ],
+                      "title": "access",
+                      "type": "object"
+                    }
+                  },
+                  "title": "outbound_payments",
+                  "type": "object"
+                },
+                "outbound_transfers": {
+                  "properties": {
+                    "ach": {
+                      "properties": {
+                        "requested": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "requested"
+                      ],
+                      "title": "access_with_ach_details",
+                      "type": "object"
+                    },
+                    "us_domestic_wire": {
+                      "properties": {
+                        "requested": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "requested"
+                      ],
+                      "title": "access",
+                      "type": "object"
+                    }
+                  },
+                  "title": "outbound_transfers",
+                  "type": "object"
+                }
+              },
+              "title": "feature_access",
+              "type": "object"
+            },
+            "forwarding_settings": {
+              "description": "A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0",
+              "properties": {
+                "financial_account": {
+                  "type": "string"
+                },
+                "payment_method": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "financial_account",
+                    "payment_method"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "forwarding_settings",
+              "type": "object"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            },
+            "nickname": {
+              "anyOf": [
+                {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The nickname for the FinancialAccount."
+            },
+            "platform_restrictions": {
+              "description": "The set of functionalities that the platform can restrict on the FinancialAccount.",
+              "properties": {
+                "inbound_flows": {
+                  "enum": [
+                    "restricted",
+                    "unrestricted"
+                  ],
+                  "type": "string"
+                },
+                "outbound_flows": {
+                  "enum": [
+                    "restricted",
+                    "unrestricted"
+                  ],
+                  "type": "string"
+                }
+              },
+              "title": "platform_restrictions",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

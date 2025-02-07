@@ -1,0 +1,94 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/test_helpers/issuing/settlements",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "bin": {
+              "description": "The Bank Identification Number reflecting this settlement record.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "clearing_date": {
+              "description": "The date that the transactions are cleared and posted to user's accounts.",
+              "type": "integer"
+            },
+            "currency": {
+              "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+              "format": "currency",
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "interchange_fees": {
+              "description": "The total interchange received as reimbursement for the transactions.",
+              "type": "integer"
+            },
+            "net_total": {
+              "description": "The total net amount required to settle with the network.",
+              "type": "integer"
+            },
+            "network_settlement_identifier": {
+              "description": "The Settlement Identification Number assigned by the network.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "transaction_count": {
+              "description": "The total number of transactions reflected in this settlement.",
+              "type": "integer"
+            },
+            "transaction_volume": {
+              "description": "The total transaction amount reflected in this settlement.",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "bin",
+            "clearing_date",
+            "currency",
+            "net_total"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

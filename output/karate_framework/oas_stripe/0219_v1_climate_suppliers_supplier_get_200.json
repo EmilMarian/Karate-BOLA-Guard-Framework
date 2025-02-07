@@ -1,0 +1,116 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "supplier",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/climate/suppliers/{supplier}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A supplier of carbon removal.",
+            "properties": {
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "info_url": {
+                "description": "Link to a webpage to learn more about the supplier.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "locations": {
+                "description": "The locations in which this supplier operates.",
+                "items": {
+                  "$ref": "#/components/schemas/climate_removals_location"
+                },
+                "type": "array"
+              },
+              "name": {
+                "description": "Name of this carbon removal supplier.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object\u2019s type. Objects of the same type share the same value.",
+                "enum": [
+                  "climate.supplier"
+                ],
+                "type": "string"
+              },
+              "removal_pathway": {
+                "description": "The scientific pathway used for carbon removal.",
+                "enum": [
+                  "biomass_carbon_removal_and_storage",
+                  "direct_air_capture",
+                  "enhanced_weathering"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              }
+            },
+            "required": [
+              "id",
+              "info_url",
+              "livemode",
+              "locations",
+              "name",
+              "object",
+              "removal_pathway"
+            ],
+            "title": "ClimateRemovalsSuppliers",
+            "type": "object",
+            "x-expandableFields": [
+              "locations"
+            ],
+            "x-resourceId": "climate.supplier"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "The ID of the `Brand` to which the image is being attached.\n",
+      "in": "path",
+      "name": "brand_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/brands/{brand_id}/image",
+  "requestBody": {
+    "content": {
+      "multipart/form-data": {
+        "schema": {
+          "properties": {
+            "image_file": {
+              "description": "An image file. Supported MIME types include GIF, JPEG, and PNG.\n",
+              "format": "binary",
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_file"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/ResourceImage"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/Meta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "A ResourceImage and metadata.\n"
+    }
+  }
+}

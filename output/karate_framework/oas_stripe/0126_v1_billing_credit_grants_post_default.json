@@ -1,0 +1,164 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/billing/credit_grants",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "amount": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "applicability_config": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "description": "Amount of this credit grant.",
+              "properties": {
+                "monetary": {
+                  "properties": {
+                    "currency": {
+                      "format": "currency",
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "currency",
+                    "value"
+                  ],
+                  "title": "monetary_amount_param",
+                  "type": "object"
+                },
+                "type": {
+                  "enum": [
+                    "monetary"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "amount_param",
+              "type": "object"
+            },
+            "applicability_config": {
+              "description": "Configuration specifying what this credit grant applies to.",
+              "properties": {
+                "scope": {
+                  "properties": {
+                    "price_type": {
+                      "enum": [
+                        "metered"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "price_type"
+                  ],
+                  "title": "scope_param",
+                  "type": "object"
+                }
+              },
+              "required": [
+                "scope"
+              ],
+              "title": "applicability_config_param",
+              "type": "object"
+            },
+            "category": {
+              "description": "The category of this credit grant.",
+              "enum": [
+                "paid",
+                "promotional"
+              ],
+              "type": "string"
+            },
+            "customer": {
+              "description": "ID of the customer to receive the billing credits.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "effective_at": {
+              "description": "The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.",
+              "format": "unix-time",
+              "type": "integer"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "expires_at": {
+              "description": "The time when the billing credits expire. If not specified, the billing credits don't expire.",
+              "format": "unix-time",
+              "type": "integer"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of key-value pairs that you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.",
+              "type": "object"
+            },
+            "name": {
+              "description": "A descriptive name shown in the Dashboard.",
+              "maxLength": 100,
+              "type": "string"
+            }
+          },
+          "required": [
+            "amount",
+            "applicability_config",
+            "category",
+            "customer"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

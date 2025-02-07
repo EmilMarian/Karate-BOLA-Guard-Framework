@@ -1,0 +1,92 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The sort field. if sort param is provided. Can be either asc or desc.",
+      "in": "query",
+      "name": "order",
+      "schema": {
+        "default": "desc",
+        "enum": [
+          "desc",
+          "asc"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "The search terms. This can be any combination of the supported user\nsearch parameters:\n'Search In' Qualifies which fields are searched. With this qualifier you\ncan restrict the search to just the username, public email, full name,\nlocation, or any combination of these.\n'Repository count' Filters users based on the number of repositories they\nhave.\n'Location' Filter users by the location indicated in their profile.\n'Language' Search for users that have repositories that match a certain\nlanguage.\n'Created' Filter users based on when they joined.\n'Followers' Filter users based on the number of followers they have.\n",
+      "in": "query",
+      "name": "q",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "If not provided, results are sorted by best match.",
+      "in": "query",
+      "name": "sort",
+      "schema": {
+        "enum": [
+          "followers",
+          "repositories",
+          "joined"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/search/users",
+  "requestBody": {},
+  "responses": {
+    "403": {
+      "content": {},
+      "description": "API rate limit exceeded. See http://developer.github.com/v3/#rate-limiting\nfor details.\n"
+    }
+  }
+}

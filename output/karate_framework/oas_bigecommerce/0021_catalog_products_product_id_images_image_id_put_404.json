@@ -1,0 +1,69 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the image is being attached.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The ID of the `Image` that is being operated on.\n",
+      "in": "path",
+      "name": "image_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/images/{image_id}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ProductImageBase"
+            }
+          ],
+          "description": "The model for a PUT to update applicable ProductImage fields.\n"
+        }
+      }
+    },
+    "description": "A BigCommerce `ProductImage` object.\n",
+    "required": true
+  },
+  "responses": {
+    "404": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error payload for the BigCommerce API.\n",
+            "properties": {
+              "instance": {
+                "type": "string"
+              },
+              "status": {
+                "description": "404 HTTP status code.\n",
+                "type": "integer"
+              },
+              "title": {
+                "description": "The error title describing the particular error.",
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "The resource was not found.\n"
+    }
+  }
+}

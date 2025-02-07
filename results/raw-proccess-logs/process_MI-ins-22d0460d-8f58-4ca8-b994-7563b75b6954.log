@@ -1,0 +1,225 @@
+2025-01-25 23:19:16,539 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 23:19:16,620 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 23:19:16,871 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The ID of a user to get information about, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}", "requestBody": {}, "responses": {"404": {"content": {}, "description": "Not Found, user with such ID does not exist."}}}', 'metadata': {'filename': '0023_users_userid_get_404.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The ID of a user, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}/follows", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"data": {"description": "List of user short information entries", "items": {"$ref": "#/components/schemas/UserShortInfo"}, "type": "array"}, "meta": {"$ref": "#/components/schemas/MetaData"}, "pagination": {"$ref": "#/components/schemas/CursorPaginationInfo"}}, "type": "object"}}}, "description": "List of users this user follows."}}}', 'metadata': {'filename': '0025_users_userid_follows_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The ID of a user, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}/followed-by", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"data": {"description": "List of user short information entries", "items": {"$ref": "#/components/schemas/UserShortInfo"}, "type": "array"}, "meta": {"$ref": "#/components/schemas/MetaData"}, "pagination": {"$ref": "#/components/schemas/CursorPaginationInfo"}}, "type": "object"}}}, "description": "List of users this user is followed by."}}}', 'metadata': {'filename': '0024_users_userid_followedby_get_200.json'}}], form collection oas_instagram_fragments
+2025-01-25 23:19:16,872 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 23:19:16,873 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 23:19:17,303 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 23:19:17,303 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 23:22:50,463 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 23:22:50,463 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-25 23:22:50,464 - __main__ - INFO - Generated Karate test for /users/{user-id} GET at output/karate_feature_files/ID_001_krtestoas_users_user-id_GET.feature
+2025-01-25 23:22:50,464 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 23:22:50,464 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: Test API for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Check if user can access other users' profiles without authorization
+    Given url http://oas_instagram.api/users/{user-id}
+    And method get
+    When request { userIdToFollow: 'otherUser123' }
+    Then status 403
+    And match response contains 'Unauthorized access attempt detected.'
+```
+This test scenario checks if a user can access another user's profile without authorization by making an unauthenticated GET request to the `/users/{user-id}` endpoint. If the user is able to access the other user's profile, it indicates that there may be a Broken Authentication/Authorization vulnerability in the API.
+2025-01-25 23:26:23,890 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 23:26:23,890 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test API for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Check if user can access other users' profiles without authorization
+    Given url http://oas_instagram.api/users/{user-id}
+    And method get
+    When request { userIdToFollow: 'otherUser123' }
+    Then status 403
+    And match response contains 'Unauthorized access attempt detected.'
+```
+2025-01-25 23:27:18,654 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 23:27:18,654 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test API for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Check if user can access other users' profiles without authorization
+    Given url http://oas_instagram.api/users/{user-id}
+    And method get
+    When request { userIdToFollow: 'otherUser123' }
+    Then status 403
+    And match response contains 'Unauthorized access attempt detected.'
+```
+2025-01-25 23:27:18,655 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_user-id_GET_verified.feature
+2025-01-25 23:27:18,655 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_user-id_GET.feature: Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Test API for Broken Authentication/Authorization Vulnerabilities
+  Scenario: Check if user can access other users' profiles without authorization
+    Given url http://oas_instagram.api/users/{user-id}
+    And method get
+    When request { userIdToFollow: 'otherUser123' }
+    Then status 403
+    And match response contains 'Unauthorized access attempt detected.'
+```
+2025-01-25 23:27:18,655 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 23:27:18,656 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 23:27:18,687 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 23:27:18,687 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 23:30:58,621 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 23:30:58,621 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-25 23:30:58,622 - __main__ - INFO - Generated Karate test for /users/{user-id}/follows GET at output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET.feature
+2025-01-25 23:30:58,622 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 23:30:58,623 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the /users/{user-id}/follows endpoint:
+```kotlin
+Feature: Testing API Endpoint Security
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities on /users/{user-id}/follows endpoint
+    Given url http://oas_instagram.api/users/{user-id}/follows
+    And request {
+      method: GET
+      header Authorization: Bearer <access_token>
+    }
+    When status code is 200
+    Then response contains "Followed user successfully"
+    And response does not contain "Unauthorized access attempt detected"
+```
+This test script checks if the endpoint returns a 200 status code and if it includes the message "Followed user successfully". It also verifies that the response does not include the message "Unauthorized access attempt detected", which would indicate a Broken Authentication/Authorization vulnerability.
+2025-01-25 23:34:12,892 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 23:34:12,892 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Testing API Endpoint Security
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities on /users/{user-id}/follows endpoint
+    Given url http://oas_instagram.api/users/{user-id}/follows
+    And request {
+      method: GET
+      header Authorization: Bearer <access_token>
+    }
+    When status code is 200
+    Then response contains "Followed user successfully"
+    And response does not contain "Unauthorized access attempt detected"
+```
+2025-01-25 23:35:18,891 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 23:35:18,891 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Testing API Endpoint Security
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities on /users/{user-id}/follows endpoint
+    Given url http://oas_instagram.api/users/{user-id}/follows
+    And request {
+      method: GET
+      header Authorization: Bearer <access_token>
+    }
+    When status code is 200
+    Then response contains "Followed user successfully"
+    And response does not contain "Unauthorized access attempt detected"
+```
+2025-01-25 23:35:18,892 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET_verified.feature
+2025-01-25 23:35:18,892 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET.feature: Here's the corrected Karate DSL test script:
+```kotlin
+Feature: Testing API Endpoint Security
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities on /users/{user-id}/follows endpoint
+    Given url http://oas_instagram.api/users/{user-id}/follows
+    And request {
+      method: GET
+      header Authorization: Bearer <access_token>
+    }
+    When status code is 200
+    Then response contains "Followed user successfully"
+    And response does not contain "Unauthorized access attempt detected"
+```
+2025-01-25 23:35:18,893 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 23:35:18,894 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 23:35:18,926 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 23:35:18,927 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 23:39:17,028 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 23:39:17,029 - karate_llm_test_gen - INFO - Generated test case: Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization v...
+2025-01-25 23:39:17,035 - __main__ - INFO - Generated Karate test for /users/{user-id}/followed-by GET at output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET.feature
+2025-01-25 23:39:17,035 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 23:39:17,035 - karate_compatibility_verifier - INFO - Here is a sample Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```kotlin
+Feature: Testing Follow Functionality with Privacy Respect
+  Scenario: Dynamically test the ability to follow a user, respecting their privacy settings
+    Given url http://oas_instagram.api/users/{user-id}/followed-by
+    And request { userIdToFollow: publicUserId }
+    When method get
+    Then status 200
+    And match response contains 'Followed user successfully.'
+    
+    Given url http://oas_instagram.api/users/{privateUserId}/followed-by
+    And request { userIdToFollow: publicUserId }
+    When method get
+    Then status 403
+    And match response contains 'User has set their profile to private.'
+```
+This test script checks for two scenarios, one where the user being followed is a public user and another where the user being followed is a private user. In both cases, we are making GET requests to the `/users/{user-id}/followed-by` endpoint with an appropriate request payload. We then check the response status code and message to ensure that the follow functionality works as expected and respects privacy settings.
+2025-01-25 23:43:21,030 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 23:43:21,030 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Testing Follow Functionality with Privacy Respect
+  Scenario: Dynamically test the ability to follow a user, respecting their privacy settings
+    Given url http://oas_instagram.api/users/{user-id}/followed-by
+    And request { userIdToFollow: publicUserId }
+    When method get
+    Then status 200
+    And match response contains 'Followed user successfully.'
+    
+    Given url http://oas_instagram.api/users/{privateUserId}/followed-by
+    And request { userIdToFollow: publicUserId }
+    When method get
+    Then status 403
+    And match response contains 'User has set their profile to private.'
+```
+2025-01-25 23:44:43,037 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 23:44:43,037 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Testing Follow Functionality with Privacy Respect
+  Scenario: Dynamically test the ability to follow a user, respecting their privacy settings
+    Given url http://oas_instagram.api/users/{user-id}/followed-by
+    And request { userIdToFollow: publicUserId }
+    When method get
+    Then status 200
+    And match response contains 'Followed user successfully.'
+    
+    Given url http://oas_instagram.api/users/{privateUserId}/followed-by
+    And request { userIdToFollow: publicUserId }
+    When method get
+    Then status 403
+    And match response contains 'User has set their profile to private.'
+```
+2025-01-25 23:44:43,037 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET_verified.feature
+2025-01-25 23:44:43,038 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET.feature: Here is the corrected Karate DSL test script:
+```kotlin
+Feature: Testing Follow Functionality with Privacy Respect
+  Scenario: Dynamically test the ability to follow a user, respecting their privacy settings
+    Given url http://oas_instagram.api/users/{user-id}/followed-by
+    And request { userIdToFollow: publicUserId }
+    When method get
+    Then status 200
+    And match response contains 'Followed user successfully.'
+    
+    Given url http://oas_instagram.api/users/{privateUserId}/followed-by
+    And request { userIdToFollow: publicUserId }
+    When method get
+    Then status 403
+    And match response contains 'User has set their profile to private.'
+```
+2025-01-25 23:44:43,038 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 23:44:43,040 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 23:44:45,745 - __main__ - INFO - Skipping karate test run.

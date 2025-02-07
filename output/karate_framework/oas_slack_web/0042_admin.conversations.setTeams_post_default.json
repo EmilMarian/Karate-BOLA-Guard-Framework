@@ -1,0 +1,81 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `admin.conversations:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/admin.conversations.setTeams",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channel_id": {
+              "description": "The encoded `channel_id` to add or remove to workspaces.",
+              "type": "string"
+            },
+            "org_channel": {
+              "description": "True if channel has to be converted to an org channel",
+              "type": "boolean"
+            },
+            "target_team_ids": {
+              "description": "A comma-separated list of workspaces to which the channel should be shared. Not required if the channel is being shared org-wide.",
+              "type": "string"
+            },
+            "team_id": {
+              "description": "The workspace to which the channel belongs. Omit this argument if the channel is a cross-workspace shared channel.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel_id"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "This method either only returns a brief _not OK_ response or a verbose schema is not available for this method.",
+            "properties": {
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "Default error template",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

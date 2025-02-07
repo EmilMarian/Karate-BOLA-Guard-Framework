@@ -1,0 +1,486 @@
+2025-02-02 12:31:16,498 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 12:31:16,586 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 12:31:16,824 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/users/v1/register", "requestBody": {"content": {"application/json": {"schema": {"properties": {"email": {"example": "user@tempmail.com", "type": "string"}, "password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Successfully registered. Login to receive an auth token.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully created user"}}}', 'metadata': {'filename': '0005_users_v1_register_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"auth_token": {"example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw", "type": "string"}, "message": {"example": "Successfully logged in.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully logged in user"}}}', 'metadata': {'filename': '0007_users_v1_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Password is not correct for the given username.", "type": "string"}, "status": {"enum": ["fail"], "example": "fail", "type": "string"}}, "type": "object"}}}, "description": "Invalid request"}}}', 'metadata': {'filename': '0008_users_v1_login_post_400.json'}}], form collection oas_vampi_fragments
+2025-02-02 12:31:16,825 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 12:31:16,825 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 12:31:17,413 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 12:31:17,414 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 12:32:10,663 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 12:32:10,665 - karate_llm_test_gen - INFO - Generated test case: Here are the Karate DSL test scripts for each of the given API endpoints:
+
+**Scenario 1: OAuth Token...
+2025-02-02 12:32:10,670 - __main__ - INFO - Generated Karate test for /users/v1/register POST at output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST.feature
+2025-02-02 12:32:10,671 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 12:32:10,671 - karate_compatibility_verifier - INFO - Here are the Karate DSL test scripts for each of the given API endpoints:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_vampi.api/users/v1/register'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: Improper Authorization on User Documents Access**
+```karate
+Feature: Test for Improper Authorization on User Documents Access
+
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_vampi.api/documents/12345'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Document details'
+case 403:
+    * fail 'Admin should have access'
+```
+
+**Scenario 3: Account Enumeration during Signup**
+```karate
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_vampi.api/users/v1/register'
+And request {
+    username: 'existingUser',
+    password: 'Password123!',
+    email: 'existing@example.com'
+}
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+* def signUpNewUser = function(response){ return response.contains('A verification email has been sent. Please check your inbox.') }
+* assert signUpNewUser(response) == true
+```
+
+Note that these test scripts are designed to simulate potential security vulnerabilities and should not be used in production without proper testing and validation.
+2025-02-02 12:32:26,698 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 12:32:26,699 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_vampi.api/users/v1/register'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response == { error: '#notnull', error_description: '#notnull' }
+```
+
+**Scenario 2: Improper Authorization on User Documents Access**
+```karate
+Feature: Test for Improper Authorization on User Documents Access
+
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_vampi.api/documents/12345'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+```
+
+**Scenario 3: Account Enumeration during Signup**
+```karate
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_vampi.api/users/v1/register'
+And request {
+    username: 'existingUser',
+    password: 'Password123!',
+    email: 'existing@example.com'
+}
+When method post
+Then status 200
+```
+
+Note: I have corrected the scripts to adhere to Karate DSL syntax and best practices.
+2025-02-02 12:32:38,420 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 12:32:38,421 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_vampi.api/users/v1/register'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response == { error: '#notnull', error_description: '#notnull' }
+```
+
+**Scenario 2: Improper Authorization on User Documents Access**
+```karate
+Feature: Test for Improper Authorization on User Documents Access
+
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_vampi.api/documents/12345'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+```
+
+**Scenario 3: Account Enumeration during Signup**
+```karate
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_vampi.api/users/v1/register'
+And request {
+    username: 'existingUser',
+    password: 'Password123!',
+    email: 'existing@example.com'
+}
+When method post
+Then status 200
+```
+2025-02-02 12:32:38,423 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST_verified.feature
+2025-02-02 12:32:38,423 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST.feature: Here are the corrected Karate DSL test scripts:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_vampi.api/users/v1/register'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response == { error: '#notnull', error_description: '#notnull' }
+```
+
+**Scenario 2: Improper Authorization on User Documents Access**
+```karate
+Feature: Test for Improper Authorization on User Documents Access
+
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://oas_vampi.api/documents/12345'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+```
+
+**Scenario 3: Account Enumeration during Signup**
+```karate
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_vampi.api/users/v1/register'
+And request {
+    username: 'existingUser',
+    password: 'Password123!',
+    email: 'existing@example.com'
+}
+When method post
+Then status 200
+```
+2025-02-02 12:32:38,425 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 12:32:38,426 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 12:32:38,481 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 12:32:38,484 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 12:32:57,549 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 12:32:57,551 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-02-02 12:32:57,552 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST.feature
+2025-02-02 12:32:57,556 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 12:32:57,556 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/users/v1/login` endpoint:
+
+```
+Feature: Testing for Broken Authentication/Authorization
+Scenario: Verify login with incorrect credentials returns 401 Unauthorized
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid username or password'
+
+Scenario: Verify login with correct username and incorrect password returns 401 Unauthorized
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response contains 'Invalid username or password'
+
+Scenario: Verify login with correct credentials and no authentication returns 200 OK
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'existing_user', password: 'CorrectPassword' }
+When method post
+Then status 200
+
+Scenario: Attempt to access user details without being authenticated returns 401 Unauthorized
+Given url 'http://oas_vampi.api/users/v1/userdetails'
+When method get
+Then status 401
+And match response contains 'You are not authorized to view this page'
+
+```
+
+This script tests the following scenarios:
+
+*   Login with incorrect credentials: This scenario attempts to log in with a username that does not exist and an invalid password. It checks if the API returns a 401 Unauthorized error.
+*   Login with correct username but wrong password: This scenario tries logging in with a valid username but an incorrect password, verifying that it also results in a 401 Unauthorized response.
+*   Successful login: The script attempts to log in with valid credentials and verifies that it successfully logs in by receiving a 200 OK status code.
+*   Accessing user details without authentication: This scenario tries accessing the user's details without being authenticated. It checks if the API returns a 401 Unauthorized error, indicating that access is denied.
+
+Remember to replace 'http://oas_vampi.api' with your actual API URL and adjust the test data accordingly for accurate testing of your application.
+2025-02-02 12:33:10,744 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 12:33:10,744 - karate_compatibility_verifier - INFO - ```
+Feature: Testing for Broken Authentication/Authorization
+
+Scenario: Verify login with incorrect credentials returns 401 Unauthorized
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid username or password'
+
+Scenario: Verify login with correct username and incorrect password returns 401 Unauthorized
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response contains 'Invalid username or password'
+
+Scenario: Verify login with correct credentials and no authentication returns 200 OK
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'existing_user', password: 'CorrectPassword' }
+When method post
+Then status 200
+
+Scenario: Attempt to access user details without being authenticated returns 401 Unauthorized
+Given path 'users/v1/userdetails'
+When method get
+Then status 401
+And match response contains 'You are not authorized to view this page'
+
+```
+2025-02-02 12:33:19,808 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 12:33:19,808 - karate_compatibility_verifier - INFO - ```
+Feature: Testing for Broken Authentication/Authorization
+
+Scenario: Verify login with incorrect credentials returns 401 Unauthorized
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid username or password'
+
+Scenario: Verify login with correct username and incorrect password returns 401 Unauthorized
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response contains 'Invalid username or password'
+
+Scenario: Verify login with correct credentials and no authentication returns 200 OK
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'existing_user', password: 'CorrectPassword' }
+When method post
+Then status 200
+
+Scenario: Attempt to access user details without being authenticated returns 401 Unauthorized
+Given path '/users/v1/userdetails'
+When method get
+Then status 401
+And match response contains 'You are not authorized to view this page'
+```
+2025-02-02 12:33:19,809 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST_verified.feature
+2025-02-02 12:33:19,809 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST.feature: ```
+Feature: Testing for Broken Authentication/Authorization
+
+Scenario: Verify login with incorrect credentials returns 401 Unauthorized
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid username or password'
+
+Scenario: Verify login with correct username and incorrect password returns 401 Unauthorized
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response contains 'Invalid username or password'
+
+Scenario: Verify login with correct credentials and no authentication returns 200 OK
+Given url 'http://oas_vampi.api/users/v1/login'
+And request { username: 'existing_user', password: 'CorrectPassword' }
+When method post
+Then status 200
+
+Scenario: Attempt to access user details without being authenticated returns 401 Unauthorized
+Given path '/users/v1/userdetails'
+When method get
+Then status 401
+And match response contains 'You are not authorized to view this page'
+```
+2025-02-02 12:33:19,810 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 12:33:19,813 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 12:33:19,844 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 12:33:19,844 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 12:33:31,683 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 12:33:31,684 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-02-02 12:33:31,686 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST.feature
+2025-02-02 12:33:31,686 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 12:33:31,687 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/users/v1/login` endpoint:
+
+```
+Feature: Testing for Broken Authentication/Authorization
+Scenario: Attempting unauthorized login with invalid credentials
+Given url 'http://oas_vampi.api'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid username or password.'
+
+Scenario: Unauthorized access to the API without authentication
+Given url 'http://oas_vampi.api/users/v1/login'
+When method post
+Then status 401
+And match response contains 'Authentication required'
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature'),
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Login successful as admin.'
+case 403:
+    * fail 'Admin should have access'
+```
+
+This test script includes two scenarios:
+
+1. The first scenario tests for unauthorized login with invalid credentials, which is a common vulnerability in many applications.
+2. The second scenario checks if the API requires authentication and returns an error message when no valid credentials are provided.
+
+Note that this script assumes you already have the `adminAccess.feature` file set up to handle admin access scenarios.
+2025-02-02 12:33:40,062 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 12:33:40,062 - karate_compatibility_verifier - INFO - Feature: Testing for Broken Authentication/Authorization
+Scenario: Attempting unauthorized login with invalid credentials
+Given url 'http://oas_vampi.api'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains 'Invalid username or password.'
+
+Scenario: Unauthorized access to the API without authentication
+Given url 'http://oas_vampi.api/users/v1/login'
+When method post
+Then status 401
+And match response contains 'Authentication required'
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    Then assert adminAccess.response == 'Login successful as admin.'
+case 403:
+    And fail 'Admin should have access'
+2025-02-02 12:33:46,371 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 12:33:46,371 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+Feature: Testing for Broken Authentication/Authorization
+Scenario: Attempting unauthorized login with invalid credentials
+Given url 'http://oas_vampi.api'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method POST
+Then status 401
+And match response contains 'Invalid username or password.'
+
+Scenario: Unauthorized access to the API without authentication
+Given url 'http://oas_vampi.api/users/v1/login'
+When method POST
+Then status 401
+And match response contains 'Authentication required'
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    Then assert adminAccess.response == 'Login successful as admin.'
+case 403:
+    And fail 'Admin should have access'
+2025-02-02 12:33:46,372 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST_verified.feature
+2025-02-02 12:33:46,373 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST.feature: Here is the corrected Karate DSL script:
+
+Feature: Testing for Broken Authentication/Authorization
+Scenario: Attempting unauthorized login with invalid credentials
+Given url 'http://oas_vampi.api'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method POST
+Then status 401
+And match response contains 'Invalid username or password.'
+
+Scenario: Unauthorized access to the API without authentication
+Given url 'http://oas_vampi.api/users/v1/login'
+When method POST
+Then status 401
+And match response contains 'Authentication required'
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    Then assert adminAccess.response == 'Login successful as admin.'
+case 403:
+    And fail 'Admin should have access'
+2025-02-02 12:33:46,373 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 12:33:46,377 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 12:33:48,556 - __main__ - INFO - Skipping karate test run.

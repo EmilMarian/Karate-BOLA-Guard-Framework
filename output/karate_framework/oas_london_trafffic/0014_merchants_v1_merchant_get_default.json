@@ -1,0 +1,156 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Type of merchant location. Options are \"acceptance.paypass\" \"topup.repower\" \"products.prepaidtravelcard\" \"offers.easysavings\" and \"features.cashback\". Cash Back is currently only available in the US.",
+      "in": "query",
+      "name": "Details",
+      "required": true,
+      "type": "string",
+      "x-example": "acceptance.paypass",
+      "x-explorer": true
+    },
+    {
+      "description": "Zero-based offset where the response will start. The actual start position is this value +1. An offset of 10 starts at item 11. Combined with the PageLength option this allows pagination to be supported through the service requests.",
+      "in": "query",
+      "name": "PageOffset",
+      "required": true,
+      "type": "integer",
+      "x-example": "0",
+      "x-explorer": true
+    },
+    {
+      "description": "Maximum number of items to retrieve within the current \"page\" of results.",
+      "in": "query",
+      "name": "PageLength",
+      "required": true,
+      "type": "integer",
+      "x-example": "5",
+      "x-explorer": true
+    },
+    {
+      "description": "Category of the merchant location. See the Categories (Merchant) resource for a list of valid categories. This parameter is only valid for merchant queries with Details = \"acceptance.paypass\" or \"features.cashback\".",
+      "in": "query",
+      "name": "Category",
+      "required": false,
+      "type": "string",
+      "x-example": "features.cashback",
+      "x-explorer": false
+    },
+    {
+      "description": "Line 1 of the street address for the merchant location.  Usually includes the street number and name. This parameter is ignored if latitude and longitude are provided. If you provide this parameter you must also provide the Country parameter and either City parameter or PostalCode parameter.",
+      "in": "query",
+      "name": "AddressLine1",
+      "required": false,
+      "type": "string",
+      "x-example": "42 Elm Street",
+      "x-explorer": false
+    },
+    {
+      "description": "Line 2 of the street address usually an apartment number or suite number. This parameter is used rarely and is ignored if latitude and longitude are provided. If you provide this parameter you must also provide the Country parameter and either City parameter or PostalCode parameter.",
+      "in": "query",
+      "name": "AddressLine2",
+      "required": false,
+      "type": "string",
+      "x-example": "Suite 101",
+      "x-explorer": false
+    },
+    {
+      "description": "Name of the city for a merchant location.  This parameter is ignored if latitude and longitude are provided. If you provide this parameter you must also provide the Country parameter.",
+      "in": "query",
+      "name": "City",
+      "required": false,
+      "type": "string",
+      "x-example": "New York",
+      "x-explorer": false
+    },
+    {
+      "description": "State or province for a merchant location (only supported for US and Canada locations).  This parameter is ignored if latitude and longitude are provided. If you provide this parameter you must also provide the Country parameter.",
+      "in": "query",
+      "name": "CountrySubdivision",
+      "required": false,
+      "type": "string",
+      "x-example": "NY",
+      "x-explorer": false
+    },
+    {
+      "description": "Zip code or postal code for a merchant location.  This parameter is ignored if latitude and longitude are provided. If you provide this parameter you must also provide the Country parameter.",
+      "in": "query",
+      "name": "PostalCode",
+      "required": false,
+      "type": "string",
+      "x-example": "11001",
+      "x-explorer": false
+    },
+    {
+      "description": "Any three digit country code for an ATM location.  Valid values are Three digit alpha country code as defined in ISO 3166-1.  This parameter is ignored if latitude and longitude are provided. This parameter is required if any other address information is provided including AddressLine1 AddressLine2 City PostalCode or CountrySubdivision. By default we supply ATM location data for United States ATMs for up to twenty-five records per request.",
+      "in": "query",
+      "name": "Country",
+      "required": false,
+      "type": "string",
+      "x-example": "USA",
+      "x-explorer": false
+    },
+    {
+      "description": "Latitude of a merchant location.  If latitude is provided longitude must also be provided.",
+      "format": "double",
+      "in": "query",
+      "name": "Latitude",
+      "required": false,
+      "type": "number",
+      "x-example": "38.53463",
+      "x-explorer": true
+    },
+    {
+      "description": "Longitude of a merchant location.  If longitude is provided latitude must also be provided.",
+      "format": "double",
+      "in": "query",
+      "name": "Longitude",
+      "required": false,
+      "type": "number",
+      "x-example": "-90.286781",
+      "x-explorer": true
+    },
+    {
+      "description": "Indicates the unit for the radius as well as the units of the distance of each location from the basepoint in the response.",
+      "in": "query",
+      "name": "DistanceUnit",
+      "required": false,
+      "type": "string",
+      "x-example": "MILE",
+      "x-explorer": false
+    },
+    {
+      "description": "This is the radius from the search point in the distance unit you set.  For example if you want to search for locations within 50 miles of a certain point you would set DistanceUnit=mile and Radius=50.  This parameter is ignored in non-geocoded countries.",
+      "in": "query",
+      "name": "Radius",
+      "required": false,
+      "type": "integer",
+      "x-example": "25",
+      "x-explorer": false
+    },
+    {
+      "description": "Unique identifier that represents the merhcant sponsor of an offer. Any valid merchant ID.",
+      "in": "query",
+      "name": "OfferMerchantID",
+      "required": false,
+      "type": "string",
+      "x-example": "34760",
+      "x-explorer": false
+    }
+  ],
+  "path": "/merchants/v1/merchant",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "description": "Unexpected error",
+      "schema": {
+        "properties": {
+          "Errors": {
+            "$ref": "#/definitions/Errors"
+          }
+        }
+      }
+    }
+  }
+}

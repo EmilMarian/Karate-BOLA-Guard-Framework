@@ -1,0 +1,231 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "financial_account",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/treasury/financial_accounts/{financial_account}/features",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "card_issuing": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "deposit_insurance": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "financial_addresses": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "inbound_transfers": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "intra_stripe_flows": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "outbound_payments": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "outbound_transfers": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "card_issuing": {
+              "description": "Encodes the FinancialAccount's ability to be used with the Issuing product, including attaching cards to and drawing funds from the FinancialAccount.",
+              "properties": {
+                "requested": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "requested"
+              ],
+              "title": "access",
+              "type": "object"
+            },
+            "deposit_insurance": {
+              "description": "Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.",
+              "properties": {
+                "requested": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "requested"
+              ],
+              "title": "access",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "financial_addresses": {
+              "description": "Contains Features that add FinancialAddresses to the FinancialAccount.",
+              "properties": {
+                "aba": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "requested"
+                  ],
+                  "title": "aba_access",
+                  "type": "object"
+                }
+              },
+              "title": "financial_addresses",
+              "type": "object"
+            },
+            "inbound_transfers": {
+              "description": "Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.",
+              "properties": {
+                "ach": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "requested"
+                  ],
+                  "title": "access_with_ach_details",
+                  "type": "object"
+                }
+              },
+              "title": "inbound_transfers",
+              "type": "object"
+            },
+            "intra_stripe_flows": {
+              "description": "Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).",
+              "properties": {
+                "requested": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "requested"
+              ],
+              "title": "access",
+              "type": "object"
+            },
+            "outbound_payments": {
+              "description": "Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.",
+              "properties": {
+                "ach": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "requested"
+                  ],
+                  "title": "access_with_ach_details",
+                  "type": "object"
+                },
+                "us_domestic_wire": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "requested"
+                  ],
+                  "title": "access",
+                  "type": "object"
+                }
+              },
+              "title": "outbound_payments",
+              "type": "object"
+            },
+            "outbound_transfers": {
+              "description": "Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.",
+              "properties": {
+                "ach": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "requested"
+                  ],
+                  "title": "access_with_ach_details",
+                  "type": "object"
+                },
+                "us_domestic_wire": {
+                  "properties": {
+                    "requested": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "requested"
+                  ],
+                  "title": "access",
+                  "type": "object"
+                }
+              },
+              "title": "outbound_transfers",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

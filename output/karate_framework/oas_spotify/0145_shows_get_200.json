@@ -1,0 +1,55 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the shows. Maximum: 50 IDs.",
+      "in": "query",
+      "name": "ids",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "An [ISO 3166-1 alpha-2 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). If a country code is specified, only shows and episodes that are available in that market will be returned.  \nIf a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.  \n*Note: If neither market or user country are provided, the content is considered unavailable for the client.*   \nUsers can view the country that is associated with their account in the [account settings](https://www.spotify.com/se/account/overview/).",
+      "in": "query",
+      "name": "market",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/shows",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "shows": {
+                "description": "",
+                "items": {
+                  "$ref": "#/components/schemas/SimplifiedShowObject"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the HTTP status code in the response header is `200`\nOK and the response body contains an object whose key is `shows` and whose\nvalue is an array of [simple show object](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedshowobject)\nin JSON format.\n\nObjects are returned in the order requested. If an object is not found, a `null` value is returned in the appropriate position. If a show is unavailable in the given `market`, a `null` value is returned. Duplicate `ids` in the query will result in duplicate objects in the response. On error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema)."
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the `Modifier` belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The ID of the `Modifier`.\n",
+      "in": "path",
+      "name": "modifier_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The ID of the `Modifier`.\n",
+      "in": "path",
+      "name": "value_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/modifiers/{modifier_id}/values/{value_id}/image",
+  "requestBody": {
+    "content": {
+      "multipart/form-data": {
+        "schema": {
+          "properties": {
+            "image_file": {
+              "description": "An image file. Supported MIME types include GIF, JPEG, and PNG.\n",
+              "format": "binary",
+              "type": "string"
+            }
+          },
+          "required": [
+            "image_file"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "404": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error payload for the BigCommerce API.\n",
+            "properties": {
+              "instance": {
+                "type": "string"
+              },
+              "status": {
+                "description": "404 HTTP status code.\n",
+                "type": "integer"
+              },
+              "title": {
+                "description": "The error title describing the particular error.",
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "The resource was not found.\n"
+    }
+  }
+}

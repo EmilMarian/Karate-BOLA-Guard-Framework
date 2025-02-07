@@ -1,0 +1,73 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/ephemeral_keys",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "customer": {
+              "description": "The ID of the Customer you'd like to modify using the resulting ephemeral key.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "issuing_card": {
+              "description": "The ID of the Issuing Card you'd like to access using the resulting ephemeral key.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "nonce": {
+              "description": "A single-use token, created by Stripe.js, used for creating ephemeral keys for Issuing Cards without exchanging sensitive information.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "verification_session": {
+              "description": "The ID of the Identity VerificationSession you'd like to access using the resulting ephemeral key",
+              "maxLength": 5000,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

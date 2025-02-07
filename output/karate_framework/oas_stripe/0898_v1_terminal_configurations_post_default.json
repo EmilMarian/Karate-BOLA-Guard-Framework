@@ -1,0 +1,535 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/terminal/configurations",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "bbpos_wisepos_e": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "offline": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "reboot_window": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "stripe_s700": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "tipping": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "verifone_p400": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "bbpos_wisepos_e": {
+              "description": "An object containing device type specific settings for BBPOS WisePOS E readers",
+              "properties": {
+                "splashscreen": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "title": "bbpos_wise_pose",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "name": {
+              "description": "Name of the configuration",
+              "maxLength": 100,
+              "type": "string"
+            },
+            "offline": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "offline",
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Configurations for collecting transactions offline."
+            },
+            "reboot_window": {
+              "description": "Reboot time settings for readers that support customized reboot time configuration.",
+              "properties": {
+                "end_hour": {
+                  "type": "integer"
+                },
+                "start_hour": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "end_hour",
+                "start_hour"
+              ],
+              "title": "reboot_window",
+              "type": "object"
+            },
+            "stripe_s700": {
+              "description": "An object containing device type specific settings for Stripe S700 readers",
+              "properties": {
+                "splashscreen": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "title": "stripe_s700",
+              "type": "object"
+            },
+            "tipping": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "aud": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "cad": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "chf": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "czk": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "dkk": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "eur": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "gbp": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "hkd": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "jpy": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "myr": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "nok": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "nzd": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "pln": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "sek": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "sgd": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    },
+                    "usd": {
+                      "properties": {
+                        "fixed_amounts": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "percentages": {
+                          "items": {
+                            "type": "integer"
+                          },
+                          "type": "array"
+                        },
+                        "smart_tip_threshold": {
+                          "type": "integer"
+                        }
+                      },
+                      "title": "currency_specific_config",
+                      "type": "object"
+                    }
+                  },
+                  "title": "tipping",
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Tipping configurations for readers supporting on-reader tips"
+            },
+            "verifone_p400": {
+              "description": "An object containing device type specific settings for Verifone P400 readers",
+              "properties": {
+                "splashscreen": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "title": "verifone_p400",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

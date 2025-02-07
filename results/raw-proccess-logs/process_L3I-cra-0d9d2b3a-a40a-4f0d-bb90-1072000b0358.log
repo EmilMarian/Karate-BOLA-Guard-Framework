@@ -1,0 +1,374 @@
+2025-01-30 12:34:30,923 - __main__ - INFO - Skipping fragment creation: False
+2025-01-30 12:34:30,998 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-30 12:34:31,245 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/identity/api/auth/signup", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"name\\\\\\":\\\\\\"{{name}}\\\\\\",\\\\\\"email\\\\\\":\\\\\\"{{email}}\\\\\\",\\\\\\"number\\\\\\":\\\\\\"{{phone}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_identity_api_auth_signup_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtb25zdGVyQGRhcmt3ZWIuY29tIiwiaWF0IjoxNjA4NTQzODI0LCJleHAiOjE2MDg2MzAyMjR9.AAIvhrtstlloPf7-NNCcmhEZm-XkO1aO3x3CLns1em7ft9U77B88LpK9jIrF8C-IH32JPWVazRFo0gBIBZ9FpA", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/workshop/api/merchant/contact_mechanic", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\r\\\\n    \\\\\\"mechanic_code\\\\\\": \\\\\\"TRAC_JHN\\\\\\",\\\\r\\\\n    \\\\\\"problem_details\\\\\\": \\\\\\"Hi Jhon\\\\\\",\\\\r\\\\n    \\\\\\"vin\\\\\\": \\\\\\"{{VIN}}\\\\\\",\\\\r\\\\n    \\\\\\"mechanic_api\\\\\\": \\\\\\"{{url}}/workshop/api/mechanic/receive_report\\\\\\",\\\\r\\\\n    \\\\\\"repeat_request_if_failed\\\\\\": false,\\\\r\\\\n    \\\\\\"number_of_repeats\\\\\\": 1\\\\r\\\\n}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0019_workshop_api_merchant_contact_mechanic_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/identity/api/auth/verify", "requestBody": {"content": {"application/json": {"schema": {"example": {"token": "{{token}}"}, "type": "object"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0003_identity_api_auth_verify_post_200.json'}}], form collection crapi_fragments
+2025-01-30 12:34:31,246 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-30 12:34:31,247 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-30 12:34:31,680 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-30 12:34:31,681 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-30 12:41:12,538 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-30 12:41:12,540 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-01-30 12:41:12,542 - __main__ - INFO - Generated Karate test for /identity/api/auth/signup POST at output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature
+2025-01-30 12:41:12,542 - karate_compatibility_verifier - INFO - Original content:
+2025-01-30 12:41:12,544 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://192.168.1.112:8888/identity/api/auth/signup'
+And request { username: 'newUser', password: 'Password123!', email: 'new@user.com' }
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+
+* def signUpNewUser = function(response){ return response.contains('A verification email has been sent. Please check your inbox.') }
+* assert signUpNewUser(response) == true
+
+Feature: Testing for User Enumeration
+
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration
+Given url 'http://192.168.1.112:8888/identity/api/auth/login'
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response.contains('Incorrect username or password.')
+
+And request { username: 'existing_user', password: 'WrongPassword' }
+When method post
+Then status 401
+And match response.contains('Incorrect username or password.')
+```
+Note that I've used the provided API endpoint information and added the corresponding URL for each scenario. The test script checks for potential Broken Authentication/Authorization vulnerabilities by attempting to sign up a new user and verifying that the process does not allow account enumeration, as well as testing the `/user/login` endpoint to ensure it responds with generic error messages when invalid credentials are provided.
+
+Please note that this is just an example test script and you should adjust it according to your specific requirements.
+2025-01-30 12:48:13,595 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-30 12:48:13,596 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL test script:
+
+````
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://192.168.1.112:8888/identity/api/auth/signup'
+And request { username: '#("newUser")', password: '#("Password123!")', email: '#("new@user.com")' }
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration
+Given url 'http://192.168.1.112:8888/identity/api/auth/login'
+And request { username: '#("nonexistent_user")', password: '#("Password123")' }
+When method post
+Then status 401
+And match response contains 'Incorrect username or password.'
+
+And request { username: '#("existing_user")', password: '#("WrongPassword")' }
+When method post
+Then status 401
+And match response contains 'Incorrect username or password.'
+```
+
+Note that I've used the `#()` syntax to indicate variables in Karate, which is a more idiomatic way of handling dynamic values.
+2025-01-30 12:51:32,939 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-30 12:51:32,939 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for Account Enumeration during Signup
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://192.168.1.112:8888/identity/api/auth/signup'
+And request { username: '#("newUser")', password: '#("Password123!")', email: '#("new@user.com")' }
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration
+Given url 'http://192.168.1.112:8888/identity/api/auth/login'
+And request { username: '#("nonexistent_user")', password: '#("Password123")' }
+When method post
+Then status 401
+And match response contains 'Incorrect username or password.'
+
+And request { username: '#("existing_user")', password: '#("WrongPassword")' }
+When method post
+Then status 401
+And match response contains 'Incorrect username or password.'
+```
+2025-01-30 12:51:32,940 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature
+2025-01-30 12:51:32,941 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature: Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for Account Enumeration during Signup
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://192.168.1.112:8888/identity/api/auth/signup'
+And request { username: '#("newUser")', password: '#("Password123!")', email: '#("new@user.com")' }
+When method post
+Then status 200
+And match response contains 'A verification email has been sent. Please check your inbox.'
+
+Scenario: Verify the `/user/login` endpoint does not allow user enumeration
+Given url 'http://192.168.1.112:8888/identity/api/auth/login'
+And request { username: '#("nonexistent_user")', password: '#("Password123")' }
+When method post
+Then status 401
+And match response contains 'Incorrect username or password.'
+
+And request { username: '#("existing_user")', password: '#("WrongPassword")' }
+When method post
+Then status 401
+And match response contains 'Incorrect username or password.'
+```
+2025-01-30 12:51:32,941 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-30 12:51:32,942 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-30 12:51:32,998 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-30 12:51:33,002 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-30 12:58:19,985 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-30 12:58:19,986 - karate_llm_test_gen - INFO - Generated test case: Here are the Karate DSL test scripts for each scenario:
+
+**Scenario 1: OAuth Token Generation Flaw**...
+2025-01-30 12:58:19,990 - __main__ - INFO - Generated Karate test for /workshop/api/merchant/contact_mechanic POST at output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature
+2025-01-30 12:58:19,991 - karate_compatibility_verifier - INFO - Original content:
+2025-01-30 12:58:19,991 - karate_compatibility_verifier - INFO - Here are the Karate DSL test scripts for each scenario:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And request {
+  grant_type: 'authorization_code',
+  code: 'stolen_code',
+  redirect_uri: 'http://evil.example.com',
+  client_id: 'client_id',
+  client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: Improper Authorization on User Documents Access**
+```karate
+Feature: Test for Improper Authorization on User Documents Access
+
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+  * assert adminAccess.response == 'Document details'
+case 403:
+  * fail 'Admin should have access'
+```
+
+**Scenario 3: Broken Object Level Authorization on Private Messages**
+```karate
+Feature: Test API for Broken Object Level Authorization on Private Messages
+
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And request {
+  senderId: 'user7',
+  receiverId: 'user8',
+  messageContent: 'Hello from the other side!'
+}
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains 'Unauthorized to send messages as another user.'
+```
+
+Note that I've used the actual API endpoint path `/workshop/api/merchant/contact_mechanic` for each scenario, and included the corresponding URL `http://192.168.1.112:8888` in each test script.
+2025-01-30 13:05:05,462 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-30 13:05:05,463 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature:
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: Improper Authorization on User Documents Access**
+```karate
+Feature:
+Background:
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Document details'
+case 403:
+    * fail 'Admin should have access'
+
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+```
+
+**Scenario 3: Broken Object Level Authorization on Private Messages**
+```karate
+Feature:
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And request {
+    senderId: 'user7',
+    receiverId: 'user8',
+    messageContent: 'Hello from the other side!'
+}
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains 'Unauthorized to send messages as another user.'
+```
+2025-01-30 13:09:44,290 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-30 13:09:44,292 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL test scripts:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature:
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: Improper Authorization on User Documents Access**
+```karate
+Feature:
+Background:
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Document details'
+case 403:
+    * fail 'Admin should have access'
+
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+```
+
+**Scenario 3: Broken Object Level Authorization on Private Messages**
+```karate
+Feature:
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And request {
+    senderId: 'user7',
+    receiverId: 'user8',
+    messageContent: 'Hello from the other side!'
+}
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains 'Unauthorized to send messages as another user.'
+```
+2025-01-30 13:09:44,293 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified.feature
+2025-01-30 13:09:44,293 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature: Here are the corrected Karate DSL test scripts:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature:
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: Improper Authorization on User Documents Access**
+```karate
+Feature:
+Background:
+* def adminAccess = callonce read('classpath:helpers/adminAccess.feature')
+* switch adminAccess.status
+case 200:
+    * assert adminAccess.response == 'Document details'
+case 403:
+    * fail 'Admin should have access'
+
+Scenario: Attempt to access a document without being an admin or editor
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And header Authorization = 'Bearer <regular_user_token>'
+When method get
+Then status 403
+And match response contains 'You do not have permission to access this document.'
+```
+
+**Scenario 3: Broken Object Level Authorization on Private Messages**
+```karate
+Feature:
+Scenario: Attempt to send a private message on behalf of another user
+Given url 'http://192.168.1.112:8888/workshop/api/merchant/contact_mechanic'
+And request {
+    senderId: 'user7',
+    receiverId: 'user8',
+    messageContent: 'Hello from the other side!'
+}
+And header Authorization = 'Bearer <user7_token>'
+When method post
+Then status 403
+And match response contains 'Unauthorized to send messages as another user.'
+```
+2025-01-30 13:09:44,294 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-30 13:09:44,294 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-30 13:09:44,338 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-30 13:09:44,339 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions

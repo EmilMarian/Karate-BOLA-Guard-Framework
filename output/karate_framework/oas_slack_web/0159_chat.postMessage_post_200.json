@@ -1,0 +1,354 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `chat:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/chat.postMessage",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "as_user": {
+              "description": "Pass true to post the message as the authed user, instead of as a bot. Defaults to false. See [authorship](#authorship) below.",
+              "type": "string"
+            },
+            "attachments": {
+              "description": "A JSON-based array of structured attachments, presented as a URL-encoded string.",
+              "type": "string"
+            },
+            "blocks": {
+              "description": "A JSON-based array of structured blocks, presented as a URL-encoded string.",
+              "type": "string"
+            },
+            "channel": {
+              "description": "Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See [below](#channels) for more details.",
+              "type": "string"
+            },
+            "icon_emoji": {
+              "description": "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below.",
+              "type": "string"
+            },
+            "icon_url": {
+              "description": "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+              "type": "string"
+            },
+            "link_names": {
+              "description": "Find and link channel names and usernames.",
+              "type": "boolean"
+            },
+            "mrkdwn": {
+              "description": "Disable Slack markup parsing by setting to `false`. Enabled by default.",
+              "type": "boolean"
+            },
+            "parse": {
+              "description": "Change how messages are treated. Defaults to `none`. See [below](#formatting).",
+              "type": "string"
+            },
+            "reply_broadcast": {
+              "description": "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`.",
+              "type": "boolean"
+            },
+            "text": {
+              "description": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail.",
+              "type": "string"
+            },
+            "thread_ts": {
+              "description": "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead.",
+              "type": "string"
+            },
+            "unfurl_links": {
+              "description": "Pass true to enable unfurling of primarily text-based content.",
+              "type": "boolean"
+            },
+            "unfurl_media": {
+              "description": "Pass false to disable unfurling of media content.",
+              "type": "boolean"
+            },
+            "username": {
+              "description": "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel"
+          ],
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "channel": "C1H9RESGL",
+                "message": {
+                  "attachments": [
+                    {
+                      "fallback": "This is an attachment's fallback",
+                      "id": 1,
+                      "text": "This is an attachment"
+                    }
+                  ],
+                  "bot_id": "B19LU7CSY",
+                  "subtype": "bot_message",
+                  "text": "Here's a message for you",
+                  "ts": "1503435956.000247",
+                  "type": "message",
+                  "username": "ecto1"
+                },
+                "ok": true,
+                "ts": "1503435956.000247"
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response of chat.postMessage method",
+            "properties": {
+              "channel": {
+                "pattern": "^[CGD][A-Z0-9]{8,}$",
+                "title": "Channel-like conversation ID",
+                "type": "string"
+              },
+              "message": {
+                "additionalProperties": false,
+                "properties": {
+                  "attachments": {
+                    "items": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "fallback": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "image_bytes": {
+                          "type": "integer"
+                        },
+                        "image_height": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string"
+                        },
+                        "image_width": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "id"
+                      ],
+                      "type": "object"
+                    },
+                    "minItems": 1,
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "blocks": {
+                    "$ref": "#/components/schemas/blocks"
+                  },
+                  "bot_id": {
+                    "items": {
+                      "anyOf": [
+                        {
+                          "$ref": "#/components/schemas/defs_bot_id"
+                        },
+                        {
+                          "nullable": true,
+                          "title": "Nil bot_id set when display_as_bot is false"
+                        }
+                      ]
+                    }
+                  },
+                  "bot_profile": {
+                    "$ref": "#/components/schemas/objs_bot_profile"
+                  },
+                  "client_msg_id": {
+                    "type": "string"
+                  },
+                  "comment": {
+                    "$ref": "#/components/schemas/objs_comment"
+                  },
+                  "display_as_bot": {
+                    "type": "boolean"
+                  },
+                  "file": {
+                    "$ref": "#/components/schemas/objs_file"
+                  },
+                  "files": {
+                    "items": {
+                      "$ref": "#/components/schemas/objs_file"
+                    },
+                    "minItems": 1,
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "icons": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "emoji": {
+                        "type": "string"
+                      },
+                      "image_64": {
+                        "format": "uri",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "inviter": {
+                    "$ref": "#/components/schemas/defs_user_id"
+                  },
+                  "is_delayed_message": {
+                    "type": "boolean"
+                  },
+                  "is_intro": {
+                    "type": "boolean"
+                  },
+                  "is_starred": {
+                    "type": "boolean"
+                  },
+                  "last_read": {
+                    "$ref": "#/components/schemas/defs_ts"
+                  },
+                  "latest_reply": {
+                    "$ref": "#/components/schemas/defs_ts"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "old_name": {
+                    "type": "string"
+                  },
+                  "parent_user_id": {
+                    "$ref": "#/components/schemas/defs_user_id"
+                  },
+                  "permalink": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "pinned_to": {
+                    "items": {
+                      "$ref": "#/components/schemas/defs_channel"
+                    },
+                    "type": "array"
+                  },
+                  "purpose": {
+                    "type": "string"
+                  },
+                  "reactions": {
+                    "items": {
+                      "$ref": "#/components/schemas/objs_reaction"
+                    },
+                    "type": "array"
+                  },
+                  "reply_count": {
+                    "type": "integer"
+                  },
+                  "reply_users": {
+                    "items": {
+                      "$ref": "#/components/schemas/defs_user_id"
+                    },
+                    "minItems": 1,
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "reply_users_count": {
+                    "type": "integer"
+                  },
+                  "source_team": {
+                    "$ref": "#/components/schemas/defs_workspace_id"
+                  },
+                  "subscribed": {
+                    "type": "boolean"
+                  },
+                  "subtype": {
+                    "type": "string"
+                  },
+                  "team": {
+                    "$ref": "#/components/schemas/defs_workspace_id"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "thread_ts": {
+                    "$ref": "#/components/schemas/defs_ts"
+                  },
+                  "topic": {
+                    "type": "string"
+                  },
+                  "ts": {
+                    "$ref": "#/components/schemas/defs_ts"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "unread_count": {
+                    "type": "integer"
+                  },
+                  "upload": {
+                    "type": "boolean"
+                  },
+                  "user": {
+                    "$ref": "#/components/schemas/defs_user_id"
+                  },
+                  "user_profile": {
+                    "$ref": "#/components/schemas/objs_user_profile_short"
+                  },
+                  "user_team": {
+                    "$ref": "#/components/schemas/defs_workspace_id"
+                  },
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text",
+                  "type",
+                  "ts"
+                ],
+                "title": "Message object",
+                "type": "object"
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "ts": {
+                "pattern": "^\\d{10}\\.\\d{6}$",
+                "title": "Timestamp in format 0123456789.012345",
+                "type": "string"
+              }
+            },
+            "required": [
+              "ok",
+              "channel",
+              "ts",
+              "message"
+            ],
+            "title": "chat.postMessage success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "body",
+      "name": "body",
+      "required": true,
+      "schema": {
+        "properties": {
+          "can_add_web_page_previews": {
+            "type": "boolean"
+          },
+          "can_send_media_messages": {
+            "type": "boolean"
+          },
+          "can_send_messages": {
+            "type": "boolean"
+          },
+          "can_send_other_messages": {
+            "type": "boolean"
+          },
+          "chat_id": {
+            "type": "object"
+          },
+          "until_date": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "chat_id",
+          "user_id"
+        ],
+        "type": "object"
+      }
+    }
+  ],
+  "path": "/bot{token}/restrictChatMember",
+  "requestBody": {},
+  "responses": {
+    "403": {
+      "description": "Forbidden",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

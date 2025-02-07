@@ -1,0 +1,180 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "session",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/financial_connections/sessions/{session}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Financial Connections Session is the secure way to programmatically launch the client-side Stripe.js modal that lets your users link their accounts.",
+            "properties": {
+              "account_holder": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/bank_connections_resource_accountholder"
+                  }
+                ],
+                "description": "The account holder for whom accounts are collected in this session.",
+                "nullable": true
+              },
+              "accounts": {
+                "description": "The accounts that were collected as part of this Session.",
+                "properties": {
+                  "data": {
+                    "description": "Details about each object.",
+                    "items": {
+                      "$ref": "#/components/schemas/financial_connections.account"
+                    },
+                    "type": "array"
+                  },
+                  "has_more": {
+                    "description": "True if this list has another page of items after this one that can be fetched.",
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                    "enum": [
+                      "list"
+                    ],
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "The URL where this list can be accessed.",
+                    "maxLength": 5000,
+                    "pattern": "^/v1/financial_connections/accounts",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "has_more",
+                  "object",
+                  "url"
+                ],
+                "title": "BankConnectionsResourceLinkedAccountList",
+                "type": "object",
+                "x-expandableFields": [
+                  "data"
+                ]
+              },
+              "client_secret": {
+                "description": "A value that will be passed to the client to launch the authentication flow.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "filters": {
+                "$ref": "#/components/schemas/bank_connections_resource_link_account_session_filters"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "financial_connections.session"
+                ],
+                "type": "string"
+              },
+              "permissions": {
+                "description": "Permissions requested for accounts collected during this session.",
+                "items": {
+                  "enum": [
+                    "balances",
+                    "ownership",
+                    "payment_method",
+                    "transactions"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                },
+                "type": "array"
+              },
+              "prefetch": {
+                "description": "Data features requested to be retrieved upon account creation.",
+                "items": {
+                  "enum": [
+                    "balances",
+                    "ownership",
+                    "transactions"
+                  ],
+                  "type": "string",
+                  "x-stripeBypassValidation": true
+                },
+                "nullable": true,
+                "type": "array"
+              },
+              "return_url": {
+                "description": "For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.",
+                "maxLength": 5000,
+                "type": "string"
+              }
+            },
+            "required": [
+              "accounts",
+              "client_secret",
+              "id",
+              "livemode",
+              "object",
+              "permissions"
+            ],
+            "title": "BankConnectionsResourceLinkAccountSession",
+            "type": "object",
+            "x-expandableFields": [
+              "account_holder",
+              "accounts",
+              "filters"
+            ],
+            "x-resourceId": "financial_connections.session"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

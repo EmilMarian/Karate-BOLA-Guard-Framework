@@ -1,0 +1,607 @@
+2025-02-02 13:50:51,061 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 13:50:51,126 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 13:50:51,355 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/services/oauth/token", "requestBody": {"content": {"application/json": {"schema": {"properties": {"client_id": {"description": "Client ID", "example": "DVG9UP4AwgjJiu.rSYHv2B9H7Cy3l.66JLconxmcjAKRw7jcs4BFloBmK2F.Y6Vbn2RGCFO2STGG8rGf", "type": "string"}, "client_secret": {"description": "Client Secret", "example": "AA0795D9F0A6C823162C6C46B5187476345E4E8C869E1A1dD1C94FFCD7796E33", "type": "string"}, "grant_type": {"description": "Grant Type", "example": "Read", "type": "string"}, "password": {"description": "Password", "example": "password123", "type": "string"}, "username": {"description": "Username", "example": "username@cala.co.uk.uat", "type": "string"}}, "required": ["grant_type", "client_id", "client_secret", "username", "password"], "type": "object"}}}}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"access_token": {"description": "Access Token", "example": "00D3M0000008lFi!AQ0AQEtEJEhlCMVdll3E17UHPIwkDLwzsFpiF6bCfb8XzZqD.HBpAAvVzO2Wh2GiuhjCfMVmLB4bvEZPgw7iNrBjZ_ZEIbnR", "type": "string"}, "id": {"description": "ID", "example": "https://test.salesforce.com/id/00D3M0000008lFiUAI/0053M000000KMCnQAO", "type": "string"}, "instance_url": {"description": "Instance URL", "example": "https://cala--uat.my.salesforce.com", "type": "string"}, "issued_at": {"description": "Issued At", "example": "1591779668437", "type": "string"}, "signature": {"description": "Signature", "example": "OxZbLUn1svgfexVdrTXtsfvfGrIA+S+26hFlFtsOoXY=", "type": "string"}, "token_type": {"description": "Token Type", "example": "Bearer", "type": "string"}}, "type": "object"}}}, "description": "OK"}}}', 'metadata': {'filename': '0001_services_oauth_token_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/services/oauth/token", "requestBody": {"content": {"application/json": {"schema": {"properties": {"client_id": {"description": "Client ID", "example": "DVG9UP4AwgjJiu.rSYHv2B9H7Cy3l.66JLconxmcjAKRw7jcs4BFloBmK2F.Y6Vbn2RGCFO2STGG8rGf", "type": "string"}, "client_secret": {"description": "Client Secret", "example": "AA0795D9F0A6C823162C6C46B5187476345E4E8C869E1A1dD1C94FFCD7796E33", "type": "string"}, "grant_type": {"description": "Grant Type", "example": "Read", "type": "string"}, "password": {"description": "Password", "example": "password123", "type": "string"}, "username": {"description": "Username", "example": "username@cala.co.uk.uat", "type": "string"}}, "required": ["grant_type", "client_id", "client_secret", "username", "password"], "type": "object"}}}}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"error": {"description": "Error", "example": "invalid_grant", "type": "string"}, "error_description": {"description": "Error Description", "example": "authentication failure", "type": "string"}}}}}, "description": "Bad Request"}}}', 'metadata': {'filename': '0002_services_oauth_token_post_400.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "Contact, Lead or Individual ID", "in": "path", "name": "id", "required": true, "schema": {"type": "string"}}], "path": "/services/apexrest/preference/v1/{id}", "requestBody": {}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"errorMessage": {"description": "Error Message", "example": "Bad request, Cannot find a record, Unexpected exception, Required field missing", "type": "string"}, "statusCode": {"description": "Status code", "example": 400, "type": "integer"}, "success": {"description": "Boolean to define whether the call was successfull or not", "example": false, "type": "boolean"}}, "type": "object"}}}, "description": "Bad Request"}}}', 'metadata': {'filename': '0004_services_apexrest_preference_v1_id_get_400.json'}}], form collection oas_salesforce_custom_customer_fragments
+2025-02-02 13:50:51,355 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:50:51,356 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:50:51,767 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:50:51,768 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:51:17,588 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:51:17,589 - karate_llm_test_gen - INFO - Generated test case:  {
+  "scenario": "Test for Broken Authentication/Authorization on OAuth Token Generation",
+  "given"...
+2025-02-02 13:51:17,590 - __main__ - INFO - Generated Karate test for /services/oauth/token POST at output/karate_feature_files/ID_001_krtestoas_services_oauth_token_POST.feature
+2025-02-02 13:51:17,590 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:51:17,590 - karate_compatibility_verifier - INFO - {
+  "scenario": "Test for Broken Authentication/Authorization on OAuth Token Generation",
+  "given": [
+    "A valid set of credentials (client_id and client_secret)",
+    "An invalid grant type ('basic')"
+  ],
+  "when": [
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'basic', // This should fail due to incorrect grant type.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": "<your-redirect-uri>"
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": "<your-redirect-uri>"
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'authorization_code', // This should fail due to missing code parameter.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": "<your-redirect-uri>"
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'authorization_code', // This should fail due to invalid code parameter.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": '<invalid-redirect-uri>',
+        "code": ""
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'client_credentials', // This should fail due to missing scope parameter.
+        "client_id": "<valid-client-id>",
+        "scope": ""
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'password', // This should fail due to missing username and password parameters.
+        "client_id": "<valid-client-id>",
+        "username": "",
+        "password": ""
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'refresh_token', // This should fail due to missing refresh token parameter.
+        "client_id": "<valid-client-id>",
+        "refresh_token": ""
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "refresh_token": ""
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "refresh_token": ""
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "refresh_token": ""
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "refresh_token": ""
+      }
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+2025-02-02 13:51:45,084 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:51:45,085 - karate_compatibility_verifier - INFO -  {
+  "scenario": "Test for Broken Authentication/Authorization on OAuth Token Generation",
+  "given": [
+    "A valid set of credentials (client_id and client_secret)",
+    "An invalid grant type ('basic')"
+  ],
+  "when": [
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to incorrect grant type.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": "<your-redirect-uri>"
+      },
+      "then": [{"status": 400}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": "<your-redirect-uri>"
+      },
+      "then": [{"status": 400}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'authorization_code', // This should fail due to missing code parameter.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": '<invalid-redirect-uri>',
+        "code": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'client_credentials', // This should fail due to missing scope parameter.
+        "client_id": "<valid-client-id>",
+        "scope": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'password', // This should fail due to missing username and password parameters.
+        "client_id": "<valid-client-id>",
+        "username": "",
+        "password": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'refresh_token', // This should fail due to missing refresh token parameter.
+        "client_id": "<valid-client-id>",
+        "refresh_token": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "refresh_token": ""
+      },
+      "then": [{"status": 400}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "refresh_token": ""
+      },
+      "then": [{"status": 400}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+         // This should fail due to missing redirect URI.
+        "grant_type": 'invalid',
+        "client_id": "<valid-client-id>",
+        "redirect_uri": ""
+      },
+      "then": [{"status": 401}]
+    }
+  ]
+}
+2025-02-02 13:52:06,592 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:52:06,593 - karate_compatibility_verifier - INFO -  {
+  "scenario": "Test for Broken Authentication/Authorization on OAuth Token Generation",
+  "given": [
+    "A valid set of credentials (client_id and client_secret)",
+    "An invalid grant type ('basic')"
+  ],
+  "when": [
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to incorrect grant type.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": "<your-redirect-uri>"
+      },
+      "then": [{"status": 400}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": "<your-redirect-uri>"
+      },
+      "then": [{"status": 400}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'authorization_code', // This should fail due to missing code parameter.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": '<invalid-redirect-uri>',
+        "code": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'client_credentials', // This should fail due to missing scope parameter.
+        "client_id": "<valid-client-id>",
+        "scope": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'password', // This should fail due to missing username and password parameters.
+        "client_id": "<valid-client-id>",
+        "username": "",
+        "password": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'refresh_token', // This should fail due to missing refresh token parameter.
+        "client_id": "<valid-client-id>",
+        "refresh_token": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": ""
+      },
+      "then": [{"status": 400}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+         // This should fail due to missing redirect URI.
+        "grant_type": 'invalid',
+        "client_id": "<valid-client-id>",
+        "redirect_uri": ""
+      },
+      "then": [{"status": 401}]
+    }
+  ]
+}
+2025-02-02 13:52:06,594 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_services_oauth_token_POST_verified.feature
+2025-02-02 13:52:06,594 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_services_oauth_token_POST.feature:  {
+  "scenario": "Test for Broken Authentication/Authorization on OAuth Token Generation",
+  "given": [
+    "A valid set of credentials (client_id and client_secret)",
+    "An invalid grant type ('basic')"
+  ],
+  "when": [
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to incorrect grant type.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": "<your-redirect-uri>"
+      },
+      "then": [{"status": 400}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": "<your-redirect-uri>"
+      },
+      "then": [{"status": 400}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'authorization_code', // This should fail due to missing code parameter.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": '<invalid-redirect-uri>',
+        "code": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'client_credentials', // This should fail due to missing scope parameter.
+        "client_id": "<valid-client-id>",
+        "scope": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'password', // This should fail due to missing username and password parameters.
+        "client_id": "<valid-client-id>",
+        "username": "",
+        "password": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'refresh_token', // This should fail due to missing refresh token parameter.
+        "client_id": "<valid-client-id>",
+        "refresh_token": ""
+      },
+      "then": [{"status": 401}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": 'invalid', // This should fail due to invalid grant type.
+        "client_id": "<valid-client-id>",
+        "redirect_uri": ""
+      },
+      "then": [{"status": 400}]
+    },
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+         // This should fail due to missing redirect URI.
+        "grant_type": 'invalid',
+        "client_id": "<valid-client-id>",
+        "redirect_uri": ""
+      },
+      "then": [{"status": 401}]
+    }
+  ]
+}
+2025-02-02 13:52:06,595 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:52:06,595 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:52:06,612 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:52:06,613 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:52:13,889 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:52:13,889 - karate_llm_test_gen - INFO - Generated test case:  {
+  "scenario": "Test for Broken Authentication/Authorization on OAuth Token Generation",
+  "given"...
+2025-02-02 13:52:13,890 - __main__ - INFO - Generated Karate test for /services/oauth/token POST at output/karate_feature_files/ID_002_krtestoas_services_oauth_token_POST.feature
+2025-02-02 13:52:13,890 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:52:13,890 - karate_compatibility_verifier - INFO - {
+  "scenario": "Test for Broken Authentication/Authorization on OAuth Token Generation",
+  "given": [
+    "A valid user session with client_id and secret"
+  ],
+  "when": [
+    {
+      "path": "/services/oauth/token",
+      "method": "POST",
+      "body": {
+        "grant_type": "client_credentials", // Assuming the API supports this grant type for testing purposes. Adjust if necessary based on actual OAuth implementation details.
+        "scope": null,                    // No scope is provided as it's not relevant to client credentials flow vulnerability test case.
+      }
+    }
+  ],
+  "then": [
+    {
+      "status": 401,
+      "message": "Unauthorized access attempt with invalid or expired session"
+    },
+    {
+      "response_body": "'Invalid client credentials'",
+      "description": "The API should respond with an error indicating that the provided client ID and secret are incorrect."
+    }
+  ]
+}
+2025-02-02 13:52:19,640 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:52:19,640 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on OAuth Token Generation
+    Background:
+        * url 'http://localhost:8080'
+    
+    Scenario: Unauthorized access attempt with invalid credentials
+      Given a valid user session with client_id and secret
+      
+      When path '/services/oauth/token'
+      And method POST
+      With body { "grant_type": "client_credentials", "scope": null }
+      
+      Then status 401: Unauthorized access attempt with invalid or expired session
+        message 'Invalid client credentials'
+        responseBody contains '{ "error": "'invalid_client'" }'
+2025-02-02 13:52:22,773 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:52:22,774 - karate_compatibility_verifier - INFO -  Feature: Test for Broken Authentication/Authorization on OAuth Token Generation
+    Background:
+        * url 'http://localhost:8net'
+    
+    Scenario: Unauthorized access attempt with invalid credentials
+      Given a valid user session with client_id and secret
+      
+      When path '/services/oauth/token'
+      And method POST
+      With body { "grant_type": "client_credentials", "scope": null }
+      
+      Then status 401: Unauthorized access attempt with invalid or expired session
+        message 'Invalid client credentials'
+        responseBody should contain '{ "error": "'invalid_token'" }'
+2025-02-02 13:52:22,774 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_services_oauth_token_POST_verified.feature
+2025-02-02 13:52:22,774 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_services_oauth_token_POST.feature:  Feature: Test for Broken Authentication/Authorization on OAuth Token Generation
+    Background:
+        * url 'http://localhost:8net'
+    
+    Scenario: Unauthorized access attempt with invalid credentials
+      Given a valid user session with client_id and secret
+      
+      When path '/services/oauth/token'
+      And method POST
+      With body { "grant_type": "client_credentials", "scope": null }
+      
+      Then status 401: Unauthorized access attempt with invalid or expired session
+        message 'Invalid client credentials'
+        responseBody should contain '{ "error": "'invalid_token'" }'
+2025-02-02 13:52:22,775 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:52:22,775 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 13:52:22,800 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 13:52:22,800 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 13:52:32,630 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 13:52:32,630 - karate_llm_test_gen - INFO - Generated test case:  {
+  "feature": "Broken Authentication/Authorization on Preference Service",
+  "scenario": "Attempt ...
+2025-02-02 13:52:32,631 - __main__ - INFO - Generated Karate test for /services/apexrest/preference/v1/{id} GET at output/karate_feature_files/ID_003_krtestoas_services_apexrest_preference_v1_id_GET.feature
+2025-02-02 13:52:32,631 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 13:52:32,631 - karate_compatibility_verifier - INFO - {
+  "feature": "Broken Authentication/Authorization on Preference Service",
+  "scenario": "Attempt to access a preference service without proper authentication or authorization.",
+  "steps": [
+    {
+      "Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}",
+      // Assuming the API requires some form of basic auth, we'll attempt to bypass it with an empty header for this test case.
+      "And header Authorization = 'Basic YWRtaW46YXBpZDtyMjE='", 
+      "When method get"
+    },
+    {
+      // We expect a 401 Unauthorized response if the API does not require authentication for this endpoint.
+      "Then status should be equal to 401"
+    },
+    {
+      "Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}",
+      // Now, we'll use an invalid token as if the user is not authenticated at all.
+      "And header Authorization = 'Bearer fake_token'", 
+      "When method get"
+    },
+    {
+      // We expect a 401 Unauthorized response for this scenario too, indicating that proper authentication was required but missing or invalid.
+      "Then status should be equal to 401 and match 'Unauthorized access: Authentication is required.'"
+    }
+  ]
+}
+2025-02-02 13:52:41,447 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 13:52:41,447 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization on Preference Service
+    Background:
+        * url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}'
+    
+Scenario: Attempt to access a preference service without proper authentication or authorization
+    Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}
+    And header Authorization = 'Basic YWRtaW46YXBpZDtyMjE='
+    When method get
+    Then status 401
+    
+Scenario: Attempt to access a preference service with an invalid token as if the user is not authenticated at all
+    Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{id}
+    And header Authorization = 'Bearer fake_token'
+    When method get
+    Then status 401 and match response == 'Unauthorized access: Authentication is required.'
+2025-02-02 13:52:46,339 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 13:52:46,339 - karate_compatibility_verifier - INFO -  Background:
+    * url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{userId}'
+    
+Scenario: Attempt to access a preference service without proper authentication or authorization
+    Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/someUserId
+    And header Authorization = 'Basic YWRtaW46YXBpZDtyMjE='
+    When method get
+    Then status 401
+    
+Scenario: Attempt to access a preference service with an invalid token as if the user is not authenticated at all
+    Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/someUserId
+    And header Authorization = 'Bearer fake_token'
+    When method get
+    Then status 401 and match response == 'Unauthorized access: Authentication is required.'
+2025-02-02 13:52:46,339 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_services_apexrest_preference_v1_id_GET_verified.feature
+2025-02-02 13:52:46,340 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_services_apexrest_preference_v1_id_GET.feature:  Background:
+    * url 'http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/{userId}'
+    
+Scenario: Attempt to access a preference service without proper authentication or authorization
+    Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/someUserId
+    And header Authorization = 'Basic YWRtaW46YXBpZDtyMjE='
+    When method get
+    Then status 401
+    
+Scenario: Attempt to access a preference service with an invalid token as if the user is not authenticated at all
+    Given url http://oas_salesforce_custom_customer.api/services/apexrest/preference/v1/someUserId
+    And header Authorization = 'Bearer fake_token'
+    When method get
+    Then status 401 and match response == 'Unauthorized access: Authentication is required.'
+2025-02-02 13:52:46,340 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 13:52:46,343 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 13:52:48,624 - __main__ - INFO - Skipping karate test run.

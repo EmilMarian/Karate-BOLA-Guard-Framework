@@ -1,0 +1,468 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/billing_portal/configurations",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "business_profile": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "default_return_url": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "features": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "login_page": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "business_profile": {
+              "description": "The business information shown to customers in the portal.",
+              "properties": {
+                "headline": {
+                  "anyOf": [
+                    {
+                      "maxLength": 60,
+                      "type": "string"
+                    },
+                    {
+                      "enum": [
+                        ""
+                      ],
+                      "type": "string"
+                    }
+                  ]
+                },
+                "privacy_policy_url": {
+                  "type": "string"
+                },
+                "terms_of_service_url": {
+                  "type": "string"
+                }
+              },
+              "title": "business_profile_create_param",
+              "type": "object"
+            },
+            "default_return_url": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session."
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "features": {
+              "description": "Information about the features available in the portal.",
+              "properties": {
+                "customer_update": {
+                  "properties": {
+                    "allowed_updates": {
+                      "anyOf": [
+                        {
+                          "items": {
+                            "enum": [
+                              "address",
+                              "email",
+                              "name",
+                              "phone",
+                              "shipping",
+                              "tax_id"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "customer_update_creation_param",
+                  "type": "object"
+                },
+                "invoice_history": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "invoice_list_param",
+                  "type": "object"
+                },
+                "payment_method_update": {
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "payment_method_update_param",
+                  "type": "object"
+                },
+                "subscription_cancel": {
+                  "properties": {
+                    "cancellation_reason": {
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "options": {
+                          "anyOf": [
+                            {
+                              "items": {
+                                "enum": [
+                                  "customer_service",
+                                  "low_quality",
+                                  "missing_features",
+                                  "other",
+                                  "switched_service",
+                                  "too_complex",
+                                  "too_expensive",
+                                  "unused"
+                                ],
+                                "type": "string"
+                              },
+                              "type": "array"
+                            },
+                            {
+                              "enum": [
+                                ""
+                              ],
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "enabled",
+                        "options"
+                      ],
+                      "title": "subscription_cancellation_reason_creation_param",
+                      "type": "object"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "mode": {
+                      "enum": [
+                        "at_period_end",
+                        "immediately"
+                      ],
+                      "type": "string"
+                    },
+                    "proration_behavior": {
+                      "enum": [
+                        "always_invoice",
+                        "create_prorations",
+                        "none"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "subscription_cancel_creation_param",
+                  "type": "object"
+                },
+                "subscription_update": {
+                  "properties": {
+                    "default_allowed_updates": {
+                      "anyOf": [
+                        {
+                          "items": {
+                            "enum": [
+                              "price",
+                              "promotion_code",
+                              "quantity"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "products": {
+                      "anyOf": [
+                        {
+                          "items": {
+                            "properties": {
+                              "prices": {
+                                "items": {
+                                  "maxLength": 5000,
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "product": {
+                                "maxLength": 5000,
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "prices",
+                              "product"
+                            ],
+                            "title": "subscription_update_product_param",
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "proration_behavior": {
+                      "enum": [
+                        "always_invoice",
+                        "create_prorations",
+                        "none"
+                      ],
+                      "type": "string"
+                    },
+                    "schedule_at_period_end": {
+                      "properties": {
+                        "conditions": {
+                          "items": {
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "decreasing_item_amount",
+                                  "shortening_interval"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "title": "schedule_update_at_period_end_condition_param",
+                            "type": "object"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "title": "schedule_update_at_period_end_creating_param",
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "enabled"
+                  ],
+                  "title": "subscription_update_creation_param",
+                  "type": "object"
+                }
+              },
+              "title": "features_creation_param",
+              "type": "object"
+            },
+            "login_page": {
+              "description": "The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).",
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "enabled"
+              ],
+              "title": "login_page_create_param",
+              "type": "object"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.",
+              "type": "object"
+            }
+          },
+          "required": [
+            "features"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A portal configuration describes the functionality and behavior of a portal session.",
+            "properties": {
+              "active": {
+                "description": "Whether the configuration is active and can be used to create portal sessions.",
+                "type": "boolean"
+              },
+              "application": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/application"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_application"
+                  }
+                ],
+                "description": "ID of the Connect Application that created the configuration.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/application"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_application"
+                    }
+                  ]
+                }
+              },
+              "business_profile": {
+                "$ref": "#/components/schemas/portal_business_profile"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "default_return_url": {
+                "description": "The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "features": {
+                "$ref": "#/components/schemas/portal_features"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "is_default": {
+                "description": "Whether the configuration is the default. If `true`, this configuration can be managed in the Dashboard and portal sessions will use this configuration unless it is overriden when creating the session.",
+                "type": "boolean"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "login_page": {
+                "$ref": "#/components/schemas/portal_login_page"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "nullable": true,
+                "type": "object"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "billing_portal.configuration"
+                ],
+                "type": "string"
+              },
+              "updated": {
+                "description": "Time at which the object was last updated. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "active",
+              "business_profile",
+              "created",
+              "features",
+              "id",
+              "is_default",
+              "livemode",
+              "login_page",
+              "object",
+              "updated"
+            ],
+            "title": "PortalConfiguration",
+            "type": "object",
+            "x-expandableFields": [
+              "application",
+              "business_profile",
+              "features",
+              "login_page"
+            ],
+            "x-resourceId": "billing_portal.configuration"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

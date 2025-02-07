@@ -1,0 +1,101 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "in": "path",
+      "name": "financial_account",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/treasury/financial_accounts/{financial_account}/features",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.\nStripe or the platform can control Features via the requested field.",
+            "properties": {
+              "card_issuing": {
+                "$ref": "#/components/schemas/treasury_financial_accounts_resource_toggle_settings"
+              },
+              "deposit_insurance": {
+                "$ref": "#/components/schemas/treasury_financial_accounts_resource_toggle_settings"
+              },
+              "financial_addresses": {
+                "$ref": "#/components/schemas/treasury_financial_accounts_resource_financial_addresses_features"
+              },
+              "inbound_transfers": {
+                "$ref": "#/components/schemas/treasury_financial_accounts_resource_inbound_transfers"
+              },
+              "intra_stripe_flows": {
+                "$ref": "#/components/schemas/treasury_financial_accounts_resource_toggle_settings"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "treasury.financial_account_features"
+                ],
+                "type": "string"
+              },
+              "outbound_payments": {
+                "$ref": "#/components/schemas/treasury_financial_accounts_resource_outbound_payments"
+              },
+              "outbound_transfers": {
+                "$ref": "#/components/schemas/treasury_financial_accounts_resource_outbound_transfers"
+              }
+            },
+            "required": [
+              "object"
+            ],
+            "title": "TreasuryFinancialAccountsResourceFinancialAccountFeatures",
+            "type": "object",
+            "x-expandableFields": [
+              "card_issuing",
+              "deposit_insurance",
+              "financial_addresses",
+              "inbound_transfers",
+              "intra_stripe_flows",
+              "outbound_payments",
+              "outbound_transfers"
+            ],
+            "x-resourceId": "treasury.financial_account_features"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,697 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "session",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/checkout/sessions/{session}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "metadata": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "metadata": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                {
+                  "enum": [
+                    ""
+                  ],
+                  "type": "string"
+                }
+              ],
+              "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`."
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A Checkout Session represents your customer's session as they pay for\none-time purchases or subscriptions through [Checkout](https://stripe.com/docs/payments/checkout)\nor [Payment Links](https://stripe.com/docs/payments/payment-links). We recommend creating a\nnew Session each time your customer attempts to pay.\n\nOnce payment is successful, the Checkout Session will contain a reference\nto the [Customer](https://stripe.com/docs/api/customers), and either the successful\n[PaymentIntent](https://stripe.com/docs/api/payment_intents) or an active\n[Subscription](https://stripe.com/docs/api/subscriptions).\n\nYou can create a Checkout Session on your server and redirect to its URL\nto begin Checkout.\n\nRelated guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)",
+            "properties": {
+              "adaptive_pricing": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_adaptive_pricing"
+                  }
+                ],
+                "description": "Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).",
+                "nullable": true
+              },
+              "after_expiration": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_after_expiration"
+                  }
+                ],
+                "description": "When set, provides configuration for actions to take if this Checkout Session expires.",
+                "nullable": true
+              },
+              "allow_promotion_codes": {
+                "description": "Enables user redeemable promotion codes.",
+                "nullable": true,
+                "type": "boolean"
+              },
+              "amount_subtotal": {
+                "description": "Total of all items before discounts or taxes are applied.",
+                "nullable": true,
+                "type": "integer"
+              },
+              "amount_total": {
+                "description": "Total of all items after discounts and taxes are applied.",
+                "nullable": true,
+                "type": "integer"
+              },
+              "automatic_tax": {
+                "$ref": "#/components/schemas/payment_pages_checkout_session_automatic_tax"
+              },
+              "billing_address_collection": {
+                "description": "Describes whether Checkout should collect the customer's billing address. Defaults to `auto`.",
+                "enum": [
+                  "auto",
+                  "required"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "cancel_url": {
+                "description": "If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "client_reference_id": {
+                "description": "A unique string to reference the Checkout Session. This can be a\ncustomer ID, a cart ID, or similar, and can be used to reconcile the\nSession with your internal systems.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "client_secret": {
+                "description": "Client secret to be used when initializing Stripe.js embedded checkout.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "consent": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_consent"
+                  }
+                ],
+                "description": "Results of `consent_collection` for this session.",
+                "nullable": true
+              },
+              "consent_collection": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_consent_collection"
+                  }
+                ],
+                "description": "When set, provides configuration for the Checkout Session to gather active consent from customers.",
+                "nullable": true
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "currency": {
+                "description": "Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).",
+                "format": "currency",
+                "nullable": true,
+                "type": "string"
+              },
+              "currency_conversion": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_currency_conversion"
+                  }
+                ],
+                "description": "Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions",
+                "nullable": true
+              },
+              "custom_fields": {
+                "description": "Collect additional information from your customer using custom fields. Up to 3 fields are supported.",
+                "items": {
+                  "$ref": "#/components/schemas/payment_pages_checkout_session_custom_fields"
+                },
+                "type": "array"
+              },
+              "custom_text": {
+                "$ref": "#/components/schemas/payment_pages_checkout_session_custom_text"
+              },
+              "customer": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/customer"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_customer"
+                  }
+                ],
+                "description": "The ID of the customer for this Session.\nFor Checkout Sessions in `subscription` mode or Checkout Sessions with `customer_creation` set as `always` in `payment` mode, Checkout\nwill create a new customer object based on information provided\nduring the payment flow unless an existing customer was provided when\nthe Session was created.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/customer"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_customer"
+                    }
+                  ]
+                }
+              },
+              "customer_creation": {
+                "description": "Configure whether a Checkout Session creates a Customer when the Checkout Session completes.",
+                "enum": [
+                  "always",
+                  "if_required"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "customer_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_customer_details"
+                  }
+                ],
+                "description": "The customer details including the customer's tax exempt status and the customer's tax IDs. Customer's address details are not present on Sessions in `setup` mode.",
+                "nullable": true
+              },
+              "customer_email": {
+                "description": "If provided, this value will be used when the Customer object is created.\nIf not provided, customers will be asked to enter their email address.\nUse this parameter to prefill customer data if you already have an email\non file. To access information about the customer once the payment flow is\ncomplete, use the `customer` attribute.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "discounts": {
+                "description": "List of coupons and promotion codes attached to the Checkout Session.",
+                "items": {
+                  "$ref": "#/components/schemas/payment_pages_checkout_session_discount"
+                },
+                "nullable": true,
+                "type": "array"
+              },
+              "expires_at": {
+                "description": "The timestamp at which the Checkout Session will expire.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "invoice": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/invoice"
+                  }
+                ],
+                "description": "ID of the invoice created by the Checkout Session, if it exists.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/invoice"
+                    }
+                  ]
+                }
+              },
+              "invoice_creation": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_invoice_creation"
+                  }
+                ],
+                "description": "Details on the state of invoice creation for the Checkout Session.",
+                "nullable": true
+              },
+              "line_items": {
+                "description": "The line items purchased by the customer.",
+                "properties": {
+                  "data": {
+                    "description": "Details about each object.",
+                    "items": {
+                      "$ref": "#/components/schemas/item"
+                    },
+                    "type": "array"
+                  },
+                  "has_more": {
+                    "description": "True if this list has another page of items after this one that can be fetched.",
+                    "type": "boolean"
+                  },
+                  "object": {
+                    "description": "String representing the object's type. Objects of the same type share the same value. Always has the value `list`.",
+                    "enum": [
+                      "list"
+                    ],
+                    "type": "string"
+                  },
+                  "url": {
+                    "description": "The URL where this list can be accessed.",
+                    "maxLength": 5000,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data",
+                  "has_more",
+                  "object",
+                  "url"
+                ],
+                "title": "PaymentPagesCheckoutSessionListLineItems",
+                "type": "object",
+                "x-expandableFields": [
+                  "data"
+                ]
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "locale": {
+                "description": "The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.",
+                "enum": [
+                  "auto",
+                  "bg",
+                  "cs",
+                  "da",
+                  "de",
+                  "el",
+                  "en",
+                  "en-GB",
+                  "es",
+                  "es-419",
+                  "et",
+                  "fi",
+                  "fil",
+                  "fr",
+                  "fr-CA",
+                  "hr",
+                  "hu",
+                  "id",
+                  "it",
+                  "ja",
+                  "ko",
+                  "lt",
+                  "lv",
+                  "ms",
+                  "mt",
+                  "nb",
+                  "nl",
+                  "pl",
+                  "pt",
+                  "pt-BR",
+                  "ro",
+                  "ru",
+                  "sk",
+                  "sl",
+                  "sv",
+                  "th",
+                  "tr",
+                  "vi",
+                  "zh",
+                  "zh-HK",
+                  "zh-TW"
+                ],
+                "nullable": true,
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "nullable": true,
+                "type": "object"
+              },
+              "mode": {
+                "description": "The mode of the Checkout Session.",
+                "enum": [
+                  "payment",
+                  "setup",
+                  "subscription"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "checkout.session"
+                ],
+                "type": "string"
+              },
+              "payment_intent": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/payment_intent"
+                  }
+                ],
+                "description": "The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/payment_intent"
+                    }
+                  ]
+                }
+              },
+              "payment_link": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/payment_link"
+                  }
+                ],
+                "description": "The ID of the Payment Link that created this Session.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/payment_link"
+                    }
+                  ]
+                }
+              },
+              "payment_method_collection": {
+                "description": "Configure whether a Checkout Session should collect a payment method. Defaults to `always`.",
+                "enum": [
+                  "always",
+                  "if_required"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "payment_method_configuration_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_method_config_biz_payment_method_configuration_details"
+                  }
+                ],
+                "description": "Information about the payment method configuration used for this Checkout session if using dynamic payment methods.",
+                "nullable": true
+              },
+              "payment_method_options": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/checkout_session_payment_method_options"
+                  }
+                ],
+                "description": "Payment-method-specific configuration for the PaymentIntent or SetupIntent of this CheckoutSession.",
+                "nullable": true
+              },
+              "payment_method_types": {
+                "description": "A list of the types of payment methods (e.g. card) this Checkout\nSession is allowed to accept.",
+                "items": {
+                  "maxLength": 5000,
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "payment_status": {
+                "description": "The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.\nYou can use this value to decide when to fulfill your customer's order.",
+                "enum": [
+                  "no_payment_required",
+                  "paid",
+                  "unpaid"
+                ],
+                "type": "string"
+              },
+              "phone_number_collection": {
+                "$ref": "#/components/schemas/payment_pages_checkout_session_phone_number_collection"
+              },
+              "recovered_from": {
+                "description": "The ID of the original expired Checkout Session that triggered the recovery flow.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "redirect_on_completion": {
+                "description": "This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.",
+                "enum": [
+                  "always",
+                  "if_required",
+                  "never"
+                ],
+                "type": "string"
+              },
+              "return_url": {
+                "description": "Applies to Checkout Sessions with `ui_mode: embedded`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "saved_payment_method_options": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_saved_payment_method_options"
+                  }
+                ],
+                "description": "Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.",
+                "nullable": true
+              },
+              "setup_intent": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/setup_intent"
+                  }
+                ],
+                "description": "The ID of the SetupIntent for Checkout Sessions in `setup` mode. You can't confirm or cancel the SetupIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/setup_intent"
+                    }
+                  ]
+                }
+              },
+              "shipping_address_collection": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_shipping_address_collection"
+                  }
+                ],
+                "description": "When set, provides configuration for Checkout to collect a shipping address from a customer.",
+                "nullable": true
+              },
+              "shipping_cost": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_shipping_cost"
+                  }
+                ],
+                "description": "The details of the customer cost of shipping, including the customer chosen ShippingRate.",
+                "nullable": true
+              },
+              "shipping_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/shipping"
+                  }
+                ],
+                "description": "Shipping information for this Checkout Session.",
+                "nullable": true
+              },
+              "shipping_options": {
+                "description": "The shipping rate options applied to this Session.",
+                "items": {
+                  "$ref": "#/components/schemas/payment_pages_checkout_session_shipping_option"
+                },
+                "type": "array"
+              },
+              "status": {
+                "description": "The status of the Checkout Session, one of `open`, `complete`, or `expired`.",
+                "enum": [
+                  "complete",
+                  "expired",
+                  "open"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "submit_type": {
+                "description": "Describes the type of transaction being performed by Checkout in order to customize\nrelevant text on the page, such as the submit button. `submit_type` can only be\nspecified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.",
+                "enum": [
+                  "auto",
+                  "book",
+                  "donate",
+                  "pay",
+                  "subscribe"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "subscription": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/subscription"
+                  }
+                ],
+                "description": "The ID of the subscription for Checkout Sessions in `subscription` mode.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/subscription"
+                    }
+                  ]
+                }
+              },
+              "success_url": {
+                "description": "The URL the customer will be directed to after the payment or\nsubscription creation is successful.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "tax_id_collection": {
+                "$ref": "#/components/schemas/payment_pages_checkout_session_tax_id_collection"
+              },
+              "total_details": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/payment_pages_checkout_session_total_details"
+                  }
+                ],
+                "description": "Tax and discount details for the computed total amount.",
+                "nullable": true
+              },
+              "ui_mode": {
+                "description": "The UI mode of the Session. Defaults to `hosted`.",
+                "enum": [
+                  "embedded",
+                  "hosted"
+                ],
+                "nullable": true,
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "url": {
+                "description": "The URL to the Checkout Session. Redirect customers to this URL to take them to Checkout. If you\u2019re using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it\u2019ll use `checkout.stripe.com.`\nThis value is only present when the session is active.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              }
+            },
+            "required": [
+              "automatic_tax",
+              "created",
+              "custom_fields",
+              "custom_text",
+              "expires_at",
+              "id",
+              "livemode",
+              "mode",
+              "object",
+              "payment_method_types",
+              "payment_status",
+              "shipping_options"
+            ],
+            "title": "Session",
+            "type": "object",
+            "x-expandableFields": [
+              "adaptive_pricing",
+              "after_expiration",
+              "automatic_tax",
+              "consent",
+              "consent_collection",
+              "currency_conversion",
+              "custom_fields",
+              "custom_text",
+              "customer",
+              "customer_details",
+              "discounts",
+              "invoice",
+              "invoice_creation",
+              "line_items",
+              "payment_intent",
+              "payment_link",
+              "payment_method_configuration_details",
+              "payment_method_options",
+              "phone_number_collection",
+              "saved_payment_method_options",
+              "setup_intent",
+              "shipping_address_collection",
+              "shipping_cost",
+              "shipping_details",
+              "shipping_options",
+              "subscription",
+              "tax_id_collection",
+              "total_details"
+            ],
+            "x-resourceId": "checkout.session"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

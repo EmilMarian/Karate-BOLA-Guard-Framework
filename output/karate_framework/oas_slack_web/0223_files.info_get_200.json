@@ -1,0 +1,530 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `files:read`",
+      "in": "query",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Specify a file by providing its ID.",
+      "in": "query",
+      "name": "file",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "count",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "page",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Parameter for pagination. File comments are paginated for a single file. Set `cursor` equal to the `next_cursor` attribute returned by the previous request's `response_metadata`. This parameter is optional, but pagination is mandatory: the default value simply fetches the first \"page\" of the collection of comments. See [pagination](/docs/pagination) for more details.",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/files.info",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "comments": [],
+                "file": {
+                  "channels": [
+                    "C0T8SE4AU"
+                  ],
+                  "comments_count": 0,
+                  "created": 1531763342,
+                  "deanimate_gif": "https://.../tedair_deanimate_gif.png",
+                  "display_as_bot": false,
+                  "editable": false,
+                  "external_type": "",
+                  "filetype": "gif",
+                  "groups": [],
+                  "has_rich_preview": false,
+                  "id": "F0S43PZDF",
+                  "image_exif_rotation": 1,
+                  "ims": [],
+                  "is_external": false,
+                  "is_public": true,
+                  "is_starred": false,
+                  "mimetype": "image/gif",
+                  "mode": "hosted",
+                  "name": "tedair.gif",
+                  "original_h": 226,
+                  "original_w": 176,
+                  "permalink": "https://.../tedair.gif",
+                  "permalink_public": "https://.../...",
+                  "pjpeg": "https://.../tedair_pjpeg.jpg",
+                  "pretty_type": "GIF",
+                  "public_url_shared": false,
+                  "shares": {
+                    "public": {
+                      "C0T8SE4AU": [
+                        {
+                          "channel_name": "file-under",
+                          "latest_reply": "1531763348.000001",
+                          "reply_count": 1,
+                          "reply_users": [
+                            "U061F7AUR"
+                          ],
+                          "reply_users_count": 1,
+                          "team_id": "T061EG9R6",
+                          "thread_ts": "1531763273.000015",
+                          "ts": "1531763348.000001"
+                        }
+                      ]
+                    }
+                  },
+                  "size": 137531,
+                  "thumb_160": "https://.../tedair_=_160.png",
+                  "thumb_360": "https://.../tedair_360.png",
+                  "thumb_360_gif": "https://.../tedair_360.gif",
+                  "thumb_360_h": 226,
+                  "thumb_360_w": 176,
+                  "thumb_64": "https://.../tedair_64.png",
+                  "thumb_80": "https://.../tedair_80.png",
+                  "timestamp": 1531763342,
+                  "title": "tedair.gif",
+                  "url_private": "https://.../tedair.gif",
+                  "url_private_download": "https://.../tedair.gif",
+                  "user": "U061F7AUR",
+                  "username": ""
+                },
+                "ok": true,
+                "response_metadata": {
+                  "next_cursor": "dGVhbTpDMUg5UkVTR0w="
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from files.info method",
+            "properties": {
+              "comments": {
+                "items": {},
+                "title": "file comments object",
+                "type": "array"
+              },
+              "content_html": {
+                "nullable": true
+              },
+              "editor": {
+                "pattern": "^[UW][A-Z0-9]{2,}$",
+                "title": "User ID",
+                "type": "string"
+              },
+              "file": {
+                "additionalProperties": false,
+                "properties": {
+                  "channels": {
+                    "items": {
+                      "$ref": "#/components/schemas/defs_channel_id"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "comments_count": {
+                    "type": "integer"
+                  },
+                  "created": {
+                    "type": "integer"
+                  },
+                  "date_delete": {
+                    "type": "integer"
+                  },
+                  "display_as_bot": {
+                    "type": "boolean"
+                  },
+                  "editable": {
+                    "type": "boolean"
+                  },
+                  "editor": {
+                    "$ref": "#/components/schemas/defs_user_id"
+                  },
+                  "external_id": {
+                    "type": "string"
+                  },
+                  "external_type": {
+                    "type": "string"
+                  },
+                  "external_url": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "filetype": {
+                    "type": "string"
+                  },
+                  "groups": {
+                    "items": {
+                      "$ref": "#/components/schemas/defs_group_id"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "has_rich_preview": {
+                    "type": "boolean"
+                  },
+                  "id": {
+                    "$ref": "#/components/schemas/defs_file_id"
+                  },
+                  "image_exif_rotation": {
+                    "type": "integer"
+                  },
+                  "ims": {
+                    "items": {
+                      "$ref": "#/components/schemas/defs_dm_id"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  },
+                  "is_external": {
+                    "type": "boolean"
+                  },
+                  "is_public": {
+                    "type": "boolean"
+                  },
+                  "is_starred": {
+                    "type": "boolean"
+                  },
+                  "is_tombstoned": {
+                    "type": "boolean"
+                  },
+                  "last_editor": {
+                    "$ref": "#/components/schemas/defs_user_id"
+                  },
+                  "mimetype": {
+                    "type": "string"
+                  },
+                  "mode": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "non_owner_editable": {
+                    "type": "boolean"
+                  },
+                  "num_stars": {
+                    "type": "integer"
+                  },
+                  "original_h": {
+                    "type": "integer"
+                  },
+                  "original_w": {
+                    "type": "integer"
+                  },
+                  "permalink": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "permalink_public": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "pinned_info": {
+                    "$ref": "#/components/schemas/defs_pinned_info"
+                  },
+                  "pinned_to": {
+                    "items": {
+                      "$ref": "#/components/schemas/defs_channel"
+                    },
+                    "type": "array"
+                  },
+                  "pretty_type": {
+                    "type": "string"
+                  },
+                  "preview": {
+                    "type": "string"
+                  },
+                  "public_url_shared": {
+                    "type": "boolean"
+                  },
+                  "reactions": {
+                    "items": {
+                      "$ref": "#/components/schemas/objs_reaction"
+                    },
+                    "type": "array"
+                  },
+                  "shares": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "private": {
+                        "additionalProperties": false
+                      },
+                      "public": {
+                        "additionalProperties": false
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "size": {
+                    "type": "integer"
+                  },
+                  "source_team": {
+                    "$ref": "#/components/schemas/defs_team"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "thumb_1024": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "thumb_1024_h": {
+                    "type": "integer"
+                  },
+                  "thumb_1024_w": {
+                    "type": "integer"
+                  },
+                  "thumb_160": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "thumb_360": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "thumb_360_h": {
+                    "type": "integer"
+                  },
+                  "thumb_360_w": {
+                    "type": "integer"
+                  },
+                  "thumb_480": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "thumb_480_h": {
+                    "type": "integer"
+                  },
+                  "thumb_480_w": {
+                    "type": "integer"
+                  },
+                  "thumb_64": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "thumb_720": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "thumb_720_h": {
+                    "type": "integer"
+                  },
+                  "thumb_720_w": {
+                    "type": "integer"
+                  },
+                  "thumb_80": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "thumb_800": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "thumb_800_h": {
+                    "type": "integer"
+                  },
+                  "thumb_800_w": {
+                    "type": "integer"
+                  },
+                  "thumb_960": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "thumb_960_h": {
+                    "type": "integer"
+                  },
+                  "thumb_960_w": {
+                    "type": "integer"
+                  },
+                  "thumb_tiny": {
+                    "type": "string"
+                  },
+                  "timestamp": {
+                    "type": "integer"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "updated": {
+                    "type": "integer"
+                  },
+                  "url_private": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "url_private_download": {
+                    "format": "uri",
+                    "type": "string"
+                  },
+                  "user": {
+                    "type": "string"
+                  },
+                  "user_team": {
+                    "$ref": "#/components/schemas/defs_team"
+                  },
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "title": "file object",
+                "type": "object"
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "paging": {
+                "additionalProperties": false,
+                "properties": {
+                  "count": {
+                    "type": "integer"
+                  },
+                  "page": {
+                    "type": "integer"
+                  },
+                  "pages": {
+                    "type": "integer"
+                  },
+                  "per_page": {
+                    "type": "integer"
+                  },
+                  "spill": {
+                    "type": "integer"
+                  },
+                  "total": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "page",
+                  "total"
+                ],
+                "title": "paging object",
+                "type": "object"
+              },
+              "response_metadata": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "next_cursor": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "next_cursor"
+                      ],
+                      "title": "new paging style",
+                      "type": "object"
+                    },
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "messages": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "warnings": {
+                          "items": {
+                            "enum": [
+                              "method_deprecated"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "messages",
+                        "warnings"
+                      ],
+                      "title": "deprecation_warning",
+                      "type": "object"
+                    },
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "messages": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "next_cursor": {
+                          "type": "string"
+                        },
+                        "warnings": {
+                          "items": {
+                            "enum": [
+                              "method_deprecated"
+                            ],
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "messages",
+                        "warnings",
+                        "next_cursor"
+                      ],
+                      "title": "deprecation_warning and paging style together",
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "ok",
+              "file",
+              "comments"
+            ],
+            "title": "files.info schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

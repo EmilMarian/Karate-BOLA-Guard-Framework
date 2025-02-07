@@ -1,0 +1,459 @@
+2025-01-25 21:17:13,034 - __main__ - INFO - Skipping fragment creation: False
+2025-01-25 21:17:13,095 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-25 21:17:13,336 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "query", "name": "chat_id", "required": true, "type": "string"}, {"description": "", "in": "query", "name": "user_id", "required": true, "type": "string"}], "path": "/bot{token}/unbanChatMember", "requestBody": {}, "responses": {"401": {"description": "Unauthorized", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0465_bottoken_unbanChatMember_get_401.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "formData", "name": "user_id", "required": true, "type": "integer"}, {"description": "", "in": "formData", "name": "name", "required": true, "type": "string"}, {"description": "", "in": "formData", "name": "png_sticker", "required": true, "type": "file"}, {"description": "", "in": "formData", "name": "emojis", "required": true, "type": "string"}, {"description": "Serialized to JSON MaskPosition", "in": "formData", "name": "mask_position", "required": false, "type": "string"}], "path": "/bot{token}/addStickerToSet", "requestBody": {}, "responses": {"200": {"description": "", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}, "result": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0001_bottoken_addStickerToSet_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"description": "bot\'s token to authorize the request", "in": "path", "name": "token", "required": false, "type": "string"}, {"description": "", "in": "formData", "name": "user_id", "required": true, "type": "integer"}, {"description": "", "in": "formData", "name": "name", "required": true, "type": "string"}, {"description": "", "in": "formData", "name": "png_sticker", "required": true, "type": "file"}, {"description": "", "in": "formData", "name": "emojis", "required": true, "type": "string"}, {"description": "Serialized to JSON MaskPosition", "in": "formData", "name": "mask_position", "required": false, "type": "string"}], "path": "/bot{token}/addStickerToSet", "requestBody": {}, "responses": {"420": {"description": "Flood", "schema": {"properties": {"description": {"type": "string"}, "error_code": {"type": "integer"}, "ok": {"type": "boolean"}}, "type": "object"}}}}', 'metadata': {'filename': '0006_bottoken_addStickerToSet_post_420.json'}}], form collection oas_telegram_fragments
+2025-01-25 21:17:13,337 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:17:13,338 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:17:13,763 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:17:13,764 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:17:19,874 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:17:19,875 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Test API for Broken Authentication/Authorization on Bot Unban Chat Member",
+  "scena...
+2025-01-25 21:17:19,876 - __main__ - INFO - Generated Karate test for /bot{token}/unbanChatMember GET at output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature
+2025-01-25 21:17:19,876 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:17:19,876 - karate_compatibility_verifier - INFO - {
+  "feature": "Test API for Broken Authentication/Authorization on Bot Unban Chat Member",
+  "scenario": "Attempt to unbanned a chat member without proper authentication or authorization as the bot user",
+  "given url": "http://oas_telegram.api/bot/{token}/unbanChatMember",
+  "steps": [
+    "Given url 'http://oas_telegram.api/bot{token}/unbanChatMember'",
+    "And header Authorization = 'Bearer <invalid_or_expired_bot_token>'", // Assuming the bot token is invalid or expired for testing purposes
+    "When method get",
+    "Then status 401", // Expecting a UNAUTHORIZED response due to broken authentication/authorization
+    "And match response message contains 'You do not have permission to unban chat members.'"
+  ]
+}
+2025-01-25 21:17:24,212 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:17:24,212 - karate_compatibility_verifier - INFO - Given url 'http://oas_telegram.api/bot{token}/unbanChatMember'
+And header Authorization = 'Bearer <invalid_or_expired_bot_token>'
+When method get
+Then status 401
+And match response message contains 'You do not have permission to unban chat members.'
+2025-01-25 21:17:25,282 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:17:25,282 - karate_compatibility_verifier - INFO - Given url 'http://oas_telegram.api/bot/{token}/unbanChatMember'
+And header Authorization = 'Bearer <valid_and_active_bot_token>'
+When method get
+Then status 401
+2025-01-25 21:17:25,283 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET_verified.feature
+2025-01-25 21:17:25,284 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_bottoken_unbanChatMember_GET.feature: Given url 'http://oas_telegram.api/bot/{token}/unbanChatMember'
+And header Authorization = 'Bearer <valid_and_active_bot_token>'
+When method get
+Then status 401
+2025-01-25 21:17:25,285 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:17:25,286 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:17:25,306 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:17:25,306 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:17:38,927 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:17:38,928 - karate_llm_test_gen - INFO - Generated test case: {
+  "context": {
+    "api_endpoint": "/bot{token}/addStickerToSet",
+    "method": "POST"
+  },
+  "sce...
+2025-01-25 21:17:38,928 - __main__ - INFO - Generated Karate test for /bot{token}/addStickerToSet POST at output/karate_feature_files/ID_002_krtestoas_bottoken_addStickerToSet_POST.feature
+2025-01-25 21:17:38,929 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:17:38,929 - karate_compatibility_verifier - INFO - {
+  "context": {
+    "api_endpoint": "/bot{token}/addStickerToSet",
+    "method": "POST"
+  },
+  "scenarios": [
+    {
+      "name": "Attempt to add sticker without authentication",
+      "path": "/bot*/addStickerToSet", // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Add sticker without authentication",
+        "steps": [
+          "And request {stickerId: null, packName: null} // No authorization headers provided"
+        ]
+      },
+      "assertions": [
+        "Then status 401 or 403 (depending on the API's error handling for unauthorized access)"
+      ],
+      "response_description": "Unauthenticated attempt to add sticker should result in an HTTP forbidden response."
+    },
+    {
+      "name": "Attempt to exploit potential OAuth vulnerabilities",
+      "path": "/bot{token}/addStickerToSet", // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Exploit potential OAuth vulnerabilities",
+        "steps": [
+          // Assuming the bot uses an API key for authentication, which is not secure and should be replaced with proper credentials.
+          "And request {stickerId: 'exploited_id', packName: 'pack123'} using a fake or leaked OAuth token",
+          "When method post"
+        ]
+      },
+      "assertions": [
+        // The expected response would depend on the API's specific error handling for invalid tokens. This is an example assertion based on typical behavior:
+        "Then status 401 or similar (depending on how OAuth token validation fails)"
+      ],
+      "response_description": "Using a leaked/fake OAuth token should result in unauthorized access error."
+    }
+  ]
+}
+2025-01-25 21:18:19,392 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:18:19,392 - karate_compatibility_verifier - INFO - {
+  "context": {
+    "api_endpoint": "/bot{token}/addStickerToSet",
+    "method": "POST"
+  },
+  "scenarios": [
+    {
+      "name": "Attempt to add sticker without authentication",
+      "path": '/bot*/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Add sticker without authentication",
+        "steps": [
+          "And header Authorization = '#(setup.token + setup.time)' // No authorization headers provided"
+        ]
+      },
+      "assertions": [
+        "Then status 401 or 403 (depending on the API's error handling for unauthorized access)"
+      ],
+      "response_description": "Unauthenticated attempt to add sticker should result in an HTTP forbidden response."
+    },
+    {
+      "name": "Attempt to exploit potential OAuth vulnerabilities",
+      "path": '/bot{token}/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Exploit potential OAuth vulnerabilities",
+        "steps": [
+          // Assuming the bot uses an API key for authentication, which is not secure and should be replaced with proper credentials. This step simulates a scenario where unauthorized access might occur due to misuse of tokens or lack thereof:
+          "And header Authorization = '#(setup.token + setup.time)'", // Using the bot's token for demonstration; in real scenarios, this should be replaced with proper authentication headers using valid credentials.
+          "When method post"
+        ]
+      },
+      "assertions": [
+        // The expected response would depend on how OAuth validation fails or is bypassed:
+        "Then status 401 (or similar, depending on the API's specific error handling for unautmated access)"
+      ],
+      "response_description": "Using an improperly handled/invalid token should result in an HTTP forbidden response."
+    }
+  ]
+}
+2025-01-25 21:18:57,295 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:18:57,295 - karate_compatibility_verifier - INFO - {
+  "context": {
+    "api_endpoint": "/bot{token}/addStickerToSet",
+    "method": "POST"
+  },
+  "scenarios": [
+    {
+      "name": "Attempt to add sticker without authentication",
+      "path": '/bot*/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Add sticker without authentication",
+        "steps": [
+          "And header Authorization = '#(setup.auth)' // Corrected to use proper authorization headers with a valid token for testing purposes"
+        ]
+      },
+      "assertions": [
+        "Then status 401 or 403 (depending on the API's error handling for unauthorized access)"
+      ],
+      "response_description": "Unauthenticated attempt to add sticker should result in an HTTP forbidden response."
+    },
+    {
+      "name": "Attempt to exploit potential OAuth vulnerabilities",
+      "path": '/bot{token}/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Exploit potential OAuth vulnerabilities",
+        "steps": [
+          // Assuming the bot uses an API key for authentication, which is not secure and should be replaced with proper credentials. This step simulates a scenario where unauthorized access might occur due to misuse of tokens or lack thereof:
+          "And header Authorization = '#(setup.auth)'", // Using valid authorization headers; in real scenarios, this should include OAuth-specific parameters and be replaced with proper credentials."
+          "When method post"
+        ]
+      },
+      "assertions": [
+        "Then status 401 (or similar, depending on the API's specific error handling for unauthorized access)"
+      ],
+      "response_description": "Using an improperly handled/invalid token should result in an HTTP forbidden response."
+    }
+  ]
+}
+2025-01-25 21:18:57,296 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_bottoken_addStickerToSet_POST_verified.feature
+2025-01-25 21:18:57,296 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_bottoken_addStickerToSet_POST.feature: {
+  "context": {
+    "api_endpoint": "/bot{token}/addStickerToSet",
+    "method": "POST"
+  },
+  "scenarios": [
+    {
+      "name": "Attempt to add sticker without authentication",
+      "path": '/bot*/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Add sticker without authentication",
+        "steps": [
+          "And header Authorization = '#(setup.auth)' // Corrected to use proper authorization headers with a valid token for testing purposes"
+        ]
+      },
+      "assertions": [
+        "Then status 401 or 403 (depending on the API's error handling for unauthorized access)"
+      ],
+      "response_description": "Unauthenticated attempt to add sticker should result in an HTTP forbidden response."
+    },
+    {
+      "name": "Attempt to exploit potential OAuth vulnerabilities",
+      "path": '/bot{token}/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Exploit potential OAuth vulnerabilities",
+        "steps": [
+          // Assuming the bot uses an API key for authentication, which is not secure and should be replaced with proper credentials. This step simulates a scenario where unauthorized access might occur due to misuse of tokens or lack thereof:
+          "And header Authorization = '#(setup.auth)'", // Using valid authorization headers; in real scenarios, this should include OAuth-specific parameters and be replaced with proper credentials."
+          "When method post"
+        ]
+      },
+      "assertions": [
+        "Then status 401 (or similar, depending on the API's specific error handling for unauthorized access)"
+      ],
+      "response_description": "Using an improperly handled/invalid token should result in an HTTP forbidden response."
+    }
+  ]
+}
+2025-01-25 21:18:57,296 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:18:57,297 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-25 21:18:57,321 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-25 21:18:57,322 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-25 21:19:37,687 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-25 21:19:37,688 - karate_llm_test_gen - INFO - Generated test case: {
+  "context": {
+    "api_endpoint": "/bot{token}/addStickerToSet",
+    "method": "POST"
+  },
+  "sce...
+2025-01-25 21:19:37,689 - __main__ - INFO - Generated Karate test for /bot{token}/addStickerToSet POST at output/karate_feature_files/ID_003_krtestoas_bottoken_addStickerToSet_POST.feature
+2025-01-25 21:19:37,689 - karate_compatibility_verifier - INFO - Original content:
+2025-01-25 21:19:37,690 - karate_compatibility_verifier - INFO - {
+  "context": {
+    "api_endpoint": "/bot{token}/addStickerToSet",
+    "method": "POST"
+  },
+  "scenarios": [
+    {
+      "name": "Attempt to add sticker without authentication",
+      "path": "/bot*/addStickerToSet", // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Add sticker without authentication",
+        "steps": [
+          "And request {stickerId: null, packName: null} // No authorization headers provided"
+        ]
+      },
+      "assertions": [
+        "Then status 401 or 403 (depending on the API's error handling for unauthorized access)"
+      ],
+      "response_description": "Unauthenticated attempt to add sticker should result in an HTTP forbidden response."
+    },
+    {
+      "name": "Attempt to exploit potential OAuth vulnerabilities",
+      "path": "/bot{token}/addStickerToSet", // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Exploit potential OAuth vulnerabilities",
+        "steps": [
+          // Assuming the bot uses an API key for authentication, which is not secure and should be replaced with proper credentials.
+          "And request {stickerId: 'exploited_id', packName: 'pack123'} using a fake or leaked OAuth token",
+          "When method post"
+        ]
+      },
+      "assertions": [
+        // The expected response would depend on the API's specific error handling for invalid tokens. This is an example assertion based on typical behavior:
+        "Then status 401 or similar (depending on how OAuth token validation fails)"
+      ],
+      "response_description": "Using a leaked/fake OAuth token should result in unauthorized access error."
+    }
+  ]
+}
+2025-01-25 21:20:18,748 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-25 21:20:18,748 - karate_compatibility_verifier - INFO - {
+  "context": {
+    "api_endpoint": "/bot{token}/addStickerToSet",
+    "method": "POST"
+  },
+  "scenarios": [
+    {
+      "name": "Attempt to add sticker without authentication",
+      "path": '/bot*/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Add sticker without authentication",
+        "steps": [
+          "And header Authorization = '#(setup.token + setup.time)' // No authorization headers provided"
+        ]
+      },
+      "assertions": [
+        "Then status 401 or 403 (depending on the API's error handling for unauthorized access)"
+      ],
+      "response_description": "Unauthenticated attempt to add sticker should result in an HTTP forbidden response."
+    },
+    {
+      "name": "Attempt to exploit potential OAuth vulnerabilities",
+      "path": '/bot{token}/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Exploit potential OAuth vulnerabilities",
+        "steps": [
+          // Assuming the bot uses an API key for authentication, which is not secure and should be replaced with proper credentials. This step simulates a scenario where unauthorized access might occur due to misuse of tokens or lack thereof:
+          "And header Authorization = '#(setup.token + setup.time)'", // Using the bot's token for demonstration; in real scenarios, this should be replaced with proper authentication headers using valid credentials.
+          "When method post"
+        ]
+      },
+      "assertions": [
+        // The expected response would depend on how OAuth validation fails or is bypassed:
+        "Then status 401 (or similar, depending on the API's specific error handling for unautmated access)"
+      ],
+      "response_description": "Using an improperly handled/invalid token should result in an HTTP forbidden response."
+    }
+  ]
+}
+2025-01-25 21:20:57,045 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-25 21:20:57,045 - karate_compatibility_verifier - INFO - {
+  "context": {
+    "api_endpoint": "/bot{token}/addStickerToSet",
+    "method": "POST"
+  },
+  "scenarios": [
+    {
+      "name": "Attempt to add sticker without authentication",
+      "path": '/bot*/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Add sticker without authentication",
+        "steps": [
+          "And header Authorization = '#(setup.auth)' // Corrected to use proper authorization headers with a valid token for testing purposes"
+        ]
+      },
+      "assertions": [
+        "Then status 401 or 403 (depending on the API's error handling for unauthorized access)"
+      ],
+      "response_description": "Unauthenticated attempt to add sticker should result in an HTTP forbidden response."
+    },
+    {
+      "name": "Attempt to exploit potential OAuth vulnerabilities",
+      "path": '/bot{token}/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Exploit potential OAuth vulnerabilities",
+        "steps": [
+          // Assuming the bot uses an API key for authentication, which is not secure and should be replaced with proper credentials. This step simulates a scenario where unauthorized access might occur due to misuse of tokens or lack thereof:
+          "And header Authorization = '#(setup.auth)'", // Using valid authorization headers; in real scenarios, this should include OAuth-specific parameters and be replaced with proper credentials."
+          "When method post"
+        ]
+      },
+      "assertions": [
+        "Then status 401 (or similar, depending on the API's specific error handling for unauthorized access)"
+      ],
+      "response_description": "Using an improperly handled/invalid token should result in an HTTP forbidden response."
+    }
+  ]
+}
+2025-01-25 21:20:57,046 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_bottoken_addStickerToSet_POST_verified.feature
+2025-01-25 21:20:57,046 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_bottoken_addStickerToSet_POST.feature: {
+  "context": {
+    "api_endpoint": "/bot{token}/addStickerToSet",
+    "method": "POST"
+  },
+  "scenarios": [
+    {
+      "name": "Attempt to add sticker without authentication",
+      "path": '/bot*/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Add sticker without authentication",
+        "steps": [
+          "And header Authorization = '#(setup.auth)' // Corrected to use proper authorization headers with a valid token for testing purposes"
+        ]
+      },
+      "assertions": [
+        "Then status 401 or 403 (depending on the API's error handling for unauthorized access)"
+      ],
+      "response_description": "Unauthenticated attempt to add sticker should result in an HTTP forbidden response."
+    },
+    {
+      "name": "Attempt to exploit potential OAuth vulnerabilities",
+      "path": '/bot{token}/addStickerToSet', // Assuming default bot token is used for testing purposes. Replace with actual bot_token if available.
+      "preparation": [
+        "Given url 'http://oas_telegram.api/bot{token}/addStickerToSet'"
+      ],
+      "scenario": {
+        "summary": "Exploit potential OAuth vulnerabilities",
+        "steps": [
+          // Assuming the bot uses an API key for authentication, which is not secure and should be replaced with proper credentials. This step simulates a scenario where unauthorized access might occur due to misuse of tokens or lack thereof:
+          "And header Authorization = '#(setup.auth)'", // Using valid authorization headers; in real scenarios, this should include OAuth-specific parameters and be replaced with proper credentials."
+          "When method post"
+        ]
+      },
+      "assertions": [
+        "Then status 401 (or similar, depending on the API's specific error handling for unauthorized access)"
+      ],
+      "response_description": "Using an improperly handled/invalid token should result in an HTTP forbidden response."
+    }
+  ]
+}
+2025-01-25 21:20:57,046 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-25 21:20:57,048 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-25 21:20:59,281 - __main__ - INFO - Skipping karate test run.

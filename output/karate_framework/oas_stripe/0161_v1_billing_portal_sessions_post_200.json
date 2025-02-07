@@ -1,0 +1,432 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/v1/billing_portal/sessions",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "flow_data": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "configuration": {
+              "description": "The ID of an existing [configuration](https://stripe.com/docs/api/customer_portal/configuration) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "customer": {
+              "description": "The ID of an existing customer.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "flow_data": {
+              "description": "Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.",
+              "properties": {
+                "after_completion": {
+                  "properties": {
+                    "hosted_confirmation": {
+                      "properties": {
+                        "custom_message": {
+                          "maxLength": 500,
+                          "type": "string"
+                        }
+                      },
+                      "title": "after_completion_hosted_confirmation_param",
+                      "type": "object"
+                    },
+                    "redirect": {
+                      "properties": {
+                        "return_url": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "return_url"
+                      ],
+                      "title": "after_completion_redirect_param",
+                      "type": "object"
+                    },
+                    "type": {
+                      "enum": [
+                        "hosted_confirmation",
+                        "portal_homepage",
+                        "redirect"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "title": "flow_data_after_completion_param",
+                  "type": "object"
+                },
+                "subscription_cancel": {
+                  "properties": {
+                    "retention": {
+                      "properties": {
+                        "coupon_offer": {
+                          "properties": {
+                            "coupon": {
+                              "maxLength": 5000,
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "coupon"
+                          ],
+                          "title": "coupon_offer_param",
+                          "type": "object"
+                        },
+                        "type": {
+                          "enum": [
+                            "coupon_offer"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "coupon_offer",
+                        "type"
+                      ],
+                      "title": "retention_param",
+                      "type": "object"
+                    },
+                    "subscription": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "subscription"
+                  ],
+                  "title": "flow_data_subscription_cancel_param",
+                  "type": "object"
+                },
+                "subscription_update": {
+                  "properties": {
+                    "subscription": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "subscription"
+                  ],
+                  "title": "flow_data_subscription_update_param",
+                  "type": "object"
+                },
+                "subscription_update_confirm": {
+                  "properties": {
+                    "discounts": {
+                      "items": {
+                        "properties": {
+                          "coupon": {
+                            "maxLength": 5000,
+                            "type": "string"
+                          },
+                          "promotion_code": {
+                            "maxLength": 5000,
+                            "type": "string"
+                          }
+                        },
+                        "title": "subscription_update_confirm_discount_params",
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "items": {
+                      "items": {
+                        "properties": {
+                          "id": {
+                            "maxLength": 5000,
+                            "type": "string"
+                          },
+                          "price": {
+                            "maxLength": 5000,
+                            "type": "string"
+                          },
+                          "quantity": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "id"
+                        ],
+                        "title": "subscription_update_confirm_item_params",
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "subscription": {
+                      "maxLength": 5000,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "subscription"
+                  ],
+                  "title": "flow_data_subscription_update_confirm_param",
+                  "type": "object"
+                },
+                "type": {
+                  "enum": [
+                    "payment_method_update",
+                    "subscription_cancel",
+                    "subscription_update",
+                    "subscription_update_confirm"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "title": "flow_data_param",
+              "type": "object"
+            },
+            "locale": {
+              "description": "The IETF language tag of the locale customer portal is displayed in. If blank or auto, the customer\u2019s `preferred_locales` or browser\u2019s locale is used.",
+              "enum": [
+                "auto",
+                "bg",
+                "cs",
+                "da",
+                "de",
+                "el",
+                "en",
+                "en-AU",
+                "en-CA",
+                "en-GB",
+                "en-IE",
+                "en-IN",
+                "en-NZ",
+                "en-SG",
+                "es",
+                "es-419",
+                "et",
+                "fi",
+                "fil",
+                "fr",
+                "fr-CA",
+                "hr",
+                "hu",
+                "id",
+                "it",
+                "ja",
+                "ko",
+                "lt",
+                "lv",
+                "ms",
+                "mt",
+                "nb",
+                "nl",
+                "pl",
+                "pt",
+                "pt-BR",
+                "ro",
+                "ru",
+                "sk",
+                "sl",
+                "sv",
+                "th",
+                "tr",
+                "vi",
+                "zh",
+                "zh-HK",
+                "zh-TW"
+              ],
+              "type": "string"
+            },
+            "on_behalf_of": {
+              "description": "The `on_behalf_of` account to use for this session. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays.",
+              "type": "string"
+            },
+            "return_url": {
+              "description": "The default URL to redirect customers to when they click on the portal's link to return to your website.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "customer"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "The Billing customer portal is a Stripe-hosted UI for subscription and\nbilling management.\n\nA portal configuration describes the functionality and features that you\nwant to provide to your customers through the portal.\n\nA portal session describes the instantiation of the customer portal for\na particular customer. By visiting the session's URL, the customer\ncan manage their subscriptions and billing details. For security reasons,\nsessions are short-lived and will expire if the customer does not visit the URL.\nCreate sessions on-demand when customers intend to manage their subscriptions\nand billing details.\n\nRelated guide: [Customer management](/customer-management)",
+            "properties": {
+              "configuration": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/billing_portal.configuration"
+                  }
+                ],
+                "description": "The configuration used by this session, describing the features available.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/billing_portal.configuration"
+                    }
+                  ]
+                }
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "customer": {
+                "description": "The ID of the customer for this session.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "flow": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/portal_flows_flow"
+                  }
+                ],
+                "description": "Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.",
+                "nullable": true
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "locale": {
+                "description": "The IETF language tag of the locale Customer Portal is displayed in. If blank or auto, the customer\u2019s `preferred_locales` or browser\u2019s locale is used.",
+                "enum": [
+                  "auto",
+                  "bg",
+                  "cs",
+                  "da",
+                  "de",
+                  "el",
+                  "en",
+                  "en-AU",
+                  "en-CA",
+                  "en-GB",
+                  "en-IE",
+                  "en-IN",
+                  "en-NZ",
+                  "en-SG",
+                  "es",
+                  "es-419",
+                  "et",
+                  "fi",
+                  "fil",
+                  "fr",
+                  "fr-CA",
+                  "hr",
+                  "hu",
+                  "id",
+                  "it",
+                  "ja",
+                  "ko",
+                  "lt",
+                  "lv",
+                  "ms",
+                  "mt",
+                  "nb",
+                  "nl",
+                  "pl",
+                  "pt",
+                  "pt-BR",
+                  "ro",
+                  "ru",
+                  "sk",
+                  "sl",
+                  "sv",
+                  "th",
+                  "tr",
+                  "vi",
+                  "zh",
+                  "zh-HK",
+                  "zh-TW"
+                ],
+                "nullable": true,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "billing_portal.session"
+                ],
+                "type": "string"
+              },
+              "on_behalf_of": {
+                "description": "The account for which the session was created on behalf of. When specified, only subscriptions and invoices with this `on_behalf_of` account appear in the portal. For more information, see the [docs](https://stripe.com/docs/connect/separate-charges-and-transfers#settlement-merchant). Use the [Accounts API](https://stripe.com/docs/api/accounts/object#account_object-settings-branding) to modify the `on_behalf_of` account's branding settings, which the portal displays.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "return_url": {
+                "description": "The URL to redirect customers to when they click on the portal's link to return to your website.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "url": {
+                "description": "The short-lived URL of the session that gives customers access to the customer portal.",
+                "maxLength": 5000,
+                "type": "string"
+              }
+            },
+            "required": [
+              "configuration",
+              "created",
+              "customer",
+              "id",
+              "livemode",
+              "object",
+              "url"
+            ],
+            "title": "PortalSession",
+            "type": "object",
+            "x-expandableFields": [
+              "configuration",
+              "flow"
+            ],
+            "x-resourceId": "billing_portal.session"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The access token must have been issued on behalf of the user.  \nThis access token must be issued on behalf of the user.   \nCurrent playlist image for both Public and Private playlists of any user are retrievable on provision of a valid access token.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist.",
+      "in": "path",
+      "name": "playlist_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/playlists/{playlist_id}/images",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "externalDocs": {
+                "description": "Find more info on the official Spotify Web API Reference",
+                "url": "https://developer.spotify.com/documentation/web-api/reference/#object-imageobject"
+              },
+              "properties": {
+                "height": {
+                  "description": "The image height in pixels.",
+                  "format": "int32",
+                  "type": "integer"
+                },
+                "url": {
+                  "description": "The source URL of the image.",
+                  "type": "string"
+                },
+                "width": {
+                  "description": "The image width in pixels.",
+                  "format": "int32",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "description": "On success, the response body contains a list of [image objects](https://developer.spotify.com/documentation/web-api/reference/#object-imageobject) in JSON format and the HTTP status code in the response header is `200` OK  \nOn error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema)."
+    }
+  }
+}

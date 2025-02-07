@@ -1,0 +1,98 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "An [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) or the string `from_token`. Provide this parameter if you want to apply [Track\nRelinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/).",
+      "in": "query",
+      "name": "market",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A comma-separated list of item types that your client supports besides the default `track` type. Valid types are: `track` and `episode`. An unsupported type in the response is expected to be represented as `null` value in the `item` field. **Note**: This parameter was introduced to allow existing clients to maintain their current behaviour and might be deprecated in the future. In addition to providing this parameter, make sure that your client properly handles cases of new",
+      "in": "query",
+      "name": "additional_types",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/me/player",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "externalDocs": {
+              "description": "Find more info on the official Spotify Web API Reference",
+              "url": "https://developer.spotify.com/documentation/web-api/reference/#object-currentlyplayingcontextobject"
+            },
+            "properties": {
+              "actions": {
+                "$ref": "#/components/schemas/DisallowsObject"
+              },
+              "context": {
+                "$ref": "#/components/schemas/ContextObject"
+              },
+              "currently_playing_type": {
+                "description": "The object type of the currently playing item. Can be one of `track`, `episode`, `ad` or `unknown`.",
+                "type": "string"
+              },
+              "device": {
+                "$ref": "#/components/schemas/DeviceObject"
+              },
+              "is_playing": {
+                "description": "If something is currently playing, return `true`.",
+                "type": "boolean"
+              },
+              "item": {
+                "description": "The currently playing track or episode. Can be `null`.",
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/TrackObject"
+                  },
+                  {
+                    "$ref": "#/components/schemas/EpisodeObject"
+                  }
+                ]
+              },
+              "progress_ms": {
+                "description": "Progress into the currently playing track or episode. Can be `null`.",
+                "format": "int32",
+                "type": "integer"
+              },
+              "repeat_state": {
+                "description": "off, track, context",
+                "type": "string"
+              },
+              "shuffle_state": {
+                "description": "If shuffle is on or off.",
+                "type": "string"
+              },
+              "timestamp": {
+                "description": "Unix Millisecond Timestamp when data was fetched.",
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "A successful request will return a `200 OK` response code with a json payload that contains information about the current playback. The information returned is for the last known state, which means an inactive device could be returned if it was the last one to execute playback.\nWhen no available devices are found, the request will return a `200 OK` response but with no data populated."
+    }
+  }
+}

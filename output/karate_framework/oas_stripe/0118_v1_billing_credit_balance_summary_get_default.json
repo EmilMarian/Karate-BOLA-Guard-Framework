@@ -1,0 +1,109 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The customer for which to fetch credit balance summary.",
+      "in": "query",
+      "name": "customer",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "form"
+    },
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "The filter criteria for the credit balance summary.",
+      "explode": true,
+      "in": "query",
+      "name": "filter",
+      "required": true,
+      "schema": {
+        "properties": {
+          "applicability_scope": {
+            "properties": {
+              "price_type": {
+                "enum": [
+                  "metered"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "price_type"
+            ],
+            "title": "scope_param",
+            "type": "object"
+          },
+          "credit_grant": {
+            "maxLength": 5000,
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "applicability_scope",
+              "credit_grant"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "balance_summary_filter_param",
+        "type": "object"
+      },
+      "style": "deepObject"
+    }
+  ],
+  "path": "/v1/billing/credit_balance_summary",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

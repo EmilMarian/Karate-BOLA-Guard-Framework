@@ -1,0 +1,178 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details. The access token must have been issued on behalf of the user. Creating a public playlist for a user requires authorization of the `playlist-modify-public` scope; creating a private playlist requires the `playlist-modify-private` scope. See [Using Scopes](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes).",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The content type of the request body: `application/json`",
+      "in": "header",
+      "name": "Content-Type",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The user's [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).",
+      "in": "path",
+      "name": "user_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users/{user_id}/playlists",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "collaborative": {
+              "description": "Defaults to `false` . If `true` the playlist will be collaborative. Note that to create a collaborative playlist you must also set `public` to `false` . To create collaborative playlists you must have granted `playlist-modify-private` and `playlist-modify-public` [scopes](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes) .",
+              "type": "boolean"
+            },
+            "description": {
+              "description": "value for playlist description as displayed in Spotify Clients and in the Web API.",
+              "type": "string"
+            },
+            "name": {
+              "description": "The name for the new playlist, for example `\"Your Coolest Playlist\"` . This name does not need to be unique; a user may have several playlists with the same name.",
+              "type": "string"
+            },
+            "public": {
+              "description": "Defaults to `true` . If `true` the playlist will be public, if `false` it will be private. To be able to create private playlists, the user must have granted the `playlist-modify-private` [scope](https://developer.spotify.com/documentation/general/guides/authorization-guide/#list-of-scopes)",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "201": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "externalDocs": {
+              "description": "Find more info on the official Spotify Web API Reference",
+              "url": "https://developer.spotify.com/documentation/web-api/reference/#object-playlistobject"
+            },
+            "properties": {
+              "collaborative": {
+                "description": "`true` if the owner allows other users to modify the playlist.",
+                "type": "boolean"
+              },
+              "description": {
+                "description": "The playlist description. *Only returned for modified, verified playlists, otherwise* `null`.",
+                "type": "string"
+              },
+              "external_urls": {
+                "$ref": "#/components/schemas/ExternalUrlObject"
+              },
+              "followers": {
+                "$ref": "#/components/schemas/FollowersObject"
+              },
+              "href": {
+                "description": "A link to the Web API endpoint providing full details of the playlist.",
+                "type": "string"
+              },
+              "id": {
+                "description": "The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist.",
+                "type": "string"
+              },
+              "images": {
+                "description": "Images for the playlist. The array may be empty or contain up to three images. The images are returned by size in descending order. See [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/). *Note: If returned, the source URL for the image (`url`) is temporary and will expire in less than a day.*",
+                "items": {
+                  "$ref": "#/components/schemas/ImageObject"
+                },
+                "type": "array"
+              },
+              "name": {
+                "description": "The name of the playlist.",
+                "type": "string"
+              },
+              "owner": {
+                "$ref": "#/components/schemas/PublicUserObject"
+              },
+              "public": {
+                "description": "The playlist's public/private status: `true` the playlist is public, `false` the playlist is private, `null` the playlist status is not relevant. For more about public/private status, see [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/)",
+                "type": "boolean"
+              },
+              "snapshot_id": {
+                "description": "The version identifier for the current playlist. Can be supplied in other requests to target a specific playlist version",
+                "type": "string"
+              },
+              "tracks": {
+                "description": "Information about the tracks of the playlist. Note, a track object may be `null`. This can happen if a track is no longer available.",
+                "externalDocs": {
+                  "description": "Find more info on the official Spotify Web API Reference",
+                  "url": "https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject"
+                },
+                "properties": {
+                  "href": {
+                    "description": "A link to the Web API endpoint returning the full result of the request",
+                    "type": "string"
+                  },
+                  "items": {
+                    "description": "The requested data.",
+                    "items": {
+                      "$ref": "#/components/schemas/PlaylistTrackObject"
+                    },
+                    "type": "array"
+                  },
+                  "limit": {
+                    "description": "The maximum number of items in the response (as set in the query or by default).",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "next": {
+                    "description": "URL to the next page of items. ( `null` if none)",
+                    "type": "string"
+                  },
+                  "offset": {
+                    "description": "The offset of the items returned (as set in the query or by default)",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "previous": {
+                    "description": "URL to the previous page of items. ( `null` if none)",
+                    "type": "string"
+                  },
+                  "total": {
+                    "description": "The total number of items available to return.",
+                    "format": "int32",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "type": {
+                "description": "The object type: \"playlist\"",
+                "type": "string"
+              },
+              "uri": {
+                "description": "The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist.",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "On success, the response body contains the created [playlist object](https://developer.spotify.com/documentation/web-api/reference/#object-playlistobject)\nin JSON format and the HTTP status code in the response header is `200` OK or\n`201` Created. There is also a `Location` response header giving the Web API\nendpoint for the new playlist.\n\nOn error, the header status code is an [error code](https://developer.spotify.com/documentation/web-api/#response-status-codes) and the response body contains an [error object](https://developer.spotify.com/documentation/web-api/#response-schema). Trying to create a playlist when you do not have the user's authorization returns error `403` Forbidden."
+    }
+  }
+}

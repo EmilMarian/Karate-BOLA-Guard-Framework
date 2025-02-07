@@ -1,0 +1,253 @@
+2025-02-07 12:38:07,904 - __main__ - INFO - Skipping fragment creation: False
+2025-02-07 12:38:07,992 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-07 12:38:13,101 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/identity/api/auth/signup", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"name\\\\\\":\\\\\\"{{name}}\\\\\\",\\\\\\"email\\\\\\":\\\\\\"{{email}}\\\\\\",\\\\\\"number\\\\\\":\\\\\\"{{phone}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_identity_api_auth_signup_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtb25zdGVyQGRhcmt3ZWIuY29tIiwiaWF0IjoxNjA4NTQzODI0LCJleHAiOjE2MDg2MzAyMjR9.AAIvhrtstlloPf7-NNCcmhEZm-XkO1aO3x3CLns1em7ft9U77B88LpK9jIrF8C-IH32JPWVazRFo0gBIBZ9FpA", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36", "in": "header", "name": "User-Agent", "schema": {"type": "string"}}, {"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}, {"example": "*/*", "in": "header", "name": "Accept", "schema": {"type": "string"}}], "path": "/workshop/api/merchant/contact_mechanic", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\r\\\\n    \\\\\\"mechanic_code\\\\\\": \\\\\\"TRAC_JHN\\\\\\",\\\\r\\\\n    \\\\\\"problem_details\\\\\\": \\\\\\"Hi Jhon\\\\\\",\\\\r\\\\n    \\\\\\"vin\\\\\\": \\\\\\"{{VIN}}\\\\\\",\\\\r\\\\n    \\\\\\"mechanic_api\\\\\\": \\\\\\"{{url}}/workshop/api/mechanic/receive_report\\\\\\",\\\\r\\\\n    \\\\\\"repeat_request_if_failed\\\\\\": false,\\\\r\\\\n    \\\\\\"number_of_repeats\\\\\\": 1\\\\r\\\\n}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0019_workshop_api_merchant_contact_mechanic_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/identity/api/auth/verify", "requestBody": {"content": {"application/json": {"schema": {"example": {"token": "{{token}}"}, "type": "object"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0003_identity_api_auth_verify_post_200.json'}}], form collection crapi_fragments
+2025-02-07 12:38:13,102 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 12:38:13,102 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 12:38:13,707 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-07 12:38:13,707 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-07 12:41:02,373 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-07 12:41:02,374 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulner...
+2025-02-07 12:41:02,374 - __main__ - INFO - Generated Karate test for /identity/api/auth/signup POST at output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature
+2025-02-07 12:41:02,375 - karate_compatibility_verifier - INFO - Original content:
+2025-02-07 12:41:02,375 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+
+```karate
+Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+Given url 'http://oas_ocrapi.api/identity/api/auth/signup'
+And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+When method post
+Then status 200
+And match response contains "A verification email has been sent. Please check your inbox."
+```
+
+This test scenario attempts to sign up a new user with an existing username, and then verifies that the API returns a successful response (status code 200) along with a message indicating that a verification email was sent.
+
+Please note that this is just one possible approach to testing for account enumeration vulnerabilities. You may need to adjust or add more test scenarios depending on your specific requirements and use case.
+2025-02-07 12:43:27,178 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-07 12:43:27,178 - karate_compatibility_verifier - INFO - Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+  Given url 'http://oas_ocrapi.api/identity/api/auth/signup'
+  And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+  When method post
+  Then status 200
+  And match response contains "A verification email has been sent. Please check your inbox."
+2025-02-07 12:44:16,220 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-07 12:44:16,220 - karate_compatibility_verifier - INFO - Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+  Given url 'http://oas_ocrapi.api/identity/api/auth/signup'
+  And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+  When method post
+  Then status 200
+  And match response contains "A verification email has been sent. Please check your inbox."
+2025-02-07 12:44:16,220 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST_verified.feature
+2025-02-07 12:44:16,221 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestcra_identity_api_auth_signup_POST.feature: Feature: Test API for Account Enumeration during Signup
+
+Scenario: Verify that the signup process does not allow account enumeration
+  Given url 'http://oas_ocrapi.api/identity/api/auth/signup'
+  And request { username: 'existingUser', password: 'Password123!', email: 'existing@example.com' }
+  When method post
+  Then status 200
+  And match response contains "A verification email has been sent. Please check your inbox."
+2025-02-07 12:44:16,221 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 12:44:16,221 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 12:44:16,284 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-07 12:44:16,285 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-07 12:48:13,832 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-07 12:48:13,833 - karate_llm_test_gen - INFO - Generated test case: Here is the Karate DSL test script for the given API endpoint:
+
+```
+Feature: Test Broken Authenticat...
+2025-02-07 12:48:13,834 - __main__ - INFO - Generated Karate test for /workshop/api/merchant/contact_mechanic POST at output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature
+2025-02-07 12:48:13,834 - karate_compatibility_verifier - INFO - Original content:
+2025-02-07 12:48:13,834 - karate_compatibility_verifier - INFO - Here is the Karate DSL test script for the given API endpoint:
+
+```
+Feature: Test Broken Authentication/Authorization on /workshop/api/merchant/contact_mechanic
+
+Scenario: Attempt to exploit contact mechanic without authentication
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Provide invalid credentials for contact mechanic
+* def badUsername = 'invalid_username'
+* def badPassword = 'invalid_password'
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(badUsername)', password: '#(badPassword)' }
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Provide valid credentials for contact mechanic but with incorrect role
+* def goodUsername = 'valid_username'
+* def goodPassword = 'valid_password'
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(goodUsername)', password: '#(goodPassword)' }
+When method post
+Then status 403
+And match response contains "You do not have permission to access this resource"
+
+Scenario: Provide valid credentials for contact mechanic with correct role
+* def goodUsername = 'valid_username'
+* def goodPassword = 'valid_password'
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(goodUsername)', password: '#(goodPassword)' }
+When method post
+Then status 200
+```
+
+This script checks for potential Broken Authentication/Authorization vulnerabilities by attempting to access the `/workshop/api/merchant/contact_mechanic` endpoint with different types of requests:
+
+1. Without authentication (Scenario 1): This should return a 401 Unauthorized response.
+2. With invalid credentials (Scenario 2): This should also return a 401 Unauthorized response.
+3. With valid credentials but incorrect role (Scenario 3): This should return a 403 Forbidden response, indicating that the user does not have permission to access the resource.
+4. With valid credentials and correct role (Scenario 4): This should return a successful 200 OK response.
+
+Note: The actual responses may vary depending on the implementation of the API endpoint.
+2025-02-07 12:51:54,691 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-07 12:51:54,691 - karate_compatibility_verifier - INFO - ``` 
+Feature: Test Broken Authentication/Authorization on /workshop/api/merchant/contact_mechanic
+
+Scenario: Attempt to exploit contact mechanic without authentication
+Given path '/workshop/api/merchant/contact_mechanic'
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Provide invalid credentials for contact mechanic
+* def badUsername = 'invalid_username'
+* def badPassword = 'invalid_password'
+
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(badUsername)', password: '#(badPassword)' }
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Provide valid credentials for contact mechanic but with incorrect role
+* def goodUsername = 'valid_username'
+* def goodPassword = 'valid_password'
+
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(goodUsername)', password: '#(goodPassword)' }
+When method post
+Then status 403
+And match response contains "You do not have permission to access this resource"
+
+Scenario: Provide valid credentials for contact mechanic with correct role
+* def goodUsername = 'valid_username'
+* def goodPassword = 'valid_password'
+
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(goodUsername)', password: '#(goodPassword)' }
+When method post
+Then status 200
+2025-02-07 12:54:04,553 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-07 12:54:04,553 - karate_compatibility_verifier - INFO - ```
+Feature: Test Broken Authentication/Authorization on /workshop/api/merchant/contact_mechanic
+
+Scenario: Attempt to exploit contact mechanic without authentication
+Given path '/workshop/api/merchant/contact_mechanic'
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Provide invalid credentials for contact mechanic
+* def badUsername = 'invalid_username'
+* def badPassword = 'invalid_password'
+
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(badUsername)', password: '#(badPassword)' }
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Provide valid credentials for contact mechanic but with incorrect role
+* def goodUsername = 'valid_username'
+* def goodPassword = 'valid_password'
+
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(goodUsername)', password: '#(goodPassword)' }
+When method post
+Then status 403
+And match response contains "You do not have permission to access this resource"
+
+Scenario: Provide valid credentials for contact mechanic with correct role
+* def goodUsername = 'valid_username'
+* def goodPassword = 'valid_password'
+
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(goodUsername)', password: '#(goodPassword)' }
+When method post
+Then status 200
+2025-02-07 12:54:04,554 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST_verified.feature
+2025-02-07 12:54:04,554 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestcra_workshop_api_merchant_contact_mechanic_POST.feature: ```
+Feature: Test Broken Authentication/Authorization on /workshop/api/merchant/contact_mechanic
+
+Scenario: Attempt to exploit contact mechanic without authentication
+Given path '/workshop/api/merchant/contact_mechanic'
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Provide invalid credentials for contact mechanic
+* def badUsername = 'invalid_username'
+* def badPassword = 'invalid_password'
+
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(badUsername)', password: '#(badPassword)' }
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Scenario: Provide valid credentials for contact mechanic but with incorrect role
+* def goodUsername = 'valid_username'
+* def goodPassword = 'valid_password'
+
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(goodUsername)', password: '#(goodPassword)' }
+When method post
+Then status 403
+And match response contains "You do not have permission to access this resource"
+
+Scenario: Provide valid credentials for contact mechanic with correct role
+* def goodUsername = 'valid_username'
+* def goodPassword = 'valid_password'
+
+Given url http://oas_crapi.api/workshop/api/merchant/contact_mechanic
+And request { username: '#(goodUsername)', password: '#(goodPassword)' }
+When method post
+Then status 200
+2025-02-07 12:54:04,554 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 12:54:04,555 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-07 12:54:04,583 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-07 12:54:04,584 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions

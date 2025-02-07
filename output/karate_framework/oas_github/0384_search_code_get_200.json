@@ -1,0 +1,314 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The sort field. if sort param is provided. Can be either asc or desc.",
+      "in": "query",
+      "name": "order",
+      "schema": {
+        "default": "desc",
+        "enum": [
+          "desc",
+          "asc"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "The search terms. This can be any combination of the supported code\nsearch parameters:\n'Search In' Qualifies which fields are searched. With this qualifier\nyou can restrict the search to just the file contents, the file path,\nor both.\n'Languages' Searches code based on the language it's written in.\n'Forks' Filters repositories based on the number of forks, and/or\nwhether code from forked repositories should be included in the results\nat all.\n'Size' Finds files that match a certain size (in bytes).\n'Path' Specifies the path that the resulting file must be at.\n'Extension' Matches files with a certain extension.\n'Users' or 'Repositories' Limits searches to a specific user or repository.\n",
+      "in": "query",
+      "name": "q",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Can only be 'indexed', which indicates how recently a file has been indexed\nby the GitHub search infrastructure. If not provided, results are sorted\nby best match.\n",
+      "in": "query",
+      "name": "sort",
+      "schema": {
+        "enum": [
+          "indexed"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/search/code",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "items": {
+                "items": {
+                  "properties": {
+                    "git_url": {
+                      "type": "string"
+                    },
+                    "html_url": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "repository": {
+                      "properties": {
+                        "archive_url": {
+                          "type": "string"
+                        },
+                        "assignees_url": {
+                          "type": "string"
+                        },
+                        "blobs_url": {
+                          "type": "string"
+                        },
+                        "branches_url": {
+                          "type": "string"
+                        },
+                        "collaborators_url": {
+                          "type": "string"
+                        },
+                        "comments_url": {
+                          "type": "string"
+                        },
+                        "commits_url": {
+                          "type": "string"
+                        },
+                        "compare_url": {
+                          "type": "string"
+                        },
+                        "contents_url": {
+                          "type": "string"
+                        },
+                        "contributors_url": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "downloads_url": {
+                          "type": "string"
+                        },
+                        "events_url": {
+                          "type": "string"
+                        },
+                        "fork": {
+                          "type": "boolean"
+                        },
+                        "forks_url": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string"
+                        },
+                        "git_commits_url": {
+                          "type": "string"
+                        },
+                        "git_refs_url": {
+                          "type": "string"
+                        },
+                        "git_tags_url": {
+                          "type": "string"
+                        },
+                        "hooks_url": {
+                          "type": "string"
+                        },
+                        "html_url": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "issue_comment_url": {
+                          "type": "string"
+                        },
+                        "issue_events_url": {
+                          "type": "string"
+                        },
+                        "issues_url": {
+                          "type": "string"
+                        },
+                        "keys_url": {
+                          "type": "string"
+                        },
+                        "labels_url": {
+                          "type": "string"
+                        },
+                        "languages_url": {
+                          "type": "string"
+                        },
+                        "merges_url": {
+                          "type": "string"
+                        },
+                        "milestones_url": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "notifications_url": {
+                          "type": "string"
+                        },
+                        "owner": {
+                          "properties": {
+                            "avatar_url": {
+                              "type": "string"
+                            },
+                            "events_url": {
+                              "type": "string"
+                            },
+                            "followers_url": {
+                              "type": "string"
+                            },
+                            "following_url": {
+                              "type": "string"
+                            },
+                            "gists_url": {
+                              "type": "string"
+                            },
+                            "gravatar_id": {
+                              "type": "string"
+                            },
+                            "html_url": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "integer"
+                            },
+                            "login": {
+                              "type": "string"
+                            },
+                            "organizations_url": {
+                              "type": "string"
+                            },
+                            "received_events_url": {
+                              "type": "string"
+                            },
+                            "repos_url": {
+                              "type": "string"
+                            },
+                            "starred_url": {
+                              "type": "string"
+                            },
+                            "subscriptions_url": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "private": {
+                          "type": "boolean"
+                        },
+                        "pulls_url": {
+                          "type": "string"
+                        },
+                        "stargazers_url": {
+                          "type": "string"
+                        },
+                        "statuses_url": {
+                          "type": "string"
+                        },
+                        "subscribers_url": {
+                          "type": "string"
+                        },
+                        "subscription_url": {
+                          "type": "string"
+                        },
+                        "tags_url": {
+                          "type": "string"
+                        },
+                        "teams_url": {
+                          "type": "string"
+                        },
+                        "trees_url": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "score": {
+                      "type": "number"
+                    },
+                    "sha": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "total_count": {
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

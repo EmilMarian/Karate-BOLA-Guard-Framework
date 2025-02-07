@@ -1,0 +1,150 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `chat:write`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/chat.postMessage",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "as_user": {
+              "description": "Pass true to post the message as the authed user, instead of as a bot. Defaults to false. See [authorship](#authorship) below.",
+              "type": "string"
+            },
+            "attachments": {
+              "description": "A JSON-based array of structured attachments, presented as a URL-encoded string.",
+              "type": "string"
+            },
+            "blocks": {
+              "description": "A JSON-based array of structured blocks, presented as a URL-encoded string.",
+              "type": "string"
+            },
+            "channel": {
+              "description": "Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See [below](#channels) for more details.",
+              "type": "string"
+            },
+            "icon_emoji": {
+              "description": "Emoji to use as the icon for this message. Overrides `icon_url`. Must be used in conjunction with `as_user` set to `false`, otherwise ignored. See [authorship](#authorship) below.",
+              "type": "string"
+            },
+            "icon_url": {
+              "description": "URL to an image to use as the icon for this message. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+              "type": "string"
+            },
+            "link_names": {
+              "description": "Find and link channel names and usernames.",
+              "type": "boolean"
+            },
+            "mrkdwn": {
+              "description": "Disable Slack markup parsing by setting to `false`. Enabled by default.",
+              "type": "boolean"
+            },
+            "parse": {
+              "description": "Change how messages are treated. Defaults to `none`. See [below](#formatting).",
+              "type": "string"
+            },
+            "reply_broadcast": {
+              "description": "Used in conjunction with `thread_ts` and indicates whether reply should be made visible to everyone in the channel or conversation. Defaults to `false`.",
+              "type": "boolean"
+            },
+            "text": {
+              "description": "How this field works and whether it is required depends on other fields you use in your API call. [See below](#text_usage) for more detail.",
+              "type": "string"
+            },
+            "thread_ts": {
+              "description": "Provide another message's `ts` value to make this message a reply. Avoid using a reply's `ts` value; use its parent instead.",
+              "type": "string"
+            },
+            "unfurl_links": {
+              "description": "Pass true to enable unfurling of primarily text-based content.",
+              "type": "boolean"
+            },
+            "unfurl_media": {
+              "description": "Pass false to disable unfurling of media content.",
+              "type": "boolean"
+            },
+            "username": {
+              "description": "Set your bot's user name. Must be used in conjunction with `as_user` set to false, otherwise ignored. See [authorship](#authorship) below.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "channel"
+          ],
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "too_many_attachments",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response chat.postMessage method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "channel_not_found",
+                  "not_in_channel",
+                  "is_archived",
+                  "msg_too_long",
+                  "no_text",
+                  "too_many_attachments",
+                  "rate_limited",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "chat.postMessage error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response if too many attachments are included"
+    }
+  }
+}

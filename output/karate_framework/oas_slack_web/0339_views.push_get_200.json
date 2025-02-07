@@ -1,0 +1,115 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `none`",
+      "in": "header",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Exchange a trigger to post to the user.",
+      "in": "query",
+      "name": "trigger_id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "A [view payload](/reference/surfaces/views). This must be a JSON-encoded string.",
+      "in": "query",
+      "name": "view",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/views.push",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true,
+                "view": {
+                  "app_id": "AAD3351BQ",
+                  "blocks": [
+                    {
+                      "block_id": "edit_details",
+                      "element": {
+                        "action_id": "detail_input",
+                        "type": "plain_text_input"
+                      },
+                      "label": {
+                        "text": "Edit details",
+                        "type": "plain_text"
+                      },
+                      "type": "input"
+                    }
+                  ],
+                  "bot_id": "BADF7A34H",
+                  "callback_id": "view_4",
+                  "clear_on_close": true,
+                  "close": {
+                    "emoji": true,
+                    "text": "Back",
+                    "type": "plain_text"
+                  },
+                  "external_id": "",
+                  "hash": "1569362015.55b5e41b",
+                  "id": "VNM522E2U",
+                  "notify_on_close": false,
+                  "previous_view_id": null,
+                  "private_metadata": "",
+                  "root_view_id": "VNN729E3U",
+                  "state": {
+                    "values": {}
+                  },
+                  "submit": {
+                    "emoji": true,
+                    "text": "Save",
+                    "type": "plain_text"
+                  },
+                  "team_id": "T9M4RL1JM",
+                  "title": {
+                    "emoji": true,
+                    "text": "Pushed Modal",
+                    "type": "plain_text"
+                  },
+                  "type": "modal"
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": true,
+            "description": "This method either only returns a brief _OK_ response or a verbose schema is not available for this method.",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok"
+            ],
+            "title": "Default success template",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response includes the pushed view payload."
+    }
+  }
+}

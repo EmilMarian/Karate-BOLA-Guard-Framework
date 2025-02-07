@@ -1,0 +1,248 @@
+2025-01-31 01:00:36,658 - __main__ - INFO - Skipping fragment creation: False
+2025-01-31 01:00:36,749 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-31 01:00:36,980 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/Users/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"passwordRepeat\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"securityQuestion\\\\\\":{\\\\\\"id\\\\\\":7,\\\\\\"question\\\\\\":\\\\\\"Name of your favorite pet?\\\\\\",\\\\\\"createdAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\",\\\\\\"updatedAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\"},\\\\\\"securityAnswer\\\\\\":\\\\\\"MIX MIX\\\\\\"}\\"", "type": "string"}}}}, "responses": {"201": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_api_Users_post_201.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/rest/user/login", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0002_rest_user_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "{{_token}}", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "application/json; charset=utf-8", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/BasketItems/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"ProductId\\\\\\":{{_product_2_id}},\\\\\\"BasketId\\\\\\":\\\\\\"{{_bid}}\\\\\\",\\\\\\"quantity\\\\\\":1}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0004_api_BasketItems_post_200.json'}}], form collection oas_juiceshop_fragments
+2025-01-31 01:00:36,981 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 01:00:36,981 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 01:00:37,384 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 01:00:37,385 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 01:05:27,899 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 01:05:27,901 - karate_llm_test_gen - INFO - Generated test case: Here's an example of a security test scenario using Karate DSL for the given API endpoint:
+```php
+Fe...
+2025-01-31 01:05:27,902 - __main__ - INFO - Generated Karate test for /api/Users/ POST at output/karate_feature_files/ID_001_krtestoas_api_Users__POST.feature
+2025-01-31 01:05:27,902 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 01:05:27,902 - karate_compatibility_verifier - INFO - Here's an example of a security test scenario using Karate DSL for the given API endpoint:
+```php
+Feature: Broken Authentication and Authorization Vulnerability Testing
+
+Scenario: Attempt to access protected resources without proper authentication or authorization
+    Given url http://oas_juiceshop.api/api/Users/
+    And request {
+        method: POST,
+        path: /api/Users/,
+        header: {
+            Authorization: 'Bearer <invalid_token>'
+        }
+    }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+```
+This scenario tests whether an unauthenticated user or a user with invalid authentication credentials can access the protected resource. The API endpoint is set to `http://oas_juiceshop.api/api/Users/`, and the request header includes an invalid token for testing purposes. If the response status code is 401 (Unauthorized), then the test case passes, indicating that the authentication mechanism is working correctly.
+2025-01-31 01:08:46,708 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 01:08:46,708 - karate_compatibility_verifier - INFO - ```php
+Feature: Broken Authentication and Authorization Vulnerability Testing
+
+Scenario: Attempt to access protected resources without proper authentication or authorization
+    Given url http://oas_juiceshop.api/api/Users/
+    And request {
+        method: POST,
+        path: /api/Users/,
+        header: {
+            Authorization: 'Bearer <invalid_token>'
+        }
+    }
+    When method post
+    Then status 401
+    And match response contains "Unauthorized"
+```
+2025-01-31 01:10:23,043 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 01:10:23,043 - karate_compatibility_verifier - INFO - Feature: Broken Authentication and Authorization Vulnerability Testing
+
+Scenario: Attempt to access protected resources without proper authentication or authorization
+Given url http://oas_juiceshop.api/api/Users/
+And request {
+method: POST,
+path: /api/Users/, 
+header: { 
+Authorization: 'Bearer <invalid_token>' 
+}
+}
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Note that the only correction made is to capitalize the header key in the request object.
+2025-01-31 01:10:23,044 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_api_Users__POST_verified.feature
+2025-01-31 01:10:23,044 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_api_Users__POST.feature: Feature: Broken Authentication and Authorization Vulnerability Testing
+
+Scenario: Attempt to access protected resources without proper authentication or authorization
+Given url http://oas_juiceshop.api/api/Users/
+And request {
+method: POST,
+path: /api/Users/, 
+header: { 
+Authorization: 'Bearer <invalid_token>' 
+}
+}
+When method post
+Then status 401
+And match response contains "Unauthorized"
+
+Note that the only correction made is to capitalize the header key in the request object.
+2025-01-31 01:10:23,045 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 01:10:23,045 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 01:10:23,086 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 01:10:23,088 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 01:14:40,994 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 01:14:40,995 - karate_llm_test_gen - INFO - Generated test case: Scenario: Verify that the login endpoint requires valid credentials and does not allow brute force a...
+2025-01-31 01:14:40,996 - __main__ - INFO - Generated Karate test for /rest/user/login POST at output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST.feature
+2025-01-31 01:14:40,996 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 01:14:40,996 - karate_compatibility_verifier - INFO - Scenario: Verify that the login endpoint requires valid credentials and does not allow brute force attacks
+===============================================================================================
+
+Given url http://oas\_juiceshop.api/rest/user/login
+When method post with invalid username or password
+Then status 401
+And match response contains "Incorrect username or password"
+
+Scenario: Verify that the login endpoint does not allow brute force attacks by checking for a lockout mechanism
+=====================================================================================================
+
+Given url http://oas\_juiceshop.api/rest/user/login
+When method post with invalid credentials
+Then status 401
+And match response contains "Incorrect username or password"
+And request { headers: { Authorization: "Basic <token>" } }
+Then status 200
+And match response contains "Lockout for 30 seconds. Please try again later."
+2025-01-31 01:19:14,174 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 01:19:14,175 - karate_compatibility_verifier - INFO - Scenario: Verify that the login endpoint requires valid credentials and does not allow brute force attacks
+===============================================================================================
+
+Given url http://oas\_juiceshop.api/rest/user/login
+When method post with invalid username or password
+Then status 401
+And match response contains "Incorrect username or password"
+
+Scenario: Verify that the login endpoint does not allow brute force attacks by checking for a lockout mechanism
+=====================================================================================================
+
+Given url http://oas\_juiceshop.api/rest/user/login
+When method post with invalid credentials
+Then status 401
+And match response contains "Incorrect username or password"
+And request { headers: { Authorization: "Basic <token>" } }
+Then status 200
+And match response contains "Lockout for 30 seconds. Please try again later."
+2025-01-31 01:21:24,173 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 01:21:24,176 - karate_compatibility_verifier - INFO - Scenario: Verify that the login endpoint requires valid credentials and does not allow brute force attacks
+===============================================================================================
+
+Given url http://oas\_juiceshop.api/rest/user/login
+When method post with invalid username or password
+Then status 401
+And match response contains "Incorrect username or password"
+
+Scenario: Verify that the login endpoint does not allow brute force attacks by checking for a lockout mechanism
+=====================================================================================================
+
+Given url http://oas\_juiceshop.api/rest/user/login
+When method post with invalid credentials
+Then status 401
+And match response contains "Incorrect username or password"
+And request { headers: { Authorization: "Basic <token>" } }
+Then status 200
+And match response contains "Lockout for 30 seconds. Please try again later."
+2025-01-31 01:21:24,177 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST_verified.feature
+2025-01-31 01:21:24,177 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST.feature: Scenario: Verify that the login endpoint requires valid credentials and does not allow brute force attacks
+===============================================================================================
+
+Given url http://oas\_juiceshop.api/rest/user/login
+When method post with invalid username or password
+Then status 401
+And match response contains "Incorrect username or password"
+
+Scenario: Verify that the login endpoint does not allow brute force attacks by checking for a lockout mechanism
+=====================================================================================================
+
+Given url http://oas\_juiceshop.api/rest/user/login
+When method post with invalid credentials
+Then status 401
+And match response contains "Incorrect username or password"
+And request { headers: { Authorization: "Basic <token>" } }
+Then status 200
+And match response contains "Lockout for 30 seconds. Please try again later."
+2025-01-31 01:21:24,178 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 01:21:24,179 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 01:21:24,223 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 01:21:24,223 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 01:25:52,549 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 01:25:52,550 - karate_llm_test_gen - INFO - Generated test case: Here's an example of how you could write security test cases using Karate DSL scenario for the given...
+2025-01-31 01:25:52,551 - __main__ - INFO - Generated Karate test for /api/BasketItems/ POST at output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST.feature
+2025-01-31 01:25:52,552 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 01:25:52,552 - karate_compatibility_verifier - INFO - Here's an example of how you could write security test cases using Karate DSL scenario for the given API endpoint information:
+```vbnet
+Feature: OAuth Token Generation Flaw Testing
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+    Given url http://oas_juiceshop.api/oauth/token
+    And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+    When method post
+    Then status 400
+    And match response contains 'Invalid grant: authorization code is invalid'
+```
+This test case checks that the API returns a `400 Bad Request` error when an attempt is made to generate access and refresh tokens with a stolen authorization code. The expected response message is also checked using the `match` keyword in Karate DSL.
+2025-01-31 01:29:29,870 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 01:29:29,870 - karate_compatibility_verifier - INFO - ```vbnet
+Feature: OAuth Token Generation Flaw Testing
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+    Given url http://oas_juiceshop.api/oauth/token
+    And request { grant_type: 'authorization_code', code: 'stolen_code', redirect_uri: 'http://evil.example.com', client_id: 'client_id', client_secret: 'client_secret' }
+    When method post
+    Then status 400
+    And match response contains 'Invalid grant: authorization code is invalid'
+```
+2025-01-31 01:31:14,339 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 01:31:14,340 - karate_compatibility_verifier - INFO - Feature: OAuth Token Generation Flaw Testing
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url http://oas_juiceshop.api/oauth/token
+And request { grant\_type: 'authorization\_code', code: 'stolen\_code', redirect\_uri: 'http://evil.example.com', client\_id: 'client\_id', client\_secret: 'client\_secret' }
+When method POST
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+The Karate DSL script provided is already correct and does not require any modifications.
+2025-01-31 01:31:14,340 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST_verified.feature
+2025-01-31 01:31:14,341 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST.feature: Feature: OAuth Token Generation Flaw Testing
+
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url http://oas_juiceshop.api/oauth/token
+And request { grant\_type: 'authorization\_code', code: 'stolen\_code', redirect\_uri: 'http://evil.example.com', client\_id: 'client\_id', client\_secret: 'client\_secret' }
+When method POST
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+The Karate DSL script provided is already correct and does not require any modifications.
+2025-01-31 01:31:14,341 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-31 01:31:14,344 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-31 01:31:16,890 - __main__ - INFO - Skipping karate test run.

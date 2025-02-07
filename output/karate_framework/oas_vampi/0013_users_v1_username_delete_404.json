@@ -1,0 +1,42 @@
+{
+  "method": "DELETE",
+  "parameters": [
+    {
+      "description": "Delete username",
+      "in": "path",
+      "name": "username",
+      "required": true,
+      "schema": {
+        "example": "name1",
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users/v1/{username}",
+  "requestBody": {},
+  "responses": {
+    "404": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "message": {
+                "example": "User not found!",
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "fail"
+                ],
+                "example": "fail",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "User not found"
+    }
+  }
+}

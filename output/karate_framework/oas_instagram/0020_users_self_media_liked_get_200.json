@@ -1,0 +1,50 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Count of media to return.",
+      "in": "query",
+      "name": "count",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Return media liked before this id.",
+      "in": "query",
+      "name": "max_like_id",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users/self/media/liked",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "List of media entries",
+                "items": {
+                  "$ref": "#/components/schemas/MediaEntry"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              },
+              "pagination": {
+                "$ref": "#/components/schemas/IdPaginationInfo"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "Users media entries."
+    }
+  }
+}

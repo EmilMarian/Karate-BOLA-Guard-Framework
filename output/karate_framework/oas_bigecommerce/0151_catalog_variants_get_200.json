@@ -1,0 +1,63 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Filter items by id.\n",
+      "in": "query",
+      "name": "id",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Filter items by sku.\n",
+      "in": "query",
+      "name": "sku",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Control the page in a limited list of products.\n",
+      "in": "query",
+      "name": "page",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Control the items per page.\n",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/variants",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Response payload for the Bigcommerce API.\n",
+            "properties": {
+              "data": {
+                "items": {
+                  "$ref": "#/components/schemas/Variant"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/CollectionMeta"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "An array of variants and metadata.\n"
+    }
+  }
+}

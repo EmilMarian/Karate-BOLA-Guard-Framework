@@ -1,0 +1,197 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Specifies which fields in the response should be expanded.",
+      "explode": true,
+      "in": "query",
+      "name": "expand",
+      "required": false,
+      "schema": {
+        "items": {
+          "maxLength": 5000,
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "style": "deepObject"
+    },
+    {
+      "description": "Unique identifier for the object.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/billing/credit_grants/{id}",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {},
+        "schema": {
+          "additionalProperties": false,
+          "properties": {},
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "A credit grant is an API resource that documents the allocation of some billing credits to a customer.\n\nRelated guide: [Billing credits](https://docs.stripe.com/billing/subscriptions/usage-based/billing-credits)",
+            "properties": {
+              "amount": {
+                "$ref": "#/components/schemas/billing_credit_grants_resource_amount"
+              },
+              "applicability_config": {
+                "$ref": "#/components/schemas/billing_credit_grants_resource_applicability_config"
+              },
+              "category": {
+                "description": "The category of this credit grant. This is for tracking purposes and isn't displayed to the customer.",
+                "enum": [
+                  "paid",
+                  "promotional"
+                ],
+                "type": "string"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "customer": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/customer"
+                  },
+                  {
+                    "$ref": "#/components/schemas/deleted_customer"
+                  }
+                ],
+                "description": "ID of the customer receiving the billing credits.",
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/customer"
+                    },
+                    {
+                      "$ref": "#/components/schemas/deleted_customer"
+                    }
+                  ]
+                }
+              },
+              "effective_at": {
+                "description": "The time when the billing credits become effective-when they're eligible for use.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "expires_at": {
+                "description": "The time when the billing credits expire. If not present, the billing credits don't expire.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "type": "object"
+              },
+              "name": {
+                "description": "A descriptive name shown in dashboard.",
+                "maxLength": 5000,
+                "nullable": true,
+                "type": "string"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "billing.credit_grant"
+                ],
+                "type": "string"
+              },
+              "test_clock": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/test_helpers.test_clock"
+                  }
+                ],
+                "description": "ID of the test clock this credit grant belongs to.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/test_helpers.test_clock"
+                    }
+                  ]
+                }
+              },
+              "updated": {
+                "description": "Time at which the object was last updated. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "voided_at": {
+                "description": "The time when this credit grant was voided. If not present, the credit grant hasn't been voided.",
+                "format": "unix-time",
+                "nullable": true,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "amount",
+              "applicability_config",
+              "category",
+              "created",
+              "customer",
+              "id",
+              "livemode",
+              "metadata",
+              "object",
+              "updated"
+            ],
+            "title": "CreditGrant",
+            "type": "object",
+            "x-expandableFields": [
+              "amount",
+              "applicability_config",
+              "customer",
+              "test_clock"
+            ],
+            "x-resourceId": "billing.credit_grant"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

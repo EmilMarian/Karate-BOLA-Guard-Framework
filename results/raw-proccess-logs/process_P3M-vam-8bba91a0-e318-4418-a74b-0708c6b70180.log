@@ -1,0 +1,223 @@
+2025-02-01 16:23:42,933 - __main__ - INFO - Skipping fragment creation: False
+2025-02-01 16:23:42,994 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-01 16:23:43,250 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/users/v1/register", "requestBody": {"content": {"application/json": {"schema": {"properties": {"email": {"example": "user@tempmail.com", "type": "string"}, "password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Successfully registered. Login to receive an auth token.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully created user"}}}', 'metadata': {'filename': '0005_users_v1_register_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"auth_token": {"example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NzAxNjA2MTcsImlhdCI6MTY3MDE2MDU1Nywic3ViIjoiSm9obi5Eb2UifQ.n17N4AxTbL4_z65-NR46meoytauPDjImUxrLiUMSTQw", "type": "string"}, "message": {"example": "Successfully logged in.", "type": "string"}, "status": {"enum": ["success", "fail"], "example": "success", "type": "string"}}, "type": "object"}}}, "description": "Sucessfully logged in user"}}}', 'metadata': {'filename': '0007_users_v1_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/users/v1/login", "requestBody": {"content": {"application/json": {"schema": {"properties": {"password": {"example": "password123", "type": "string"}, "username": {"example": "John.Doe", "type": "string"}}, "type": "object"}}}, "description": "Username of the user", "required": true}, "responses": {"400": {"content": {"application/json": {"schema": {"properties": {"message": {"example": "Password is not correct for the given username.", "type": "string"}, "status": {"enum": ["fail"], "example": "fail", "type": "string"}}, "type": "object"}}}, "description": "Invalid request"}}}', 'metadata': {'filename': '0008_users_v1_login_post_400.json'}}], form collection oas_vampi_fragments
+2025-02-01 16:23:43,251 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:23:43,251 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:23:43,663 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 16:23:43,663 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 16:25:42,868 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 16:25:42,870 - karate_llm_test_gen - INFO - Generated test case: ```yaml
+Feature: Test API for Potential Broken Authentication and Authorization on User Registration...
+2025-02-01 16:25:42,871 - __main__ - INFO - Generated Karate test for /users/v1/register POST at output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST.feature
+2025-02-01 16:25:42,871 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 16:25:42,871 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test API for Potential Broken Authentication and Authorization on User Registration
+
+Scenario: Attempt registration with invalid credentials, expecting an unauthorized response status code (e.g., 401 or 403)
+Given url 'http://oas_vampi.api/users/v1/register'
+And header Authorization = "Bearer <invalid_token>"
+When method post with parameters { username: 'admin', password: 'wrongpassword!', email: '<email@example.com>' }
+Then status 401 or 403
+```
+2025-02-01 16:27:47,343 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 16:27:47,343 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test API for Potential Broken Authentication and Authorization on User Registration
+
+Scenario: Attempt registration with invalid credentials, expecting an unauthorized response status code (e.g., 401 or 403)
+Given url 'http://oas_vampi.api/users/v1/register'
+And header Authorization = "Bearer <invalid_token>"
+When method post with parameters { username: 'admin', password: 'wrongpassword!', email: '<email@example.com>' }
+Then status 401 or 403
+```
+2025-02-01 16:28:36,742 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 16:28:36,742 - karate_compatibility_verifier - INFO - ```yaml
+Feature: Test API for Potential Broken Authentication and Authorization on User Registration
+
+Scenario: Attempt registration with invalid credentials, expecting an unauthorized response status code (e.g., 401 or 403)
+Given url 'http://oas_vampi.api/users/v1/register'
+And header Authorization = "Bearer <invalid_token>"
+When method post with parameters { username: 'admin', password: 'wrongpassword!', email: '<email@example.com>' }
+Then status 401 or 403
+```
+2025-02-01 16:28:36,742 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST_verified.feature
+2025-02-01 16:28:36,743 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_v1_register_POST.feature: ```yaml
+Feature: Test API for Potential Broken Authentication and Authorization on User Registration
+
+Scenario: Attempt registration with invalid credentials, expecting an unauthorized response status code (e.g., 401 or 403)
+Given url 'http://oas_vampi.api/users/v1/register'
+And header Authorization = "Bearer <invalid_token>"
+When method post with parameters { username: 'admin', password: 'wrongpassword!', email: '<email@example.com>' }
+Then status 401 or 403
+```
+2025-02-01 16:28:36,743 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:28:36,744 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:28:36,784 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 16:28:36,785 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 16:30:54,149 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 16:30:54,150 - karate_llm_test_gen - INFO - Generated test case: {
+    "feature": "Testing for Broken Authentication and Authorization",
+    "scenario": "Verify the ...
+2025-02-01 16:30:54,151 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST.feature
+2025-02-01 16:30:54,151 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 16:30:54,151 - karate_compatibility_verifier - INFO - {
+    "feature": "Testing for Broken Authentication and Authorization",
+    "scenario": "Verify the `/users/v1/login` endpoint does not reveal sensitive information or allow unauthorized access.",
+    "steps": [
+        "Given url http://oas_vampi.api/users/v1/login",
+        "And header Authorization = 'Bearer invalid_token'", // Assuming the API requires a Bearer token for authentication, but we use an invalid one to test broken auth handling
+        "When method post with body { username: 'admin', password: 'password123' }",
+        "Then status 401 or throws exception indicating failed login attempt"
+    ],
+    "#explanation": "This scenario checks if the API endpoint `/users/v1/login` properly handles unauthorized access attempts by returning an appropriate error code (e.g., HTTP 401 Unauthorized) and does not leak sensitive information in its response."
+}
+2025-02-01 16:34:02,403 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 16:34:02,404 - karate_compatibility_verifier - INFO - Feature: Testing for Broken Authentication and Authorization
+    http://oas_vampi.api/users/v1/login
+
+Background:
+* url 'http://oas_vampi.api/users/v1/login'
+
+Scenario: Verify the `/users/v1/login` endpoint does not reveal sensitive information or allow unauthorized access.
+    * header Authorization = 'Bearer invalid_token' // Assuming the API requires a Bearer token for authentication, but we use an invalid one to test broken auth handling
+    * Given no user is logged in yet
+    When method post with body { username: 'admin', password: 'password123' }
+    Then status 401 or throws exception indicating failed login attempt
+2025-02-01 16:35:01,261 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 16:35:01,261 - karate_compatibility_verifier - INFO - Feature: Testing for Broken Authentication and Authorization
+    http://oas_vampi.api/users/v1/login
+
+Background:
+* url 'http://oas_vampi.api/users/v1/login'
+
+Scenario: Verify the `/users/v1/login` endpoint does not reveal sensitive information or allow unauthorized access
+    * header Authorization = 'Bearer invalid_token' // Assuming the API requires a Bearer token for authentication, but we use an invalid one to test broken auth handling
+    Given no user is logged in yet
+    When method post with body { username: 'admin', password: 'password123' }
+    Then status 401 or throws exception indicating failed login attempt
+2025-02-01 16:35:01,265 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST_verified.feature
+2025-02-01 16:35:01,266 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_users_v1_login_POST.feature: Feature: Testing for Broken Authentication and Authorization
+    http://oas_vampi.api/users/v1/login
+
+Background:
+* url 'http://oas_vampi.api/users/v1/login'
+
+Scenario: Verify the `/users/v1/login` endpoint does not reveal sensitive information or allow unauthorized access
+    * header Authorization = 'Bearer invalid_token' // Assuming the API requires a Bearer token for authentication, but we use an invalid one to test broken auth handling
+    Given no user is logged in yet
+    When method post with body { username: 'admin', password: 'password123' }
+    Then status 401 or throws exception indicating failed login attempt
+2025-02-01 16:35:01,267 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:35:01,268 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-01 16:35:01,302 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-01 16:35:01,303 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-01 16:37:38,244 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-01 16:37:38,252 - karate_llm_test_gen - INFO - Generated test case: {
+  "feature": "Testing for Broken Auth and Authorization",
+  "scenario": "Verify unauthorized acces...
+2025-02-01 16:37:38,252 - __main__ - INFO - Generated Karate test for /users/v1/login POST at output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST.feature
+2025-02-01 16:37:38,253 - karate_compatibility_verifier - INFO - Original content:
+2025-02-01 16:37:38,253 - karate_compatibility_verifier - INFO - {
+  "feature": "Testing for Broken Auth and Authorization",
+  "scenario": "Verify unauthorized access attempts return appropriate status codes but do not reveal sensitive information.",
+  "steps": [
+    {
+      "Given url http://oas_vampi.api/users/v1/login"
+    },
+    {
+      "And header Authorization = 'Bearer invalid_token'",
+      "When method post"
+    },
+    {
+      "Then status 403 or contains sensitive information in the response body"
+    },
+    {
+      "Given url http://oas_vampi.api/users/v1/login/" + "{documentId}" // Assuming document ID is part of login endpoint for context, otherwise remove this step if not applicable
+    },
+    {
+      "And header Authorization = 'Bearer invalid_token'",
+      "When method post"
+    },
+    {
+      "Then status 403 or contains sensitive information in the response body"
+    }
+  ],
+  "#explanation": "This scenario checks for Broken Authentication/Authorization vulnerabilities by attempting to access a resource with an invalid token and ensuring that no exploitable error messages are returned, which could be used for further attacks."
+}
+2025-02-01 16:41:06,242 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-01 16:41:06,242 - karate_compatibility_verifier - INFO - Feature: Testing for Broken Auth and Authorization
+    Background:
+        * url 'http://oas_vampi.api/users/v1/login'
+        
+    Scenario: Verify unauthorized access attempts return appropriate status codes but do not reveal sensitive information
+        Given url http://oas_vampi.api/users/v1/login
+        And header Authorization = 'Bearer invalid_token'
+        When method post
+        Then status 403 or contains no exploitable error messages in the response body
+        
+    Scenario: Verify unauthorized access attempts return appropriate status codes but do not reveal sensitive information for a specific user document ID (assuming it is part of login endpoint)
+        Given url http://oas_vampi.api/users/v1/login/{documentId}
+        And header Authorization = 'Bearer invalid_token'
+        When method post
+        Then status 403 or contains no exploitable error messages in the response body
+2025-02-01 16:42:22,800 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-01 16:42:22,801 - karate_compatibility_verifier - INFO - Feature: Testing for Broken Auth and Authorization
+    Background:
+        * url 'http://oas_vampi.api/users/v1/login'
+        
+    Scenario: Verify unauthorized access attempts return appropriate status codes but do not reveal sensitive information
+        Given url http://oas_vampi.api/users/v1/login?documentId=invalidDocumentID
+        And header Authorization = 'Bearer invalid_token'
+        When method post
+        Then status 403 or contains no exploitable error messages in the response body
+        
+    Scenario: Verify unauthorized access attempts return appropriate status codes but do not reveal sensitive information for a specific user document ID (assuming it is part of login endpoint)
+        Given url http://oas_vampi.api/users/v1/login/{documentId=invalidDocumentID}
+        And header Authorization = 'Bearer invalid_token'
+        When method post
+        Then status 403 or contains no exploitable error messages in the response body
+2025-02-01 16:42:22,801 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST_verified.feature
+2025-02-01 16:42:22,801 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_users_v1_login_POST.feature: Feature: Testing for Broken Auth and Authorization
+    Background:
+        * url 'http://oas_vampi.api/users/v1/login'
+        
+    Scenario: Verify unauthorized access attempts return appropriate status codes but do not reveal sensitive information
+        Given url http://oas_vampi.api/users/v1/login?documentId=invalidDocumentID
+        And header Authorization = 'Bearer invalid_token'
+        When method post
+        Then status 403 or contains no exploitable error messages in the response body
+        
+    Scenario: Verify unauthorized access attempts return appropriate status codes but do not reveal sensitive information for a specific user document ID (assuming it is part of login endpoint)
+        Given url http://oas_vampi.api/users/v1/login/{documentId=invalidDocumentID}
+        And header Authorization = 'Bearer invalid_token'
+        When method post
+        Then status 403 or contains no exploitable error messages in the response body
+2025-02-01 16:42:22,802 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-01 16:42:22,804 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-01 16:42:25,768 - __main__ - INFO - Skipping karate test run.

@@ -1,0 +1,280 @@
+{
+  "method": "PATCH",
+  "parameters": [
+    {
+      "description": "Id of gist.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "You can check the current version of media type in responses.\n",
+      "in": "header",
+      "name": "X-GitHub-Media-Type",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Is used to set specified media type.",
+      "in": "header",
+      "name": "Accept",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Remaining",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-RateLimit-Reset",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "in": "header",
+      "name": "X-GitHub-Request-Id",
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/gists/{id}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "files": {
+              "properties": {
+                "delete_this_file.txt": {
+                  "type": "string"
+                },
+                "file1.txt": {
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "new_file.txt": {
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "old_name.txt": {
+                  "properties": {
+                    "content": {
+                      "type": "string"
+                    },
+                    "filename": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "comments": {
+                "type": "integer"
+              },
+              "comments_url": {
+                "type": "string"
+              },
+              "created_at": {
+                "description": "Timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.",
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "files": {
+                "properties": {
+                  "ring.erl": {
+                    "properties": {
+                      "filename": {
+                        "type": "string"
+                      },
+                      "raw_url": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "forks": {
+                "items": {
+                  "properties": {
+                    "created_at": {
+                      "description": "Timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.",
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "properties": {
+                        "avatar_url": {
+                          "type": "string"
+                        },
+                        "gravatar_id": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "login": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "git_pull_url": {
+                "type": "string"
+              },
+              "git_push_url": {
+                "type": "string"
+              },
+              "history": {
+                "items": {
+                  "properties": {
+                    "change_status": {
+                      "properties": {
+                        "additions": {
+                          "type": "integer"
+                        },
+                        "deletions": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "committed_at": {
+                      "description": "Timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.",
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "properties": {
+                        "avatar_url": {
+                          "type": "string"
+                        },
+                        "gravatar_id": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "login": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "version": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "html_url": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "public": {
+                "type": "boolean"
+              },
+              "url": {
+                "type": "string"
+              },
+              "user": {
+                "properties": {
+                  "avatar_url": {
+                    "type": "string"
+                  },
+                  "gravatar_id": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "integer"
+                  },
+                  "login": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "OK"
+    }
+  }
+}

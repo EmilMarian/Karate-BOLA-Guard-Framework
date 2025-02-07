@@ -1,0 +1,462 @@
+2025-01-31 13:16:46,228 - __main__ - INFO - Skipping fragment creation: False
+2025-01-31 13:16:46,314 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-31 13:16:46,682 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/Users/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"passwordRepeat\\\\\\":\\\\\\"{{_password}}\\\\\\",\\\\\\"securityQuestion\\\\\\":{\\\\\\"id\\\\\\":7,\\\\\\"question\\\\\\":\\\\\\"Name of your favorite pet?\\\\\\",\\\\\\"createdAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\",\\\\\\"updatedAt\\\\\\":\\\\\\"2022-05-20T17:09:53.991Z\\\\\\"},\\\\\\"securityAnswer\\\\\\":\\\\\\"MIX MIX\\\\\\"}\\"", "type": "string"}}}}, "responses": {"201": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0001_api_Users_post_201.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "application/json", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/rest/user/login", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"email\\\\\\":\\\\\\"{{_email}}\\\\\\",\\\\\\"password\\\\\\":\\\\\\"{{_password}}\\\\\\"}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0002_rest_user_login_post_200.json'}}, {'content': '{"method": "POST", "parameters": [{"example": "{{_token}}", "in": "header", "name": "Authorization", "schema": {"type": "string"}}, {"example": "application/json; charset=utf-8", "in": "header", "name": "Content-Type", "schema": {"type": "string"}}], "path": "/api/BasketItems/", "requestBody": {"content": {"*/*": {"schema": {"example": "\\"{\\\\\\"ProductId\\\\\\":{{_product_2_id}},\\\\\\"BasketId\\\\\\":\\\\\\"{{_bid}}\\\\\\",\\\\\\"quantity\\\\\\":1}\\"", "type": "string"}}}}, "responses": {"200": {"content": {"application/json": {}}, "description": "Successful response"}}}', 'metadata': {'filename': '0004_api_BasketItems_post_200.json'}}], form collection oas_juiceshop_fragments
+2025-01-31 13:16:46,683 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 13:16:46,683 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 13:16:47,111 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 13:16:47,112 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 13:21:40,244 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 13:21:40,245 - karate_llm_test_gen - INFO - Generated test case: Here's an example of how you can generate a security test using karate DSL scenario:
+
+```karate
+Feat...
+2025-01-31 13:21:40,246 - __main__ - INFO - Generated Karate test for /api/Users/ POST at output/karate_feature_files/ID_001_krtestoas_api_Users__POST.feature
+2025-01-31 13:21:40,246 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 13:21:40,246 - karate_compatibility_verifier - INFO - Here's an example of how you can generate a security test using karate DSL scenario:
+
+```karate
+Feature: Test API for User Creation Flaw
+
+Scenario: Attempt to create user with invalid credentials
+Given url 'http://oas_juiceshop.api/api/Users/'
+And request { username: '<invalid_username>', password: '<invalid_password>' }
+When method post
+Then status 401
+And match response contains "Invalid username or password"
+
+Scenario: Attempt to create user with empty fields
+Given url 'http://oas_juicesshop.api/api/Users/'
+And request {}
+When method post
+Then status 400
+And match response contains "Username and Password are required"
+
+Scenario: Attempt to create user without authentication
+Given url 'http://oas_juiceshop.api/api/Users/'
+And request { username: '<valid_username>', password: '<valid_password>' }
+When method post
+Then status 401
+
+Scenario: Successfully create a new user with valid credentials
+Given url 'http://oas_juicesshop.api/api/Users/'
+And request { username: '<new_username>', password: '<new_password>' }
+When method post
+Then status 201
+```
+
+You can replace the placeholders `<invalid_username>`, `<invalid_password>`, `<valid_username>`, and `<valid_password>` with actual values.
+2025-01-31 13:26:48,770 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 13:26:48,771 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```
+Feature: Test API for User Creation Flaw
+
+Scenario: Attempt to create user with invalid credentials
+Given url 'http://oas_juiceshop.api/api/Users/'
+And request { username: '<invalid_username>', password: '<invalid_password>' }
+When method post
+Then status 401
+And match response contains "Invalid username or password"
+
+Scenario: Attempt to create user with empty fields
+Given url 'http://oas_juicesshop.api/api/Users/'
+And request {}
+When method post
+Then status 400
+And match response contains "Username and Password are required"
+
+Scenario: Attempt to create user without authentication
+Given url 'http://oas_juiceshop.api/api/Users/'
+And request { username: '<valid_username>', password: '<valid_password>' }
+When method post
+Then status 401
+
+Scenario: Successfully create a new user with valid credentials
+Given url 'http://oas_juicesshop.api/api/Users/'
+And request { username: '<new_username>', password: '<new_password>' }
+When method post
+Then status 201
+2025-01-31 13:29:25,292 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 13:29:25,292 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+````
+Feature: Test API for User Creation Flaw
+
+Scenario: Attempt to create user with invalid credentials
+Given url 'http://oas_juiceshop.api/api/Users/'
+And request { username: '<invalid_username>', password: '<invalid_password>' }
+When method post
+Then status 401
+And match response contains "Invalid username or password"
+
+Scenario: Attempt to create user with empty fields
+Given url 'http://oas_juicesshop.api/api/Users/'
+And request {}
+When method post
+Then status 400
+And match response contains "Username and Password are required"
+
+Scenario: Attempt to create user without authentication
+Given url 'http://oas_juiceshop.api/api/Users/'
+And request { username: '<valid_username>', password: '<valid_password>' }
+When method post
+Then status 401
+
+Scenario: Successfully create a new user with valid credentials
+Given url 'http://oas_juicesshop.api/api/Users/'
+And request { username: '<new_username>', password: '<new_password>' }
+When method post
+Then status 201
+2025-01-31 13:29:25,293 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_api_Users__POST_verified.feature
+2025-01-31 13:29:25,293 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_api_Users__POST.feature: Here is the corrected Karate DSL script:
+
+````
+Feature: Test API for User Creation Flaw
+
+Scenario: Attempt to create user with invalid credentials
+Given url 'http://oas_juiceshop.api/api/Users/'
+And request { username: '<invalid_username>', password: '<invalid_password>' }
+When method post
+Then status 401
+And match response contains "Invalid username or password"
+
+Scenario: Attempt to create user with empty fields
+Given url 'http://oas_juicesshop.api/api/Users/'
+And request {}
+When method post
+Then status 400
+And match response contains "Username and Password are required"
+
+Scenario: Attempt to create user without authentication
+Given url 'http://oas_juiceshop.api/api/Users/'
+And request { username: '<valid_username>', password: '<valid_password>' }
+When method post
+Then status 401
+
+Scenario: Successfully create a new user with valid credentials
+Given url 'http://oas_juicesshop.api/api/Users/'
+And request { username: '<new_username>', password: '<new_password>' }
+When method post
+Then status 201
+2025-01-31 13:29:25,293 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 13:29:25,294 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 13:29:25,355 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 13:29:25,356 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 13:33:36,512 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 13:33:36,513 - karate_llm_test_gen - INFO - Generated test case: Here's the Karate DSL scenario to test for user enumeration vulnerabilities on the `/rest/user/login...
+2025-01-31 13:33:36,513 - __main__ - INFO - Generated Karate test for /rest/user/login POST at output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST.feature
+2025-01-31 13:33:36,514 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 13:33:36,514 - karate_compatibility_verifier - INFO - Here's the Karate DSL scenario to test for user enumeration vulnerabilities on the `/rest/user/login` endpoint:
+
+```
+Feature: Testing for User Enumeration Vulnerability
+
+Scenario: Verify that the /rest/user/login endpoint does not allow user enumeration
+Given url http://oas_juiceshop.api/rest/user/login
+And request { username: 'nonexistent_user', password: 'Password123' }
+When method post
+Then status 401
+And match response contains "Invalid credentials"
+* def existingUser = 'existing_user'
+* And request { username: #{existingUser}, password: 'WrongPassword' }
+When method post
+Then status 401
+And match response contains "Invalid credentials"
+
+Explanation: This scenario checks for user enumeration vulnerabilities by ensuring the application responds with generic error messages, thus preventing attackers from discerning valid usernames based on the error response.
+```
+
+This test script attempts to login as a non-existent user and then as an existing user but with incorrect password. The expected responses are 401 Unauthorized status codes along with specific error messages indicating invalid credentials for both cases.
+2025-01-31 13:37:52,507 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 13:37:52,507 - karate_compatibility_verifier - INFO - Feature: Testing for User Enumeration Vulnerability
+
+Scenario: Verify that the /rest/user/login endpoint does not allow user enumeration
+Given url 'http://oas_juiceshop.api/rest/user/login'
+And request { username: '#("nonexistent_user")', password: "'Password123'" }
+When method post
+Then status 401
+And match response contains "Invalid credentials"
+
+* def existingUser = 'existing_user'
+* And request { username: '#(existingUser)', password: "'WrongPassword'" }
+When method post
+Then status 401
+And match response contains "Invalid credentials"
+2025-01-31 13:39:29,406 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 13:39:29,406 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+Feature: Testing for User Enumeration Vulnerability
+
+Scenario: Verify that the /rest/user/login endpoint does not allow user enumeration
+Given url 'http://oas_juiceshop.api/rest/user/login'
+And request { username: '#("nonexistent_user")', password: "'Password123'" }
+When method post
+Then status 401
+And match response contains "Invalid credentials"
+
+* def existingUser = 'existing_user'
+* And request { username: '#(existingUser)', password: "'WrongPassword'" }
+When method post
+Then status 401
+And match response contains "Invalid credentials"
+2025-01-31 13:39:29,406 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST_verified.feature
+2025-01-31 13:39:29,406 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_rest_user_login_POST.feature: Here is the corrected Karate DSL script:
+
+Feature: Testing for User Enumeration Vulnerability
+
+Scenario: Verify that the /rest/user/login endpoint does not allow user enumeration
+Given url 'http://oas_juiceshop.api/rest/user/login'
+And request { username: '#("nonexistent_user")', password: "'Password123'" }
+When method post
+Then status 401
+And match response contains "Invalid credentials"
+
+* def existingUser = 'existing_user'
+* And request { username: '#(existingUser)', password: "'WrongPassword'" }
+When method post
+Then status 401
+And match response contains "Invalid credentials"
+2025-01-31 13:39:29,407 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 13:39:29,407 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-31 13:39:29,449 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-31 13:39:29,451 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-31 13:45:41,736 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-31 13:45:41,737 - karate_llm_test_gen - INFO - Generated test case: Here are three security test cases using Karate DSL scenarios for the given API endpoints:
+
+**Scenar...
+2025-01-31 13:45:41,738 - __main__ - INFO - Generated Karate test for /api/BasketItems/ POST at output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST.feature
+2025-01-31 13:45:41,738 - karate_compatibility_verifier - INFO - Original content:
+2025-01-31 13:45:41,738 - karate_compatibility_verifier - INFO - Here are three security test cases using Karate DSL scenarios for the given API endpoints:
+
+**Scenario 1: OAuth Token Generation Flaw**
+```karate
+Feature: Test API for OAuth Token Generation Flaw
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+And request {
+    grant_type: 'authorization_code',
+    code: 'stolen_code',
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+```
+
+**Scenario 2: OAuth Authorization Code Grant Fuzz Testing**
+```karate
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request {
+            response_type: 'code',
+            client_id: clientId,
+            redirect_uri: redirectUri,
+            scope: 'email',
+            state: 'xyz'
+        }
+        When method post
+        Then status != 500
+        And assert response does not contain 'Error'
+    }
+}
+```
+
+**Scenario 3: Refresh Token Abuse**
+```karate
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+And request {
+    refresh_token: 'leaked_refresh_token',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+
+Note that these scenarios are designed to test for potential Broken Authentication/Authorization vulnerabilities in the API endpoints. The first scenario tests for an OAuth token generation flaw, while the second scenario fuzz tests the OAuth authorization process. The third scenario attempts to use a leaked refresh token to obtain a new access token.
+2025-01-31 13:52:07,190 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-31 13:52:07,190 - karate_compatibility_verifier - INFO - Here is the corrected Karate DSL script:
+
+```karate
+Feature: Test API for Security Tests
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+And request {
+    grant_type: 'authorization_code',
+    code: '#("stolen_code")', // Corrected the quote mark
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request {
+            response_type: 'code',
+            client_id: clientId,
+            redirect_uri: redirectUri,
+            scope: 'email',
+            state: 'xyz'
+         }
+        When method post
+        Then status 200 // Corrected the assertion to allow for successful responses
+    }
+}
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+And request {
+    refresh_token: '#("leaked_refresh_token")', // Corrected the quote mark
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+2025-01-31 13:56:25,826 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-31 13:56:25,827 - karate_compatibility_verifier - INFO - Here are the corrected Karate DSL scripts:
+
+```karate
+Feature: Test API for Security Tests
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+And request {
+    grant_type: 'authorization_code',
+    code: '#("stolen_code")',  // No changes needed here
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request {
+            response_type: 'code',
+            client_id: clientId,
+            redirect_uri: redirectUri,
+            scope: 'email',
+            state: 'xyz'
+        }
+        When method post
+        Then status 200  // No changes needed here
+    }
+}
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+And request {
+    refresh_token: '#("leaked_refresh_token")',  // No changes needed here
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-31 13:56:25,828 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST_verified.feature
+2025-01-31 13:56:25,829 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_api_BasketItems__POST.feature: Here are the corrected Karate DSL scripts:
+
+```karate
+Feature: Test API for Security Tests
+Scenario: Attempt to exploit OAuth token generation with a stolen authorization code
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+And request {
+    grant_type: 'authorization_code',
+    code: '#("stolen_code")',  // No changes needed here
+    redirect_uri: 'http://evil.example.com',
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid grant: authorization code is invalid'
+
+Feature: OAuth Authorization Code Grant Fuzz Testing
+Scenario: Fuzz test the OAuth authorization process for vulnerabilities
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+* def clientIds = ['knownClientId', '', '; DROP TABLE sessions;', '<script>alert(1)</script>']
+* def redirectUris = ['http://legitimate.example.com', 'http://malicious.example.com', 'javascript:alert(1)']
+foreach clientIds, function(clientId){
+    foreach redirectUris, function(redirectUri){
+        And request {
+            response_type: 'code',
+            client_id: clientId,
+            redirect_uri: redirectUri,
+            scope: 'email',
+            state: 'xyz'
+        }
+        When method post
+        Then status 200  // No changes needed here
+    }
+}
+
+Feature: Test API for Refresh Token Abuse
+Scenario: Attempt to use a leaked refresh token to obtain a new access token
+Given url 'http://oas_juiceshop.api/api/BasketItems/'
+And request {
+    refresh_token: '#("leaked_refresh_token")',  // No changes needed here
+    client_id: 'client_id',
+    client_secret: 'client_secret'
+}
+When method post
+Then status 400
+And match response contains 'Invalid refresh token'
+```
+2025-01-31 13:56:25,829 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-31 13:56:25,831 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-31 13:56:28,896 - __main__ - INFO - Skipping karate test run.

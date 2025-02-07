@@ -1,0 +1,40 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "A valid tag name without a leading \\#. (eg. snowy, nofilter)",
+      "in": "query",
+      "name": "q",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/tags/search",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "List of found tags with brief statistics",
+                "items": {
+                  "$ref": "#/components/schemas/TagInfo"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "List of found tags and their statistics."
+    }
+  }
+}

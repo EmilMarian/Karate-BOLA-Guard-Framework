@@ -1,0 +1,107 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "reader",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/test_helpers/terminal/readers/{reader}/present_payment_method",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "card_present": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          },
+          "interac_present": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "amount_tip": {
+              "description": "Simulated on-reader tip amount.",
+              "type": "integer"
+            },
+            "card_present": {
+              "description": "Simulated data for the card_present payment method.",
+              "properties": {
+                "number": {
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              },
+              "title": "card_present",
+              "type": "object"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "interac_present": {
+              "description": "Simulated data for the interac_present payment method.",
+              "properties": {
+                "number": {
+                  "maxLength": 5000,
+                  "type": "string"
+                }
+              },
+              "title": "interac_present",
+              "type": "object"
+            },
+            "type": {
+              "description": "Simulated payment type.",
+              "enum": [
+                "card_present",
+                "interac_present"
+              ],
+              "type": "string",
+              "x-stripeBypassValidation": true
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "required": false
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An error response from the Stripe API",
+            "properties": {
+              "error": {
+                "$ref": "#/components/schemas/api_errors"
+              }
+            },
+            "required": [
+              "error"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Error response."
+    }
+  }
+}

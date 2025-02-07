@@ -1,0 +1,99 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "The ID of the `Product` to which the `Option` belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The ID of the `Option`.\n",
+      "in": "path",
+      "name": "option_id",
+      "required": true,
+      "schema": {
+        "type": "integer"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/options/{option_id}",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "config": {
+              "$ref": "#/components/schemas/OptionConfig"
+            },
+            "display_name": {
+              "description": "The name of the option shown on the storefront.\n",
+              "type": "string"
+            },
+            "id": {
+              "description": "The unique numeric ID of the option; increments sequentially.\n",
+              "type": "integer"
+            },
+            "name": {
+              "description": "The unique option name, auto-generated from the display name, a timestamp, and the product ID.\n",
+              "type": "string"
+            },
+            "option_values": {
+              "items": {
+                "$ref": "#/components/schemas/OptionValue"
+              },
+              "type": "array"
+            },
+            "product_id": {
+              "description": "The unique numeric ID of the product to which the option belongs.\n",
+              "type": "integer"
+            },
+            "type": {
+              "description": "The type of option, which determines how it will display on the storefront. For reference, the former v2 API values are:\nRB = radio_buttons, RT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.\n",
+              "enum": [
+                "radio_buttons",
+                "rectangles",
+                "dropdown",
+                "product_list",
+                "product_list_with_images",
+                "swatch"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    },
+    "description": "A BigCommerce `Option` object.\n",
+    "required": true
+  },
+  "responses": {
+    "409": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseError"
+              },
+              {
+                "properties": {
+                  "errors": {
+                    "$ref": "#/components/schemas/DetailedErrors"
+                  }
+                },
+                "type": "object"
+              }
+            ]
+          }
+        }
+      },
+      "description": "The `Option` was in conflict with another option. This is the result of duplicate unique fields, such as `name`.\n"
+    }
+  }
+}

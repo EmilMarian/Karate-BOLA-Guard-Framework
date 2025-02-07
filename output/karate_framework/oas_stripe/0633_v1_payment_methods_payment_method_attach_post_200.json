@@ -1,0 +1,383 @@
+{
+  "method": "POST",
+  "parameters": [
+    {
+      "in": "path",
+      "name": "payment_method",
+      "required": true,
+      "schema": {
+        "maxLength": 5000,
+        "type": "string"
+      },
+      "style": "simple"
+    }
+  ],
+  "path": "/v1/payment_methods/{payment_method}/attach",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "encoding": {
+          "expand": {
+            "explode": true,
+            "style": "deepObject"
+          }
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "customer": {
+              "description": "The ID of the customer to which to attach the PaymentMethod.",
+              "maxLength": 5000,
+              "type": "string"
+            },
+            "expand": {
+              "description": "Specifies which fields in the response should be expanded.",
+              "items": {
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "customer"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "PaymentMethod objects represent your customer's payment instruments.\nYou can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to\nCustomer objects to store instrument details for future payments.\n\nRelated guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).",
+            "properties": {
+              "acss_debit": {
+                "$ref": "#/components/schemas/payment_method_acss_debit"
+              },
+              "affirm": {
+                "$ref": "#/components/schemas/payment_method_affirm"
+              },
+              "afterpay_clearpay": {
+                "$ref": "#/components/schemas/payment_method_afterpay_clearpay"
+              },
+              "alipay": {
+                "$ref": "#/components/schemas/payment_flows_private_payment_methods_alipay"
+              },
+              "allow_redisplay": {
+                "description": "This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to \u201cunspecified\u201d.",
+                "enum": [
+                  "always",
+                  "limited",
+                  "unspecified"
+                ],
+                "type": "string"
+              },
+              "alma": {
+                "$ref": "#/components/schemas/payment_method_alma"
+              },
+              "amazon_pay": {
+                "$ref": "#/components/schemas/payment_method_amazon_pay"
+              },
+              "au_becs_debit": {
+                "$ref": "#/components/schemas/payment_method_au_becs_debit"
+              },
+              "bacs_debit": {
+                "$ref": "#/components/schemas/payment_method_bacs_debit"
+              },
+              "bancontact": {
+                "$ref": "#/components/schemas/payment_method_bancontact"
+              },
+              "billing_details": {
+                "$ref": "#/components/schemas/billing_details"
+              },
+              "blik": {
+                "$ref": "#/components/schemas/payment_method_blik"
+              },
+              "boleto": {
+                "$ref": "#/components/schemas/payment_method_boleto"
+              },
+              "card": {
+                "$ref": "#/components/schemas/payment_method_card"
+              },
+              "card_present": {
+                "$ref": "#/components/schemas/payment_method_card_present"
+              },
+              "cashapp": {
+                "$ref": "#/components/schemas/payment_method_cashapp"
+              },
+              "created": {
+                "description": "Time at which the object was created. Measured in seconds since the Unix epoch.",
+                "format": "unix-time",
+                "type": "integer"
+              },
+              "customer": {
+                "anyOf": [
+                  {
+                    "maxLength": 5000,
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/components/schemas/customer"
+                  }
+                ],
+                "description": "The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.",
+                "nullable": true,
+                "x-expansionResources": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/customer"
+                    }
+                  ]
+                }
+              },
+              "customer_balance": {
+                "$ref": "#/components/schemas/payment_method_customer_balance"
+              },
+              "eps": {
+                "$ref": "#/components/schemas/payment_method_eps"
+              },
+              "fpx": {
+                "$ref": "#/components/schemas/payment_method_fpx"
+              },
+              "giropay": {
+                "$ref": "#/components/schemas/payment_method_giropay"
+              },
+              "grabpay": {
+                "$ref": "#/components/schemas/payment_method_grabpay"
+              },
+              "id": {
+                "description": "Unique identifier for the object.",
+                "maxLength": 5000,
+                "type": "string"
+              },
+              "ideal": {
+                "$ref": "#/components/schemas/payment_method_ideal"
+              },
+              "interac_present": {
+                "$ref": "#/components/schemas/payment_method_interac_present"
+              },
+              "kakao_pay": {
+                "$ref": "#/components/schemas/payment_method_kakao_pay"
+              },
+              "klarna": {
+                "$ref": "#/components/schemas/payment_method_klarna"
+              },
+              "konbini": {
+                "$ref": "#/components/schemas/payment_method_konbini"
+              },
+              "kr_card": {
+                "$ref": "#/components/schemas/payment_method_kr_card"
+              },
+              "link": {
+                "$ref": "#/components/schemas/payment_method_link"
+              },
+              "livemode": {
+                "description": "Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.",
+                "type": "boolean"
+              },
+              "metadata": {
+                "additionalProperties": {
+                  "maxLength": 500,
+                  "type": "string"
+                },
+                "description": "Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.",
+                "nullable": true,
+                "type": "object"
+              },
+              "mobilepay": {
+                "$ref": "#/components/schemas/payment_method_mobilepay"
+              },
+              "multibanco": {
+                "$ref": "#/components/schemas/payment_method_multibanco"
+              },
+              "naver_pay": {
+                "$ref": "#/components/schemas/payment_method_naver_pay"
+              },
+              "object": {
+                "description": "String representing the object's type. Objects of the same type share the same value.",
+                "enum": [
+                  "payment_method"
+                ],
+                "type": "string"
+              },
+              "oxxo": {
+                "$ref": "#/components/schemas/payment_method_oxxo"
+              },
+              "p24": {
+                "$ref": "#/components/schemas/payment_method_p24"
+              },
+              "pay_by_bank": {
+                "$ref": "#/components/schemas/payment_method_pay_by_bank"
+              },
+              "payco": {
+                "$ref": "#/components/schemas/payment_method_payco"
+              },
+              "paynow": {
+                "$ref": "#/components/schemas/payment_method_paynow"
+              },
+              "paypal": {
+                "$ref": "#/components/schemas/payment_method_paypal"
+              },
+              "pix": {
+                "$ref": "#/components/schemas/payment_method_pix"
+              },
+              "promptpay": {
+                "$ref": "#/components/schemas/payment_method_promptpay"
+              },
+              "radar_options": {
+                "$ref": "#/components/schemas/radar_radar_options"
+              },
+              "revolut_pay": {
+                "$ref": "#/components/schemas/payment_method_revolut_pay"
+              },
+              "samsung_pay": {
+                "$ref": "#/components/schemas/payment_method_samsung_pay"
+              },
+              "sepa_debit": {
+                "$ref": "#/components/schemas/payment_method_sepa_debit"
+              },
+              "sofort": {
+                "$ref": "#/components/schemas/payment_method_sofort"
+              },
+              "swish": {
+                "$ref": "#/components/schemas/payment_method_swish"
+              },
+              "twint": {
+                "$ref": "#/components/schemas/payment_method_twint"
+              },
+              "type": {
+                "description": "The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.",
+                "enum": [
+                  "acss_debit",
+                  "affirm",
+                  "afterpay_clearpay",
+                  "alipay",
+                  "alma",
+                  "amazon_pay",
+                  "au_becs_debit",
+                  "bacs_debit",
+                  "bancontact",
+                  "blik",
+                  "boleto",
+                  "card",
+                  "card_present",
+                  "cashapp",
+                  "customer_balance",
+                  "eps",
+                  "fpx",
+                  "giropay",
+                  "grabpay",
+                  "ideal",
+                  "interac_present",
+                  "kakao_pay",
+                  "klarna",
+                  "konbini",
+                  "kr_card",
+                  "link",
+                  "mobilepay",
+                  "multibanco",
+                  "naver_pay",
+                  "oxxo",
+                  "p24",
+                  "pay_by_bank",
+                  "payco",
+                  "paynow",
+                  "paypal",
+                  "pix",
+                  "promptpay",
+                  "revolut_pay",
+                  "samsung_pay",
+                  "sepa_debit",
+                  "sofort",
+                  "swish",
+                  "twint",
+                  "us_bank_account",
+                  "wechat_pay",
+                  "zip"
+                ],
+                "type": "string",
+                "x-stripeBypassValidation": true
+              },
+              "us_bank_account": {
+                "$ref": "#/components/schemas/payment_method_us_bank_account"
+              },
+              "wechat_pay": {
+                "$ref": "#/components/schemas/payment_method_wechat_pay"
+              },
+              "zip": {
+                "$ref": "#/components/schemas/payment_method_zip"
+              }
+            },
+            "required": [
+              "billing_details",
+              "created",
+              "id",
+              "livemode",
+              "object",
+              "type"
+            ],
+            "title": "PaymentMethod",
+            "type": "object",
+            "x-expandableFields": [
+              "acss_debit",
+              "affirm",
+              "afterpay_clearpay",
+              "alipay",
+              "alma",
+              "amazon_pay",
+              "au_becs_debit",
+              "bacs_debit",
+              "bancontact",
+              "billing_details",
+              "blik",
+              "boleto",
+              "card",
+              "card_present",
+              "cashapp",
+              "customer",
+              "customer_balance",
+              "eps",
+              "fpx",
+              "giropay",
+              "grabpay",
+              "ideal",
+              "interac_present",
+              "kakao_pay",
+              "klarna",
+              "konbini",
+              "kr_card",
+              "link",
+              "mobilepay",
+              "multibanco",
+              "naver_pay",
+              "oxxo",
+              "p24",
+              "pay_by_bank",
+              "payco",
+              "paynow",
+              "paypal",
+              "pix",
+              "promptpay",
+              "radar_options",
+              "revolut_pay",
+              "samsung_pay",
+              "sepa_debit",
+              "sofort",
+              "swish",
+              "twint",
+              "us_bank_account",
+              "wechat_pay",
+              "zip"
+            ],
+            "x-resourceId": "payment_method"
+          }
+        }
+      },
+      "description": "Successful response."
+    }
+  }
+}

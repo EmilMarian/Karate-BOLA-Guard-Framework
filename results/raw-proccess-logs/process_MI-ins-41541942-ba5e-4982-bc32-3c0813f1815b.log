@@ -1,0 +1,159 @@
+2025-02-02 14:19:41,602 - __main__ - INFO - Skipping fragment creation: False
+2025-02-02 14:19:41,666 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-02-02 14:19:41,901 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "GET", "parameters": [{"description": "The ID of a user to get information about, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}", "requestBody": {}, "responses": {"404": {"content": {}, "description": "Not Found, user with such ID does not exist."}}}', 'metadata': {'filename': '0023_users_userid_get_404.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The ID of a user, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}/follows", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"data": {"description": "List of user short information entries", "items": {"$ref": "#/components/schemas/UserShortInfo"}, "type": "array"}, "meta": {"$ref": "#/components/schemas/MetaData"}, "pagination": {"$ref": "#/components/schemas/CursorPaginationInfo"}}, "type": "object"}}}, "description": "List of users this user follows."}}}', 'metadata': {'filename': '0025_users_userid_follows_get_200.json'}}, {'content': '{"method": "GET", "parameters": [{"description": "The ID of a user, or **self** to retrieve information about authenticated user.", "in": "path", "name": "user-id", "required": true, "schema": {"type": "string"}}], "path": "/users/{user-id}/followed-by", "requestBody": {}, "responses": {"200": {"content": {"application/json": {"schema": {"properties": {"data": {"description": "List of user short information entries", "items": {"$ref": "#/components/schemas/UserShortInfo"}, "type": "array"}, "meta": {"$ref": "#/components/schemas/MetaData"}, "pagination": {"$ref": "#/components/schemas/CursorPaginationInfo"}}, "type": "object"}}}, "description": "List of users this user is followed by."}}}', 'metadata': {'filename': '0024_users_userid_followedby_get_200.json'}}], form collection oas_instagram_fragments
+2025-02-02 14:19:41,901 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:19:41,902 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:19:42,306 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:19:42,306 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:19:50,297 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:19:50,298 - karate_llm_test_gen - INFO - Generated test case:  Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerab...
+2025-02-02 14:19:50,299 - __main__ - INFO - Generated Karate test for /users/{user-id} GET at output/karate_feature_files/ID_001_krtestoas_users_user-id_GET.feature
+2025-02-02 14:19:50,300 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:19:50,300 - karate_compatibility_verifier - INFO - Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities:
+```kotlin
+Feature: Test API Endpoint Security
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+    Given url http://oas_instagram.api/users/{user-id}
+    And path /users/{user-id}
+    When method get
+      Then status code is 200
+      And response contains user data
+```
+This test script checks if the GET request to the `/users/{user-id}` endpoint returns a valid response with a 200 status code and contains user data. If this is not the case, it could indicate that there is a Broken Authentication/Authorization vulnerability in the API.
+2025-02-02 14:19:56,108 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:19:56,108 - karate_compatibility_verifier - INFO -  ```kotlin
+Feature: Test API Endpoint Security
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+    Given url http://oas_instagram.api/users/{user-id}
+    And path /users/{user-id}
+    When method get
+      Then status code is 200
+      And response contains user data
+```
+2025-02-02 14:19:58,857 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:19:58,858 - karate_compatibility_verifier - INFO -  Feature: Test API Endpoint Security
+Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+Given url http://oas_instagram.api/users/{user-id}
+And path /users/{user-id}
+When method get
+Then status code is 200
+And response contains user data
+2025-02-02 14:19:58,860 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_users_user-id_GET_verified.feature
+2025-02-02 14:19:58,861 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_users_user-id_GET.feature:  Feature: Test API Endpoint Security
+Scenario: Check for Broken Authentication/Authorization Vulnerabilities
+Given url http://oas_instagram.api/users/{user-id}
+And path /users/{user-id}
+When method get
+Then status code is 200
+And response contains user data
+2025-02-02 14:19:58,862 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:19:58,863 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:19:58,885 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:19:58,886 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:20:09,485 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:20:09,486 - karate_llm_test_gen - INFO - Generated test case:  Feature: Broken Authentication/Authorization Vulnerabilities
+Scenario: Test for Broken Authenticati...
+2025-02-02 14:20:09,486 - __main__ - INFO - Generated Karate test for /users/{user-id}/follows GET at output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET.feature
+2025-02-02 14:20:09,487 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:20:09,487 - karate_compatibility_verifier - INFO - Feature: Broken Authentication/Authorization Vulnerabilities
+Scenario: Test for Broken Authentication/Authorization on /users/{user-id}/follows endpoint
+Steps:
+1. Given url http://oas_instagram.api/users/{user-id}/follows
+2. And request { Authorization = \'Bearer <token>\'}
+3. When method get
+4. Then status 200
+5. And match response contains "Following user successfully"
+6. Given url http://oas_instagram.api/users/{user-id}/follows
+7. And request { Authorization = \'Bearer <token>\'}
+8. When method get
+9. Then status 403
+10. And match response contains "Forbidden"
+Explanation: This test aims to ensure that the /users/{user-id}/follows endpoint is only accessible by authorized users, and not by any other user or entity. The test verifies that a valid token is required for accessing this endpoint, and also checks if the response contains an appropriate error message when unauthorized access attempts are made.
+2025-02-02 14:20:17,063 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:20:17,063 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization Vulnerabilities
+Scenario: Test for Broken Authentication/Authorization on /users/{user-id}/follows endpoint
+Steps:
+1. Given url http://oas_instagram.api/users/{user-id}/follows
+2. And request { Authorization = 'Bearer <token>' }
+3. When method get
+4. Then status 403
+5. And match response contains "Forbidden"
+2025-02-02 14:20:20,734 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:20:20,734 - karate_compatibility_verifier - INFO -  Feature: Broken Authentication/Authorization Vulnerabilities
+Scenario: Test for Broken Authentication/Authorization on /users/{user-id}/follows endpoint
+Steps:
+1. Given url http://oas_instagram.api/users/{user-id}/follows
+2. And request { Authorization = 'Bearer <token>' }
+3. When method GET
+4. Then status 403
+5. And match response contains "Forbidden"
+2025-02-02 14:20:20,734 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET_verified.feature
+2025-02-02 14:20:20,734 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_users_user-id_follows_GET.feature:  Feature: Broken Authentication/Authorization Vulnerabilities
+Scenario: Test for Broken Authentication/Authorization on /users/{user-id}/follows endpoint
+Steps:
+1. Given url http://oas_instagram.api/users/{user-id}/follows
+2. And request { Authorization = 'Bearer <token>' }
+3. When method GET
+4. Then status 403
+5. And match response contains "Forbidden"
+2025-02-02 14:20:20,735 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:20:20,735 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-02-02 14:20:20,752 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-02-02 14:20:20,753 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-02-02 14:20:30,318 - karate_llm_test_gen - INFO - Response status code: 200
+2025-02-02 14:20:30,319 - karate_llm_test_gen - INFO - Generated test case:  Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnera...
+2025-02-02 14:20:30,320 - __main__ - INFO - Generated Karate test for /users/{user-id}/followed-by GET at output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET.feature
+2025-02-02 14:20:30,320 - karate_compatibility_verifier - INFO - Original content:
+2025-02-02 14:20:30,320 - karate_compatibility_verifier - INFO - Here is a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the `/users/{user-id}/followed-by` endpoint:
+```scss
+Feature: Test API Endpoint Security
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities on /users/{user-id}/followed-by endpoint
+    Given url http://oas_instagram.api/users/{user-id}/followed-by
+    When method get
+      Then status 401 or 403
+      And match response contains 'Unauthorized'
+```
+This test script checks if the `/users/{user-id}/followed-by` endpoint requires authentication and authorization. It sends a GET request to this endpoint with a valid user ID, and it expects an HTTP status code of 401 or 403 along with the response containing 'Unauthorized'. This indicates that the endpoint is protected by authentication and authorization mechanisms.
+2025-02-02 14:20:36,609 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-02-02 14:20:36,609 - karate_compatibility_verifier - INFO -  ```scss
+Feature: Test API Endpoint Security
+  Scenario: Check for Broken Authentication/Authorization Vulnerabilities on /users/{user-id}/followed-by endpoint
+    Given url 'http://oas_instagram.api/users/{user-id}/followed-by'
+    When method get
+      Then status 401 or 403
+      And match response contains 'Unauthorized'
+```
+2025-02-02 14:20:37,980 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-02-02 14:20:37,981 - karate_compatibility_verifier - INFO -  The Karate DSL code snippet provided is already correct and does not require any corrections.
+2025-02-02 14:20:37,981 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET_verified.feature
+2025-02-02 14:20:37,981 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_users_user-id_followed-by_GET.feature:  The Karate DSL code snippet provided is already correct and does not require any corrections.
+2025-02-02 14:20:37,982 - __main__ - INFO - Moving generated Karate feature files...
+2025-02-02 14:20:37,984 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-02-02 14:20:40,392 - __main__ - INFO - Skipping karate test run.

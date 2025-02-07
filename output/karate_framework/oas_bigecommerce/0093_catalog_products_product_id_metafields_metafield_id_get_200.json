@@ -1,0 +1,95 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of the `Metafield`.\n",
+      "in": "path",
+      "name": "metafield_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    },
+    {
+      "description": "The ID of the `Product` to which the resource belongs.\n",
+      "in": "path",
+      "name": "product_id",
+      "required": true,
+      "schema": {
+        "format": "int",
+        "type": "number"
+      }
+    }
+  ],
+  "path": "/catalog/products/{product_id}/metafields/{metafield_id}",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Allows app partners to write custom data to various resources in the API.\n",
+            "properties": {
+              "created_at": {
+                "description": "Date and time of the metafield's creation.\n",
+                "format": "date-time",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description for the metafields.\n",
+                "type": "string"
+              },
+              "id": {
+                "description": "The unique identifier for the metafields.\n",
+                "type": "integer"
+              },
+              "key": {
+                "description": "The name of the field, for example: `location_id`, `color`.\n",
+                "type": "string"
+              },
+              "namespace": {
+                "description": "Namespace for the metafield, for organizational purposes.\n",
+                "type": "string"
+              },
+              "permission_set": {
+                "description": "Determines whether the field is completely private to the app that owns the field (`app_only`), or visible to other API consumers (`read`), or completely open for reading and writing to other apps (`write`).\n",
+                "enum": [
+                  "app_only",
+                  "read",
+                  "write"
+                ],
+                "type": "string"
+              },
+              "resource_id": {
+                "description": "The unique identifier for the resource with which the metafield is associated.\n",
+                "type": "integer"
+              },
+              "resource_type": {
+                "description": "The type of resource with which the metafield is associated.\n",
+                "enum": [
+                  "category",
+                  "brand",
+                  "product",
+                  "variant"
+                ],
+                "type": "string"
+              },
+              "updated_at": {
+                "description": "Date and time when the metafield was last updated.",
+                "format": "date-time",
+                "type": "string"
+              },
+              "value": {
+                "description": "The value of the field, for example: `1`, `blue`\n",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "A metafield object.\n"
+    }
+  }
+}

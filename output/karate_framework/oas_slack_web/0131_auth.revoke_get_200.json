@@ -1,0 +1,63 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `none`",
+      "in": "query",
+      "name": "token",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Setting this parameter to `1` triggers a _testing mode_ where the specified token will not actually be revoked.",
+      "in": "query",
+      "name": "test",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "path": "/auth.revoke",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "ok": true,
+                "revoked": true
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from auth.revoke method",
+            "properties": {
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "revoked": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "revoked"
+            ],
+            "title": "auth.revoke schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response"
+    }
+  }
+}

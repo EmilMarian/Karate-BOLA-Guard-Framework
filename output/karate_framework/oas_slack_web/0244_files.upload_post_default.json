@@ -1,0 +1,117 @@
+{
+  "method": "POST",
+  "parameters": [],
+  "path": "/files.upload",
+  "requestBody": {
+    "content": {
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "channels": {
+              "description": "Comma-separated list of channel names or IDs where the file will be shared.",
+              "type": "string"
+            },
+            "content": {
+              "description": "File contents via a POST variable. If omitting this parameter, you must provide a `file`.",
+              "type": "string"
+            },
+            "file": {
+              "description": "File contents via `multipart/form-data`. If omitting this parameter, you must submit `content`.",
+              "type": "string"
+            },
+            "filename": {
+              "description": "Filename of file.",
+              "type": "string"
+            },
+            "filetype": {
+              "description": "A [file type](/types/file#file_types) identifier.",
+              "type": "string"
+            },
+            "initial_comment": {
+              "description": "The message text introducing the file in specified `channels`.",
+              "type": "string"
+            },
+            "thread_ts": {
+              "description": "Provide another message's `ts` value to upload this file as a reply. Never use a reply's `ts` value; use its parent instead.",
+              "type": "number"
+            },
+            "title": {
+              "description": "Title of file.",
+              "type": "string"
+            },
+            "token": {
+              "description": "Authentication token. Requires scope: `files:write:user`",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    }
+  },
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response files.upload method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "posting_to_general_channel_denied",
+                  "invalid_channel",
+                  "file_uploads_disabled",
+                  "file_uploads_except_images_disabled",
+                  "storage_limit_reached",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "no_permission",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "files.upload error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

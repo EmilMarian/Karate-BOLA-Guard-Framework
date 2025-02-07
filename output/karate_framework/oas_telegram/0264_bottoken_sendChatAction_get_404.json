@@ -1,0 +1,59 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "bot's token to authorize the request",
+      "in": "path",
+      "name": "token",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "in": "query",
+      "name": "chat_id",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "description": "",
+      "enum": [
+        "typing",
+        "upload_photo",
+        "record_video",
+        "upload_video",
+        "record_audio",
+        "upload_audio",
+        "upload_document",
+        "find_location",
+        "record_video_note",
+        "upload_video_note"
+      ],
+      "in": "query",
+      "name": "action",
+      "required": true,
+      "type": "string"
+    }
+  ],
+  "path": "/bot{token}/sendChatAction",
+  "requestBody": {},
+  "responses": {
+    "404": {
+      "description": "Not Found",
+      "schema": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "error_code": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

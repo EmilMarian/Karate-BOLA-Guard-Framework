@@ -1,0 +1,43 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "The ID of a user, or **self** to retrieve information about authenticated user.",
+      "in": "path",
+      "name": "user-id",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/users/{user-id}/followed-by",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "data": {
+                "description": "List of user short information entries",
+                "items": {
+                  "$ref": "#/components/schemas/UserShortInfo"
+                },
+                "type": "array"
+              },
+              "meta": {
+                "$ref": "#/components/schemas/MetaData"
+              },
+              "pagination": {
+                "$ref": "#/components/schemas/CursorPaginationInfo"
+              }
+            },
+            "type": "object"
+          }
+        }
+      },
+      "description": "List of users this user is followed by."
+    }
+  }
+}

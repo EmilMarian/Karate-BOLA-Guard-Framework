@@ -1,0 +1,237 @@
+2025-01-26 21:36:33,023 - __main__ - INFO - Skipping fragment creation: False
+2025-01-26 21:36:33,084 - __main__ - DEBUG - Starting fragment retrieval process.
+2025-01-26 21:36:33,334 - __main__ - DEBUG - Retrieved fragments: [{'content': '{"method": "POST", "parameters": [], "path": "/customers/subscribers", "requestBody": {"content": {"application/json": {"schema": {"properties": {"date_created": {"description": "The date on which the subscriber was created.\\n", "format": "data-time", "type": "string"}, "date_modified": {"description": "The date on which the subscriber was modified.\\n", "format": "data-time", "type": "string"}, "email": {"description": "The email of the subscriber. Must be unique.\\n", "type": "string"}, "first_name": {"description": "The first name of the subscriber.\\n", "type": "string"}, "id": {"description": "The unique numeric ID of the subscriber; increments sequentially.\\n", "type": "integer"}, "last_name": {"description": "The last name of the subscriber.\\n", "type": "string"}, "order_id": {"description": "The ID of the source order, if source was an order.\\n", "type": "integer"}, "source": {"description": "The source of the subscriber. Values are: `storefront`, `order`, or `custom`.\\n", "type": "string"}}, "type": "object"}}}, "description": "`Subscriber` object\\n", "required": true}, "responses": {"422": {"content": {"application/json": {"schema": {"allOf": [{"$ref": "#/components/schemas/BaseError"}, {"properties": {"errors": {"$ref": "#/components/schemas/DetailedErrors"}}, "type": "object"}]}}}, "description": "The `Subscriber` was not valid. This is the result of missing required fields, or of invalid data. See the response for more details.\\n"}}}', 'metadata': {'filename': '0157_customers_subscribers_post_422.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/customers/subscribers", "requestBody": {"content": {"application/json": {"schema": {"properties": {"date_created": {"description": "The date on which the subscriber was created.\\n", "format": "data-time", "type": "string"}, "date_modified": {"description": "The date on which the subscriber was modified.\\n", "format": "data-time", "type": "string"}, "email": {"description": "The email of the subscriber. Must be unique.\\n", "type": "string"}, "first_name": {"description": "The first name of the subscriber.\\n", "type": "string"}, "id": {"description": "The unique numeric ID of the subscriber; increments sequentially.\\n", "type": "integer"}, "last_name": {"description": "The last name of the subscriber.\\n", "type": "string"}, "order_id": {"description": "The ID of the source order, if source was an order.\\n", "type": "integer"}, "source": {"description": "The source of the subscriber. Values are: `storefront`, `order`, or `custom`.\\n", "type": "string"}}, "type": "object"}}}, "description": "`Subscriber` object\\n", "required": true}, "responses": {"200": {"content": {"application/json": {"schema": {"description": "Response payload for the Bigcommerce API.\\n", "properties": {"data": {"$ref": "#/components/schemas/Subscriber"}, "meta": {"$ref": "#/components/schemas/Meta"}}, "type": "object"}}}, "description": "A `Subscriber` object.\\n"}}}', 'metadata': {'filename': '0155_customers_subscribers_post_200.json'}}, {'content': '{"method": "POST", "parameters": [], "path": "/customers/subscribers", "requestBody": {"content": {"application/json": {"schema": {"properties": {"date_created": {"description": "The date on which the subscriber was created.\\n", "format": "data-time", "type": "string"}, "date_modified": {"description": "The date on which the subscriber was modified.\\n", "format": "data-time", "type": "string"}, "email": {"description": "The email of the subscriber. Must be unique.\\n", "type": "string"}, "first_name": {"description": "The first name of the subscriber.\\n", "type": "string"}, "id": {"description": "The unique numeric ID of the subscriber; increments sequentially.\\n", "type": "integer"}, "last_name": {"description": "The last name of the subscriber.\\n", "type": "string"}, "order_id": {"description": "The ID of the source order, if source was an order.\\n", "type": "integer"}, "source": {"description": "The source of the subscriber. Values are: `storefront`, `order`, or `custom`.\\n", "type": "string"}}, "type": "object"}}}, "description": "`Subscriber` object\\n", "required": true}, "responses": {"409": {"content": {"application/json": {"schema": {"allOf": [{"$ref": "#/components/schemas/BaseError"}, {"properties": {"errors": {"$ref": "#/components/schemas/DetailedErrors"}}, "type": "object"}]}}}, "description": "The `Subscriber` was in conflict with another subscriber. This is the result of duplicate unique values, such as `email`.\\n"}}}', 'metadata': {'filename': '0156_customers_subscribers_post_409.json'}}], form collection oas_bigecommerce_fragments
+2025-01-26 21:36:33,335 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 21:36:33,335 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 21:36:33,774 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 21:36:33,775 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 21:45:08,165 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 21:45:08,166 - karate_llm_test_gen - INFO - Generated test case: Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabi...
+2025-01-26 21:45:08,167 - __main__ - INFO - Generated Karate test for /customers/subscribers POST at output/karate_feature_files/ID_001_krtestoas_customers_subscribers_POST.feature
+2025-01-26 21:45:08,167 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 21:45:08,167 - karate_compatibility_verifier - INFO - Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+This script will send a POST request to the `/customers/subscribers` endpoint without any authentication or authorization. If there are no checks in place, it should return an unauthorized status code and a message indicating that access is denied.
+2025-01-26 21:50:09,709 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 21:50:09,709 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL script based on your guidelines:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+2025-01-26 21:51:46,750 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 21:51:46,750 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is as follows:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+2025-01-26 21:51:46,751 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_001_krtestoas_customers_subscribers_POST_verified.feature
+2025-01-26 21:51:46,751 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_001_krtestoas_customers_subscribers_POST.feature: The corrected Karate DSL script is as follows:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+2025-01-26 21:51:46,751 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 21:51:46,752 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 21:51:46,885 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 21:51:46,886 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 21:58:28,211 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 21:58:28,212 - karate_llm_test_gen - INFO - Generated test case: Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabi...
+2025-01-26 21:58:28,212 - __main__ - INFO - Generated Karate test for /customers/subscribers POST at output/karate_feature_files/ID_002_krtestoas_customers_subscribers_POST.feature
+2025-01-26 21:58:28,213 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 21:58:28,213 - karate_compatibility_verifier - INFO - Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+This script will send a POST request to the `/customers/subscribers` endpoint without any authentication or authorization. If there are no checks in place, it should return an unauthorized status code and a message indicating that access is denied.
+2025-01-26 22:03:14,541 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 22:03:14,541 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL script based on your guidelines:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+2025-01-26 22:04:50,296 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 22:04:50,296 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is as follows:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+2025-01-26 22:04:50,296 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_002_krtestoas_customers_subscribers_POST_verified.feature
+2025-01-26 22:04:50,297 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_002_krtestoas_customers_subscribers_POST.feature: The corrected Karate DSL script is as follows:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+2025-01-26 22:04:50,297 - karate_llm_test_gen - INFO - Generating Karate test for prompt: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 22:04:50,298 - karate_llm_test_gen - INFO - Getting relevant examples for: 
+Given the following API endpoint information:
+
+  ...
+2025-01-26 22:04:50,332 - karate_llm_test_gen - INFO - Found 3 relevant examples.
+2025-01-26 22:04:50,333 - karate_llm_test_gen - INFO - Sending request to http://192.168.1.108:4893/v1/chat/completions
+2025-01-26 22:11:31,504 - karate_llm_test_gen - INFO - Response status code: 200
+2025-01-26 22:11:31,504 - karate_llm_test_gen - INFO - Generated test case: Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabi...
+2025-01-26 22:11:31,505 - __main__ - INFO - Generated Karate test for /customers/subscribers POST at output/karate_feature_files/ID_003_krtestoas_customers_subscribers_POST.feature
+2025-01-26 22:11:31,505 - karate_compatibility_verifier - INFO - Original content:
+2025-01-26 22:11:31,505 - karate_compatibility_verifier - INFO - Here's a Karate DSL test script to check for potential Broken Authentication/Authorization vulnerabilities on the given API endpoint:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+This script will send a POST request to the `/customers/subscribers` endpoint without any authentication or authorization. If there are no checks in place, it should return an unauthorized status code and a message indicating that access is denied.
+2025-01-26 22:16:18,312 - karate_compatibility_verifier - INFO - 
+Content after compatibility check:
+2025-01-26 22:16:18,312 - karate_compatibility_verifier - INFO - Here's the corrected Karate DSL script based on your guidelines:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+2025-01-26 22:17:54,374 - karate_compatibility_verifier - INFO - 
+Final verified content:
+2025-01-26 22:17:54,374 - karate_compatibility_verifier - INFO - The corrected Karate DSL script is as follows:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+2025-01-26 22:17:54,375 - karate_compatibility_verifier - INFO - 
+Verified content written to: output/karate_feature_files/ID_003_krtestoas_customers_subscribers_POST_verified.feature
+2025-01-26 22:17:54,375 - __main__ - WARNING - Compatibility issues found in output/karate_feature_files/ID_003_krtestoas_customers_subscribers_POST.feature: The corrected Karate DSL script is as follows:
+```karate
+Feature: Test API for Broken Authentication and Authorization Vulnerabilities
+
+Scenario Outline: Verify authentication and authorization checks are in place
+  Given url 'http://oas_bigecommerce.api'
+  When method post
+  Then status != 200
+  And match response contains 'Unauthorized access'
+
+Examples:
+  | path                    |
+  | /customers/subscribers |
+```
+2025-01-26 22:17:54,375 - __main__ - INFO - Moving generated Karate feature files...
+2025-01-26 22:17:54,377 - __main__ - INFO - Creating the Karate Test Framework with generated feature files
+2025-01-26 22:17:56,567 - __main__ - INFO - Skipping karate test run.

@@ -1,0 +1,924 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `conversations:read`",
+      "in": "query",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Set to `true` to exclude archived channels from the list",
+      "in": "query",
+      "name": "exclude_archived",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "description": "Mix and match channel types by providing a comma-separated list of any combination of `public_channel`, `private_channel`, `mpim`, `im`",
+      "in": "query",
+      "name": "types",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The maximum number of items to return. Fewer than the requested number of items may be returned, even if the end of the list hasn't been reached. Must be an integer no larger than 1000.",
+      "in": "query",
+      "name": "limit",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Paginate through collections of data by setting the `cursor` parameter to a `next_cursor` attribute returned by a previous request's `response_metadata`. Default value fetches the first \"page\" of the collection. See [pagination](/docs/pagination) for more detail.",
+      "in": "query",
+      "name": "cursor",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/conversations.list",
+  "requestBody": {},
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "channels": [
+                  {
+                    "created": 1449252889,
+                    "creator": "U012A3CDE",
+                    "id": "C012AB3CD",
+                    "is_archived": false,
+                    "is_channel": true,
+                    "is_ext_shared": false,
+                    "is_general": true,
+                    "is_group": false,
+                    "is_im": false,
+                    "is_member": true,
+                    "is_mpim": false,
+                    "is_org_shared": false,
+                    "is_pending_ext_shared": false,
+                    "is_private": false,
+                    "is_shared": false,
+                    "name": "general",
+                    "name_normalized": "general",
+                    "num_members": 4,
+                    "pending_shared": [],
+                    "previous_names": [],
+                    "purpose": {
+                      "creator": "",
+                      "last_set": 0,
+                      "value": "This channel is for team-wide communication and announcements. All team members are in this channel."
+                    },
+                    "topic": {
+                      "creator": "",
+                      "last_set": 0,
+                      "value": "Company-wide announcements and work-based matters"
+                    },
+                    "unlinked": 0
+                  },
+                  {
+                    "created": 1449252889,
+                    "creator": "U061F7AUR",
+                    "id": "C061EG9T2",
+                    "is_archived": false,
+                    "is_channel": true,
+                    "is_ext_shared": false,
+                    "is_general": false,
+                    "is_group": false,
+                    "is_im": false,
+                    "is_member": true,
+                    "is_mpim": false,
+                    "is_org_shared": false,
+                    "is_pending_ext_shared": false,
+                    "is_private": false,
+                    "is_shared": false,
+                    "name": "random",
+                    "name_normalized": "random",
+                    "num_members": 4,
+                    "pending_shared": [],
+                    "previous_names": [],
+                    "purpose": {
+                      "creator": "",
+                      "last_set": 0,
+                      "value": "A place for non-work-related flimflam, faffing, hodge-podge or jibber-jabber you'd prefer to keep out of more focused work-related channels."
+                    },
+                    "topic": {
+                      "creator": "",
+                      "last_set": 0,
+                      "value": "Non-work banter and water cooler conversation"
+                    },
+                    "unlinked": 0
+                  }
+                ],
+                "ok": true,
+                "response_metadata": {
+                  "next_cursor": "dGVhbTpDMDYxRkE1UEI="
+                }
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for successful response from conversations.list method",
+            "properties": {
+              "channels": {
+                "items": {
+                  "items": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "accepted_user": {
+                            "$ref": "#/components/schemas/defs_user_id"
+                          },
+                          "connected_team_ids": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_workspace_id"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "conversation_host_id": {
+                            "$ref": "#/components/schemas/defs_workspace_id"
+                          },
+                          "created": {
+                            "type": "integer"
+                          },
+                          "creator": {
+                            "$ref": "#/components/schemas/defs_user_id"
+                          },
+                          "display_counts": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "display_counts": {
+                                "type": "integer"
+                              },
+                              "guest_counts": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "display_counts",
+                              "guest_counts"
+                            ],
+                            "type": "object"
+                          },
+                          "enterprise_id": {
+                            "$ref": "#/components/schemas/defs_enterprise_id"
+                          },
+                          "has_pins": {
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "$ref": "#/components/schemas/defs_channel"
+                          },
+                          "internal_team_ids": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_team"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "is_archived": {
+                            "type": "boolean"
+                          },
+                          "is_channel": {
+                            "type": "boolean"
+                          },
+                          "is_ext_shared": {
+                            "type": "boolean"
+                          },
+                          "is_frozen": {
+                            "type": "boolean"
+                          },
+                          "is_general": {
+                            "type": "boolean"
+                          },
+                          "is_global_shared": {
+                            "type": "boolean"
+                          },
+                          "is_group": {
+                            "type": "boolean"
+                          },
+                          "is_im": {
+                            "type": "boolean"
+                          },
+                          "is_member": {
+                            "type": "boolean"
+                          },
+                          "is_moved": {
+                            "type": "integer"
+                          },
+                          "is_mpim": {
+                            "enum": [
+                              false
+                            ],
+                            "type": "boolean"
+                          },
+                          "is_non_threadable": {
+                            "type": "boolean"
+                          },
+                          "is_open": {
+                            "type": "boolean"
+                          },
+                          "is_org_default": {
+                            "type": "boolean"
+                          },
+                          "is_org_mandatory": {
+                            "type": "boolean"
+                          },
+                          "is_org_shared": {
+                            "type": "boolean"
+                          },
+                          "is_pending_ext_shared": {
+                            "type": "boolean"
+                          },
+                          "is_private": {
+                            "type": "boolean"
+                          },
+                          "is_read_only": {
+                            "type": "boolean"
+                          },
+                          "is_shared": {
+                            "type": "boolean"
+                          },
+                          "is_starred": {
+                            "type": "boolean"
+                          },
+                          "is_thread_only": {
+                            "type": "boolean"
+                          },
+                          "last_read": {
+                            "$ref": "#/components/schemas/defs_ts"
+                          },
+                          "latest": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/components/schemas/objs_message"
+                                },
+                                {
+                                  "nullable": true
+                                }
+                              ]
+                            }
+                          },
+                          "members": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_user_id"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "name_normalized": {
+                            "type": "string"
+                          },
+                          "num_members": {
+                            "type": "integer"
+                          },
+                          "parent_conversation": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/components/schemas/defs_channel"
+                                },
+                                {
+                                  "nullable": true
+                                }
+                              ]
+                            }
+                          },
+                          "pending_connected_team_ids": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_team"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "pending_shared": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_team"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "pin_count": {
+                            "type": "integer"
+                          },
+                          "previous_names": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_channel_name"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "priority": {
+                            "type": "number"
+                          },
+                          "purpose": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "creator": {
+                                "$ref": "#/components/schemas/defs_topic_purpose_creator"
+                              },
+                              "last_set": {
+                                "type": "integer"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "value",
+                              "creator",
+                              "last_set"
+                            ],
+                            "type": "object"
+                          },
+                          "shared_team_ids": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_team"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "shares": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "accepted_user": {
+                                  "$ref": "#/components/schemas/defs_user_id"
+                                },
+                                "is_active": {
+                                  "type": "boolean"
+                                },
+                                "team": {
+                                  "$ref": "#/components/schemas/objs_team"
+                                },
+                                "user": {
+                                  "$ref": "#/components/schemas/defs_user_id"
+                                }
+                              },
+                              "required": [
+                                "team",
+                                "user",
+                                "is_active"
+                              ],
+                              "type": "object"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "timezone_count": {
+                            "type": "integer"
+                          },
+                          "topic": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "creator": {
+                                "$ref": "#/components/schemas/defs_topic_purpose_creator"
+                              },
+                              "last_set": {
+                                "type": "integer"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "value",
+                              "creator",
+                              "last_set"
+                            ],
+                            "type": "object"
+                          },
+                          "unlinked": {
+                            "title": "Field to determine whether a channel has ever been shared/disconnected in the past",
+                            "type": "integer"
+                          },
+                          "unread_count": {
+                            "type": "integer"
+                          },
+                          "unread_count_display": {
+                            "type": "integer"
+                          },
+                          "use_case": {
+                            "type": "string"
+                          },
+                          "user": {
+                            "$ref": "#/components/schemas/defs_user_id"
+                          },
+                          "version": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "created",
+                          "creator",
+                          "is_archived",
+                          "is_channel",
+                          "is_general",
+                          "is_mpim",
+                          "is_group",
+                          "is_org_shared",
+                          "is_im",
+                          "is_shared",
+                          "is_private",
+                          "name_normalized",
+                          "topic",
+                          "purpose"
+                        ],
+                        "title": "Conversation object",
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "accepted_user": {
+                            "$ref": "#/components/schemas/defs_user_id"
+                          },
+                          "connected_team_ids": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_team"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "conversation_host_id": {
+                            "$ref": "#/components/schemas/defs_workspace_id"
+                          },
+                          "created": {
+                            "type": "integer"
+                          },
+                          "creator": {
+                            "$ref": "#/components/schemas/defs_user_id"
+                          },
+                          "display_counts": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "display_counts": {
+                                "type": "integer"
+                              },
+                              "guest_counts": {
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "display_counts",
+                              "guest_counts"
+                            ],
+                            "type": "object"
+                          },
+                          "id": {
+                            "$ref": "#/components/schemas/defs_channel"
+                          },
+                          "internal_team_ids": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_team"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "is_archived": {
+                            "type": "boolean"
+                          },
+                          "is_channel": {
+                            "type": "boolean"
+                          },
+                          "is_ext_shared": {
+                            "type": "boolean"
+                          },
+                          "is_frozen": {
+                            "type": "boolean"
+                          },
+                          "is_general": {
+                            "type": "boolean"
+                          },
+                          "is_group": {
+                            "type": "boolean"
+                          },
+                          "is_im": {
+                            "type": "boolean"
+                          },
+                          "is_member": {
+                            "type": "boolean"
+                          },
+                          "is_moved": {
+                            "type": "integer"
+                          },
+                          "is_mpim": {
+                            "enum": [
+                              true
+                            ],
+                            "type": "boolean"
+                          },
+                          "is_non_threadable": {
+                            "type": "boolean"
+                          },
+                          "is_open": {
+                            "type": "boolean"
+                          },
+                          "is_org_shared": {
+                            "type": "boolean"
+                          },
+                          "is_pending_ext_shared": {
+                            "type": "boolean"
+                          },
+                          "is_private": {
+                            "type": "boolean"
+                          },
+                          "is_read_only": {
+                            "type": "boolean"
+                          },
+                          "is_shared": {
+                            "type": "boolean"
+                          },
+                          "is_starred": {
+                            "type": "boolean"
+                          },
+                          "is_thread_only": {
+                            "type": "boolean"
+                          },
+                          "last_read": {
+                            "$ref": "#/components/schemas/defs_ts"
+                          },
+                          "latest": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/components/schemas/objs_message"
+                                },
+                                {
+                                  "nullable": true
+                                }
+                              ]
+                            }
+                          },
+                          "members": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_user_id"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "name_normalized": {
+                            "type": "string"
+                          },
+                          "num_members": {
+                            "type": "integer"
+                          },
+                          "parent_conversation": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/components/schemas/defs_channel"
+                                },
+                                {
+                                  "nullable": true
+                                }
+                              ]
+                            }
+                          },
+                          "pending_connected_team_ids": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_team"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "pending_shared": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_team"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "pin_count": {
+                            "type": "integer"
+                          },
+                          "previous_names": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_channel_name"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "priority": {
+                            "type": "number"
+                          },
+                          "purpose": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "creator": {
+                                "$ref": "#/components/schemas/defs_topic_purpose_creator"
+                              },
+                              "last_set": {
+                                "type": "integer"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "value",
+                              "creator",
+                              "last_set"
+                            ],
+                            "type": "object"
+                          },
+                          "shared_team_ids": {
+                            "items": {
+                              "$ref": "#/components/schemas/defs_team"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "shares": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "accepted_user": {
+                                  "$ref": "#/components/schemas/defs_user_id"
+                                },
+                                "is_active": {
+                                  "type": "boolean"
+                                },
+                                "team": {
+                                  "$ref": "#/components/schemas/objs_team"
+                                },
+                                "user": {
+                                  "$ref": "#/components/schemas/defs_user_id"
+                                }
+                              },
+                              "required": [
+                                "team",
+                                "user",
+                                "is_active"
+                              ],
+                              "type": "object"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "timezone_count": {
+                            "type": "integer"
+                          },
+                          "topic": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "creator": {
+                                "$ref": "#/components/schemas/defs_topic_purpose_creator"
+                              },
+                              "last_set": {
+                                "type": "integer"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "value",
+                              "creator",
+                              "last_set"
+                            ],
+                            "type": "object"
+                          },
+                          "unlinked": {
+                            "title": "Field to determine whether a channel has ever been shared/disconnected in the past",
+                            "type": "integer"
+                          },
+                          "unread_count": {
+                            "type": "integer"
+                          },
+                          "unread_count_display": {
+                            "type": "integer"
+                          },
+                          "user": {
+                            "$ref": "#/components/schemas/defs_user_id"
+                          },
+                          "version": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "created",
+                          "creator",
+                          "is_archived",
+                          "is_channel",
+                          "is_general",
+                          "is_mpim",
+                          "is_group",
+                          "is_org_shared",
+                          "is_im",
+                          "is_shared",
+                          "is_private",
+                          "name_normalized",
+                          "topic",
+                          "purpose"
+                        ],
+                        "title": "Conversation MPIM Object",
+                        "type": "object"
+                      },
+                      {
+                        "additionalProperties": false,
+                        "properties": {
+                          "created": {
+                            "type": "integer"
+                          },
+                          "has_pins": {
+                            "type": "boolean"
+                          },
+                          "id": {
+                            "$ref": "#/components/schemas/defs_dm_id"
+                          },
+                          "is_archived": {
+                            "type": "boolean"
+                          },
+                          "is_ext_shared": {
+                            "type": "boolean"
+                          },
+                          "is_frozen": {
+                            "type": "boolean"
+                          },
+                          "is_im": {
+                            "type": "boolean"
+                          },
+                          "is_open": {
+                            "type": "boolean"
+                          },
+                          "is_org_shared": {
+                            "type": "boolean"
+                          },
+                          "is_shared": {
+                            "type": "boolean"
+                          },
+                          "is_starred": {
+                            "type": "boolean"
+                          },
+                          "is_user_deleted": {
+                            "type": "boolean"
+                          },
+                          "last_read": {
+                            "$ref": "#/components/schemas/defs_ts"
+                          },
+                          "latest": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/components/schemas/objs_message"
+                                },
+                                {
+                                  "nullable": true
+                                }
+                              ]
+                            }
+                          },
+                          "parent_conversation": {
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/components/schemas/defs_channel"
+                                },
+                                {
+                                  "nullable": true
+                                }
+                              ]
+                            }
+                          },
+                          "pin_count": {
+                            "type": "integer"
+                          },
+                          "priority": {
+                            "type": "number"
+                          },
+                          "shares": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "date_create": {
+                                  "type": "integer"
+                                },
+                                "id": {
+                                  "$ref": "#/components/schemas/defs_team"
+                                },
+                                "is_active": {
+                                  "type": "boolean"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "team": {
+                                  "$ref": "#/components/schemas/objs_team"
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "name",
+                                "team",
+                                "date_create",
+                                "is_active"
+                              ],
+                              "type": "object"
+                            },
+                            "minItems": 0,
+                            "type": "array",
+                            "uniqueItems": true
+                          },
+                          "unread_count": {
+                            "type": "integer"
+                          },
+                          "unread_count_display": {
+                            "type": "integer"
+                          },
+                          "user": {
+                            "$ref": "#/components/schemas/defs_user_id"
+                          },
+                          "version": {
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created",
+                          "is_im",
+                          "is_org_shared",
+                          "user",
+                          "priority"
+                        ],
+                        "title": "Conversation IM Channel Object from conversations.* methods",
+                        "type": "object"
+                      }
+                    ]
+                  }
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "ok": {
+                "enum": [
+                  true
+                ],
+                "title": "default success response",
+                "type": "boolean"
+              },
+              "response_metadata": {
+                "additionalProperties": false,
+                "properties": {
+                  "next_cursor": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "next_cursor"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "ok",
+              "channels"
+            ],
+            "title": "conversations.list success schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical success response with only public channels"
+    }
+  }
+}

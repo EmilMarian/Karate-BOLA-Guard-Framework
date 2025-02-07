@@ -1,0 +1,140 @@
+{
+  "method": "GET",
+  "parameters": [
+    {
+      "description": "Authentication token. Requires scope: `files:read`",
+      "in": "query",
+      "name": "token",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter files created by a single user.",
+      "in": "query",
+      "name": "user",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter files appearing in a specific channel, indicated by its ID.",
+      "in": "query",
+      "name": "channel",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Filter files created after this timestamp (inclusive).",
+      "in": "query",
+      "name": "ts_from",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "Filter files created before this timestamp (inclusive).",
+      "in": "query",
+      "name": "ts_to",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "description": "Filter files by type ([see below](#file_types)). You can pass multiple values in the types argument, like `types=spaces,snippets`.The default value is `all`, which does not filter the list.",
+      "in": "query",
+      "name": "types",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "count",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "in": "query",
+      "name": "page",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "Show truncated file info for files hidden due to being too old, and the team who owns the file being over the file limit.",
+      "in": "query",
+      "name": "show_files_hidden_by_limit",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "path": "/files.list",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "examples": {
+            "response": {
+              "value": {
+                "error": "invalid_auth",
+                "ok": false
+              }
+            }
+          },
+          "schema": {
+            "additionalProperties": false,
+            "description": "Schema for error response from files.list method",
+            "properties": {
+              "callstack": {
+                "description": "Note: PHP callstack is only visible in dev/qa",
+                "type": "string"
+              },
+              "error": {
+                "enum": [
+                  "user_not_found",
+                  "unknown_type",
+                  "not_authed",
+                  "invalid_auth",
+                  "account_inactive",
+                  "no_permission",
+                  "user_is_bot",
+                  "invalid_arg_name",
+                  "invalid_array_arg",
+                  "invalid_charset",
+                  "invalid_form_data",
+                  "invalid_post_type",
+                  "missing_post_type",
+                  "team_added_to_org",
+                  "invalid_json",
+                  "json_not_object",
+                  "request_timeout",
+                  "upgrade_required"
+                ],
+                "type": "string"
+              },
+              "ok": {
+                "enum": [
+                  false
+                ],
+                "title": "default failure response",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ok",
+              "error"
+            ],
+            "title": "files.list error schema",
+            "type": "object"
+          }
+        }
+      },
+      "description": "Typical error response"
+    }
+  }
+}

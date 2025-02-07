@@ -1,0 +1,47 @@
+{
+  "method": "PUT",
+  "parameters": [
+    {
+      "description": "A valid access token from the Spotify Accounts service: see the [Web API Authorization Guide](https://developer.spotify.com/documentation/general/guides/authorization-guide/) for details.  \nThe access token must have been issued on behalf of a user.  \nThe access token must have the `user-modify-playback-state` scope authorized in order to control playback.",
+      "in": "header",
+      "name": "Authorization",
+      "required": true,
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "description": "The volume to set. Must be a value from 0 to 100 inclusive.",
+      "in": "query",
+      "name": "volume_percent",
+      "required": true,
+      "schema": {
+        "format": "int32",
+        "type": "integer"
+      }
+    },
+    {
+      "description": "The id of the device this command is targeting. If not supplied, the user's currently active device is the target.",
+      "in": "query",
+      "name": "device_id",
+      "required": false,
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "path": "/me/player/volume",
+  "requestBody": {},
+  "responses": {
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/ErrorResponseObject"
+          }
+        }
+      },
+      "description": "Unexpected error"
+    }
+  }
+}
